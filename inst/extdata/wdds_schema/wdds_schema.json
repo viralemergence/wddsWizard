@@ -5,13 +5,22 @@
   "description":"Flexible data standard for wildlife disease data",
   "type": "object",
   "properties": {
-    "eventBased":{
-      "description": "Whether or not research was conducted in response to a known or suspected infectious disease outbreak, observed animal morbidity or mortality, etc.",
-      "type":"boolean"
-    },
-    "archival":{
-      "description":"Whether samples were from an archival source (e.g., museum collections, biobanks).",
-      "type":"boolean"
+    "methodology":{
+        "type":"object",
+          "properties":{
+              "eventBased":{
+                "description": "Whether or not research was conducted in response to a known or suspected infectious disease outbreak, observed animal morbidity or mortality, etc.",
+                "type":"boolean"
+                    },
+                "archival":{
+                    "description":"Whether samples were from an archival source (e.g., museum collections, biobanks).",
+                "type":"boolean"
+          }
+        },
+        "oneOf": [
+          { "required": ["eventBased"] },
+          { "required": ["archival"] }
+        ]
     },
     "creators": {
               "description":"The full names of the creators. Should be in the format familyName, givenName.",
@@ -33,17 +42,23 @@
       "description":{
         "description":"All additional information that does not fit in any of the other categories. May be used for technical information or detailed information associated with a scientific instrument.",
                 "$ref": "~/Documents/wddsWizard/inst/extdata/wdds_schema/schemas/datacite/datacite-v4.5.json#/properties/descriptions"
+      },
+      "language":{
+        "description":"The primary language of the resource.",
+        "type":"string"
+      },
+      "fundingReferences":{
+       "description":"Name and other identifying information of a funding provider.",
+       "$ref":"~/Documents/wddsWizard/inst/extdata/wdds_schema/schemas/datacite/datacite-v4.5.json#/properties/fundingReferences"
       }
     },
-    "oneOf": [
-    { "required": ["eventBased"] },
-    { "required": ["archival"] }
-  ],
   "required": [
         "creators",
         "titles",
         "publicationYear",
-        "description"
+        "description",
+        "language",
+        "fundingReferences"
     ]
 
   }

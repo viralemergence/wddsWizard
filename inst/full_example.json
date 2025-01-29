@@ -29,7 +29,11 @@
                 ]
             }
             ],
-  "archival":true,
+  "methodology":{
+      "archival":true,
+      "eventBased":false
+  },
+
   "titles":[
             {
                 "title": "some title",
@@ -76,6 +80,17 @@
       "descriptionType":"Other",
       "lang":"Spanish"
     }
-  ]
+  ],
+  "language":"English",
+    "fundingReferences":[
+    {
+      "funderName":"A Generous Funder",
+      "funderIdentifier": "100000083",
+      "funderIdentifierType": "Crossref Funder ID",
+      "awardNumber": "1234567",
+      "awardUri": "https://www.nsf.gov/",
+      "awardTitle": "Disciplinary improvements: metadata for small data"
+    }
+    ]
 
 }

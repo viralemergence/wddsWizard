@@ -3,7 +3,9 @@
               "name":"Creadora, Mimi"
             }
             ],
-  "archival":true,
+  "methodology":{
+                "eventBased":true
+             },
   "titles":[
             {
                 "title": "some title"
@@ -15,5 +17,11 @@
       "description":"my great abstract",
       "descriptionType":"Abstract"
     }
-  ]
+  ],
+  "language":"English",
+  "fundingReferences":[
+    {
+      "funderName":"Some Funder"
+    }
+    ]
 }
