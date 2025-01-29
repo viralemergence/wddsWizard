@@ -1,0 +1,81 @@
+{
+  "creators":[{
+              "name":"Creadora, Mimi"
+            },
+            {"name":"Enoff, Gud",
+            "nameIdentifiers":[
+                  {"nameIdentifier":"0000-0001-5727-FAKE",
+                   "nameIdentifierScheme":"ORCID",
+                   "schemeUri":"https://orcid.org/"
+                  }
+                  ]
+              },
+            {
+                "name": "Creator, Full",
+                "givenName":"Full",
+                "familyName":"Creator",
+                "nameIdentifiers":[
+                  {"nameIdentifier":"0000-0001-5727-REAL",
+                   "nameIdentifierScheme":"ORCID",
+                   "schemeUri":"https://orcid.org/"
+                  }
+                ],
+                "affiliation":[
+                  {"name":"Some university",
+                   "affiliationIdentifier":"some.ror.id",
+                   "affiliationIdentifierScheme":"ROR",
+                   "schemeUri":"https://ror.org/"
+                  }
+                ]
+            }
+            ],
+  "archival":true,
+  "titles":[
+            {
+                "title": "some title",
+                "lang":"English"
+            }
+            ],
+    "publicationYear":"2025",
+    "rights":[{
+                    "rights": "CC-BY-3.0",
+                    "rightsUri": "https://creativecommons.org/licenses/by/3.0/",
+                    "rightsIdentifier":"CC-BY-3.0",
+                    "rightsIdentifierScheme": "SPDX",
+                    "schemeUri": "https://spdx.org/licenses/",
+                    "lang": "English"
+                }],
+    "description":[
+    {
+      "description":"A very complete and full Abstract",
+      "descriptionType":"Abstract",
+      "lang":"English"
+    },
+    {
+      "description":"A very complete and full description of methods",
+      "descriptionType":"Methods",
+      "lang":"English"
+    },
+    {
+      "description":"A very complete and full description of SeriesInformation to describe the journal name, volume, and page number for an article resource",
+      "descriptionType":"SeriesInformation",
+      "lang":"English"
+    },
+    {
+      "description":"A very complete and full Table Of Contents",
+      "descriptionType":"TableOfContents",
+      "lang":"English"
+    },
+    {
+      "description":"A very complete and full description of TechnicalInfo. Detailed information that may be associated with design, implementation,operation, use, and/or maintenance of a process or system",
+      "descriptionType":"TechnicalInfo",
+      "lang":"English"
+    },
+    {
+      "description":"Una descripcion completa de la obra en otra idioma",
+      "descriptionType":"Other",
+      "lang":"Spanish"
+    }
+  ]
+
+}

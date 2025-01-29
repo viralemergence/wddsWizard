@@ -1,0 +1,51 @@
+{
+  "$id": "wdds_schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Wildlife Disease Data Standard",
+  "description":"Flexible data standard for wildlife disease data",
+  "type": "object",
+  "properties": {
+    "eventBased":{
+      "description": "Whether or not research was conducted in response to a known or suspected infectious disease outbreak, observed animal morbidity or mortality, etc.",
+      "type":"boolean"
+    },
+    "archival":{
+      "description":"Whether samples were from an archival source (e.g., museum collections, biobanks).",
+      "type":"boolean"
+    },
+    "creators": {
+              "description":"The full names of the creators. Should be in the format familyName, givenName.",
+             "$ref": "~/Documents/wddsWizard/inst/extdata/wdds_schema/schemas/datacite/datacite-v4.5.json#/properties/creators"
+              },
+    "titles": {
+          "description":"A name or title by which a resource is known.",
+         "$ref": "~/Documents/wddsWizard/inst/extdata/wdds_schema/schemas/datacite/datacite-v4.5.json#/properties/titles"
+          },
+    "publicationYear": {
+          "description":"The year when the data was or will be made publicly available.",
+         "$ref": "~/Documents/wddsWizard/inst/extdata/wdds_schema/schemas/datacite/datacite-v4.5.json#/properties/publicationYear"
+          },
+    "rights":{
+      "description":"Any rights information for this resource.",
+        "$ref": "~/Documents/wddsWizard/inst/extdata/wdds_schema/schemas/datacite/datacite-v4.5.json#/properties/rightsList"
+
+      },
+      "description":{
+        "description":"All additional information that does not fit in any of the other categories. May be used for technical information or detailed information associated with a scientific instrument.",
+                "$ref": "~/Documents/wddsWizard/inst/extdata/wdds_schema/schemas/datacite/datacite-v4.5.json#/properties/descriptions"
+      }
+    },
+    "oneOf": [
+    { "required": ["eventBased"] },
+    { "required": ["archival"] }
+  ],
+  "required": [
+        "creators",
+        "titles",
+        "publicationYear",
+        "description"
+    ]
+
+  }
+
+

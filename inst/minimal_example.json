@@ -1,0 +1,19 @@
+{
+  "creators":[{
+              "name":"Creadora, Mimi"
+            }
+            ],
+  "archival":true,
+  "titles":[
+            {
+                "title": "some title"
+            }
+            ],
+  "publicationYear":"1988",
+  "description":[
+    {
+      "description":"my great abstract",
+      "descriptionType":"Abstract"
+    }
+  ]
+}
