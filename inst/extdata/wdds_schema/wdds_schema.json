@@ -5,6 +5,57 @@
   "description":"Flexible data standard for wildlife disease data",
   "type": "object",
   "properties": {
+    "data":{
+      "type":"object",
+      "properties":{
+        "sampleID":{
+          "description":"A researcher-generated unique ID for the sample: usually a unique string of both characters and integers (e.g., “OS BZ19-114” to indicate an oral swab taken from animal BZ19-114; see worked example below), to avoid conflicts that can arise when datasets are merged with number-only notation for samples. Ideally, sample names should be kept consistent across all online databases and physical resources (e.g., museum collections or project-specific sample archives).",
+          "type":"array",
+          "items":{
+            "type": ["string","null"],
+            "minItems":1,
+            "uniqueItems":true
+          },
+        },
+        "animalID":{
+          "description":"A researcher-generated unique ID for the individual animal from which the sample was collected: usually a unique string of both characters and integers (e.g., “BZ19-114” to indicate animal 114 sampled in 2019 in Belize). Ideally, animal names should again be kept consistent across online databases and physical resources.",
+          "type":"array",
+          "items":{
+            "type": ["string","null"],
+            "minItems":1
+          },
+        },
+        "latitute":{
+          "description":"Latitude of the collection site in decimal format.",
+          "type":"array",
+          "items":{
+            "type": ["number","null"],
+            "minItems":1,
+            "maximum": 90,
+            "minimum": -90
+          }
+        },
+        "longitude":{
+          "description":"Longitude of the collection site  in decimal format.",
+          "type":"array",
+          "items":{
+            "type": ["number","null"],
+            "minItems":1,
+            "maximum": 180,
+            "minimum": -180
+          }
+        },
+        "spatialUncertaintiy":{
+          "description":"Coordinate uncertainty from GPS recordings, post-hoc digitization, or systematic alterations (e.g., jittering or rounding) expressed in meters.",
+          "type":"array",
+          "items":{
+            "type": ["number","null"],
+            "minItems":1,
+            "minimum":0
+          }
+        }
+        }
+    },
     "methodology":{
         "type":"object",
           "properties":{
@@ -53,6 +104,8 @@
       }
     },
   "required": [
+        "data",
+        "methodology",
         "creators",
         "titles",
         "publicationYear",

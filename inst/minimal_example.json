@@ -1,4 +1,10 @@
-{
+{ "data":{
+  "latitude":[1,2,3],
+  "longitude":[1,2,NULL],
+  "animalID":["d","e","f",null],
+  "sampleID":["a","b","c",null],
+  "missing":[true,null,false]
+} ,
   "creators":[{
               "name":"Creadora, Mimi"
             }

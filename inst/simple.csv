@@ -1,0 +1,4 @@
+"number","string","missing"
+1,"a",TRUE
+2,"b",NA
+3,"c",FALSE
