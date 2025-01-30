@@ -3,7 +3,12 @@
   "longitude":[1,2,null],
   "animalID":["d","e","f",null],
   "sampleID":["a","b","c",null],
-  "missing":[true,null,false]
+  "missing":[true,null,false],
+  "collectionDay":[1,1,1],
+  "collectionMonth":[12,10,1],
+  "collectionYear":[1,2024,2025],
+  "collectionMethodAndOrTissue":["Oral Swab","rectal swab","blood draw"],
+  "hostIdentification":["Albus","Homo sapiens","Albus"]
 } ,
   "creators":[{
               "name":"Creadora, Mimi"

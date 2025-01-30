@@ -15,7 +15,7 @@
             "type": ["string","null"],
             "minItems":1,
             "uniqueItems":true
-          },
+          }
         },
         "animalID":{
           "description":"A researcher-generated unique ID for the individual animal from which the sample was collected: usually a unique string of both characters and integers (e.g., “BZ19-114” to indicate animal 114 sampled in 2019 in Belize). Ideally, animal names should again be kept consistent across online databases and physical resources.",
@@ -23,10 +23,10 @@
           "items":{
             "type": ["string","null"],
             "minItems":1
-          },
+          }
         },
         "latitute":{
-          "description":"Latitude of the collection site in decimal format.",
+          "description":"Latitude of the collection site in decimal format. See http://rs.tdwg.org/dwc/terms/decimalLatitude",
           "type":"array",
           "items":{
             "type": ["number","null"],
@@ -36,7 +36,7 @@
           }
         },
         "longitude":{
-          "description":"Longitude of the collection site  in decimal format.",
+          "description":"Longitude of the collection site  in decimal format. See http://rs.tdwg.org/dwc/terms/decimalLongitude",
           "type":"array",
           "items":{
             "type": ["number","null"],
@@ -46,15 +46,168 @@
           }
         },
         "spatialUncertaintiy":{
-          "description":"Coordinate uncertainty from GPS recordings, post-hoc digitization, or systematic alterations (e.g., jittering or rounding) expressed in meters.",
+          "description":"Coordinate uncertainty from GPS recordings, post-hoc digitization, or systematic alterations (e.g., jittering or rounding) expressed in meters. See http://rs.tdwg.org/dwc/terms/coordinateUncertaintyInMeters",
           "type":"array",
           "items":{
             "type": ["number","null"],
             "minItems":1,
             "minimum":0
           }
+        },
+        "collectionDay":{
+          "description":"The day of the month on which the specimen was collected. See http://rs.tdwg.org/dwc/terms/day",
+          "type":"array",
+          "items":{
+            "type": ["integer","null"],
+            "minItems":1,
+            "minimum":1,
+            "maximum":31
+          }
+        },
+        "collectionMonth":{
+          "description":"The month in which the specimen was collected. See http://rs.tdwg.org/dwc/terms/month",
+          "type":"array",
+          "items":{
+            "type": ["integer","null"],
+            "minItems":1,
+            "minimum":1,
+            "maximum":12
+          }
+        },
+       "collectionYear":{
+          "description":"The year in which the specimen was collected. See http://rs.tdwg.org/dwc/terms/year",
+          "type":"array",
+          "items":{
+            "type": ["integer","null"],
+            "maximum":2025
+          }
+        },
+        "collectionMethodAndOrTissue":{
+          "description":"The technique used to extract the sample and/or the tissue from which the sample was extracted (e.g., “oropharyngeal swab”)",
+          "type":"array",
+          "items":{
+            "type": ["string","null"],
+            "minItems":1
+          }
+        },
+        "hostIdentification":{
+          "description":"The Linnaean classification of the animal from which the sample was collected, reported at the lowest possible level (ideally, species binomial name: e.g., “Odocoileus virginianus” or “Ixodes scapularis”). As necessary, researchers may also include an additional field indicating when uncertainty exists in the identification of the host organism (see “Adding new fields”). See http://rs.tdwg.org/dwc/terms/scientificName",
+          "type":"array",
+          "items":{
+            "type": ["string","null"],
+            "minItems":1,
+            "not":{"pattern":"[HOMOhomo]{4} [SAPIENSsapiens]{7}"}
+          }
+        },
+        "organismSex":{
+          "description":"The sex of the individual animal from which the sample was collected. See http://rs.tdwg.org/dwc/terms/sex",
+          "examples":["male","female","hermaphrodite"],
+          "type":"array",
+          "items":{
+            "type": ["string","null"],
+            "minItems":1
+          }
+        },
+        "deadOrAlive":{
+          "description":"The state of the individual animal from which the sample was collected, at the time of sample collection. See http://rs.tdwg.org/dwc/terms/vitality",
+          "examples":["dead","alive","uncertain","mixedLot","notAssessed"],
+          "type":"array",
+          "items":{
+            "type": ["string","null"],
+            "minItems":1
+          }
+        },
+        "healthNotes":{
+          "description":"Any additional (unstructured) notes about the state of the animal, such as disease presentation.",
+          "type":"array",
+          "items":{
+            "type": ["string","null"],
+            "minItems":1
+          }
+        },
+        "hostLifeStage":{
+          "description":"The life stage of the animal from which the sample was collected (as appropriate for the organism) (e.g., “juvenile”, “adult”). See http://rs.tdwg.org/dwc/terms/lifeStage",
+          "examples":["juvenile","adult","larva"],
+          "type":"array",
+          "items":{
+            "type": ["string","null"],
+            "minItems":1
+          }
+        },
+        "age":{
+          "description":"The numeric age of the animal from which the sample was collected, at the time of sample collection, if known (e.g., in monitored populations).",
+          "type":"array",
+          "items":{
+            "type": ["number","null"],
+            "minItems":1,
+            "minimum":0
+          }
+        },
+        "ageUnits":{
+          "description":"The units in which age is measured (usually years).",
+          "type":"array",
+          "items":{
+            "type": ["string","null"],
+            "enum":["years","months","days","hours","minutes","seconds"],
+            "minItems":1
+          }
+        },
+        "mass":{
+          "description":"The mass of the animal from which the sample was collected, at the time of sample collection.",
+          "type":"array",
+          "items":{
+            "type": ["number","null"],
+            "minItems":1,
+            "minimum":0
+          }
+        },
+        "massUnits":{
+          "description":"The units that mass is recorded in (e.g., “kg”).",
+          "examples":["kg","g","mg","kilogram","milligram"],
+          "type":"array",
+          "items":{
+            "type": ["string","null"],
+            "minItems":1
+          }
+        },
+        "length":{
+          "description":"The numeric length of the animal from which the sample was collected, at the time of sample collection.",
+          "type":"array",
+          "items":{
+            "type": ["number","null"],
+            "minItems":1,
+            "minimum":0
+          }
+        },
+        "lengthMeasurement":{
+          "description":"The axis of measurement for the organism being measured (e.g., “snout-vent length” or just “SVL”; “wing length”; “primary feather”).",
+          "examples":["snout-vent length","intertegular distance","primary feather"],
+          "type":"array",
+          "items":{
+            "type": ["string","null"],
+            "minItems":1
+          }
+        },
+        "lengthUnits":{
+          "description":"The units that length is recorded in (e.g., “mm”).",
+          "examples":["mm","meters","cm","km"],
+          "type":"array",
+          "items":{
+            "type": ["string","null"],
+            "minItems":1
+          }
         }
-        }
+        },
+      "required":["sampleID",
+                  "animalID",
+                  "latitude",
+                  "longitude",
+                  "collectionDay",
+                  "collectionMonth",
+                  "collectionYear",
+                  "collectionMethodAndOrTissue",
+                  "hostIdentification"
+                  ]
     },
     "methodology":{
         "type":"object",
