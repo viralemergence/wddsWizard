@@ -1,6 +1,6 @@
 { "data":{
   "latitude":[1,2,3],
-  "longitude":[1,2,NULL],
+  "longitude":[1,2,null],
   "animalID":["d","e","f",null],
   "sampleID":["a","b","c",null],
   "missing":[true,null,false]
