@@ -1,9 +1,8 @@
 { "data":{
-  "latitude":[1,2,3],
-  "longitude":[1,2,null],
   "animalID":["d","e","f"],
   "sampleID":["a","b","c"],
-  "missing":[true,null,false],
+  "latitude":[1,2,3],
+  "longitude":[1,2,null],
   "collectionDay":[1,1,1],
   "collectionMonth":[12,10,1],
   "collectionYear":[1,2024,2025],
@@ -30,8 +29,7 @@
   "publicationYear":"1988",
   "description":[
     {
-      "description":"my great abstract",
-      "descriptionType":"Abstract"
+      "description":"my great abstract"
     }
   ],
   "language":"English",
