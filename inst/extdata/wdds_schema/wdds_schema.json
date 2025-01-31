@@ -196,6 +196,92 @@
             "type": ["string","null"],
             "minItems":1
           }
+        },
+        "detectionTarget":{
+          "description":"The taxonomic identity of the parasite being screened for in the sample. This will often be coarser than the identity of a specific parasite identified in the sample: for example, in a study screening for novel bat coronaviruses, the entire family Coronaviridae might be the target; in a parasite dissection, the targets might be Acanthocephala, Cestoda, Nematoda, and Trematoda. For deep sequencing approaches (e.g., metagenomic and metatranscriptomic viral discovery), researchers should report each alignment target used as a new “test” to maximize reporting of negative data, or alternatively, select a subset that reflect specific study objectives and the focus of analysis (e.g., specific viral families). See http://rs.tdwg.org/dwc/terms/associatedOccurrences",
+        "type":"array",
+          "items":{
+            "type": ["string","null"],
+            "minItems":1
+          }
+        },
+        "detectionMethod":{
+          "description":"The type of test performed to detect the parasite or parasite-specific antibody (e.g., 'qPCR', ‘ELISA’)",
+          "type":"array",
+          "items":{
+            "type": ["string","null"],
+            "minItems":1
+          }
+        },
+        "primerSequence":{
+          "description":"The sequence of both forward and reverse primers used to identify the sample (e.g., “forward 5’ CDCAYGARTTYTGYTCNCARC 3' ; reverse 5’ RHGGRTANGCRTCWATDGC 3'”) or the name of a commonly used gene target (particularly if citation information is given).",
+          "examples":["forward 5’ CDCAYGARTTYTGYTCNCARC 3' ; reverse 5’ RHGGRTANGCRTCWATDGC 3'","name of common gene target"],
+          "type":"array",
+          "items":{
+            "type": ["string","null"],
+            "minItems":1
+          }
+        },
+      "primerCitation":{
+        "description":"Citation for the primer being used. (e.g. title, doi, or other permanent identifier for a work).",
+        "examples":["https://doi.org/10.1016/j.virol.2007.06.009","Complete genome sequence of bat coronavirus HKU2 from Chinese horseshoe bats revealed a much smaller spike gene with a different evolutionary lineage from the rest of the genome","PMC7103351","https://openalex.org/works/w2036144053"],
+        "type":"array",
+          "items":{
+            "type": ["string","null"],
+            "minItems":1
+          }
+      },
+      "detectionOutcome":{
+        "description":"The test result (i.e., “positive”, “negative”, or “inconclusive”). To avoid ambiguity, these specific values are suggested over numeric values (“0” or “1”). See http://rs.tdwg.org/dwc/terms/occurrenceStatus",
+        "type":"array",
+          "items":{
+            "type": ["string","null"],
+            "minItems":1
+          }
+      },
+      "detectionMeasurement":{
+        "description":"Any numeric measurement of parasite detection that is more detailed than simple positive or negative results (e.g., viral titer, parasite counts, sequence reads).",
+          "type":"array",
+          "items":{
+            "type": ["number","null"],
+            "minItems":1
+          }
+      },
+      "detectionMeasurementUnits":{
+        "description":"Units for quantitative measurements of parasite intensity or test results (e.g., “Ct”, “TCID50/mL”, or “parasite count”).",
+        "examples":["Ct","TCID50/mL","parasite count"],
+        "type":"array",
+          "items":{
+            "type": ["string","null"],
+            "minItems":1
+          }
+      },
+      "parasiteIdentification":{
+        "description":"The identity of a parasite detected by the test, if any, reported to the lowest possible taxonomic level, either as a Linnaean binomial classification or within the convention of a relevant taxonomic authority (e.g., “Borrelia burgdorferi” or “Zika virus”). Parasite identification may be more specific than detection target.",
+        "examples":["Zika virus","Borrelia burgdorferi", "Onchocerca volvulus"],
+        "type":"array",
+        "items":{
+            "type": ["string","null"],
+            "minItems":1
+          }
+      },
+      "parasiteLifeStage":{
+        "description":"The life stage of the parasite from which the sample was collected (as appropriate for the organism) (e.g., “juvenile”, “adult”).",
+        "examples":["juvenile","adult","sporozoite"],
+        "type":"array",
+        "items":{
+            "type": ["string","null"],
+            "minItems":1
+          }
+      },
+      "genbankAccession":{
+        "description":"The GenBank accession for any parasite genetic sequence(s), if appropriate.  Accession numbers or other identifiers for related data stored on another platform should be added in a different field (e.g. GISAID Accession, Immport Accession). See 	http://rs.tdwg.org/dwc/terms/otherCatalogNumbers ",
+        "examples":["U49845 | U49846","U11111"],
+        "type":"array",
+        "items":{
+            "type": ["string","null"],
+            "minItems":1
+          }
         }
         },
       "required":["sampleID",
@@ -206,7 +292,10 @@
                   "collectionMonth",
                   "collectionYear",
                   "collectionMethodAndOrTissue",
-                  "hostIdentification"
+                  "hostIdentification",
+                  "detectionTarget",
+                  "detectionMethod",
+                  "parasiteIdentification"
                   ]
     },
     "methodology":{
