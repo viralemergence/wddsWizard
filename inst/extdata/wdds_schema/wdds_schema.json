@@ -275,7 +275,7 @@
             }
           },
           "genbankAccession":{
-            "description":"The GenBank accession for any parasite genetic sequence(s), if appropriate.  Accession numbers or other identifiers for related data stored on another platform should be added in a different field (e.g. GISAID Accession, Immport Accession). See 	http://rs.tdwg.org/dwc/terms/otherCatalogNumbers ",
+            "description":"The GenBank accession for any parasite genetic sequence(s), if appropriate.  Accession numbers or other identifiers for related data stored on another platform should be added in a different field (e.g. GISAID Accession, Immport Accession). See http://rs.tdwg.org/dwc/terms/otherCatalogNumbers ",
             "examples":["U49845 | U49846","U11111"],
             "type":"array",
             "items":{
@@ -339,7 +339,7 @@
       },
       "language":{
         "description":"The primary language of the resource.",
-        "type":"string"
+       "$ref":"~/Documents/wddsWizard/inst/extdata/wdds_schema/schemas/datacite/datacite-v4.5.json#/properties/language"
       },
       "fundingReferences":{
        "description":"Name and other identifying information of a funding provider.",

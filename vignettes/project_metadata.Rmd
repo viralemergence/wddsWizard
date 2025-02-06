@@ -1,0 +1,111 @@
+---
+title: "Project Metadata"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Project Metadata}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+In this vignette we will ingest project metadata from a CSV, restructure the data, and then create a json object that can be validated.
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(wddsWizard)
+```
+
+## Load in the CSV and clean it up
+
+Our example data requires some light cleaning to make transforming it into csv
+easier. 
+
+```{r load-data}
+project_metadata <- read.csv("../inst/extdata/example_data/example_project_metadata .csv")
+
+## turn empty strings into NAs in the group field
+project_metadata <- project_metadata |>
+  dplyr::mutate(Group = dplyr::case_when(
+    Group != "" ~ Group,
+    TRUE ~ NA
+  )) 
+
+## use `fill` to complete the items column and `mutate` to make groups a little
+## more ergonomic
+
+ project_metadata_filled <- tidyr::fill(data = project_metadata,Group) 
+```
+
+## Restructure data
+
+The validation schema is expecting JSON, so we have to restructure the data into
+a list that can be converted to JSON.
+
+For Creators, Resources, and Funding References, its possible to have multiple 
+entities in each group. In our example data, there are two creators and three funding references. So we need to pull out the `entity_id`s for the creators and funding references then clean up the `Group` field so it can be used a general category
+for Creators, Resources, and Funding References.
+
+```{r restructure}
+
+# get ids for components of a group.
+project_metadata_ids <- project_metadata_filled |>
+  dplyr::mutate(
+    entity_id = stringr::str_extract(string = Group,pattern = "[0-9]"),
+    # make sure that there are no NA entity IDs
+    entity_id = dplyr::case_when(
+      is.na(entity_id) ~ "1",
+      TRUE ~ entity_id
+    )
+  ) |>
+  # drop entity ids from group field and convert to camel case
+   dplyr::mutate(Group = stringr::str_replace_all(string = Group,pattern = " [0-9]", replacement = ""),
+                 Group = snakecase::to_lower_camel_case(Group))
+
+ ## split dataframe by Group for further processing
+ 
+project_metadata_list  <- split(project_metadata_ids,project_metadata_ids$Group)
+
+
+# this function creates entity json
+
+get_entity <- function(x){
+  y <- x |>
+    dplyr::select(-Group,-entity_id) |>
+    dplyr::filter(Value != "") |>
+    dplyr::mutate(Variable = snakecase::to_lower_camel_case(Variable))
+  
+  z <- tidyr::pivot_wider(y,names_from = Variable, values_from = Value) 
+    
+  
+  return(z)
+}
+
+project_metadata_list_entities <- purrr::map(project_metadata_list,function(x){
+  if(all(x$entity_id == "1")){
+    out <- get_entity(x)
+    return(out)
+  }
+  
+  x_list <- split(x,x$entity_id)
+  names(x_list) <- NULL
+  out <-purrr::map(x_list, get_entity)
+  return(out)
+})
+
+jsonlite::toJSON(project_metadata_list_entities,pretty = TRUE,dataframe = "columns")
+
+```
+
+### Make Creator Objects
+Now that we have our groups in their own data frames, we can translate them into
+json. 
+
+
+```{r creators}
+jsonlite::toJSON(project_metadata_list,pretty = TRUE,dataframe = "columns")
+
+```

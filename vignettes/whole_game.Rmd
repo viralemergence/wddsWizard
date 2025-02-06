@@ -1,0 +1,19 @@
+---
+title: "The Whole Game"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{The Whole Game}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(wddsWizard)
+```
