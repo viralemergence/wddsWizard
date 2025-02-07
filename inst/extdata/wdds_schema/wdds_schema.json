@@ -324,6 +324,18 @@
           "description":"A name or title by which a resource is known.",
          "$ref": "~/Documents/wddsWizard/inst/extdata/wdds_schema/schemas/datacite/datacite-v4.5.json#/properties/titles"
           },
+    "identifiers": {
+            "description":"A unique string that identifies a resource.",
+            "type":"array",
+              "items": {
+                            "type": "object",
+                            "properties":{
+                              "identifier":{"type":"string"},
+                              "identifierType":{"$ref": "~/Documents/wddsWizard/inst/extdata/wdds_schema/schemas/datacite/datacite-v4.5.json#/definitions/relatedIdentifierType"},
+                              "required":["identifier"]},
+              "uniqueItems":true
+              }
+    },
     "publicationYear": {
           "description":"The year when the data was or will be made publicly available.",
          "$ref": "~/Documents/wddsWizard/inst/extdata/wdds_schema/schemas/datacite/datacite-v4.5.json#/properties/publicationYear"
@@ -331,7 +343,6 @@
     "rights":{
       "description":"Any rights information for this resource.",
         "$ref": "~/Documents/wddsWizard/inst/extdata/wdds_schema/schemas/datacite/datacite-v4.5.json#/properties/rightsList"
-
       },
       "description":{
         "description":"All additional information that does not fit in any of the other categories. May be used for technical information or detailed information associated with a scientific instrument.",

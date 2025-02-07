@@ -27,9 +27,11 @@
             }
             ],
   "publicationYear":"1988",
-  "description":[
+  "descriptions":[
     {
-      "description":"my great abstract"
+      "description":"my great abstract",
+      "descriptionType":"abstract"
+
     }
   ],
   "language":"English",
@@ -37,5 +39,8 @@
     {
       "funderName":"Some Funder"
     }
-    ]
+    ],
+  "identifiers":[
+    {"identifier":"fake.doi.1024"}
+  ]
 }

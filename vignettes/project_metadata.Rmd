@@ -96,16 +96,13 @@ project_metadata_list_entities <- purrr::map(project_metadata_list,function(x){
   return(out)
 })
 
+```
+
+you thought you had it you clever person
+```{r mockingbird}
+## if only, if only the mockingbird sings
 jsonlite::toJSON(project_metadata_list_entities,pretty = TRUE,dataframe = "columns")
 
 ```
 
-### Make Creator Objects
-Now that we have our groups in their own data frames, we can translate them into
-json. 
 
-
-```{r creators}
-jsonlite::toJSON(project_metadata_list,pretty = TRUE,dataframe = "columns")
-
-```

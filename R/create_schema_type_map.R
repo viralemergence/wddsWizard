@@ -7,7 +7,7 @@
 #' @export
 #'
 #' @examples
-create_schema_type_map <- function(schema_path, property_types = data.frame(name = character(), value = character())){
+create_schema_type_map <- function(schema_path, property_types = data.frame(name = character(), value = character(), source = character())){
   # get schema
   print(sprintf("schema path: %s",schema_path))
   schema <- jsonlite::fromJSON(schema_path)
@@ -32,7 +32,11 @@ create_schema_type_map <- function(schema_path, property_types = data.frame(name
 ## external in other files
 
 get_property_types <- function(schema,
-                               property_types = data.frame(name = character(), value = character()), definitions = NULL, array_name = NULL){
+                               property_types = data.frame(name = character(),
+                                                           value = character(),
+                                                           source = character()),
+                               definitions = NULL,
+                               array_name = NULL){
 
   ## grab the major elements of the schema
   properties <- schema$properties
@@ -46,19 +50,7 @@ get_property_types <- function(schema,
 
   if(!rlang::is_empty(items)){
     print("array!")
-    property_types_list <- purrr::map_depth(schema,1,"type" )
-    # drop nulls
-    drop_null_types <- property_types_list != "null"
-
-    item_prop_types_df <- purrr::discard(property_types_list,is.null) |>
-      as.data.frame() |>
-      tidyr::pivot_longer(everything())
-    item_prop_types_df$name <- array_name
-
-    print(item_prop_types_df)
-    ##  what if an array property references a definition or external?
-    property_types <- rbind(property_types,item_prop_types_df)
-    return(property_types)
+    property_types <- process_array_items(schema,property_types)
   }
 
   property_types_list <- purrr::map_depth(properties,1,"type" )
@@ -67,6 +59,7 @@ get_property_types <- function(schema,
     as.data.frame() |>
     tidyr::pivot_longer(everything())
 
+  prop_types_df$source <- "properties"
   # dig through array and obj type properties
 
   # dig through objects
@@ -92,10 +85,10 @@ get_property_types <- function(schema,
 
     array_props  <- properties[array_names]
 
-    array_list <<- purrr::map2(.x = array_props,.y = array_names,
-                                  function(x,y){
+    array_list <<- purrr::imap(array_props,
+                                  function(x,idx){
                                     get_property_types(schema =x ,
-                                                       array_name = y,
+                                                       array_name = idx,
                                                        property_types = property_types)
                                   }
 
@@ -116,8 +109,8 @@ get_property_types <- function(schema,
 
   property_refs_vec <- unlist(property_refs)
 
-  external_types_df <- data.frame(name = character(), value = character())
-  internal_types_df <- data.frame(name = character(), value = character())
+  external_types_df <- data.frame(name = character(), value = character(), source = character())
+  internal_types_df <- data.frame(name = character(), value = character(),source = character())
 
   if(!rlang::is_empty(property_refs_vec)){
 
@@ -142,7 +135,6 @@ get_property_types <- function(schema,
 
     if(!rlang::is_empty(internal_refs)){
       print("looking at internal refs")
-      print(internal_refs)
       prop_internal_ref  <- names(internal_refs)
       def_internal_ref <- definitions[prop_internal_ref]
       def_internal_ref_types <- purrr::map_depth(def_internal_ref,1,"type" )
@@ -150,6 +142,8 @@ get_property_types <- function(schema,
       internal_types_df <- purrr::discard(def_internal_ref_types,is.null) |>
         as.data.frame() |>
         tidyr::pivot_longer(everything())
+
+      internal_types_df$source <- "internal"
     }
   }
 
@@ -158,4 +152,25 @@ get_property_types <- function(schema,
 
   return(out)
 
+}
+
+
+## may need to add in defs later
+process_array_items <- function(schema,property_types){
+  property_types_list <- purrr::map_depth(schema,1,"type" )
+  # drop nulls
+  drop_null_types <- property_types_list != "null"
+
+  item_prop_types_df <- purrr::discard(property_types_list,is.null) |>
+    as.data.frame() |>
+    tidyr::pivot_longer(everything())
+  item_prop_types_df$name <- array_name
+  item_prop_types_df$source <- "array item"
+
+  # print(item_prop_types_df)
+  ##  what if an array property references a definition or external?
+  property_types <- rbind(property_types,item_prop_types_df)
+
+  print(property_types)
+  return(property_types)
 }
