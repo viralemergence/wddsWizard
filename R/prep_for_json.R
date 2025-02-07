@@ -155,13 +155,22 @@ prep_creators <- function(x){
   x_aff <- purrr::map(x,prep_affiliation)
   prep_array_objects(x_aff)
 }
+
 project_metadata_list_entities$creators |>
   prep_creators() |>
   jsonlite::toJSON(pretty = T)
 
 
 
-project_metadata_list_entities$fundingReferences
+
+
+prep_fundingReferences <- function(x){
+  prep_array_objects(x)
+}
+
+project_metadata_list_entities$fundingReferences |>
+  prep_fundingReferences() |>
+  jsonlite::toJSON(pretty = TRUE)
 
 
 
@@ -194,13 +203,10 @@ prep_methodology <- function(x){
 ## titles is an array of objects
 
 prep_titles <- function(x){
-  x_list <- as.list(x)
-  purrr::map_df(x_list, jsonlite::unbox)
+  prep_array_objects(x)
 }
 
 titles_prepped <- prep_titles(project_metadata_list_entities$titles)
-
-
 
 
 
