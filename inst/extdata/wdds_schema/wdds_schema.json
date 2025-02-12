@@ -25,7 +25,7 @@
             "minItems":1
           }
         },
-        "latitute":{
+        "latitude":{
           "description":"Latitude of the collection site in decimal format. See http://rs.tdwg.org/dwc/terms/decimalLatitude",
           "type":"array",
           "items":{
@@ -311,7 +311,7 @@
                 "type":"boolean"
           }
         },
-        "oneOf": [
+        "anyOf": [
           { "required": ["eventBased"] },
           { "required": ["archival"] }
         ]
@@ -331,8 +331,9 @@
                             "type": "object",
                             "properties":{
                               "identifier":{"type":"string"},
-                              "identifierType":{"$ref": "~/Documents/wddsWizard/inst/extdata/wdds_schema/schemas/datacite/datacite-v4.5.json#/definitions/relatedIdentifierType"},
-                              "required":["identifier"]},
+                              "identifierType":{"$ref": "~/Documents/wddsWizard/inst/extdata/wdds_schema/schemas/datacite/datacite-v4.5.json#/definitions/relatedIdentifierType"}
+                              },
+                              "required":["identifier"],
               "uniqueItems":true
               }
     },
@@ -344,7 +345,7 @@
       "description":"Any rights information for this resource.",
         "$ref": "~/Documents/wddsWizard/inst/extdata/wdds_schema/schemas/datacite/datacite-v4.5.json#/properties/rightsList"
       },
-      "description":{
+      "descriptions":{
         "description":"All additional information that does not fit in any of the other categories. May be used for technical information or detailed information associated with a scientific instrument.",
                 "$ref": "~/Documents/wddsWizard/inst/extdata/wdds_schema/schemas/datacite/datacite-v4.5.json#/properties/descriptions"
       },
@@ -363,7 +364,7 @@
         "creators",
         "titles",
         "publicationYear",
-        "description",
+        "descriptions",
         "language",
         "fundingReferences"
     ]

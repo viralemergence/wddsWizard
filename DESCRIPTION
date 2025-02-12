@@ -9,14 +9,23 @@ Authors@R:
           comment = c(ORCID = "0000-0002-9882-941X"))
 Description: This package facilitates the creation of datasets that are compliant with
   the Wildlife Disease Data Standard. It allows users to build and validate datasets. 
-License: `use_mit_license()`
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
 Imports: 
     dplyr,
+    here,
+    janitor,
     jsonlite,
-    jsonvalidate
+    jsonvalidate,
+    kableExtra,
+    purrr,
+    readxl,
+    rlang,
+    snakecase,
+    stringr,
+    tibble,
+    tidyr
 Suggests: 
     knitr,
     rmarkdown,
@@ -26,3 +35,4 @@ VignetteBuilder: knitr
 Depends: 
     R (>= 3.5)
 LazyData: true
+License: MIT + file LICENSE

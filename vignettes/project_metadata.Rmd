@@ -17,6 +17,8 @@ knitr::opts_chunk$set(
 
 ```{r setup}
 library(wddsWizard)
+library(dplyr)
+library(stringr)
 ```
 
 ## Load in the CSV and clean it up
@@ -25,7 +27,7 @@ Our example data requires some light cleaning to make transforming it into csv
 easier. 
 
 ```{r load-data}
-project_metadata <- read.csv("../inst/extdata/example_data/example_project_metadata .csv")
+project_metadata <- read.csv("../inst/extdata/example_data/example_project_metadata.csv")
 
 ## turn empty strings into NAs in the group field
 project_metadata <- project_metadata |>
@@ -70,19 +72,7 @@ project_metadata_ids <- project_metadata_filled |>
 project_metadata_list  <- split(project_metadata_ids,project_metadata_ids$Group)
 
 
-# this function creates entities that will work better with json
-
-get_entity <- function(x){
-  y <- x |>
-    dplyr::select(-Group,-entity_id) |>
-    dplyr::filter(Value != "") |>
-    dplyr::mutate(Variable = snakecase::to_lower_camel_case(Variable))
-  
-  z <- tidyr::pivot_wider(y,names_from = Variable, values_from = Value) 
-    
-  
-  return(z)
-}
+# The `get_entity` function creates standard entities that will be easier to transform json
 
 project_metadata_list_entities <- purrr::map(project_metadata_list,function(x){
   if(all(x$entity_id == "1")){
