@@ -1,0 +1,72 @@
+{
+    "id": "simple.json",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "simple schema",
+    "description": "for testing schema mapping function",
+    "additionalProperties": false,
+    "definitions": {
+        "nameType": {
+            "type": "string",
+            "enum": [
+                "Organizational",
+                "Personal"
+            ]
+        },
+        "nameIdentifiers": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                    "nameIdentifier": {"type": "string"},
+                    "nameIdentifierScheme": {"type": "string"},
+                    "schemeUri": {"type": "string", "format": "uri"}
+                },
+                "required": ["nameIdentifier", "nameIdentifierScheme"]
+            },
+            "uniqueItems": true
+        },
+        "person": {
+            "type": "object",
+            "properties": {
+                "name": {"type": "string"},
+                "nameType": {"$ref": "#/definitions/nameType"},
+                "givenName": {"type": "string"},
+                "familyName": {"type": "string"},
+                "nameIdentifiers": {"$ref": "#/definitions/nameIdentifiers"},
+                "affiliation": {"$ref": "#/definitions/affiliation"},
+                "lang": {"type": "string"}
+            },
+            "required": ["name"]
+        },
+        "creator": {
+            "type": "object",
+            "allOf": [{ "$ref": "#/definitions/person" }],
+            "unevaluatedProperties": false
+        }
+    },
+    "type": "object",
+    "properties": {
+        "arraySimple":{
+          "type": "array",
+          "items":{
+            "type":"string"
+            }
+        },
+        "creators": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "allOf": [{ "$ref": "#/definitions/creator" }],
+                "required": ["name"]
+            },
+            "minItems": 1
+        },
+        "externalReference_def":{
+          "$ref":"~/Documents/wddsWizard/inst/extdata/wdds_schema/schemas/datacite/datacite-v4.5.json#/definitions/publicationYear"
+        },
+      "externalReference_prop":{
+          "$ref":"~/Documents/wddsWizard/inst/extdata/wdds_schema/schemas/datacite/datacite-v4.5.json#/properties/publicationYear"
+        }
+    }
+}
