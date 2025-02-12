@@ -1,5 +1,4 @@
 {
-  "$id": "wdds_schema.json",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "Wildlife Disease Data Standard",
   "description":"Flexible data standard for wildlife disease data",
@@ -318,11 +317,11 @@
     },
     "creators": {
               "description":"The full names of the creators. Should be in the format familyName, givenName.",
-             "$ref": "~/Documents/wddsWizard/inst/extdata/wdds_schema/schemas/datacite/datacite-v4.5.json#/properties/creators"
+             "$ref": "schemas/datacite/datacite-v4.5.json#/properties/creators"
               },
     "titles": {
           "description":"A name or title by which a resource is known.",
-         "$ref": "~/Documents/wddsWizard/inst/extdata/wdds_schema/schemas/datacite/datacite-v4.5.json#/properties/titles"
+         "$ref": "schemas/datacite/datacite-v4.5.json#/properties/titles"
           },
     "identifiers": {
             "description":"A unique string that identifies a resource.",
@@ -331,7 +330,7 @@
                             "type": "object",
                             "properties":{
                               "identifier":{"type":"string"},
-                              "identifierType":{"$ref": "~/Documents/wddsWizard/inst/extdata/wdds_schema/schemas/datacite/datacite-v4.5.json#/definitions/relatedIdentifierType"}
+                              "identifierType":{"$ref": "schemas/datacite/datacite-v4.5.json#/definitions/relatedIdentifierType"}
                               },
                               "required":["identifier"],
               "uniqueItems":true
@@ -339,23 +338,23 @@
     },
     "publicationYear": {
           "description":"The year when the data was or will be made publicly available.",
-         "$ref": "~/Documents/wddsWizard/inst/extdata/wdds_schema/schemas/datacite/datacite-v4.5.json#/properties/publicationYear"
+         "$ref": "schemas/datacite/datacite-v4.5.json#/properties/publicationYear"
           },
     "rights":{
       "description":"Any rights information for this resource.",
-        "$ref": "~/Documents/wddsWizard/inst/extdata/wdds_schema/schemas/datacite/datacite-v4.5.json#/properties/rightsList"
+        "$ref": "schemas/datacite/datacite-v4.5.json#/properties/rightsList"
       },
       "descriptions":{
         "description":"All additional information that does not fit in any of the other categories. May be used for technical information or detailed information associated with a scientific instrument.",
-                "$ref": "~/Documents/wddsWizard/inst/extdata/wdds_schema/schemas/datacite/datacite-v4.5.json#/properties/descriptions"
+                "$ref": "schemas/datacite/datacite-v4.5.json#/properties/descriptions"
       },
       "language":{
         "description":"The primary language of the resource.",
-       "$ref":"~/Documents/wddsWizard/inst/extdata/wdds_schema/schemas/datacite/datacite-v4.5.json#/properties/language"
+       "$ref":"schemas/datacite/datacite-v4.5.json#/properties/language"
       },
       "fundingReferences":{
        "description":"Name and other identifying information of a funding provider.",
-       "$ref":"~/Documents/wddsWizard/inst/extdata/wdds_schema/schemas/datacite/datacite-v4.5.json#/properties/fundingReferences"
+       "$ref":"schemas/datacite/datacite-v4.5.json#/properties/fundingReferences"
       }
     },
   "required": [
