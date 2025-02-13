@@ -82,7 +82,7 @@
           }
         },
         "collectionMethodAndOrTissue":{
-          "description":"The technique used to extract the sample and/or the tissue from which the sample was extracted (e.g., oropharyngeal swab)",
+          "description":"The technique used to acquire the sample and/or the tissue from which the sample was extracted (e.g., oropharyngeal swab)",
           "type":"array",
           "items":{
             "type": ["string","null"],
@@ -188,8 +188,27 @@
             }
           },
           "lengthUnits":{
-            "description":"The units that length is recorded in (e.g., mm).",
+            "description":"The units that length is recorded in (e.g., m).",
             "examples":["mm","meters","cm","km"],
+            "type":"array",
+            "items":{
+              "type": ["string","null"],
+              "minItems":1
+            }
+          },
+          "organismQuantity":{
+            "description":"A number or enumeration value for the quantity of organisms. See http://rs.tdwg.org/dwc/terms/organismQuantity",
+            "examples":[1, 1.4, 12],
+            "type":"array",
+            "items":{
+              "type": ["number","null"],
+              "minItems":1,
+              "minimum":0
+            }
+          },
+          "organismQuantityType":{
+            "description":"The units that organism quantity is recorded in (e.g. “individuals”). See http://rs.tdwg.org/dwc/iri/organismQuantityType",
+            "examples":["individual","biomass","Braun-Blanquet scale"],
             "type":"array",
             "items":{
               "type": ["string","null"],
