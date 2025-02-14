@@ -1,0 +1,11 @@
+---
+title: "Untitled"
+author: "Collin Schwantes"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+<details><summary> world </summary> * some </details>

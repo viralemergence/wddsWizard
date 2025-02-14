@@ -100,9 +100,36 @@ jsonlite::toJSON(project_metadata_list_entities,pretty = TRUE,dataframe = "colum
 BUT because datacite's structures are more complex, we need to do some prep. Luckily, there are a host of prep functions that already exist in this package! These mostly tag list items with `jsonlite::unbox` and/or wrap things in lists so that when converted to json, they match the data standard's expected formats. 
 
 ```{r prep-data}
-prep_for_json(project_metadata_list_entities) |>
+ project_metadata_json <- prep_for_json(project_metadata_list_entities) |>
   jsonlite::toJSON(pretty  = TRUE)
 ```
+
+## Validate Project metadata
+
+### Creators
+
+Creators are tricky because they have subcomponents. Lets make sure our creators
+are properly formatted! 
+
+We can use the `reference` argument in `json_validator` to only validate against
+part of the schema. This is extremely helpful if you want to isolate validation
+issues.
+
+```{r validate-project}
+schema <- here::here("inst/extdata/wdds_schema/wdds_schema.json")
+
+creators_validator <- jsonvalidate::json_validator(schema,engine = "ajv",reference = "#/properties/creators")
+
+creators_validation <- creators_validator(project_metadata_json)
+
+## check for errors!
+
+errors <- attributes(project_validation)
+
+errors$errors
+
+```
+
 
 
 

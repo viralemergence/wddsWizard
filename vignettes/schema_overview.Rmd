@@ -1,0 +1,121 @@
+---
+title: "Schema Overview"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Schema Overview}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+This document provides background information about json-schemas in general and
+more information about the structure of the wildlife disease data standard. 
+
+## Background
+
+### Why do we need a data standard?
+
+Data standards facilitate the sharing, reuse, and aggregation of data by
+humans and machines through the use of a common structure and vocabulary. When
+a dataset meets a data standard, it can be combined with other data sets that 
+meet that standard. As the number of data sets that use the standard grows,
+the questions that researchers can ask of the data changes. For example, if we have
+data sets describing disease incidence for some pathogen from thousands of 
+locations across multiple regions, we can explore general modeling frameworks for
+that pathogen. Being able to reuse and aggregate data sets is especially 
+important in fields like disease ecology where studies are time, resource, and 
+labor intensive. 
+
+### What is a JSON-schema
+
+A JSON-schema is a human and machine readable document that
+prescribes the structure, constraints, and content of a data set that meets a particular standard.
+By constraints and contents, we mean rules around the type of data used in  particular field
+(character, numeric, logical, etc), and its values (e.g. `massUnits` must be one 
+of kg, mg, or g; `latitude` must be between -90 and 90; `sampleID` must be unique). 
+
+Schema properties may themselves be schema. For example, the `data` property in this
+standard defines a `data` object that is a flat table with constraints, types, and/or
+requirements. In this way, JSON-schema allows for the construction of modular 
+schema documents. 
+
+Once we have created a schema, we can then validate data against it. The validation
+process happens via a validation engine and tells us if the data conform
+to the standard. If the data do not conform, then the validation engine tells
+us precisely where the data are non-conformant and what the data standard expected
+to see. 
+
+![](https://json-schema.org/img/json_schema.svg){width=95%}
+
+For more detailed information see [JSON-Schema.org](https://json-schema.org/overview/what-is-jsonschema)
+
+## How do I use it?
+
+### Data
+#### Starting from scratch
+
+Use our CSV templates and the data standard as a guide for storing data. This may not be how data are
+initially stored after collection, but make sure that at least the minimum required
+fields are captured in data collection and that they match the data standard. 
+
+#### Starting from an existing project
+
+
+
+This package has vignettes describing how to move from CSV/excel to JSON for
+[project metadata](project_metadata.html) and [wildlife disease data](disease_data.html).
+
+
+
+
+
+## Wildlife Disease Data Standard (WDDS) Structure
+
+The Wildlife Disease Data Standard has eight required fields:`data`, `methodology`, `creators`, `titles`, `publicationYear`, `descriptions`, `language`, and `fundingReferences`. These
+fields must present
+
+
+
+### Schema as table
+
+```{r schema-as-table, include=FALSE}
+
+# wdds_data_required <- wddsWizard::wdds_schema$properties$data$properties[wddsWizard::data_required_fields]
+# 
+# descriptions <- purrr::map_depth(wdds_data_required,1,"description") 
+#   
+# df_data_desc <- data.frame(Field = wddsWizard::data_required_fields, Descriptions = unlist(descriptions),row.names = NULL)
+# 
+# df_data_desc |>
+#   dplyr::mutate(TDWG_url = dplyr::case_when(
+#     stringr::str_detect(string = Descriptions, pattern = "http://rs.tdwg.org/dwc/terms/") ~ stringr::str_extract(string = Descriptions,pattern = "http://rs.tdwg.org/dwc/terms/.*"),
+#     TRUE ~ ""
+#   )) |>
+#   dplyr::mutate(Field = case_when(
+#     TDWG_url != "" ~ kableExtra::cell_spec(Field,format = "html",link = TDWG_url),
+#     TRUE ~ Field
+#   )) |>
+#     dplyr::mutate(Descriptions = dplyr::case_when(
+#     stringr::str_detect(string = Descriptions, pattern = "http://rs.tdwg.org/dwc/terms/") ~ stringr::str_remove(string = Descriptions,pattern = "See http://rs.tdwg.org/dwc/terms/.*"),
+#     TRUE ~ Descriptions
+#   )) |>
+#   dplyr::select(-TDWG_url) |>
+#   kableExtra::kbl(escape = FALSE) |>
+#   kableExtra::kable_styling()
+
+```
+
+
+
+## Data Package Structure
+
+## Other packages of interest
+- deposits
+- jsonvalidate
+
