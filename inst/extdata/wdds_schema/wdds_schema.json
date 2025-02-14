@@ -5,6 +5,7 @@
   "type": "object",
   "properties": {
     "data":{
+      "description":"Wildlife disease data.",
       "type":"object",
       "properties":{
         "sampleID":{
