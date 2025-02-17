@@ -106,14 +106,7 @@ BUT because datacite's structures are more complex, we need to do some prep. Luc
 
 ## Validate Project metadata
 
-### Creators
-
-Creators are tricky because they have subcomponents. Lets make sure our creators
-are properly formatted! 
-
-We can use the `reference` argument in `json_validator` to only validate against
-part of the schema. This is extremely helpful if you want to isolate validation
-issues.
+We can validate the entire project metadata object by using the `project_metadata.json` schema.
 
 ```{r validate-project, message=FALSE, warning=FALSE}
 schema <- here::here("inst/extdata/wdds_schema/schemas/project_metadata.json")
@@ -132,6 +125,7 @@ if(!project_validation){
   print("Valid project metadata!😁")
 }
 ```
+
 
 
 
