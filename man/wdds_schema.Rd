@@ -5,7 +5,7 @@
 \alias{wdds_schema}
 \title{Wildlife Disease Data Standard}
 \format{
-An object of class \code{list} of length 7.
+An object of class \code{list} of length 6.
 }
 \usage{
 wdds_schema

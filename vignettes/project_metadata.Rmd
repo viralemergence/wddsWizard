@@ -115,19 +115,22 @@ We can use the `reference` argument in `json_validator` to only validate against
 part of the schema. This is extremely helpful if you want to isolate validation
 issues.
 
-```{r validate-project}
-schema <- here::here("inst/extdata/wdds_schema/wdds_schema.json")
+```{r validate-project, message=FALSE, warning=FALSE}
+schema <- here::here("inst/extdata/wdds_schema/schemas/project_metadata.json")
 
-creators_validator <- jsonvalidate::json_validator(schema,engine = "ajv",reference = "#/properties/creators")
+project_validator <- jsonvalidate::json_validator(schema,engine = "ajv")
 
-creators_validation <- creators_validator(project_metadata_json)
+project_validation <- project_validator(project_metadata_json,verbose = TRUE)
 
 ## check for errors!
 
 errors <- attributes(project_validation)
 
-errors$errors
-
+if(!project_validation){
+  errors$errors  
+} else {
+  print("Valid project metadata!😁")
+}
 ```
 
 

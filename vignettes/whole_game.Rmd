@@ -74,7 +74,7 @@ data_package_json <- jsonlite::toJSON(data_package_prepped,pretty = TRUE)
 Here we will use the {jsonvalidate} package to make sure our `data_package_json` 
 meets the wildlife disease data standard.
 
-```{r json-validate, warning=TRUE}
+```{r json-validate, warning=FALSE}
 
 schema <- here::here("inst/extdata/wdds_schema/wdds_schema.json")
 
@@ -82,11 +82,15 @@ wdds_validator <- jsonvalidate::json_validator(schema,engine = "ajv")
 
 project_validation <- wdds_validator(data_package_json,verbose = TRUE)
 
+if(project_validation){
+  print("Your data package is valid!")
+} else {
+errors <- attributes(project_validation)
+errors$errors
+}
+
 ## check for errors!
 
-errors <- attributes(project_validation)
-
-errors$errors
 
 ```
 

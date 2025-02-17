@@ -82,32 +82,21 @@ fields must present
 
 
 
-### Schema as table
+### Schema terms
 
-```{r schema-as-table, include=FALSE}
+```{r schema-as-table}
 
-# wdds_data_required <- wddsWizard::wdds_schema$properties$data$properties[wddsWizard::data_required_fields]
-# 
-# descriptions <- purrr::map_depth(wdds_data_required,1,"description") 
-#   
-# df_data_desc <- data.frame(Field = wddsWizard::data_required_fields, Descriptions = unlist(descriptions),row.names = NULL)
-# 
-# df_data_desc |>
-#   dplyr::mutate(TDWG_url = dplyr::case_when(
-#     stringr::str_detect(string = Descriptions, pattern = "http://rs.tdwg.org/dwc/terms/") ~ stringr::str_extract(string = Descriptions,pattern = "http://rs.tdwg.org/dwc/terms/.*"),
-#     TRUE ~ ""
-#   )) |>
-#   dplyr::mutate(Field = case_when(
-#     TDWG_url != "" ~ kableExtra::cell_spec(Field,format = "html",link = TDWG_url),
-#     TRUE ~ Field
-#   )) |>
-#     dplyr::mutate(Descriptions = dplyr::case_when(
-#     stringr::str_detect(string = Descriptions, pattern = "http://rs.tdwg.org/dwc/terms/") ~ stringr::str_remove(string = Descriptions,pattern = "See http://rs.tdwg.org/dwc/terms/.*"),
-#     TRUE ~ Descriptions
-#   )) |>
-#   dplyr::select(-TDWG_url) |>
-#   kableExtra::kbl(escape = FALSE) |>
-#   kableExtra::kable_styling()
+library(kableExtra)
+wdds_terms <- read.csv(here::here("inst/extdata/example_data/wdds_terms.csv"))
+
+
+
+wdds_terms |>
+  kableExtra::kbl() |>
+  kableExtra::kable_paper(lightable_options = "striped",full_width = F) |>
+  kableExtra::column_spec(2) |>
+  kableExtra::column_spec(3, width = "30em")
+
 
 ```
 

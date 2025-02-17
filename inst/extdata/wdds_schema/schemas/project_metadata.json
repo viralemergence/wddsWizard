@@ -61,6 +61,9 @@
         "fundingReferences":{
          "description":"Name and other identifying information of a funding provider.",
          "$ref":"datacite/datacite-v4.5.json#/properties/fundingReferences"
+        },
+        "relatedIdentifiers":{
+          "$ref":"datacite/datacite-v4.5.json#/properties/relatedIdentifiers"
         }
     },
   "required": [
