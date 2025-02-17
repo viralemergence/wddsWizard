@@ -32,7 +32,7 @@ The following fields are required to be in the data.
 
 ```{r required fields, echo=FALSE, message=TRUE, warning=TRUE}
 
-wdds_data_required <- wddsWizard::wdds_schema$properties$data$properties[wddsWizard::data_required_fields]
+wdds_data_required <- wddsWizard::disease_data_schema$properties[wddsWizard::data_required_fields]
 
 descriptions <- purrr::map_depth(wdds_data_required,1,"description") 
   

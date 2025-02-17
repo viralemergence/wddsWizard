@@ -15,7 +15,7 @@ knitr::opts_chunk$set(
 ```
 
 This document provides background information about json-schemas in general and
-more information about the structure of the wildlife disease data standard. 
+more information about the structure of the Wildlife Disease Data standard. 
 
 ## Background
 
@@ -60,26 +60,40 @@ For more detailed information see [JSON-Schema.org](https://json-schema.org/over
 ### Data
 #### Starting from scratch
 
-Use our CSV templates and the data standard as a guide for storing data. This may not be how data are
-initially stored after collection, but make sure that at least the minimum required
-fields are captured in data collection and that they match the data standard. 
+Use our CSV templates and the data standard as a guide for storing data. Make sure
+that at least the minimum required fields are captured in data collection,
+and that they match the data standard. Lab and field data may not immediately
+come out in a "tidy" format but as long as all properties are captured it 
+should be possible to reshape the data to be compatible with the standard.
 
 #### Starting from an existing project
 
-
-
+This is more challenging than starting from scratch and requires harmonization 
+your data and the data standard. Once you have crosswalked the fields from your
+data onto the standard, you can start to reshape it into a single, tidy, table.
 This package has vignettes describing how to move from CSV/excel to JSON for
 [project metadata](project_metadata.html) and [wildlife disease data](disease_data.html).
 
 
-
-
-
 ## Wildlife Disease Data Standard (WDDS) Structure
 
-The Wildlife Disease Data Standard has eight required fields:`data`, `methodology`, `creators`, `titles`, `publicationYear`, `descriptions`, `language`, and `fundingReferences`. These
-fields must present
+The Wildlife Disease Data Standard is composed of two sub-schemas (1) `data` and
+(2) `project_metadata`. 
 
+`data` describes the structure and contents of the wildlife disease data. 
+It has certain required fields and is extensible. This data should be stored as
+[tidy](https://doi.org/10.18637/jss.v059.i10) dataset in a flat file like a CSV.
+This component of the standard relies heavily on the Darwin Core data standard.
+
+`project_metadata` describes the structure and contents of the descriptive 
+metadata. That is, metadata about the project that enables discovery, 
+identification, and attribution. This component of the standard relies heavily
+on the Data Cite Metadata Schema.
+
+Researchers may validate their data against each sub-schema separately, or
+use them in tandem to validate an entire data package. The term "data package" 
+refers to a list or JSON object that contains both the `data` and 
+`project_metadata` components.
 
 
 ### Schema terms
