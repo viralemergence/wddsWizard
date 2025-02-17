@@ -5,7 +5,7 @@
 \alias{data_required_fields}
 \title{Required fields in the data object}
 \format{
-An object of class \code{character} of length 13.
+An object of class \code{character} of length 9.
 }
 \usage{
 data_required_fields
