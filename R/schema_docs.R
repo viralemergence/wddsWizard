@@ -1,54 +1,203 @@
-# "Want to recursively move through  a list in order to create a markdown document
+### starting from some schema
+### work your way through
+### keep track of the schema you're in with the$current_schema_path
+
+
+create_schema_docs <- function(schema_path = the$current_schema_path){
+  schema_list <- jsonlite::read_json(schema_path)
+  required_fields <- get_required_fields(schema_list)
+
+  schema_docs <- purrr::imap(schema_list$properties,function(x,idx){
+    create_object_docs(x,idx, required_fields =  required_fields, schema_dir = the$current_schema_dir)
+  }
+  ) |>
+    purrr::reduce(paste_reduce,.dir = "backward")
+
+  return(schema_docs)
+}
+
+get_required_fields <- function(schema_list){
+
+  required_fields <- ""
+
+  if("required" %in% names(schema_list)){
+    required_fields <- unlist(schema_list$required)
+  }
+
+  return(required_fields)
+}
+
+#' Create Docs Section for a schema object
+#'
+#' @param x List. Schema property or definition
+#' @param idx Name from schema property
+#'
+#' @returns Character
+#' @export
+#'
+#' @examples
+#'
+#' wddsWizard::disease_data_schema$properties |>
+#' purrr::imap(create_object_docs) |>
+#'   purrr::reduce(paste_reduce)
+#'
+create_object_docs <- function(x,idx, required_fields, schema_dir){
+  print(idx)
+  title <- idx
+
+  if("$ref" %in% names(x)){
+
+    x <- get_ref(x,schema_dir)
+
+    # break out of the cycle if x is character
+    if(is.character(x)){
+      #reset the schema path
+      the$current_schema_path <- the$parent_schema_path
+      the$current_schema_dir <- the$parent_schema_dir
+      return(x)
+    }
+  }
+
+  type <- x$type
+  description <- x$description
+  if(rlang::is_empty(description)){
+
+    description <- "Missing description. Please file an Issue."
+
+    ## pull sub folder
+    if(stringr::str_detect(the$current_schema_dir,"datacite")){
+      description <- "see https://datacite-metadata-schema.readthedocs.io/en/4.5/properties/"
+    }
+
+    if(stringr::str_detect(the$current_schema_dir,"dwc")){
+      description <- "see https://dwc.tdwg.org/list/"
+    }
+
+  }
+  required <- idx %in% required_fields
+
+  if(required){
+    description <- sprintf("**REQUIRED** %s", description)
+  }
+
+  if(type == "array"){
+     # if(idx == "affiliation"){
+     #    browser()
+     # }
+    items  <- purrr::imap_chr(x$items,function(x,idx){
+
+      # if its an object
+      if((idx == "type" & "object" %in% x)){
+        if(is.atomic(x)){
+          # okay so this object is an empty husk that references a definition
+          return("")
+        }
+
+        sub_object <- purrr::imap(x,\(x,idx) create_object_docs(x,idx,required_fields)) |>
+          purrr::reduce(paste_reduce,.dir = "backward")
+
+        x_chr <- paste(description,"<details><summary> Array Items </summary> *",sub_object,"</details>",collapse = "")
+      } else if(
+        (idx == "allOf" & "$ref" %in% names(x[[1]]))
+      ){
+        # browser()
+        x <- get_ref(x[[1]], the$current_schema_dir)
+        x_required_fields <- unlist(x$required)
+        sub_object <- purrr::imap(x$properties,\(x,idx) create_object_docs(x,idx,x_required_fields)) |>
+          purrr::reduce(paste_reduce,.dir = "backward")
+
+        x_chr <- paste(description,"<details><summary> Array Items </summary> *",sub_object,"</details>",collapse = "")
+      } else {
+        x_chr <- unlist(x) |> paste(collapse = ", ")
+        x_chr <- sprintf("**%s**: %s  ",idx, x_chr)
+      }
+
+      return(x_chr)
+    }) |>
+      purrr::reduce(.f = paste_reduce)
+    description <- paste(description,"<details><summary> Array Items </summary> *",items,"</details>",collapse = "")
+  }
+
+  out  <- sprintf("### %s  \n **Type**: %s  \n **Description**: %s  ", title,type, description)
+
+  return(out)
+}
+
+
+"Want to recursively move through  a list in order to create a markdown document
+
+should start at a node in level 1, then transverse that whole path, creating
+a nested markdown text string.
+"
+
+"starting at some leaf x, work backwards through the tree until you cannot."
+
+
+paste_reduce <- function(x, y, sep = "\n") paste(x, y, sep = sep)
+
+get_ref <- function(x,schema_dir){
+
+  # get the reference
+  reference <- x[["$ref"]]
+
+  # if(stringr::str_detect(reference,"creators")){
+  #   browser()
+  # }
+
+  # check if the schema is internal or external
+  sub_path <- sprintf("%s/%s",schema_dir, reference)
+  sub_path_json <- stringr::str_remove(sub_path,"#.*")
+  external_reference <- sub_path_json!=the$current_schema_path
+
+  # get full schema
+  if(external_reference){
+
+    # update environment variables
+    the$parent_schema_path <- the$current_schema_path
+    the$parent_schema_dir <- the$current_schema_dir
+    the$current_schema_path <- sub_path_json
+    sub_dir <- fs::path_dir(sub_path_json)
+    the$current_schema_dir <-sub_dir
+
+    sub_list <- jsonlite::read_json(path = sub_path_json)
+  } else {
+    # get full schema internal - this is necessary for defs
+    sub_list <- jsonlite::read_json(the$current_schema_path)
+  }
+
+  # check if its a component
+  component <- stringr::str_detect(reference,"#/.*$")
+
+  if(component){
+    # get component
+    component_name <- stringr::str_extract(reference,"#/.*$")
+    component_list <- stringr::str_split(component_name, pattern = "/",n = 3,simplify = FALSE) |>
+      unlist()
+    out <- sub_list[[component_list[2]]][[component_list[3]]]
+
+    ## check to see if the ref is a ref... which is dumb
+    if("allOf" %in% names(out)){
+      ### get the reference...
+      out <-  get_ref(out$allOf[[1]])
+    }
+
+  } else {
+    print("get full schema?")
+    out <- create_schema_docs(schema_path = the$current_schema_path)
+  }
+
+  return(out)
+}
+
+
 #
-# should start at a node in level 1, then transverse that whole path, creating
-# a nested markdown text string.
-# "
-#
-# "starting at some leaf x, work backwards through the tree until you cannot."
+# purrr::imap(wddsWizard::disease_data_schema$properties,create_object_docs) |>
+#   purrr::reduce(paste_reduce,.dir = "backward") |>
+#   cat()
 #
 #
-#
-# purrr::accumulate(schema_list,.f = collapse_section, .dir = "backward")
-#
-# nested_list <- list("a" = list("b" = list(d = "end")))
-#
-# nested_list |>purrr::accumulate(schema_list,.f = collapse_section, .dir = "backward")
-#
-# format_title <- function(schema_list){
-#   sprintf("## %s",schema_list$title)
-# }
-#
-# format_description <- function(schema_list){
-#   sprtinf("Description: %s",schema_list$description)
-# }
-#
-# format_property <- function(schema_list){
-#   schema_list$properties$data$description
-#   schema_list$properties$data$type
-#   schema_list$properties$data$properties
-#   schema_list$properties$data$properties
-# }
-#
-#
-# collapse_section <- function(out,details){
-#
-#   if(is.list(details)){
-#     current <- purrr::reduce(details,collapse_section)
-#   } else {
-#     current = details
-#   }
-#
-#   out <- paste("<details><summary>",out, "</summary> *",current,"</details>",collapse = "")
-#   return(out)
-# }
-#
-# debugonce(collapse_section)
-# collapse_section(out = x, details = x$data)
-#
-# x <- list("data" = list( "some"))
-#
-# x |> purrr::accumulate(.f = collapse_section,.dir = "backward")
-#
-# letters[1:3]|> purrr::reduce(.f = collapse_section)
-#
-# wdds_schema$properties$data$properties$sampleID$items$type
+# purrr::imap(datacite_schema$properties["creators"], \(x, idx)create_object_docs(x = x,idx = idx,required_fields = wddsWizard::project_metadata_required_fields) ) |>
+#   purrr::accumulate(paste_reduce)
+
+
+
