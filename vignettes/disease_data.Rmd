@@ -101,8 +101,7 @@ all(wddsWizard::data_required_fields %in% names(becker_data_clean))
 becker_prepped <- prep_data(becker_data_clean)
 
 ## wrap the prepped data in list
-becker_data <- list(data = becker_prepped)
-
-jsonlite::toJSON(becker_data,pretty = TRUE)
+becker_data <- list(data = becker_prepped) |>
+  jsonlite::toJSON(pretty = TRUE)
 
 ```

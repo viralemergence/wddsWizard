@@ -29,7 +29,7 @@
             "description":"A name or title by which a resource is known.",
            "$ref": "datacite/datacite-v4.5.json#/properties/titles"
             },
-      "identifiers": {
+      "identifier": {
               "description":"A unique string that identifies a resource.",
               "type":"array",
                 "items": {
