@@ -45,8 +45,14 @@ create_object_docs <- function(x,idx, required_fields, schema_dir){
   print(idx)
   title <- idx
 
-  if("$ref" %in% names(x)){
+  # if(idx == "publicationYear"){
+  #   browser()
+  # }
 
+  if("$ref" %in% names(x)){
+    # if(title == "titles"){
+    #   browser()
+    # }
     x <- get_ref(x,schema_dir)
 
     # break out of the cycle if x is character
@@ -80,10 +86,10 @@ create_object_docs <- function(x,idx, required_fields, schema_dir){
     description <- sprintf("**REQUIRED** %s", description)
   }
 
+
+
   if(type == "array"){
-     # if(idx == "affiliation"){
-     #    browser()
-     # }
+
     items  <- purrr::imap_chr(x$items,function(x,idx){
 
       # if its an object
@@ -145,6 +151,13 @@ get_ref <- function(x,schema_dir){
   if(stringr::str_detect(reference,"\\.json")){
     sub_path <- sprintf("%s/%s",schema_dir, reference)
     sub_path_json <- stringr::str_remove(sub_path,"#.*")
+    # if the file doesnt exist, try to repair the path by stepping the
+    # dir up to the parent
+    if(!file.exists(sub_path_json)){
+      sub_path <- sprintf("%s/%s",the$parent_schema_dir, reference)
+      sub_path_json <- stringr::str_remove(sub_path,"#.*")
+    }
+
     # check if the reference file matches the current path
     external_reference <- sub_path_json!=the$current_schema_path
   }
@@ -182,6 +195,12 @@ get_ref <- function(x,schema_dir){
     if("allOf" %in% names(out)){
       ### get the reference...
       out <-  get_ref(out$allOf[[1]], the$current_schema_dir)
+    }
+
+    if("$ref" %in% names(out)){
+      # browser()
+      ### get the reference...
+      out <-  get_ref(out["$ref"][1], the$current_schema_dir)
     }
 
   } else {
