@@ -100,7 +100,7 @@ create_object_docs <- function(x,idx, required_fields, schema_dir){
       } else if(
         (idx == "allOf" & "$ref" %in% names(x[[1]]))
       ){
-        # browser()
+
         x <- get_ref(x[[1]], the$current_schema_dir)
         x_required_fields <- unlist(x$required)
         sub_object <- purrr::imap(x$properties,\(x,idx) create_object_docs(x,idx,x_required_fields)) |>
@@ -140,14 +140,17 @@ get_ref <- function(x,schema_dir){
   # get the reference
   reference <- x[["$ref"]]
 
-  # if(stringr::str_detect(reference,"creators")){
-  #   browser()
-  # }
-
+  external_reference<- FALSE
   # check if the schema is internal or external
-  sub_path <- sprintf("%s/%s",schema_dir, reference)
-  sub_path_json <- stringr::str_remove(sub_path,"#.*")
-  external_reference <- sub_path_json!=the$current_schema_path
+  if(stringr::str_detect(reference,"\\.json")){
+    sub_path <- sprintf("%s/%s",schema_dir, reference)
+    sub_path_json <- stringr::str_remove(sub_path,"#.*")
+    # check if the reference file matches the current path
+    external_reference <- sub_path_json!=the$current_schema_path
+  }
+
+
+
 
   # get full schema
   if(external_reference){
@@ -178,7 +181,7 @@ get_ref <- function(x,schema_dir){
     ## check to see if the ref is a ref... which is dumb
     if("allOf" %in% names(out)){
       ### get the reference...
-      out <-  get_ref(out$allOf[[1]])
+      out <-  get_ref(out$allOf[[1]], the$current_schema_dir)
     }
 
   } else {
