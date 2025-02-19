@@ -3,6 +3,19 @@
 ### keep track of the schema you're in with the$current_schema_path
 
 
+#' Create Documentation for a schema
+#'
+#' Produces nested markdown that documents a schema
+#'
+#' @param schema_path Character. Path to a json-schema
+#'
+#' @returns character vector of markdown text
+#' @export
+#'
+#' @examples
+#'
+#' create_schema_docs()
+#'
 create_schema_docs <- function(schema_path = the$current_schema_path){
   schema_list <- jsonlite::read_json(schema_path)
   required_fields <- get_required_fields(schema_list)
@@ -16,6 +29,14 @@ create_schema_docs <- function(schema_path = the$current_schema_path){
   return(schema_docs)
 }
 
+#' Get the required fields for a schema
+#'
+#'  Gets the required fields for an object
+#'
+#' @param schema_list List from jsonlite::read_json
+#'
+#' @returns character vector of required fields
+#' @export
 get_required_fields <- function(schema_list){
 
   required_fields <- ""
@@ -31,16 +52,11 @@ get_required_fields <- function(schema_list){
 #'
 #' @param x List. Schema property or definition
 #' @param idx Name from schema property
+#' @param required_fields Character. Vector of required fields
+#' @param schema_dir Character. directory where the schema is stored
 #'
-#' @returns Character
+#' @returns Character formatted markdown text
 #' @export
-#'
-#' @examples
-#'
-#' wddsWizard::disease_data_schema$properties |>
-#' purrr::imap(create_object_docs) |>
-#'   purrr::reduce(paste_reduce)
-#'
 create_object_docs <- function(x,idx, required_fields, schema_dir){
   print(idx)
   title <- idx
@@ -130,17 +146,44 @@ create_object_docs <- function(x,idx, required_fields, schema_dir){
 }
 
 
-"Want to recursively move through  a list in order to create a markdown document
-
-should start at a node in level 1, then transverse that whole path, creating
-a nested markdown text string.
-"
-
-"starting at some leaf x, work backwards through the tree until you cannot."
 
 
-paste_reduce <- function(x, y, sep = "\n") paste(x, y, sep = sep)
+#' Paste Reduce
+#'
+#' A paste function that can be used with `purrr::reduce` to build up nested
+#' documentation items
+#'
+#' @param x Character
+#' @param y Character
+#' @param sep Character
+#'
+#' @returns Character
+#' @export
+#'
+#' @examples
+#'
+#' text_a <- "hello"
+#' text_b <- "world"
+#' paste_reduce(text_a,text_b)
+#'
+paste_reduce <- function(x, y, sep = "\n"){
+  paste(x, y, sep = sep)
+}
 
+#' Get schema references
+#'
+#' Parses $ref calls in a schema. Can retrieve internal ('"$ref":"#/definitions/someDef") or
+#' external references ('"$ref":"schemas/datacite/datacite.json"').
+#'
+#' For external references, it can handle both pointers and references to entire schemas.
+#' This function navigates between parent and child schemas by manipulating
+#' variables in the  package environment `the`.
+#'
+#' @param x List. Must have property "$ref"
+#' @param schema_dir Character. Directory for the current schema.
+#'
+#' @returns List or Character. Character is only returned if an entire schema is referenced.
+#' @export
 get_ref <- function(x,schema_dir){
 
   # get the reference
@@ -161,9 +204,6 @@ get_ref <- function(x,schema_dir){
     # check if the reference file matches the current path
     external_reference <- sub_path_json!=the$current_schema_path
   }
-
-
-
 
   # get full schema
   if(external_reference){
