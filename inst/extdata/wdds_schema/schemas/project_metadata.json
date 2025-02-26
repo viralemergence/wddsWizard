@@ -6,6 +6,7 @@
     "properties": {
       "methodology":{
           "type":"object",
+          "description":"broad categorization of how data were collected.",
             "properties":{
                 "eventBased":{
                   "description": "Whether or not research was conducted in response to a known or suspected infectious disease outbreak, observed animal morbidity or mortality, etc.",

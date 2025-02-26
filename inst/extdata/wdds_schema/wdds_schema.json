@@ -5,9 +5,11 @@
   "type": "object",
   "properties": {
     "data":{
+      "description":"Wildlife disease data. Stored in tidy form.",
       "$ref":"schemas/disease_data.json"
     },
     "project_metadata":{
+      "description":"Metadata for a project that largely follows the Datacite data standard.",
       "$ref":"schemas/project_metadata.json"
     }
   },

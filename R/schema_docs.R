@@ -5,7 +5,8 @@
 
 #' Create Documentation for a schema
 #'
-#' Produces nested markdown that documents a schema
+#' Produces nested markdown that documents a schema. This is a
+#' recursive set of function
 #'
 #' @param schema_path Character. Path to a json-schema
 #'
@@ -17,9 +18,13 @@
 #' create_schema_docs()
 #'
 create_schema_docs <- function(schema_path = the$current_schema_path){
+
+  # read in the json
   schema_list <- jsonlite::read_json(schema_path)
+  # get any required fields
   required_fields <- get_required_fields(schema_list)
 
+  # map over properties of the schema to build documents
   schema_docs <- purrr::imap(schema_list$properties,function(x,idx){
     create_object_docs(x,idx, required_fields =  required_fields, schema_dir = the$current_schema_dir)
   }
@@ -58,30 +63,10 @@ get_required_fields <- function(schema_list){
 #' @returns Character formatted markdown text
 #' @export
 create_object_docs <- function(x,idx, required_fields, schema_dir){
-  print(idx)
+
   title <- idx
-
-  # if(idx == "publicationYear"){
-  #   browser()
-  # }
-
-  if("$ref" %in% names(x)){
-    # if(title == "titles"){
-    #   browser()
-    # }
-    x <- get_ref(x,schema_dir)
-
-    # break out of the cycle if x is character
-    if(is.character(x)){
-      #reset the schema path
-      the$current_schema_path <- the$parent_schema_path
-      the$current_schema_dir <- the$parent_schema_dir
-      return(x)
-    }
-  }
-
-  type <- x$type
   description <- x$description
+
   if(rlang::is_empty(description)){
 
     description <- "Missing description. Please file an Issue."
@@ -102,7 +87,27 @@ create_object_docs <- function(x,idx, required_fields, schema_dir){
     description <- sprintf("**REQUIRED** %s", description)
   }
 
+  # process a reference
+  if("$ref" %in% names(x)){
 
+    reference_pointer <- x[["$ref"]]
+    x <- get_ref(x,schema_dir)
+
+    # break out of the cycle if x is character
+    if(is.character(x)){
+      #add top level
+      # browser()
+      #reset the schema path
+      the$current_schema_path <- the$parent_schema_path
+      the$current_schema_dir <- the$parent_schema_dir
+
+      out  <- sprintf("## %s  \n**Description**: %s  \n **Reference**:%s  \n\n%s  \n", title, description,reference_pointer,x)
+
+      return(out)
+    }
+  }
+
+  type <- x$type
 
   if(type == "array"){
 
@@ -140,7 +145,7 @@ create_object_docs <- function(x,idx, required_fields, schema_dir){
     description <- paste(description,"<details><summary> Array Items </summary> *",items,"</details>",collapse = "")
   }
 
-  out  <- sprintf("### %s  \n **Type**: %s  \n **Description**: %s  ", title,type, description)
+  out  <- sprintf("### %s  \n **Type**: %s  \n **Description**: %s  \n", title,type, description)
 
   return(out)
 }
@@ -231,20 +236,18 @@ get_ref <- function(x,schema_dir){
       unlist()
     out <- sub_list[[component_list[2]]][[component_list[3]]]
 
-    ## check to see if the ref is a ref... which is dumb
+    ## check to see if the ref is a ref
     if("allOf" %in% names(out)){
       ### get the reference...
       out <-  get_ref(out$allOf[[1]], the$current_schema_dir)
     }
 
     if("$ref" %in% names(out)){
-      # browser()
-      ### get the reference...
+      ### get the reference...slightly different structure
       out <-  get_ref(out["$ref"][1], the$current_schema_dir)
     }
 
   } else {
-    print("get full schema?")
     out <- create_schema_docs(schema_path = the$current_schema_path)
   }
 
