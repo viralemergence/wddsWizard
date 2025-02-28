@@ -110,14 +110,14 @@ create_object_docs <- function(x,idx, required_fields, schema_dir){
       the$current_schema_path <- the$parent_schema_path
       the$current_schema_dir <- the$parent_schema_dir
 
-      out  <- sprintf("## %s  \n**Description**: %s  \n **Reference**: %s  \n\n %s \n", title, description,reference_pointer,x)
+      out  <- sprintf("## %s  \n**Description**: %s  \n **Reference**: %s  \n\n%s \n", title, description,reference_pointer,x)
 
       return(out)
     }
   }
 
-if(idx =="person"){
-  browser()
+if(idx =="creators"){
+  # browser()
 }
   # print("create_object_docs: title")
   # print(title)
@@ -160,7 +160,7 @@ if(idx =="person"){
         sub_object <- purrr::imap(the$array_items$properties,\(x,idx) create_object_docs(x,idx,required_fields_array, schema_dir = the$current_schema_dir)) |>
           purrr::reduce(paste_reduce_ul,.dir = "backward")
 
-        x_chr <- paste(description,"<details><summary> Array Items </summary>\n -",sub_object,"</details>",collapse = "")
+         x_chr <- sprintf("%s",sub_object)
         the$array_items_skip <- TRUE
         return(x_chr)
       } else {
@@ -174,7 +174,7 @@ if(idx =="person"){
     items_chr <- items |>
       purrr::keep(\(x)(x!="")) |>
       purrr::reduce(.f = paste_reduce_ul)
-    description <- paste(description,"<details><summary> Array Items </summary>\n -",items_chr,"</details>",collapse = "")
+    description <- paste(description,"<details><summary> Array Items </summary>\n <ul>\n-",items_chr,"</ul></details>",collapse = "")
   }
 
   out  <- sprintf("### %s  \n **Type**: %s  \n **Description**: %s  \n", title,type, description)
