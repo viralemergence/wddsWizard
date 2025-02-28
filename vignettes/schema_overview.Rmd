@@ -103,290 +103,375 @@ refers to a list or JSON object that contains both the `data` and
 create_schema_docs() |>
   cat()
 ```
+## Other packages of interest
+- deposits
+- jsonvalidate
 ## data  
 **Description**: **REQUIRED** Wildlife disease data. Stored in tidy form.  
- **Reference**:schemas/disease_data.json  
+ **Reference**: schemas/disease_data.json  
 
-### sampleID  
+ ### sampleID  
  **Type**: array  
- **Description**: **REQUIRED** A researcher-generated unique ID for the sample: usually a unique string of both characters and integers (e.g., OS BZ19-114 to indicate an oral swab taken from animal BZ19-114; see worked example below), to avoid conflicts that can arise when datasets are merged with number-only notation for samples. Ideally, sample names should be kept consistent across all online databases and physical resources (e.g., museum collections or project-specific sample archives). <details><summary> Array Items </summary> * **type**: string, null  
-**minItems**: 1   </details>  
+ **Description**: **REQUIRED** A researcher-generated unique ID for the sample: usually a unique string of both characters and integers (e.g., OS BZ19-114 to indicate an oral swab taken from animal BZ19-114; see worked example below), to avoid conflicts that can arise when datasets are merged with number-only notation for samples. Ideally, sample names should be kept consistent across all online databases and physical resources (e.g., museum collections or project-specific sample archives). <details><summary> Array Items </summary>
+ - **type**: string, null  
+- **minItems**: 1   </details>  
 
 ### animalID  
  **Type**: array  
- **Description**: A researcher-generated unique ID for the individual animal from which the sample was collected: usually a unique string of both characters and integers (e.g., BZ19-114 to indicate animal 114 sampled in 2019 in Belize). Ideally, animal names should again be kept consistent across online databases and physical resources. <details><summary> Array Items </summary> * **type**: string, null  
-**minItems**: 1   </details>  
+ **Description**: A researcher-generated unique ID for the individual animal from which the sample was collected: usually a unique string of both characters and integers (e.g., BZ19-114 to indicate animal 114 sampled in 2019 in Belize). Ideally, animal names should again be kept consistent across online databases and physical resources. <details><summary> Array Items </summary>
+ - **type**: string, null  
+- **minItems**: 1   </details>  
 
 ### latitude  
  **Type**: array  
- **Description**: **REQUIRED** Latitude of the collection site in decimal format. See http://rs.tdwg.org/dwc/terms/decimalLatitude <details><summary> Array Items </summary> * **type**: number, null  
-**minItems**: 1  
-**maximum**: 90  
-**minimum**: -90   </details>  
+ **Description**: **REQUIRED** Latitude of the collection site in decimal format. See http://rs.tdwg.org/dwc/terms/decimalLatitude <details><summary> Array Items </summary>
+ - **type**: number, null  
+- **minItems**: 1  
+- **maximum**: 90  
+- **minimum**: -90   </details>  
 
 ### longitude  
  **Type**: array  
- **Description**: **REQUIRED** Longitude of the collection site  in decimal format. See http://rs.tdwg.org/dwc/terms/decimalLongitude <details><summary> Array Items </summary> * **type**: number, null  
-**minItems**: 1  
-**maximum**: 180  
-**minimum**: -180   </details>  
+ **Description**: **REQUIRED** Longitude of the collection site  in decimal format. See http://rs.tdwg.org/dwc/terms/decimalLongitude <details><summary> Array Items </summary>
+ - **type**: number, null  
+- **minItems**: 1  
+- **maximum**: 180  
+- **minimum**: -180   </details>  
 
 ### spatialUncertaintiy  
  **Type**: array  
- **Description**: Coordinate uncertainty from GPS recordings, post-hoc digitization, or systematic alterations (e.g., jittering or rounding) expressed in meters. See http://rs.tdwg.org/dwc/terms/coordinateUncertaintyInMeters <details><summary> Array Items </summary> * **type**: number, null  
-**minItems**: 1  
-**minimum**: 0   </details>  
+ **Description**: Coordinate uncertainty from GPS recordings, post-hoc digitization, or systematic alterations (e.g., jittering or rounding) expressed in meters. See http://rs.tdwg.org/dwc/terms/coordinateUncertaintyInMeters <details><summary> Array Items </summary>
+ - **type**: number, null  
+- **minItems**: 1  
+- **minimum**: 0   </details>  
 
 ### collectionDay  
  **Type**: array  
- **Description**: The day of the month on which the specimen was collected. See http://rs.tdwg.org/dwc/terms/day <details><summary> Array Items </summary> * **type**: integer, null  
-**minItems**: 1  
-**minimum**: 1  
-**maximum**: 31   </details>  
+ **Description**: The day of the month on which the specimen was collected. See http://rs.tdwg.org/dwc/terms/day <details><summary> Array Items </summary>
+ - **type**: integer, null  
+- **minItems**: 1  
+- **minimum**: 1  
+- **maximum**: 31   </details>  
 
 ### collectionMonth  
  **Type**: array  
- **Description**: The month in which the specimen was collected. See http://rs.tdwg.org/dwc/terms/month <details><summary> Array Items </summary> * **type**: integer, null  
-**minItems**: 1  
-**minimum**: 1  
-**maximum**: 12   </details>  
+ **Description**: The month in which the specimen was collected. See http://rs.tdwg.org/dwc/terms/month <details><summary> Array Items </summary>
+ - **type**: integer, null  
+- **minItems**: 1  
+- **minimum**: 1  
+- **maximum**: 12   </details>  
 
 ### collectionYear  
  **Type**: array  
- **Description**: The year in which the specimen was collected. See http://rs.tdwg.org/dwc/terms/year <details><summary> Array Items </summary> * **type**: integer, null   </details>  
+ **Description**: The year in which the specimen was collected. See http://rs.tdwg.org/dwc/terms/year <details><summary> Array Items </summary>
+ - **type**: integer, null   </details>  
 
 ### sampleCollectionMethod  
  **Type**: array  
- **Description**: **REQUIRED** The technique used to acquire the sample and/or the tissue from which the sample was acquired (e.g. visual inspection; swab; wing punch; necropsy). <details><summary> Array Items </summary> * **type**: string  
-**minItems**: 1   </details>  
+ **Description**: **REQUIRED** The technique used to acquire the sample and/or the tissue from which the sample was acquired (e.g. visual inspection; swab; wing punch; necropsy). <details><summary> Array Items </summary>
+ - **type**: string  
+- **minItems**: 1   </details>  
 
 ### sampleMaterial  
  **Type**: array  
- **Description**: Organic material from the animal body (i.e., tissue or fluid) extracted into a sample (e.g., “liver”; “blood”; “skin”; “whole organism”). <details><summary> Array Items </summary> * **type**: string, null  
-**minItems**: 1   </details>  
+ **Description**: Organic material from the animal body (i.e., tissue or fluid) extracted into a sample (e.g., “liver”; “blood”; “skin”; “whole organism”). <details><summary> Array Items </summary>
+ - **type**: string, null  
+- **minItems**: 1   </details>  
 
 ### sampleCollectionBodyPart  
  **Type**: array  
- **Description**: Part of the animal body that samples are generated or collected from (e.g., “rectum”; “wing”). <details><summary> Array Items </summary> * **type**: string, null  
-**minItems**: 1   </details>  
+ **Description**: Part of the animal body that samples are generated or collected from (e.g., “rectum”; “wing”). <details><summary> Array Items </summary>
+ - **type**: string, null  
+- **minItems**: 1   </details>  
 
 ### hostIdentification  
  **Type**: array  
- **Description**: **REQUIRED** The Linnaean classification of the animal from which the sample was collected, reported at the lowest possible level (ideally, species binomial name: e.g., Odocoileus virginianus or Ixodes scapularis). As necessary, researchers may also include an additional field indicating when uncertainty exists in the identification of the host organism (see Adding new fields). See http://rs.tdwg.org/dwc/terms/scientificName <details><summary> Array Items </summary> * **type**: string, null  
-**minItems**: 1  
-**not**: [HOMOhomo]{4} [SAPIENSsapiens]{7}   </details>  
+ **Description**: **REQUIRED** The Linnaean classification of the animal from which the sample was collected, reported at the lowest possible level (ideally, species binomial name: e.g., Odocoileus virginianus or Ixodes scapularis). As necessary, researchers may also include an additional field indicating when uncertainty exists in the identification of the host organism (see Adding new fields). See http://rs.tdwg.org/dwc/terms/scientificName <details><summary> Array Items </summary>
+ - **type**: string, null  
+- **minItems**: 1  
+- **not**: [HOMOhomo]{4} [SAPIENSsapiens]{7}   </details>  
 
 ### organismSex  
  **Type**: array  
- **Description**: The sex of the individual animal from which the sample was collected. See http://rs.tdwg.org/dwc/terms/sex <details><summary> Array Items </summary> * **type**: string, null  
-**minItems**: 1   </details>  
+ **Description**: The sex of the individual animal from which the sample was collected. See http://rs.tdwg.org/dwc/terms/sex <details><summary> Array Items </summary>
+ - **type**: string, null  
+- **minItems**: 1   </details>  
 
 ### liveCapture  
  **Type**: array  
- **Description**: Whether the individual animal from which the sample was collected was alive at the time of capture. Should be TRUE or FALSE; lethal sampling should be recorded as TRUE as this field describes the organism at the time of capture. <details><summary> Array Items </summary> * **type**: boolean, null  
-**minItems**: 1   </details>  
+ **Description**: Whether the individual animal from which the sample was collected was alive at the time of capture. Should be TRUE or FALSE; lethal sampling should be recorded as TRUE as this field describes the organism at the time of capture. <details><summary> Array Items </summary>
+ - **type**: boolean, null  
+- **minItems**: 1   </details>  
 
 ### healthNotes  
  **Type**: array  
- **Description**: Any additional (unstructured) notes about the state of the animal, such as disease presentation. <details><summary> Array Items </summary> * **type**: string, null  
-**minItems**: 1   </details>  
+ **Description**: Any additional (unstructured) notes about the state of the animal, such as disease presentation. <details><summary> Array Items </summary>
+ - **type**: string, null  
+- **minItems**: 1   </details>  
 
 ### hostLifeStage  
  **Type**: array  
- **Description**: The life stage of the animal from which the sample was collected (as appropriate for the organism) (e.g., juvenile, adult). See http://rs.tdwg.org/dwc/terms/lifeStage <details><summary> Array Items </summary> * **type**: string, null  
-**minItems**: 1   </details>  
+ **Description**: The life stage of the animal from which the sample was collected (as appropriate for the organism) (e.g., juvenile, adult). See http://rs.tdwg.org/dwc/terms/lifeStage <details><summary> Array Items </summary>
+ - **type**: string, null  
+- **minItems**: 1   </details>  
 
 ### age  
  **Type**: array  
- **Description**: The numeric age of the animal from which the sample was collected, at the time of sample collection, if known (e.g., in monitored populations). <details><summary> Array Items </summary> * **type**: number, null  
-**minItems**: 1  
-**minimum**: 0   </details>  
+ **Description**: The numeric age of the animal from which the sample was collected, at the time of sample collection, if known (e.g., in monitored populations). <details><summary> Array Items </summary>
+ - **type**: number, null  
+- **minItems**: 1  
+- **minimum**: 0   </details>  
 
 ### ageUnits  
  **Type**: array  
- **Description**: The units in which age is measured (usually years). <details><summary> Array Items </summary> * **type**: string, null  
-**enum**: years, months, days, hours, minutes, seconds  
-**minItems**: 1   </details>  
+ **Description**: The units in which age is measured (usually years). <details><summary> Array Items </summary>
+ - **type**: string, null  
+- **enum**: years, months, days, hours, minutes, seconds  
+- **minItems**: 1   </details>  
 
 ### mass  
  **Type**: array  
- **Description**: The mass of the animal from which the sample was collected, at the time of sample collection. <details><summary> Array Items </summary> * **type**: number, null  
-**minItems**: 1  
-**minimum**: 0   </details>  
+ **Description**: The mass of the animal from which the sample was collected, at the time of sample collection. <details><summary> Array Items </summary>
+ - **type**: number, null  
+- **minItems**: 1  
+- **minimum**: 0   </details>  
 
 ### massUnits  
  **Type**: array  
- **Description**: The units that mass is recorded in (e.g., kg). <details><summary> Array Items </summary> * **type**: string, null  
-**minItems**: 1   </details>  
+ **Description**: The units that mass is recorded in (e.g., kg). <details><summary> Array Items </summary>
+ - **type**: string, null  
+- **minItems**: 1   </details>  
 
 ### length  
  **Type**: array  
- **Description**: The numeric length of the animal from which the sample was collected, at the time of sample collection. <details><summary> Array Items </summary> * **type**: number, null  
-**minItems**: 1  
-**minimum**: 0   </details>  
+ **Description**: The numeric length of the animal from which the sample was collected, at the time of sample collection. <details><summary> Array Items </summary>
+ - **type**: number, null  
+- **minItems**: 1  
+- **minimum**: 0   </details>  
 
 ### lengthMeasurement  
  **Type**: array  
- **Description**: The axis of measurement for the organism being measured (e.g., snout-vent length or just SVL; wing length; primary feather). <details><summary> Array Items </summary> * **type**: string, null  
-**minItems**: 1   </details>  
+ **Description**: The axis of measurement for the organism being measured (e.g., snout-vent length or just SVL; wing length; primary feather). <details><summary> Array Items </summary>
+ - **type**: string, null  
+- **minItems**: 1   </details>  
 
 ### lengthUnits  
  **Type**: array  
- **Description**: The units that length is recorded in (e.g., meters). <details><summary> Array Items </summary> * **type**: string, null  
-**minItems**: 1   </details>  
+ **Description**: The units that length is recorded in (e.g., meters). <details><summary> Array Items </summary>
+ - **type**: string, null  
+- **minItems**: 1   </details>  
 
 ### organismQuantity  
  **Type**: array  
- **Description**: A number or enumeration value for the quantity of organisms. See http://rs.tdwg.org/dwc/terms/organismQuantity <details><summary> Array Items </summary> * **type**: number, null  
-**minItems**: 1  
-**minimum**: 0   </details>  
+ **Description**: A number or enumeration value for the quantity of organisms. See http://rs.tdwg.org/dwc/terms/organismQuantity <details><summary> Array Items </summary>
+ - **type**: number, null  
+- **minItems**: 1  
+- **minimum**: 0   </details>  
 
 ### organismQuantityUnits  
  **Type**: array  
- **Description**: The units that organism quantity is recorded in (e.g. “individuals”). See http://rs.tdwg.org/dwc/iri/organismQuantityType <details><summary> Array Items </summary> * **type**: string, null  
-**minItems**: 1   </details>  
+ **Description**: The units that organism quantity is recorded in (e.g. “individuals”). See http://rs.tdwg.org/dwc/iri/organismQuantityType <details><summary> Array Items </summary>
+ - **type**: string, null  
+- **minItems**: 1   </details>  
 
 ### detectionTarget  
  **Type**: array  
- **Description**: **REQUIRED** The taxonomic identity of the parasite being screened for in the sample. This will often be coarser than the identity of a specific parasite identified in the sample: for example, in a study screening for novel bat coronaviruses, the entire family Coronaviridae might be the target; in a parasite dissection, the targets might be Acanthocephala, Cestoda, Nematoda, and Trematoda. For deep sequencing approaches (e.g., metagenomic and metatranscriptomic viral discovery), researchers should report each alignment target used as a new test to maximize reporting of negative data, or alternatively, select a subset that reflect specific study objectives and the focus of analysis (e.g., specific viral families). See http://rs.tdwg.org/dwc/terms/associatedOccurrences <details><summary> Array Items </summary> * **type**: string, null  
-**minItems**: 1   </details>  
+ **Description**: **REQUIRED** The taxonomic identity of the parasite being screened for in the sample. This will often be coarser than the identity of a specific parasite identified in the sample: for example, in a study screening for novel bat coronaviruses, the entire family Coronaviridae might be the target; in a parasite dissection, the targets might be Acanthocephala, Cestoda, Nematoda, and Trematoda. For deep sequencing approaches (e.g., metagenomic and metatranscriptomic viral discovery), researchers should report each alignment target used as a new test to maximize reporting of negative data, or alternatively, select a subset that reflect specific study objectives and the focus of analysis (e.g., specific viral families). See http://rs.tdwg.org/dwc/terms/associatedOccurrences <details><summary> Array Items </summary>
+ - **type**: string, null  
+- **minItems**: 1   </details>  
 
 ### detectionMethod  
  **Type**: array  
- **Description**: **REQUIRED** The type of test performed to detect the parasite or parasite-specific antibody (e.g., 'qPCR', ‘ELISA’) <details><summary> Array Items </summary> * **type**: string, null  
-**minItems**: 1   </details>  
+ **Description**: **REQUIRED** The type of test performed to detect the parasite or parasite-specific antibody (e.g., 'qPCR', ‘ELISA’) <details><summary> Array Items </summary>
+ - **type**: string, null  
+- **minItems**: 1   </details>  
 
 ### forwardPrimerSequence  
  **Type**: array  
- **Description**: The sequence of the forward primer used for parasite detection (e.g., for a pan-coronavirus primer: 5’ CDCAYGARTTYTGYTCNCARC 3'). (Strongly encouraged if applicable, e.g., for PCR.) <details><summary> Array Items </summary> * **type**: string, null  
-**minItems**: 1   </details>  
+ **Description**: The sequence of the forward primer used for parasite detection (e.g., for a pan-coronavirus primer: 5’ CDCAYGARTTYTGYTCNCARC 3'). (Strongly encouraged if applicable, e.g., for PCR.) <details><summary> Array Items </summary>
+ - **type**: string, null  
+- **minItems**: 1   </details>  
 
 ### reversePrimerSequence  
  **Type**: array  
- **Description**: The sequence of the reverse primer used for parasite detection (e.g., 5’ RHGGRTANGCRTCWATDGC 3'). (Strongly encouraged if applicable, e.g., for PCR.) <details><summary> Array Items </summary> * **type**: string, null  
-**minItems**: 1   </details>  
+ **Description**: The sequence of the reverse primer used for parasite detection (e.g., 5’ RHGGRTANGCRTCWATDGC 3'). (Strongly encouraged if applicable, e.g., for PCR.) <details><summary> Array Items </summary>
+ - **type**: string, null  
+- **minItems**: 1   </details>  
 
 ### geneTarget  
  **Type**: array  
- **Description**: The parasite gene targeted by the primer (e.g. “RdRp” for PCR.). <details><summary> Array Items </summary> * **type**: string, null  
-**minItems**: 1   </details>  
+ **Description**: The parasite gene targeted by the primer (e.g. “RdRp” for PCR.). <details><summary> Array Items </summary>
+ - **type**: string, null  
+- **minItems**: 1   </details>  
 
 ### primerCitation  
  **Type**: array  
- **Description**: Citation(s) for the primer(s) (ideally doi, or other permanent identifier for a work, e.g. PMID).  <details><summary> Array Items </summary> * **type**: string, null  
-**minItems**: 1   </details>  
+ **Description**: Citation(s) for the primer(s) (ideally doi, or other permanent identifier for a work, e.g. PMID).  <details><summary> Array Items </summary>
+ - **type**: string, null  
+- **minItems**: 1   </details>  
 
 ### probeTarget  
  **Type**: array  
- **Description**: Antibody or antigen targeted for detection. (Strongly encouraged if applicable, e.g., for ELISA.) <details><summary> Array Items </summary> * **type**: string, null  
-**minItems**: 1   </details>  
+ **Description**: Antibody or antigen targeted for detection. (Strongly encouraged if applicable, e.g., for ELISA.) <details><summary> Array Items </summary>
+ - **type**: string, null  
+- **minItems**: 1   </details>  
 
 ### probeType  
  **Type**: array  
- **Description**: Antibody or antigen used for detection. (Strongly encouraged if applicable, e.g., for ELISA.) <details><summary> Array Items </summary> * **type**: string, null  
-**minItems**: 1   </details>  
+ **Description**: Antibody or antigen used for detection. (Strongly encouraged if applicable, e.g., for ELISA.) <details><summary> Array Items </summary>
+ - **type**: string, null  
+- **minItems**: 1   </details>  
 
 ### probeCitation  
  **Type**: array  
- **Description**: Citation(s) for the probe(s) (ideally doi, or other permanent identifier for a work, e.g. PMID).  <details><summary> Array Items </summary> * **type**: string, null  
-**minItems**: 1   </details>  
+ **Description**: Citation(s) for the probe(s) (ideally doi, or other permanent identifier for a work, e.g. PMID).  <details><summary> Array Items </summary>
+ - **type**: string, null  
+- **minItems**: 1   </details>  
 
 ### detectionOutcome  
  **Type**: array  
- **Description**: **REQUIRED** The test result (i.e., positive, negative, or inconclusive). To avoid ambiguity, these specific values are suggested over numeric values (0 or 1). See http://rs.tdwg.org/dwc/terms/occurrenceStatus <details><summary> Array Items </summary> * **type**: string, null  
-**minItems**: 1   </details>  
+ **Description**: **REQUIRED** The test result (i.e., positive, negative, or inconclusive). To avoid ambiguity, these specific values are suggested over numeric values (0 or 1). See http://rs.tdwg.org/dwc/terms/occurrenceStatus <details><summary> Array Items </summary>
+ - **type**: string, null  
+- **minItems**: 1   </details>  
 
 ### detectionMeasurement  
  **Type**: array  
- **Description**: Any numeric measurement of parasite detection that is more detailed than simple positive or negative results (e.g., viral titer, parasite counts, sequence reads). <details><summary> Array Items </summary> * **type**: number, null  
-**minItems**: 1   </details>  
+ **Description**: Any numeric measurement of parasite detection that is more detailed than simple positive or negative results (e.g., viral titer, parasite counts, sequence reads). <details><summary> Array Items </summary>
+ - **type**: number, null  
+- **minItems**: 1   </details>  
 
 ### detectionMeasurementUnits  
  **Type**: array  
- **Description**: Units for quantitative measurements of parasite intensity or test results (e.g., Ct, TCID50/mL, or parasite count). <details><summary> Array Items </summary> * **type**: string, null  
-**minItems**: 1   </details>  
+ **Description**: Units for quantitative measurements of parasite intensity or test results (e.g., Ct, TCID50/mL, or parasite count). <details><summary> Array Items </summary>
+ - **type**: string, null  
+- **minItems**: 1   </details>  
 
 ### parasiteIdentification  
  **Type**: array  
- **Description**: **REQUIRED** The identity of a parasite detected by the test, if any, reported to the lowest possible taxonomic level, either as a Linnaean binomial classification or within the convention of a relevant taxonomic authority (e.g., Borrelia burgdorferi or Zika virus). Parasite identification may be more specific than detection target. <details><summary> Array Items </summary> * **type**: string, null  
-**minItems**: 1   </details>  
+ **Description**: **REQUIRED** The identity of a parasite detected by the test, if any, reported to the lowest possible taxonomic level, either as a Linnaean binomial classification or within the convention of a relevant taxonomic authority (e.g., Borrelia burgdorferi or Zika virus). Parasite identification may be more specific than detection target. <details><summary> Array Items </summary>
+ - **type**: string, null  
+- **minItems**: 1   </details>  
 
 ### parasiteID  
  **Type**: array  
- **Description**: A researcher-generated unique ID for an individual parasite (primarily useful in nested cases where this ID is used as an animal ID in another row, such as pathogen  testing of a blood-feeding arthropod removed from a vertebrate host). <details><summary> Array Items </summary> * **type**: string, null  
-**minItems**: 1   </details>  
+ **Description**: A researcher-generated unique ID for an individual parasite (primarily useful in nested cases where this ID is used as an animal ID in another row, such as pathogen  testing of a blood-feeding arthropod removed from a vertebrate host). <details><summary> Array Items </summary>
+ - **type**: string, null  
+- **minItems**: 1   </details>  
 
 ### parasiteLifeStage  
  **Type**: array  
- **Description**: The life stage of the parasite from which the sample was collected (as appropriate for the organism) (e.g., juvenile, adult). <details><summary> Array Items </summary> * **type**: string, null  
-**minItems**: 1   </details>  
+ **Description**: The life stage of the parasite from which the sample was collected (as appropriate for the organism) (e.g., juvenile, adult). <details><summary> Array Items </summary>
+ - **type**: string, null  
+- **minItems**: 1   </details>  
 
 ### genbankAccession  
  **Type**: array  
- **Description**: The GenBank accession for any parasite genetic sequence(s), if appropriate.  Accession numbers or other identifiers for related data stored on another platform should be added in a different field (e.g. GISAID Accession, Immport Accession). See http://rs.tdwg.org/dwc/terms/otherCatalogNumbers  <details><summary> Array Items </summary> * **type**: string, null  
-**minItems**: 1   </details>  
-  
+ **Description**: The GenBank accession for any parasite genetic sequence(s), if appropriate.  Accession numbers or other identifiers for related data stored on another platform should be added in a different field (e.g. GISAID Accession, Immport Accession). See http://rs.tdwg.org/dwc/terms/otherCatalogNumbers  <details><summary> Array Items </summary>
+ - **type**: string, null  
+- **minItems**: 1   </details>  
+ 
 
 ## project_metadata  
 **Description**: **REQUIRED** Metadata for a project that largely follows the Datacite data standard.  
- **Reference**:schemas/project_metadata.json  
+ **Reference**: schemas/project_metadata.json  
 
-### methodology  
+ ### methodology  
  **Type**: object  
  **Description**: **REQUIRED** broad categorization of how data were collected.  
 
 ### creators  
  **Type**: array  
- **Description**: **REQUIRED** The full names of the creators. Should be in the format familyName, givenName. <details><summary> Array Items </summary> * 
-**REQUIRED** The full names of the creators. Should be in the format familyName, givenName. <details><summary> Array Items </summary> * ### name  
+ **Description**: **REQUIRED** The full names of the creators. Should be in the format familyName, givenName. <details><summary> Array Items </summary>
+ - ### name  
  **Type**: string  
- **Description**: **REQUIRED** see https://datacite-metadata-schema.readthedocs.io/en/4.5/properties/  
+ **Description**: **REQUIRED** [DataCite name](https://datacite-metadata-schema.readthedocs.io/en/4.5/search/?q=name&check_keywords=yes&area=default)  
 
-### nameType  
+- ### nameType  
  **Type**: string  
- **Description**: see https://datacite-metadata-schema.readthedocs.io/en/4.5/properties/  
+ **Description**: [DataCite nameType](https://datacite-metadata-schema.readthedocs.io/en/4.5/search/?q=nameType&check_keywords=yes&area=default)  
 
-### givenName  
+- ### givenName  
  **Type**: string  
- **Description**: see https://datacite-metadata-schema.readthedocs.io/en/4.5/properties/  
+ **Description**: [DataCite givenName](https://datacite-metadata-schema.readthedocs.io/en/4.5/search/?q=givenName&check_keywords=yes&area=default)  
 
-### familyName  
+- ### familyName  
  **Type**: string  
- **Description**: see https://datacite-metadata-schema.readthedocs.io/en/4.5/properties/  
+ **Description**: [DataCite familyName](https://datacite-metadata-schema.readthedocs.io/en/4.5/search/?q=familyName&check_keywords=yes&area=default)  
 
-### nameIdentifiers  
+- ### nameIdentifiers  
  **Type**: array  
- **Description**: see https://datacite-metadata-schema.readthedocs.io/en/4.5/properties/ <details><summary> Array Items </summary> * 
-**additionalProperties**: FALSE  
-**properties**: string, string, string, uri  
-**required**: nameIdentifier, nameIdentifierScheme   </details>  
-
-### affiliation  
- **Type**: array  
- **Description**: see https://datacite-metadata-schema.readthedocs.io/en/4.5/properties/ <details><summary> Array Items </summary> * 
-**additionalProperties**: FALSE  
-**properties**: string, string, string, string, uri  
-**required**: name   </details>  
-
-### lang  
+ **Description**: [DataCite nameIdentifiers](https://datacite-metadata-schema.readthedocs.io/en/4.5/search/?q=nameIdentifiers&check_keywords=yes&area=default) <details><summary> Array Items </summary>
+ - [DataCite nameIdentifiers](https://datacite-metadata-schema.readthedocs.io/en/4.5/search/?q=nameIdentifiers&check_keywords=yes&area=default) <details><summary> Array Items </summary>
+ - ### nameIdentifier  
  **Type**: string  
- **Description**: see https://datacite-metadata-schema.readthedocs.io/en/4.5/properties/  
- </details>
-**required**: name   </details>  
+ **Description**: **REQUIRED** [DataCite nameIdentifier](https://datacite-metadata-schema.readthedocs.io/en/4.5/search/?q=nameIdentifier&check_keywords=yes&area=default)  
+
+- ### nameIdentifierScheme  
+ **Type**: string  
+ **Description**: **REQUIRED** [DataCite nameIdentifierScheme](https://datacite-metadata-schema.readthedocs.io/en/4.5/search/?q=nameIdentifierScheme&check_keywords=yes&area=default)  
+
+- ### schemeUri  
+ **Type**: string  
+ **Description**: [DataCite schemeUri](https://datacite-metadata-schema.readthedocs.io/en/4.5/search/?q=schemeUri&check_keywords=yes&area=default)  
+ </details> </details>  
+
+- ### affiliation  
+ **Type**: array  
+ **Description**: [DataCite affiliation](https://datacite-metadata-schema.readthedocs.io/en/4.5/search/?q=affiliation&check_keywords=yes&area=default) <details><summary> Array Items </summary>
+ - [DataCite affiliation](https://datacite-metadata-schema.readthedocs.io/en/4.5/search/?q=affiliation&check_keywords=yes&area=default) <details><summary> Array Items </summary>
+ - ### name  
+ **Type**: string  
+ **Description**: **REQUIRED** [DataCite name](https://datacite-metadata-schema.readthedocs.io/en/4.5/search/?q=name&check_keywords=yes&area=default)  
+
+- ### affiliationIdentifier  
+ **Type**: string  
+ **Description**: [DataCite affiliationIdentifier](https://datacite-metadata-schema.readthedocs.io/en/4.5/search/?q=affiliationIdentifier&check_keywords=yes&area=default)  
+
+- ### affiliationIdentifierScheme  
+ **Type**: string  
+ **Description**: [DataCite affiliationIdentifierScheme](https://datacite-metadata-schema.readthedocs.io/en/4.5/search/?q=affiliationIdentifierScheme&check_keywords=yes&area=default)  
+
+- ### schemeUri  
+ **Type**: string  
+ **Description**: [DataCite schemeUri](https://datacite-metadata-schema.readthedocs.io/en/4.5/search/?q=schemeUri&check_keywords=yes&area=default)  
+ </details> </details>  
+
+- ### lang  
+ **Type**: string  
+ **Description**: [DataCite lang](https://datacite-metadata-schema.readthedocs.io/en/4.5/search/?q=lang&check_keywords=yes&area=default)  
+
+- **allOf**: #/definitions/creator  
+- **required**: name   </details>  
 
 ### titles  
  **Type**: array  
- **Description**: **REQUIRED** A name or title by which a resource is known. <details><summary> Array Items </summary> * 
-**additionalProperties**: FALSE  
-**properties**: string, #/definitions/titleType, string  
-**required**: title   </details>  
+ **Description**: **REQUIRED** A name or title by which a resource is known. <details><summary> Array Items </summary>
+ - **REQUIRED** A name or title by which a resource is known. <details><summary> Array Items </summary>
+ - ### title  
+ **Type**: string  
+ **Description**: **REQUIRED** [DataCite title](https://datacite-metadata-schema.readthedocs.io/en/4.5/search/?q=title&check_keywords=yes&area=default)  
+
+- ### titleType  
+ **Type**: string  
+ **Description**: [DataCite titleType](https://datacite-metadata-schema.readthedocs.io/en/4.5/search/?q=titleType&check_keywords=yes&area=default)  
+
+- ### lang  
+ **Type**: string  
+ **Description**: [DataCite lang](https://datacite-metadata-schema.readthedocs.io/en/4.5/search/?q=lang&check_keywords=yes&area=default)  
+ </details> </details>  
 
 ### identifier  
  **Type**: array  
- **Description**: A unique string that identifies a resource. <details><summary> Array Items </summary> * 
-**properties**: string, datacite/datacite-v4.5.json#/definitions/relatedIdentifierType  
-**required**: identifier  
-**uniqueItems**: TRUE   </details>  
+ **Description**: A unique string that identifies a resource. <details><summary> Array Items </summary>
+ - A unique string that identifies a resource. <details><summary> Array Items </summary>
+ - ### identifier  
+ **Type**: string  
+ **Description**: **REQUIRED** [DataCite identifier](https://datacite-metadata-schema.readthedocs.io/en/4.5/search/?q=identifier&check_keywords=yes&area=default)  
+
+- ### identifierType  
+ **Type**: string  
+ **Description**: [DataCite identifierType](https://datacite-metadata-schema.readthedocs.io/en/4.5/search/?q=identifierType&check_keywords=yes&area=default)  
+ </details> </details>  
 
 ### publicationYear  
  **Type**: string  
@@ -394,16 +479,49 @@ create_schema_docs() |>
 
 ### rights  
  **Type**: array  
- **Description**: Any rights information for this resource. <details><summary> Array Items </summary> * 
-**additionalProperties**: FALSE  
-**properties**: string, string, uri, string, string, string, uri, string   </details>  
+ **Description**: Any rights information for this resource. <details><summary> Array Items </summary>
+ - Any rights information for this resource. <details><summary> Array Items </summary>
+ - ### rights  
+ **Type**: string  
+ **Description**: [DataCite rights](https://datacite-metadata-schema.readthedocs.io/en/4.5/search/?q=rights&check_keywords=yes&area=default)  
+
+- ### rightsUri  
+ **Type**: string  
+ **Description**: [DataCite rightsUri](https://datacite-metadata-schema.readthedocs.io/en/4.5/search/?q=rightsUri&check_keywords=yes&area=default)  
+
+- ### rightsIdentifier  
+ **Type**: string  
+ **Description**: [DataCite rightsIdentifier](https://datacite-metadata-schema.readthedocs.io/en/4.5/search/?q=rightsIdentifier&check_keywords=yes&area=default)  
+
+- ### rightsIdentifierScheme  
+ **Type**: string  
+ **Description**: [DataCite rightsIdentifierScheme](https://datacite-metadata-schema.readthedocs.io/en/4.5/search/?q=rightsIdentifierScheme&check_keywords=yes&area=default)  
+
+- ### schemeUri  
+ **Type**: string  
+ **Description**: [DataCite schemeUri](https://datacite-metadata-schema.readthedocs.io/en/4.5/search/?q=schemeUri&check_keywords=yes&area=default)  
+
+- ### lang  
+ **Type**: string  
+ **Description**: [DataCite lang](https://datacite-metadata-schema.readthedocs.io/en/4.5/search/?q=lang&check_keywords=yes&area=default)  
+ </details> </details>  
 
 ### descriptions  
  **Type**: array  
- **Description**: **REQUIRED** All additional information that does not fit in any of the other categories. May be used for technical information or detailed information associated with a scientific instrument. <details><summary> Array Items </summary> * 
-**additionalProperties**: FALSE  
-**properties**: string, #/definitions/descriptionType, string  
-**required**: description, descriptionType   </details>  
+ **Description**: **REQUIRED** All additional information that does not fit in any of the other categories. May be used for technical information or detailed information associated with a scientific instrument. <details><summary> Array Items </summary>
+ - **REQUIRED** All additional information that does not fit in any of the other categories. May be used for technical information or detailed information associated with a scientific instrument. <details><summary> Array Items </summary>
+ - ### description  
+ **Type**: string  
+ **Description**: **REQUIRED** [DataCite description](https://datacite-metadata-schema.readthedocs.io/en/4.5/search/?q=description&check_keywords=yes&area=default)  
+
+- ### descriptionType  
+ **Type**: string  
+ **Description**: **REQUIRED** [DataCite descriptionType](https://datacite-metadata-schema.readthedocs.io/en/4.5/search/?q=descriptionType&check_keywords=yes&area=default)  
+
+- ### lang  
+ **Type**: string  
+ **Description**: [DataCite lang](https://datacite-metadata-schema.readthedocs.io/en/4.5/search/?q=lang&check_keywords=yes&area=default)  
+ </details> </details>  
 
 ### language  
  **Type**: string  
@@ -411,40 +529,60 @@ create_schema_docs() |>
 
 ### fundingReferences  
  **Type**: array  
- **Description**: **REQUIRED** Name and other identifying information of a funding provider. <details><summary> Array Items </summary> * 
-**additionalProperties**: FALSE  
-**properties**: string, string, #/definitions/funderIdentifierType, string, string, uri, string  
-**required**: funderName   </details>  
+ **Description**: **REQUIRED** Name and other identifying information of a funding provider. <details><summary> Array Items </summary>
+ - **REQUIRED** Name and other identifying information of a funding provider. <details><summary> Array Items </summary>
+ - ### funderName  
+ **Type**: string  
+ **Description**: **REQUIRED** [DataCite funderName](https://datacite-metadata-schema.readthedocs.io/en/4.5/search/?q=funderName&check_keywords=yes&area=default)  
+
+- ### funderIdentifier  
+ **Type**: string  
+ **Description**: [DataCite funderIdentifier](https://datacite-metadata-schema.readthedocs.io/en/4.5/search/?q=funderIdentifier&check_keywords=yes&area=default)  
+
+- ### funderIdentifierType  
+ **Type**: string  
+ **Description**: [DataCite funderIdentifierType](https://datacite-metadata-schema.readthedocs.io/en/4.5/search/?q=funderIdentifierType&check_keywords=yes&area=default)  
+
+- ### awardNumber  
+ **Type**: string  
+ **Description**: [DataCite awardNumber](https://datacite-metadata-schema.readthedocs.io/en/4.5/search/?q=awardNumber&check_keywords=yes&area=default)  
+
+- ### awardUri  
+ **Type**: string  
+ **Description**: [DataCite awardUri](https://datacite-metadata-schema.readthedocs.io/en/4.5/search/?q=awardUri&check_keywords=yes&area=default)  
+
+- ### awardTitle  
+ **Type**: string  
+ **Description**: [DataCite awardTitle](https://datacite-metadata-schema.readthedocs.io/en/4.5/search/?q=awardTitle&check_keywords=yes&area=default)  
+ </details> </details>  
 
 ### relatedIdentifiers  
  **Type**: array  
- **Description**: see https://datacite-metadata-schema.readthedocs.io/en/4.5/properties/ <details><summary> Array Items </summary> * 
-see https://datacite-metadata-schema.readthedocs.io/en/4.5/properties/ <details><summary> Array Items </summary> * ### relationType  
+ **Description**: [DataCite relatedIdentifiers](https://datacite-metadata-schema.readthedocs.io/en/4.5/search/?q=relatedIdentifiers&check_keywords=yes&area=default) <details><summary> Array Items </summary>
+ - ### relationType  
  **Type**: string  
- **Description**: **REQUIRED** see https://datacite-metadata-schema.readthedocs.io/en/4.5/properties/  
+ **Description**: **REQUIRED** [DataCite relationType](https://datacite-metadata-schema.readthedocs.io/en/4.5/search/?q=relationType&check_keywords=yes&area=default)  
 
-### relatedMetadataScheme  
+- ### relatedMetadataScheme  
  **Type**: string  
- **Description**: see https://datacite-metadata-schema.readthedocs.io/en/4.5/properties/  
+ **Description**: [DataCite relatedMetadataScheme](https://datacite-metadata-schema.readthedocs.io/en/4.5/search/?q=relatedMetadataScheme&check_keywords=yes&area=default)  
 
-### schemeUri  
+- ### schemeUri  
  **Type**: string  
- **Description**: see https://datacite-metadata-schema.readthedocs.io/en/4.5/properties/  
+ **Description**: [DataCite schemeUri](https://datacite-metadata-schema.readthedocs.io/en/4.5/search/?q=schemeUri&check_keywords=yes&area=default)  
 
-### schemeType  
+- ### schemeType  
  **Type**: string  
- **Description**: see https://datacite-metadata-schema.readthedocs.io/en/4.5/properties/  
+ **Description**: [DataCite schemeType](https://datacite-metadata-schema.readthedocs.io/en/4.5/search/?q=schemeType&check_keywords=yes&area=default)  
 
-### resourceTypeGeneral  
+- ### resourceTypeGeneral  
  **Type**: string  
- **Description**: see https://datacite-metadata-schema.readthedocs.io/en/4.5/properties/  
- </details>
-**unevaluatedProperties**: FALSE  
-**properties**: string, #/definitions/relatedIdentifierType  
-**required**: relatedIdentifier, relatedIdentifierType, relationType  
-**if**: #/definitions/relatedObjectIf  
-**else**: #/definitions/relatedObjectElse   </details>  
-## Other packages of interest
-- deposits
-- jsonvalidate
+ **Description**: [DataCite resourceTypeGeneral](https://datacite-metadata-schema.readthedocs.io/en/4.5/search/?q=resourceTypeGeneral&check_keywords=yes&area=default)  
 
+- **allOf**: #/definitions/relatedObject  
+- **unevaluatedProperties**: FALSE  
+- **properties**: string, #/definitions/relatedIdentifierType  
+- **required**: relatedIdentifier, relatedIdentifierType, relationType  
+- **if**: #/definitions/relatedObjectIf  
+- **else**: #/definitions/relatedObjectElse   </details>  
+ 

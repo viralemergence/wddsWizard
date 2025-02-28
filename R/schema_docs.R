@@ -65,6 +65,7 @@ get_required_fields <- function(schema_list){
 create_object_docs <- function(x,idx, required_fields, schema_dir){
 
   title <- idx
+
   description <- x$description
 
   if(rlang::is_empty(description)){
@@ -73,7 +74,8 @@ create_object_docs <- function(x,idx, required_fields, schema_dir){
 
     ## pull sub folder
     if(stringr::str_detect(the$current_schema_dir,"datacite")){
-      description <- "see https://datacite-metadata-schema.readthedocs.io/en/4.5/properties/"
+      query_url <- sprintf("https://datacite-metadata-schema.readthedocs.io/en/4.5/search/?q=%s&check_keywords=yes&area=default",title)
+      description <- sprintf("[DataCite %s](%s)",title,query_url)
     }
 
     if(stringr::str_detect(the$current_schema_dir,"dwc")){
@@ -91,6 +93,13 @@ create_object_docs <- function(x,idx, required_fields, schema_dir){
   if("$ref" %in% names(x)){
 
     reference_pointer <- x[["$ref"]]
+
+    print("create_object_docs: reference in object")
+    print(reference_pointer)
+
+    if("#/definitions/affiliation" == reference_pointer){
+      # browser()
+    }
     x <- get_ref(x,schema_dir)
 
     # break out of the cycle if x is character
@@ -101,48 +110,71 @@ create_object_docs <- function(x,idx, required_fields, schema_dir){
       the$current_schema_path <- the$parent_schema_path
       the$current_schema_dir <- the$parent_schema_dir
 
-      out  <- sprintf("## %s  \n**Description**: %s  \n **Reference**:%s  \n\n%s  \n", title, description,reference_pointer,x)
+      out  <- sprintf("## %s  \n**Description**: %s  \n **Reference**: %s  \n\n %s \n", title, description,reference_pointer,x)
 
       return(out)
     }
   }
 
+if(idx =="person"){
+  browser()
+}
+  # print("create_object_docs: title")
+  # print(title)
   type <- x$type
-
+  the$array_items <- x$items
+  the$array_items_skip <- FALSE
   if(type == "array"){
-
     items  <- purrr::imap_chr(x$items,function(x,idx){
+      # skip other array items if
+      if(the$array_items_skip){
+        return("")
+      }
 
       # if its an object
       if((idx == "type" & "object" %in% x)){
-        if(is.atomic(x)){
-          # okay so this object is an empty husk that references a definition
-          return("")
-        }
 
-        sub_object <- purrr::imap(x,\(x,idx) create_object_docs(x,idx,required_fields)) |>
-          purrr::reduce(paste_reduce,.dir = "backward")
+#         if(is.atomic(x)){
+#           browser()
+#           # okay so this object is an empty husk that references a definition
+#           print("atomic object")
+#           return("")
+#         }
+          # print("object with properties")
 
-        x_chr <- paste(description,"<details><summary> Array Items </summary> *",sub_object,"</details>",collapse = "")
-      } else if(
-        (idx == "allOf" & "$ref" %in% names(x[[1]]))
-      ){
+          if("allOf" %in% names(the$array_items)){
+            # browser()
+            print("create_object_docs: allof in array_item")
+            x <- get_ref(the$array_items$allOf[[1]], the$current_schema_dir)
+            x_required_fields <- unlist(x$required)
+            sub_object <- purrr::imap(x$properties,\(x,idx) create_object_docs(x,idx,x_required_fields,schema_dir = the$current_schema_dir)) |>
+              purrr::reduce(paste_reduce_ul,.dir = "backward")
 
-        x <- get_ref(x[[1]], the$current_schema_dir)
-        x_required_fields <- unlist(x$required)
-        sub_object <- purrr::imap(x$properties,\(x,idx) create_object_docs(x,idx,x_required_fields)) |>
-          purrr::reduce(paste_reduce,.dir = "backward")
+            ## dropped description
+             x_chr <- paste(sub_object,collapse = "\n")
 
-        x_chr <- paste(description,"<details><summary> Array Items </summary> *",sub_object,"</details>",collapse = "")
+            return(x_chr)
+            }
+
+        required_fields_array <- get_required_fields(the$array_items)
+        sub_object <- purrr::imap(the$array_items$properties,\(x,idx) create_object_docs(x,idx,required_fields_array, schema_dir = the$current_schema_dir)) |>
+          purrr::reduce(paste_reduce_ul,.dir = "backward")
+
+        x_chr <- paste(description,"<details><summary> Array Items </summary>\n -",sub_object,"</details>",collapse = "")
+        the$array_items_skip <- TRUE
+        return(x_chr)
       } else {
         x_chr <- unlist(x) |> paste(collapse = ", ")
         x_chr <- sprintf("**%s**: %s  ",idx, x_chr)
       }
 
       return(x_chr)
-    }) |>
-      purrr::reduce(.f = paste_reduce)
-    description <- paste(description,"<details><summary> Array Items </summary> *",items,"</details>",collapse = "")
+    })
+
+    items_chr <- items |>
+      purrr::keep(\(x)(x!="")) |>
+      purrr::reduce(.f = paste_reduce_ul)
+    description <- paste(description,"<details><summary> Array Items </summary>\n -",items_chr,"</details>",collapse = "")
   }
 
   out  <- sprintf("### %s  \n **Type**: %s  \n **Description**: %s  \n", title,type, description)
@@ -175,6 +207,28 @@ paste_reduce <- function(x, y, sep = "\n"){
   paste(x, y, sep = sep)
 }
 
+#' Paste Reduce unordered list item
+#'
+#' A paste function that can be used with `purrr::reduce` to build up nested
+#' documentation items
+#'
+#' @param x Character
+#' @param y Character
+#' @param sep Character
+#'
+#' @returns Character
+#' @export
+#'
+#' @examples
+#'
+#' text_a <- "hello"
+#' text_b <- "world"
+#' paste_reduce(text_a,text_b)
+#'
+paste_reduce_ul <- function(x, y, sep = "\n- "){
+  paste(x, y, sep = sep)
+}
+
 #' Get schema references
 #'
 #' Parses $ref calls in a schema. Can retrieve internal ('"$ref":"#/definitions/someDef") or
@@ -191,8 +245,11 @@ paste_reduce <- function(x, y, sep = "\n"){
 #' @export
 get_ref <- function(x,schema_dir){
 
+
   # get the reference
   reference <- x[["$ref"]]
+  print("get_ref: pointer")
+  print(reference)
 
   external_reference<- FALSE
   # check if the schema is internal or external
@@ -238,11 +295,15 @@ get_ref <- function(x,schema_dir){
 
     ## check to see if the ref is a ref
     if("allOf" %in% names(out)){
+      print("get_ref: allof")
+      print(out$allOf[[1]])
       ### get the reference...
       out <-  get_ref(out$allOf[[1]], the$current_schema_dir)
     }
 
     if("$ref" %in% names(out)){
+      print("get_ref: $ref")
+      print(out["$ref"][1])
       ### get the reference...slightly different structure
       out <-  get_ref(out["$ref"][1], the$current_schema_dir)
     }
