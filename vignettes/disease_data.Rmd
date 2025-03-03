@@ -32,7 +32,7 @@ The following fields are required to be in the data.
 
 ```{r required fields, echo=FALSE, message=TRUE, warning=TRUE}
 
-wdds_data_required <- wddsWizard::wdds_schema$properties$data$properties[wddsWizard::data_required_fields]
+wdds_data_required <- wddsWizard::disease_data_schema$properties[wddsWizard::data_required_fields]
 
 descriptions <- purrr::map_depth(wdds_data_required,1,"description") 
   
@@ -101,8 +101,28 @@ all(wddsWizard::data_required_fields %in% names(becker_data_clean))
 becker_prepped <- prep_data(becker_data_clean)
 
 ## wrap the prepped data in list
-becker_data <- list(data = becker_prepped)
+becker_data_json <- becker_prepped |>
+  jsonlite::toJSON(pretty = TRUE)
 
-jsonlite::toJSON(becker_data,pretty = TRUE)
+```
 
+
+## Validate disease data
+```{r validate-data}
+
+schema <- here::here("inst/extdata/wdds_schema/schemas/disease_data.json")
+
+dd_validator <- jsonvalidate::json_validator(schema,engine = "ajv")
+
+dd_validation <- dd_validator(becker_data_json,verbose = TRUE)
+
+## check for errors!
+
+errors <- attributes(dd_validation)
+
+if(!dd_validation){
+  errors$errors  
+} else {
+  print("Valid project metadata!😁")
+}
 ```

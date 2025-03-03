@@ -16,7 +16,5 @@ becker_disease_data <- becker_data_prelim |>
     "collectionMethodAndOrTissue" = "collectionMethod"
   )
 
- becker_disease_clean
-
 
 usethis::use_data(becker_disease_data, overwrite = TRUE)

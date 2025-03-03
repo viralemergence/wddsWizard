@@ -5,7 +5,7 @@
 \alias{becker_project_metadata}
 \title{Becker et al. project metadata}
 \format{
-An object of class \code{list} of length 10.
+An object of class \code{list} of length 11.
 }
 \source{
 \url{https://www.ebi.ac.uk/pride/archive/projects/PXD031075}

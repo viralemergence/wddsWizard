@@ -186,6 +186,22 @@ prep_identifiers <- function(x){
   prep_array_objects(x)
 }
 
+#' Prepare related identifiers
+#'
+#' @param x data frame with related identifier properties
+#'
+#' @returns List with x marked as do not unbox
+#' @export
+#'
+#' @examples
+#'
+#' wddsWizard::becker_project_metadata$relatedIdentifiers |> prep_relatedIdentifiers()
+#'
+prep_relatedIdentifiers <- function(x){
+  prep_array_objects(x)
+}
+
+
 #' Prep language
 #'
 #'  Prepare the language property - this should describe the language
@@ -488,6 +504,7 @@ prep_methods <- function(){
     descriptions = prep_descriptions,
     fundingReferences = prep_fundingReferences,
     identifiers = prep_identifiers,
+    relatedIdentifiers = prep_relatedIdentifiers,
     language = prep_language,
     methodology = prep_methodology,
     publicationYear = prep_publicationYear,
