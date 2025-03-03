@@ -17,7 +17,7 @@
 #'
 #' create_schema_docs()
 #'
-create_schema_docs <- function(schema_path = the$current_schema_path){
+create_schema_docs <- function(schema_path = the$current_schema_path, sep = "\n"){
 
   # read in the json
   schema_list <- jsonlite::read_json(schema_path)
@@ -29,7 +29,7 @@ create_schema_docs <- function(schema_path = the$current_schema_path){
     create_object_docs(x,idx, required_fields =  required_fields, schema_dir = the$current_schema_dir)
   }
   ) |>
-    purrr::reduce(paste_reduce,.dir = "backward")
+    purrr::reduce(paste_reduce,sep = sep,.dir = "backward")
 
   return(schema_docs)
 }
@@ -64,9 +64,17 @@ get_required_fields <- function(schema_list){
 #' @export
 create_object_docs <- function(x,idx, required_fields, schema_dir){
 
+  # if(idx == "methodology"){
+  #   browser()
+  # }
   title <- idx
 
   description <- x$description
+
+  if("examples" %in% names(x)){
+    examples <- paste(x$examples , collapse = ", ")
+    description <- sprintf("%s  \n**Example Values**: %s\n",description,examples)
+  }
 
   if(rlang::is_empty(description)){
 
@@ -86,7 +94,7 @@ create_object_docs <- function(x,idx, required_fields, schema_dir){
   required <- idx %in% required_fields
 
   if(required){
-    description <- sprintf("**REQUIRED** %s", description)
+    description <- sprintf("<req>REQUIRED</req> %s", description)
   }
 
   # process a reference
@@ -116,11 +124,8 @@ create_object_docs <- function(x,idx, required_fields, schema_dir){
     }
   }
 
-if(idx =="creators"){
-  # browser()
-}
-  # print("create_object_docs: title")
-  # print(title)
+
+  ## process arrays
   type <- x$type
   the$array_items <- x$items
   the$array_items_skip <- FALSE
@@ -134,24 +139,31 @@ if(idx =="creators"){
       # if its an object
       if((idx == "type" & "object" %in% x)){
 
-#         if(is.atomic(x)){
-#           browser()
-#           # okay so this object is an empty husk that references a definition
-#           print("atomic object")
-#           return("")
-#         }
-          # print("object with properties")
-
           if("allOf" %in% names(the$array_items)){
-            # browser()
+
+            ## needed to check for properties
+            the$array_items_parent <- the$array_items
             print("create_object_docs: allof in array_item")
             x <- get_ref(the$array_items$allOf[[1]], the$current_schema_dir)
             x_required_fields <- unlist(x$required)
-            sub_object <- purrr::imap(x$properties,\(x,idx) create_object_docs(x,idx,x_required_fields,schema_dir = the$current_schema_dir)) |>
+            sub_object_allof <- purrr::imap(x$properties,\(x,idx) create_object_docs(x,idx,x_required_fields,schema_dir = the$current_schema_dir)) |>
               purrr::reduce(paste_reduce_ul,.dir = "backward")
 
             ## dropped description
-             x_chr <- paste(sub_object,collapse = "\n")
+             x_chr <- paste(sub_object_allof,collapse = "\n")
+
+             ## check if it also has properties
+
+             if("properties" %in% names(the$array_items_parent)){
+
+               required_fields_array <- get_required_fields(the$array_items_parent)
+
+               sub_object_properties <- purrr::imap(the$array_items_parent$properties,\(x,idx) create_object_docs(x,idx,required_fields_array, schema_dir = the$current_schema_dir)) |>
+                 purrr::reduce(paste_reduce_ul,.dir = "backward")
+
+               # mash to together all of and properties
+                x_chr <- sprintf("%s  \n- %s",sub_object_properties,x_chr)
+             }
 
             return(x_chr)
             }
@@ -176,6 +188,16 @@ if(idx =="creators"){
       purrr::reduce(.f = paste_reduce_ul)
     description <- paste(description,"<details><summary> Array Items </summary>\n <ul>\n-",items_chr,"</ul></details>",collapse = "")
   }
+
+  ### process objects
+  if(type == "object"){
+    required_fields_array <- get_required_fields(x)
+    sub_object <- purrr::imap(x$properties,\(x,idx) create_object_docs(x,idx,required_fields_array, schema_dir = the$current_schema_dir)) |>
+      purrr::reduce(paste_reduce_ul,.dir = "backward")
+
+    description <- sprintf("%s  \n**Properties**:  \n\n- %s", description,sub_object)
+  }
+
 
   out  <- sprintf("### %s  \n **Type**: %s  \n **Description**: %s  \n", title,type, description)
 
@@ -223,7 +245,7 @@ paste_reduce <- function(x, y, sep = "\n"){
 #'
 #' text_a <- "hello"
 #' text_b <- "world"
-#' paste_reduce(text_a,text_b)
+#' paste_reduce_ul(text_a,text_b)
 #'
 paste_reduce_ul <- function(x, y, sep = "\n- "){
   paste(x, y, sep = sep)
@@ -309,7 +331,10 @@ get_ref <- function(x,schema_dir){
     }
 
   } else {
-    out <- create_schema_docs(schema_path = the$current_schema_path)
+    out <- create_schema_docs(schema_path = the$current_schema_path, sep = "\n- ")
+
+    # make it a sublist
+    out <- sprintf("<ul>- %s</ul>",out)
   }
 
   return(out)

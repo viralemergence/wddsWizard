@@ -4,7 +4,7 @@
 \alias{create_schema_docs}
 \title{Create Documentation for a schema}
 \usage{
-create_schema_docs(schema_path = the$current_schema_path)
+create_schema_docs(schema_path = the$current_schema_path, sep = "\\n")
 }
 \arguments{
 \item{schema_path}{Character. Path to a json-schema}
@@ -13,7 +13,8 @@ create_schema_docs(schema_path = the$current_schema_path)
 character vector of markdown text
 }
 \description{
-Produces nested markdown that documents a schema
+Produces nested markdown that documents a schema. This is a
+recursive set of function
 }
 \examples{
 

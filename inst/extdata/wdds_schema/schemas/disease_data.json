@@ -40,7 +40,7 @@
             "minimum": -180
           }
         },
-        "spatialUncertaintiy":{
+        "spatialUncertainty":{
           "description":"Coordinate uncertainty from GPS recordings, post-hoc digitization, or systematic alterations (e.g., jittering or rounding) expressed in meters. See http://rs.tdwg.org/dwc/terms/coordinateUncertaintyInMeters",
           "type":"array",
           "items":{

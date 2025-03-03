@@ -3,7 +3,7 @@
 \docType{data}
 \name{project_metadata_schema}
 \alias{project_metadata_schema}
-\title{Wildlife Disease Data Standard}
+\title{Wildlife Disease Data Standard - project_metadata}
 \format{
 An object of class \code{list} of length 6.
 }

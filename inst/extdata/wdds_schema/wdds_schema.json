@@ -4,7 +4,7 @@
   "description":"Flexible data standard for wildlife disease data",
   "type": "object",
   "properties": {
-    "data":{
+    "disease_data":{
       "description":"Wildlife disease data. Stored in tidy form.",
       "$ref":"schemas/disease_data.json"
     },

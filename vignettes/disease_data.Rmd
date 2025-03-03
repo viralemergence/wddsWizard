@@ -101,7 +101,28 @@ all(wddsWizard::data_required_fields %in% names(becker_data_clean))
 becker_prepped <- prep_data(becker_data_clean)
 
 ## wrap the prepped data in list
-becker_data <- list(data = becker_prepped) |>
+becker_data_json <- becker_prepped |>
   jsonlite::toJSON(pretty = TRUE)
 
+```
+
+
+## Validate disease data
+```{r validate-data}
+
+schema <- here::here("inst/extdata/wdds_schema/schemas/disease_data.json")
+
+dd_validator <- jsonvalidate::json_validator(schema,engine = "ajv")
+
+dd_validation <- dd_validator(becker_data_json,verbose = TRUE)
+
+## check for errors!
+
+errors <- attributes(dd_validation)
+
+if(!dd_validation){
+  errors$errors  
+} else {
+  print("Valid project metadata!😁")
+}
 ```
