@@ -116,20 +116,19 @@ refers to a list or JSON object that contains both the `disease_data` and
 
 **Property**: synonymous with field or column in a table. 
 **Required**: A property is must be included for a given schema or object within a schema.
-**Array**: A comma separated group of values. Similar to a vector in R but a little more flexible. 
+**Array**: A comma separated group of values. Similar to a vector in R but a little more flexible.  
 
 
-# Schema terms
+# Terms
 
-Below is a list of schema terms. 
+Below is a list of terms for the data standard. 
 It is created directly from the `wdds_schema.json`
 file and reflects the structure of that file. 
 `disease_data` and `project_metadata` are top level properties of the schema, with many sub-properties.
 Any item marked as <req> REQUIRED </req> must be included. 
 
-```{r terms, eval=TRUE, include=FALSE, results="asis"}
+```{r terms, include=FALSE, results='asis'}
  library(wddsWizard)
 create_schema_docs() |>
   cat()
 ```
-

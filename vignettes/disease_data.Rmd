@@ -2,7 +2,7 @@
 title: "Wildlife Disease Data"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Field Data}
+  %\VignetteIndexEntry{Wildlife Disease Data}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

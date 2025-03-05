@@ -72,8 +72,8 @@
         "creators",
         "titles",
         "publicationYear",
-        "descriptions",
         "language",
+        "descriptions",
         "fundingReferences"
     ]
 }

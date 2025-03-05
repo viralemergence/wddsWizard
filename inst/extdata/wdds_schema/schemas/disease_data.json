@@ -160,7 +160,7 @@
             "type":"array",
             "items":{
               "type": ["string","null"],
-              "enum":["years","months","days","hours","minutes","seconds"],
+              "enum":["years","months","days","hours","minutes","seconds",null],
               "minItems":1
             }
           },

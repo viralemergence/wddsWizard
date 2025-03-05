@@ -584,3 +584,22 @@ get_entity <- function(x){
 
   return(z)
 }
+
+#' Clean Field Names
+#'
+#' @param x Data frame or other named object
+#'
+#' @returns object with names in `snakecase::to_lower_camel_case` format
+#'
+#' @export
+#'
+#' @examples
+#'
+#' df  <- data.frame("Sample ID"= 1:10, "Name"= "Fred", "Host Identification"= "Pinus strobus")
+#'
+#' clean_field_names(df)
+#'
+clean_field_names <- function(x){
+   names(x) <- snakecase::to_lower_camel_case(names(x),abbreviations = "ID")
+   return(x)
+}
