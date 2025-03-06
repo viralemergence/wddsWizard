@@ -1,8 +1,3 @@
-### starting from some schema
-### work your way through
-### keep track of the schema you're in with the$current_schema_path
-
-
 #' Create Documentation for a schema
 #'
 #' Produces nested markdown that documents a schema. This is a
@@ -34,9 +29,9 @@ create_schema_docs <- function(schema_path = the$current_schema_path, sep = "\n"
   return(schema_docs)
 }
 
-#' Get the required fields for a schema
+#' Get the required fields
 #'
-#'  Gets the required fields for an object
+#'  Gets the required fields for an object or schema
 #'
 #' @param schema_list List from jsonlite::read_json
 #'
@@ -339,16 +334,5 @@ get_ref <- function(x,schema_dir){
 
   return(out)
 }
-
-
-#
-# purrr::imap(wddsWizard::disease_data_schema$properties,create_object_docs) |>
-#   purrr::reduce(paste_reduce,.dir = "backward") |>
-#   cat()
-#
-#
-# purrr::imap(datacite_schema$properties["creators"], \(x, idx)create_object_docs(x = x,idx = idx,required_fields = wddsWizard::project_metadata_required_fields) ) |>
-#   purrr::accumulate(paste_reduce)
-
 
 
