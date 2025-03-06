@@ -26,6 +26,13 @@
 "datacite_schema"
 
 
+#' Wildlife Disease Data Standard - schema properties
+#'
+#'
+#' A data frame of schema names and types.
+#'
+"schema_properties"
+
 #' Create an expanded schema object
 #'
 #' Produces nested list for the schema. This is a
@@ -38,7 +45,7 @@
 #'
 #' @examples
 #'
-#' create_schema_docs()
+#' create_schema_list()
 #'
 create_schema_list <- function(schema_path = the$current_schema_path){
 
@@ -62,18 +69,19 @@ create_schema_list <- function(schema_path = the$current_schema_path){
 #' @param idx Name from schema property
 #' @param schema_dir Character. directory where the schema is stored
 #'
-#' @returns Character formatted markdown text
+#' @returns data frame with type and name
 #' @export
 create_object_list <- function(x,idx, schema_dir){
 
-   if(idx == "creators"){
-     browser()
-   }
-
+  # this is the final shape of our data
   out <- data.frame(name = "",
               type = "")
 
+  # name of our data
   out$name <- idx
+
+  print(sprintf("create_object_list: for object %s",idx))
+
 
   # process a reference ----
   if("$ref" %in% names(x)){
@@ -83,21 +91,33 @@ create_object_list <- function(x,idx, schema_dir){
     print("create_object_list: reference in object")
     print(reference_pointer)
 
+    if("datacite/datacite-v4.5.json#/properties/publicationYear" == reference_pointer){
+      # browser()
+    }
+
     x <- get_ref_list(x,schema_dir)
 
     # break out of the cycle if x is character
     if(all(x$whole_schema)){
       #add top level
-      # browser()
+       # browser()
       #reset the schema path
       the$current_schema_path <- the$parent_schema_path
       the$current_schema_dir <- the$parent_schema_dir
+      sub_schema <- purrr::discard_at(x,"whole_schema") |>
+        purrr::list_rbind()
 
-      out  <- purrr::discard_at(x,"whole_schema")
-      out$name <- idx
       out$type <- "object"
+      out$name <- idx
+      out  <- rbind(out,sub_schema)
       return(out)
     }
+
+    if(is.data.frame(x)){
+      out  <- purrr::discard_at(x,"whole_schema")
+      return(out)
+    }
+
   }
 
 
@@ -114,6 +134,7 @@ create_object_list <- function(x,idx, schema_dir){
   }
 
   ### process objects ----
+  print("create_obj_list: checking for object")
   if(out$type == "object"){
 
     print("create_object_list: process object")
@@ -140,18 +161,17 @@ create_object_list <- function(x,idx, schema_dir){
 #' @param x List. Must have property "$ref"
 #' @param schema_dir Character. Directory for the current schema.
 #'
-#' @returns List or Character. Character is only returned if an entire schema is referenced.
+#' @returns data frame with name or type.
 #' @export
+#'
 get_ref_list <- function(x,schema_dir){
-  # get the reference
+
+  # get and print the reference
   reference <- x[["$ref"]]
   print("get_ref_list: pointer")
   print(reference)
 
-  if(reference == "#/definitions/nameIdentifiers"){
-    # browser()
-  }
-
+  # assume its not an external reference
   external_reference<- FALSE
   # check if the schema is internal or external
   if(stringr::str_detect(reference,"\\.json")){
@@ -184,7 +204,7 @@ get_ref_list <- function(x,schema_dir){
     sub_list <- jsonlite::read_json(the$current_schema_path)
   }
 
-  # check if its a component
+  # check if its a component of the schema
   component <- stringr::str_detect(reference,"#/.*$")
 
   if(component){
@@ -193,18 +213,22 @@ get_ref_list <- function(x,schema_dir){
     component_list <- stringr::str_split(component_name, pattern = "/",n = 3,simplify = FALSE) |>
       unlist()
     # browser()
+    ## here out is a list
     out <- sub_list[[component_list[2]]][[component_list[3]]]
     out$name <- component_list[3]
-    if(rlang::is_empty(out$type)){
-      print("empty out$type")
-      print(out$name)
-    }else if(out$type == "array"){
-      out <- process_array_items(out$items,out = out)
+
+    ## check for references in out
+    if("$ref" %in% names(out)){
+      print("get_ref_list: $ref")
+      print(out["$ref"][1])
+      ### get the reference...slightly different structure
+      out <-  get_ref_list(out["$ref"][1], the$current_schema_dir)
+      out <- as.data.frame(out[c("name","type")])
+      out$whole_schema <- FALSE
+      return(out)
     }
 
-
-
-    ## check to see if the ref is a ref
+    ## check for allof in out
     if("allOf" %in% names(out)){
       print("get_ref_list: allof")
       print(out$allOf[[1]])
@@ -212,18 +236,52 @@ get_ref_list <- function(x,schema_dir){
       out <-  get_ref_list(out$allOf[[1]], the$current_schema_dir)
     }
 
-    if("$ref" %in% names(out)){
-      print("get_ref_list: $ref")
-      print(out["$ref"][1])
-      ### get the reference...slightly different structure
-      out <-  get_ref_list(out["$ref"][1], the$current_schema_dir)
+    if(length(out$type) > 1){
+      print("get_ref_list: because out length > 1")
+      print(class(out))
+      print(names(out))
+
+      return(out)
+    }
+    print("get_ref_list: checking for object")
+
+    ## check if out is of type object
+    if(out$type == "object"){
+      print("get_ref_list: process object")
+      sub_object <- purrr::imap(out$properties,\(x,idx) create_object_list(x,idx, schema_dir = the$current_schema_dir)) |>
+        purrr::list_rbind()
+
+      return(sub_object)
+    }
+
+    # process out if its an array?
+    # setup a data frame for proper processing
+    out_df <- as.data.frame(out[c("name","type")])
+
+    # if(rlang::is_empty(out$type)){
+    #   print("empty out$type")
+    #   print(out$name)
+    # }else
+    if(out$type == "array"){
+      # if(reference == "#/definitions/affiliation"){
+      #   browser()
+      # }
+      print("get_ref_list: process array")
+      the$array_items <- out$items
+      the$array_items_skip <- FALSE
+      out <- process_array_items(out$items,out = out_df)
     }
 
   } else {
+    ## process a whole schema
+
+    print("get_ref_list: process whole schema")
     out <- create_schema_list(schema_path = the$current_schema_path)
     out$whole_schema <- TRUE
     return(out)
   }
+
+  out <- data.frame(name = out$name, type = out$type)
 
   out$whole_schema <- FALSE
 
@@ -231,6 +289,15 @@ get_ref_list <- function(x,schema_dir){
 }
 
 
+#' Title
+#'
+#' @param array_items list.
+#' @param out data frame
+#'
+#' @returns data frames with name and type for array items that are objects or character strings atomic (string, null, Boolean, etc) array items.
+#' @export
+#'
+#' @examples
 process_array_items <- function(array_items, out){
   items <- purrr::imap(array_items,function(x,idx){
 
@@ -243,35 +310,38 @@ process_array_items <- function(array_items, out){
     if((idx == "type" & "object" %in% x)){
 
       if("allOf" %in% names(the$array_items)){
-
+        # browser()
         ## needed to check for properties
         the$array_items_parent <- the$array_items
-        print("create_object_list: allof in array_item")
+        print("process_array_items: allof in array_item")
         x <- get_ref_list(the$array_items$allOf[[1]], the$current_schema_dir)
-        # browser()
-        sub_object_allof <- purrr::imap(x$properties,\(x,idx) create_object_list(x,idx,schema_dir = the$current_schema_dir))
+         # browser()
+        sub_object_allof <- purrr::imap(x$properties,\(x,idx) create_object_list(x,idx,schema_dir = the$current_schema_dir)) |>
+          purrr::list_rbind()
 
         ## check if it also has properties
 
         if("properties" %in% names(the$array_items_parent)){
 
-          sub_object_properties <- purrr::imap(the$array_items_parent$properties,\(x,idx) create_object_list(x,idx, schema_dir = the$current_schema_dir))
+          sub_object_properties <- purrr::imap(the$array_items_parent$properties,\(x,idx) create_object_list(x,idx, schema_dir = the$current_schema_dir)) |>
+            purrr::list_rbind()
 
           # mash to together all of and properties
 
-          sub_object_allof <- c(sub_object_allof,sub_object_properties)
+          sub_object_allof <- rbind(sub_object_allof,sub_object_properties)
         }
 
         return(sub_object_allof)
       }
 
 
-      sub_object <- purrr::imap(the$array_items$properties,\(x,idx) create_object_list(x,idx, schema_dir = the$current_schema_dir))
+      print("process_array_items: process object")
+     sub_object <- purrr::imap(the$array_items$properties,\(x,idx) create_object_list(x,idx, schema_dir = the$current_schema_dir)) |>
+        purrr::list_rbind()
 
       the$array_items_skip <- TRUE
       return(sub_object)
     } else {
-
 
       chr_out <-  x |>
         purrr::reduce(paste_reduce,sep = ", ")
@@ -285,8 +355,23 @@ process_array_items <- function(array_items, out){
   if(is.character(items$type)){
     out$type <- paste(out$type,items$type,sep = ", ")
   } else {
-    sub_obj <- items$type |> purrr::flatten()
-    out <- rbind(out,sub_obj)
+    # browser()
+
+    if(class(items$type) == "data.frame"){
+      sub_obj_df <- items$type
+    } else {
+      sub_obj_df <- items$type |> purrr::list_rbind()
+    }
+
+
+    # name_positions <- which(names(sub_obj) == "name")
+    # name_vec <- purrr::list_c(sub_obj[name_positions])
+    # type_positions <- which(names(sub_obj) == "type")
+    # type_vec <- purrr::list_c(sub_obj[type_positions])
+
+    # sub_obj_df <- data.frame(name = name_vec , type =type_vec)
+
+    out <- rbind(out,sub_obj_df)
   }
   return(out)
 }
