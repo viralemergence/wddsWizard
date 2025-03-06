@@ -77,7 +77,7 @@ my_disease_data <- read.csv(file = here::here("inst/extdata/example_data/my_inte
 # clean up field names to match JSON schema
 my_disease_data <- clean_field_names(my_disease_data)
 
-### Check for required Fields
+### Check for required Fields -
 
 # check that all required fields are in the data
 all(wddsWizard::data_required_fields %in% names(my_disease_data))
@@ -105,18 +105,51 @@ errors <- attributes(dd_validation)
 if(!dd_validation){
   errors$errors  
 } else {
-  print("Valid project metadata!😁")
+  print("Valid disease data!😁")
 }
 ```
 
-
-
 ### Project Metadata
 
+```{r prep-metadata}
+
+# read in project metadata created from template
+my_project_metadata <- read.csv(here::here("inst/extdata/example_data/my_project_metadata.csv"))
+
+# prepare project metadata
+my_project_metadata_prepped <- prep_from_metadata_template(my_project_metadata)
+
+
+# check that all required fields are in the project metadata
+all(wddsWizard::project_metadata_required_fields %in% names(my_project_metadata_prepped))
+
+# convert to json
+
+ my_project_metadata_json <- my_project_metadata_prepped |>
+  jsonlite::toJSON(pretty  = TRUE)
+
+# validate against project metadata schema
+
+ schema <- here::here("inst/extdata/wdds_schema/schemas/project_metadata.json")
+
+pm_validator <- jsonvalidate::json_validator(schema,engine = "ajv")
+
+pm_validation <- pm_validator(my_project_metadata_json,verbose = TRUE)
+
+## check for errors!
+
+errors <- attributes(pm_validation)
+
+if(!pm_validation){
+  errors$errors  
+} else {
+  print("Valid project metadata!😁")
+}
+
+```
 
 See the vignettes on [Project Metadata](project_metadata.html) and [Wildlife Disease Data](disease_data.html) for more
-details on preparing those components. The general strategy is to get each component into a data frame, then use specific methods to ensure they are in the proper
-form to be translated into json. 
+details on preparing those components. 
 
 
 ## Combine disease data and project metadata
