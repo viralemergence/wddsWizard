@@ -603,3 +603,78 @@ clean_field_names <- function(x){
    names(x) <- snakecase::to_lower_camel_case(names(x),abbreviations = "ID")
    return(x)
 }
+
+
+#' Prepare metadata from the metadata template
+#'
+#' @param project_metadata Data frame. Should correspond to the structure of the project_metadata_template.csv
+#' @param prep_methods_list list. Named list of methods where each items is a function to applied to corresponding items in x.Default is `prep_methods()`
+#'
+#' @returns Named list ready to be converted to json
+#' @export
+prep_from_metadata_template <- function(project_metadata, prep_methods_list = prep_methods()){
+
+  ## turn empty strings into NAs in the group field
+  project_metadata <- project_metadata |>
+    dplyr::mutate(Group = dplyr::case_when(
+      Group != "" ~ Group,
+      TRUE ~ NA
+    ))
+
+  ## use `fill` to complete the items column and `mutate` to make groups a little
+  ## more ergonomic
+
+  project_metadata_filled <- tidyr::fill(data = project_metadata,Group)
+
+
+  ## Restructure data
+
+  # The validation schema is expecting JSON, so we have to restructure the data into a list that can be converted to JSON.
+
+  # For Creators, Resources, and Funding References, its possible to have multiple
+  # entities in each group.
+
+  # get ids for components of a group.
+  project_metadata_ids <- project_metadata_filled |>
+    dplyr::mutate(
+      entity_id = stringr::str_extract(string = Group,pattern = "[0-9]"),
+      # make sure that there are no NA entity IDs
+      entity_id = dplyr::case_when(
+        is.na(entity_id) ~ "1",
+        TRUE ~ entity_id
+      )
+    ) |>
+    # drop entity ids from group field and convert to camel case
+    dplyr::mutate(
+      Group = stringr::str_replace_all(string = Group,
+                                       pattern = " [0-9]",
+                                       replacement = ""),
+      Group = snakecase::to_lower_camel_case(Group,abbreviations = "ID")
+      )
+
+
+  ## split dataframe by Group for further processing
+
+  project_metadata_list  <- split(project_metadata_ids,project_metadata_ids$Group)
+
+
+  # The `get_entity` function creates standard entities that will be easier to transform json
+
+  browser()
+  project_metadata_list_entities <- purrr::map(project_metadata_list,
+                                               function(x){
+
+                                                 if(all(x$entity_id == "1")){
+                                                   out <- get_entity(x)
+                                                   return(out)
+                                                 }
+                                                 x_list <- split(x,x$entity_id)
+                                                 names(x_list) <- NULL
+                                                 out <-purrr::map(x_list, get_entity)
+                                                 return(out)
+                                               })
+
+  out <- prep_for_json(project_metadata_list_entities,prep_methods_list = prep_methods_list)
+
+  return(out)
+}
