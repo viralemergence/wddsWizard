@@ -1,0 +1,89 @@
+Group,Variable,Descriptor
+Data,Sample ID,"A researcher-generated unique ID for the sample: usually a unique string of both characters and integers (e.g., “OS BZ19-114” to indicate an oral swab taken from animal BZ19-114; see worked example below), to avoid conflicts that can arise when datasets are merged with number-only notation for samples. Ideally, sample names should be kept consistent across all online databases and physical resources (e.g., museum collections or project-specific sample archives)."
+,Animal ID,"A researcher-generated unique ID for the individual animal from which the sample was collected: usually a unique string of both characters and integers (e.g., “BZ19-114” to indicate animal 114 sampled in 2019 in Belize). Ideally, animal names should again be kept consistent across online databases and physical resources."
+,Latitude,Latitude of the collection site in decimal format.
+,Longitude,Longitude of the collection site in decimal format.
+,"Spatial uncertainty
+(optional)","Coordinate uncertainty from GPS recordings, post-hoc digitization, or systematic alterations (e.g., jittering or rounding) expressed in meters."
+,Collection day,The day of the month on which the specimen was collected.
+,Collection month,The numeric month in which the specimen was collected.
+,Collection year,The year in which the specimen was collected.
+,Collection method and/or tissue,"The technique used to acquire the sample and/or the tissue from which the sample was extracted (e.g., “oropharyngeal swab”)"
+,Host identification,"The Linnaean classification of the animal from which the sample was collected, reported at the lowest possible level (ideally, species binomial name: e.g., “Odocoileus virginianus” or “Ixodes scapularis”). As necessary, researchers may also include an additional field indicating when uncertainty exists in the identification of the host organism (see “Adding new fields”)."
+,"Organism sex
+(optional)",The sex of the individual animal from which the sample was collected.
+,"Dead or alive
+(optional)
+dwc:vitality","The state of the individual animal from which the sample was collected, at the time of sample collection."
+,"Health notes
+(optional)","Any additional (unstructured) notes about the state of the animal, such as disease presentation."
+,"Host life stage
+(optional)
+dwc:lifeStage","The life stage of the animal from which the sample was collected (as appropriate for the organism) (e.g., “juvenile”, “adult”)."
+,"Age
+(optional)","The numeric age of the animal from which the sample was collected, at the time of sample collection, if known (e.g., in monitored populations)."
+,"Age units
+(optional)",The units in which age is measured (usually years).
+,"Mass
+(optional)","The mass of the animal from which the sample was collected, at the time of sample collection."
+,"Mass units
+(optional)","The units that mass is recorded in (e.g., “kg”)."
+,"Length
+(optional)","The numeric length of the animal from which the sample was collected, at the time of sample collection."
+,"Length measurement
+(optional)","The axis of measurement for the organism being measured (e.g., “snout-vent length” or just “SVL”; “wing length”; “primary feather”)."
+,"Length units
+(optional)","The units that length is recorded in (e.g., “meters”)."
+,"Organism quantity
+(optional)",A number or enumeration value for the quantity of organisms.
+,"Organism quantity type
+(optional)",The units that organism quantity is recorded in (e.g. “individuals”).
+,Detection target,"The taxonomic identity of the parasite being screened for in the sample. This will often be coarser than the identity of a specific parasite identified in the sample: for example, in a study screening for novel bat coronaviruses, the entire family Coronaviridae might be the target; in a parasite dissection, the targets might be Acanthocephala, Cestoda, Nematoda, and Trematoda. For deep sequencing approaches (e.g., metagenomic and metatranscriptomic viral discovery), researchers should report each alignment target used as a new “test” to maximize reporting of negative data, or alternatively, select a subset that reflect specific study objectives and the focus of analysis (e.g., specific viral families)."
+,Detection method,"The type of test performed to detect the parasite or parasite-specific antibody (e.g., 'qPCR', ‘ELISA’)."
+,"Primer sequence
+(optional)","The sequence of both forward and reverse primers used to identify the sample (e.g., “forward 5’ CDCAYGARTTYTGYTCNCARC 3' ; reverse 5’ RHGGRTANGCRTCWATDGC 3'”) or just the name of a commonly used gene target (particularly if citation information is given)."
+,"Primer citation
+(optional)","Citation for the primer being used. (e.g. title, doi, or other permanent identifier for a work)."
+,Detection outcome,"The test result (i.e., “positive”, “negative”, or “inconclusive”). To avoid ambiguity, these specific values are suggested over numeric values (“0” or “1”)."
+,"Detection measurement
+(optional)","Any numeric measurement of parasite detection that is more detailed than simple positive or negative results (e.g., viral titer, parasite counts, sequence reads)."
+,"Detection measurement units
+(optional)","Units for quantitative measurements of parasite intensity or test results (e.g., “Ct”, “TCID50/mL”, or “parasite count”)."
+,Parasite identification,"The identity of a parasite detected by the test, if any, reported to the lowest possible taxonomic level, either as a Linnaean binomial classification or within the convention of a relevant taxonomic authority (e.g., “Borrelia burgdorferi” or “Zika virus”). Parasite identification may be more specific than detection target."
+,"Parasite life stage
+(optional)","The life stage of the parasite from which the sample was collected (as appropriate for the organism) (e.g., “juvenile”, “adult”)."
+,"GenBank accession
+(optional)","The GenBank accession for any parasite genetic sequence(s), if appropriate. Accession numbers or other identifiers for related data stored on another platform should be added in a different field (e.g. GISAID Accession, Immport Accession).Researchers may also add additional / other fields as appropriate, such as for other genomic sequence data platforms (e.g., GISAID)."
+Methodology,Event Based,"Whether or not research was conducted in response to a known or suspected infectious disease outbreak, observed animal morbidity or mortality, etc."
+,Archival,"Whether samples were from an archival source (e.g., museum collections, biobanks)."
+Creators,Name,"The full name of a creator. Should be in the format familyName, givenName. This field will be used for attribution purposes."
+,"Given Name
+(optional)",The personal or first name of the creator.
+,"Family Name
+(optional)",The surname or last name of the creator.
+,"Name Identifier
+(optional)","Uniquely identifies an individual or legal entity, according to various schemas (ORCID)."
+,"Affiliation
+(optional)",The organizational or institutional affiliation of a creator.
+,"Affiliation Identifier
+(optional)",Uniquely identifies the organizational affiliation of a creator (ROR).
+Titles,Title,A name or title by which a resource is known. Can be expanded to include subtitles and alternative titles.
+Identifiers,"Identifier
+(optional)",Unique strings that identify a resource.
+Subjects,"Subject
+(optional)","Subject, keyword, classification code, or key phrase describing the resource."
+Publication Year,Publication Year,The year when the data was or will be made publicly available.
+Rights,"Rights
+(optional)",Any rights information for this resource.
+Language,Language,The primary language of the resource.
+Descriptions,Description,All additional information that does not fit in any of the other categories. May be used for technical information or detailed information associated with a scientific instrument.
+,Description Type,"One of ""Abstract"", ""Methods"", ""SeriesInformation"", ""TableOfContents"", ""TechnicalInfo"", ""Other"""
+Funding References,Funder Name,Name of the funding provider.
+,"Funder Indentifier
+(optional)","Uniquely identifies a funding entity, according to various types."
+,"Award Number
+(optional)",The code assigned by the funder to a sponsored award (grant).
+,"Award URI
+(optional)",The URI leading to a page provided by the funder for more information about the award (grant)
+,"Award Title
+(optional)",The human readable title or name of the award (grant).

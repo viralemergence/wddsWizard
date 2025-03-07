@@ -169,9 +169,9 @@ prep_descriptions <- function(x){
   prep_array_objects(x)
 }
 
-#' Prep identifiers
+#' Prep identifier
 #'
-#' Prepare identifiers for a scholarly work. Wrapper for prep_array_objects
+#' Prepare identifier for a scholarly work. Wrapper for prep_array_objects
 #'
 #' @param x data frame with identifier properties
 #'
@@ -180,11 +180,27 @@ prep_descriptions <- function(x){
 #'
 #' @examples
 #'
-#' wddsWizard::becker_project_metadata$identifiers |> prep_identifiers()
+#' wddsWizard::becker_project_metadata$identifiers |> prep_identifier()
 #'
-prep_identifiers <- function(x){
+prep_identifier <- function(x){
   prep_array_objects(x)
 }
+
+#' Prepare related identifiers
+#'
+#' @param x data frame with related identifier properties
+#'
+#' @returns List with x marked as do not unbox
+#' @export
+#'
+#' @examples
+#'
+#' wddsWizard::becker_project_metadata$relatedIdentifiers |> prep_relatedIdentifiers()
+#'
+prep_relatedIdentifiers <- function(x){
+  prep_array_objects(x)
+}
+
 
 #' Prep language
 #'
@@ -487,7 +503,8 @@ prep_methods <- function(){
     creators = prep_creators,
     descriptions = prep_descriptions,
     fundingReferences = prep_fundingReferences,
-    identifiers = prep_identifiers,
+    identifier = prep_identifier,
+    relatedIdentifiers = prep_relatedIdentifiers,
     language = prep_language,
     methodology = prep_methodology,
     publicationYear = prep_publicationYear,
@@ -529,8 +546,8 @@ prep_for_json <- function(x,prep_methods_list = prep_methods()){
 
   prepped_list <- x
   for(i in  1:length(subset_methods)){
-    property <- names(prep_methods_list[i])
-    property_method <- prep_methods_list[[i]]
+    property <- names(subset_methods[i])
+    property_method <- subset_methods[[i]]
     prepped_list <- purrr::modify_at(prepped_list,property,property_method)
   }
 
@@ -566,4 +583,104 @@ get_entity <- function(x){
 
 
   return(z)
+}
+
+#' Clean Field Names
+#'
+#' @param x Data frame or other named object
+#'
+#' @returns object with names in `snakecase::to_lower_camel_case` format
+#'
+#' @export
+#'
+#' @examples
+#'
+#' df  <- data.frame("Sample ID"= 1:10, "Name"= "Fred", "Host Identification"= "Pinus strobus")
+#'
+#' clean_field_names(df)
+#'
+clean_field_names <- function(x){
+   names(x) <- snakecase::to_lower_camel_case(names(x),abbreviations = "ID")
+   return(x)
+}
+
+
+#' Prepare metadata from the metadata template
+#'
+#' @param project_metadata Data frame. Should correspond to the structure of the project_metadata_template.csv
+#' @param prep_methods_list list. Named list of methods where each items is a function to applied to corresponding items in x.Default is `prep_methods()`
+#'
+#' @returns Named list ready to be converted to json
+#' @export
+prep_from_metadata_template <- function(project_metadata, prep_methods_list = prep_methods()){
+
+  ## turn empty strings into NAs in the group field
+  project_metadata <- project_metadata |>
+    dplyr::mutate(Group = dplyr::case_when(
+      Group != "" ~ Group,
+      TRUE ~ NA
+    ))
+
+  ## use `fill` to complete the items column and `mutate` to make groups a little
+  ## more ergonomic
+
+  project_metadata_filled <- tidyr::fill(data = project_metadata,Group)
+
+
+  ## Restructure data
+
+  # The validation schema is expecting JSON, so we have to restructure the data into a list that can be converted to JSON.
+
+  # For Creators, Resources, and Funding References, its possible to have multiple
+  # entities in each group.
+
+  # get ids for components of a group.
+  project_metadata_ids <- project_metadata_filled |>
+    dplyr::mutate(
+      entity_id = stringr::str_extract(string = Group,pattern = "[0-9]"),
+      # make sure that there are no NA entity IDs
+      entity_id = dplyr::case_when(
+        is.na(entity_id) ~ "1",
+        TRUE ~ entity_id
+      )
+    ) |>
+    # drop entity ids from group field and convert to camel case
+    dplyr::mutate(
+      Group = stringr::str_replace_all(string = Group,
+                                       pattern = " [0-9]",
+                                       replacement = ""),
+      Group = snakecase::to_lower_camel_case(Group,abbreviations = "ID")
+      )
+
+
+  ## split dataframe by Group for further processing
+
+  project_metadata_list  <- split(project_metadata_ids,project_metadata_ids$Group)
+
+
+  # The `get_entity` function creates standard entities that will be easier to transform json
+
+  project_metadata_list_entities <- purrr::map(project_metadata_list,
+                                               function(x){
+
+                                                x_typed <- dplyr::left_join(x,wddsWizard::schema_properties, by = c("Group" = "name")) |>
+                                                  dplyr::mutate(to_split = dplyr::case_when(
+                                                    is_array ~ TRUE,
+                                                    TRUE ~ FALSE)
+                                                  )
+
+
+                                                 if(all(!x_typed$to_split)){
+                                                   out <- get_entity(x)
+                                                   return(out)
+                                                 }
+                                                 x_list <- split(x,x$entity_id)
+                                                 names(x_list) <- NULL
+                                                 out <-purrr::map(x_list, get_entity)
+                                                 return(out)
+                                               })
+
+  out <- prep_for_json(project_metadata_list_entities,prep_methods_list = prep_methods_list)
+
+  return(out)
 }
