@@ -30,9 +30,12 @@ Data sets either pass (🎉) or fail with informative errors.
 ## Getting Started
 
 The data standard is designed to be flexible and accessible. 
-Its composed two components: disease data and a project metadata.
-We will go through each component in more detail later in the vignette. 
+Its composed two components: disease data and project metadata.
+The disease data component describes the contents and structure of data related to the detection (or not) of a parasite in a given host. 
+The project metadata component describes the contents and structure of data related to the creation of the disease data component. 
+The disease data component allows us to create a collection of datasets that can be re-used, aggregated, and shared, while the project metadata component provides context for the data, makes it easier to find the dataset, and gives clear information about attribution and use (rights/license). 
 
+Using this package, you can validate one or both components of data standard. 
 It will be helpful to open the [Data Standard Terms](schema_overview.html#terms) in a separate browser tab as you go through the vignette and explore templates. 
 
 If you use the templates provided, you can focus on the field descriptions and largely ignore types and array items.
@@ -68,6 +71,13 @@ wddsWizard::project_metadata_required_fields
 ```
 
 ### Disease Data
+
+Disease data are expected to be in a "tidy" form (think CSV or XLS where each row is an observation and each column is a property). 
+Each column in the table that is part of the standard will be validated. 
+You may include additional columns as needed. 
+
+Disease data and project metadata can be validated separately. 
+In the code below we will read in a csv file, do some light wrangling, transform the data to JSON, and then validate the data. 
 
 ```{r disease-data, warning=FALSE}
 
@@ -110,6 +120,13 @@ if(!dd_validation){
 ```
 
 ### Project Metadata
+
+Project metadata largely follow the [Datacite Metadata Schema](https://datacite-metadata-schema.readthedocs.io/en/4.5/). 
+Again, the data standard allows you to include additional properties.
+
+Note that if you are comfortable with JSON, it may be easier to write project metadata directly as JSON. 
+
+In the example below, we will use project metadata created from the  project metadata template to create JSON that can be validated against the project metadata component of the data standard.  
 
 ```{r prep-metadata, warning=FALSE}
 
@@ -154,19 +171,18 @@ details on preparing those components.
 
 ## Combine disease data and project metadata
 
-```{r combine-data}
+Finally we will check the disease data and the project metadata against the standard.
 
+### Combine components
+
+The first thing we have to do is combine the disease data and project metadata components in a list and check that we have all the required fields. 
+
+```{r combine-data}
 
 ## use append so that you do not add levels to your list
 
 data_package <- list(disease_data = my_disease_data_prepped,
                      project_metadata = my_project_metadata_prepped)
-
-```
-
-## Make JSON
-
-```{r make-json}
 
 # check that all required fields are in the data
 
@@ -178,6 +194,14 @@ if(all(!req_field_check)){
   print("all required fields present 🥳")
 }
 
+```
+
+### Make JSON
+
+Next we will convert the `data_package` so that it can be validated. 
+
+```{r make-json}
+
 # convert to json
 
 data_package_json <- jsonlite::toJSON(data_package,pretty = TRUE)
@@ -185,10 +209,10 @@ data_package_json <- jsonlite::toJSON(data_package,pretty = TRUE)
 
 ```
 
-## Validate your json!
+### Validate your json!
 
-Here we will use the {jsonvalidate} package to make sure our `data_package_json` 
-meets the wildlife disease data standard.
+Here we will use the {jsonvalidate} package to make sure `data_package_json` 
+conforms to the wildlife disease data standard.
 
 ```{r json-validate, warning=FALSE}
 
@@ -205,8 +229,9 @@ errors <- attributes(project_validation)
 errors$errors
 }
 
-## check for errors!
-
-
 ```
+
+### Handling Errors
+
+Errors in 
 

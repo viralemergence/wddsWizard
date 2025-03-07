@@ -129,6 +129,6 @@ Any item marked as <req> REQUIRED </req> must be included.
 
 ```{r terms, include=FALSE, results='asis'}
  library(wddsWizard)
-create_schema_docs() |>
+create_schema_docs(here::here("inst/extdata/wdds_schema/wdds_schema.json")) |>
   cat()
 ```
