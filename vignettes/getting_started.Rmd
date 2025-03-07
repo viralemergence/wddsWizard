@@ -233,5 +233,5 @@ errors$errors
 
 ### Handling Errors
 
-Errors in 
+You're going to get some 
 
