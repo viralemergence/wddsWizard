@@ -12,7 +12,7 @@
 #' @examples
 #'
 #'
-#'
+#' wdds_template()
 #'
 wdds_template <- function(template_file = NULL) {
   if (is.null(template_file)) {

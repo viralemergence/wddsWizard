@@ -169,9 +169,9 @@ prep_descriptions <- function(x){
   prep_array_objects(x)
 }
 
-#' Prep identifiers
+#' Prep identifier
 #'
-#' Prepare identifiers for a scholarly work. Wrapper for prep_array_objects
+#' Prepare identifier for a scholarly work. Wrapper for prep_array_objects
 #'
 #' @param x data frame with identifier properties
 #'
@@ -180,9 +180,9 @@ prep_descriptions <- function(x){
 #'
 #' @examples
 #'
-#' wddsWizard::becker_project_metadata$identifiers |> prep_identifiers()
+#' wddsWizard::becker_project_metadata$identifiers |> prep_identifier()
 #'
-prep_identifiers <- function(x){
+prep_identifier <- function(x){
   prep_array_objects(x)
 }
 
@@ -503,7 +503,7 @@ prep_methods <- function(){
     creators = prep_creators,
     descriptions = prep_descriptions,
     fundingReferences = prep_fundingReferences,
-    identifiers = prep_identifiers,
+    identifier = prep_identifier,
     relatedIdentifiers = prep_relatedIdentifiers,
     language = prep_language,
     methodology = prep_methodology,
@@ -546,8 +546,8 @@ prep_for_json <- function(x,prep_methods_list = prep_methods()){
 
   prepped_list <- x
   for(i in  1:length(subset_methods)){
-    property <- names(prep_methods_list[i])
-    property_method <- prep_methods_list[[i]]
+    property <- names(subset_methods[i])
+    property_method <- subset_methods[[i]]
     prepped_list <- purrr::modify_at(prepped_list,property,property_method)
   }
 
@@ -660,11 +660,17 @@ prep_from_metadata_template <- function(project_metadata, prep_methods_list = pr
 
   # The `get_entity` function creates standard entities that will be easier to transform json
 
-  browser()
   project_metadata_list_entities <- purrr::map(project_metadata_list,
                                                function(x){
 
-                                                 if(all(x$entity_id == "1")){
+                                                x_typed <- dplyr::left_join(x,wddsWizard::schema_properties, by = c("Group" = "name")) |>
+                                                  dplyr::mutate(to_split = dplyr::case_when(
+                                                    is_array ~ TRUE,
+                                                    TRUE ~ FALSE)
+                                                  )
+
+
+                                                 if(all(!x_typed$to_split)){
                                                    out <- get_entity(x)
                                                    return(out)
                                                  }

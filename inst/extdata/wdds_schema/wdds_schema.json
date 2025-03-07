@@ -13,7 +13,7 @@
       "$ref":"schemas/project_metadata.json"
     }
   },
-    "required":["data","project_metadata"]
+    "required":["disease_data","project_metadata"]
 }
 
 

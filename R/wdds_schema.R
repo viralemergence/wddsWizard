@@ -91,16 +91,10 @@ create_object_list <- function(x,idx, schema_dir){
     print("create_object_list: reference in object")
     print(reference_pointer)
 
-    if("datacite/datacite-v4.5.json#/properties/publicationYear" == reference_pointer){
-      # browser()
-    }
-
     x <- get_ref_list(x,schema_dir)
 
-    # break out of the cycle if x is character
+    # break out of the cycle if x is a whole schema
     if(all(x$whole_schema)){
-      #add top level
-       # browser()
       #reset the schema path
       the$current_schema_path <- the$parent_schema_path
       the$current_schema_dir <- the$parent_schema_dir
@@ -134,7 +128,6 @@ create_object_list <- function(x,idx, schema_dir){
   }
 
   ### process objects ----
-  print("create_obj_list: checking for object")
   if(out$type == "object"){
 
     print("create_object_list: process object")
@@ -212,7 +205,6 @@ get_ref_list <- function(x,schema_dir){
     component_name <- stringr::str_extract(reference,"#/.*$")
     component_list <- stringr::str_split(component_name, pattern = "/",n = 3,simplify = FALSE) |>
       unlist()
-    # browser()
     ## here out is a list
     out <- sub_list[[component_list[2]]][[component_list[3]]]
     out$name <- component_list[3]
@@ -243,7 +235,6 @@ get_ref_list <- function(x,schema_dir){
 
       return(out)
     }
-    print("get_ref_list: checking for object")
 
     ## check if out is of type object
     if(out$type == "object"){
@@ -258,14 +249,8 @@ get_ref_list <- function(x,schema_dir){
     # setup a data frame for proper processing
     out_df <- as.data.frame(out[c("name","type")])
 
-    # if(rlang::is_empty(out$type)){
-    #   print("empty out$type")
-    #   print(out$name)
-    # }else
     if(out$type == "array"){
-      # if(reference == "#/definitions/affiliation"){
-      #   browser()
-      # }
+
       print("get_ref_list: process array")
       the$array_items <- out$items
       the$array_items_skip <- FALSE
@@ -297,7 +282,6 @@ get_ref_list <- function(x,schema_dir){
 #' @returns data frames with name and type for array items that are objects or character strings atomic (string, null, Boolean, etc) array items.
 #' @export
 #'
-#' @examples
 process_array_items <- function(array_items, out){
   items <- purrr::imap(array_items,function(x,idx){
 
@@ -310,12 +294,10 @@ process_array_items <- function(array_items, out){
     if((idx == "type" & "object" %in% x)){
 
       if("allOf" %in% names(the$array_items)){
-        # browser()
         ## needed to check for properties
         the$array_items_parent <- the$array_items
         print("process_array_items: allof in array_item")
         x <- get_ref_list(the$array_items$allOf[[1]], the$current_schema_dir)
-         # browser()
         sub_object_allof <- purrr::imap(x$properties,\(x,idx) create_object_list(x,idx,schema_dir = the$current_schema_dir)) |>
           purrr::list_rbind()
 
@@ -355,21 +337,12 @@ process_array_items <- function(array_items, out){
   if(is.character(items$type)){
     out$type <- paste(out$type,items$type,sep = ", ")
   } else {
-    # browser()
 
-    if(class(items$type) == "data.frame"){
+    if(inherits(items$type,"data.frame")){
       sub_obj_df <- items$type
     } else {
       sub_obj_df <- items$type |> purrr::list_rbind()
     }
-
-
-    # name_positions <- which(names(sub_obj) == "name")
-    # name_vec <- purrr::list_c(sub_obj[name_positions])
-    # type_positions <- which(names(sub_obj) == "type")
-    # type_vec <- purrr::list_c(sub_obj[type_positions])
-
-    # sub_obj_df <- data.frame(name = name_vec , type =type_vec)
 
     out <- rbind(out,sub_obj_df)
   }

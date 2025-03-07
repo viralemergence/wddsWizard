@@ -2,7 +2,7 @@
 % Please edit documentation in R/schema_docs.R
 \name{get_required_fields}
 \alias{get_required_fields}
-\title{Get the required fields for a schema}
+\title{Get the required fields}
 \usage{
 get_required_fields(schema_list)
 }
@@ -13,5 +13,5 @@ get_required_fields(schema_list)
 character vector of required fields
 }
 \description{
-Gets the required fields for an object
+Gets the required fields for an object or schema
 }

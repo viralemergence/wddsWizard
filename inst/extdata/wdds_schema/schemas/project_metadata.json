@@ -43,6 +43,10 @@
                 "uniqueItems":true
                 }
       },
+      "subjects":{
+          "description":"Subject, keyword, classification code, or key phrase describing the resource.",
+          "$ref": "datacite/datacite-v4.5.json#/properties/subjects"
+      },
       "publicationYear": {
             "description":"The year when the data was or will be made publicly available.",
            "$ref": "datacite/datacite-v4.5.json#/properties/publicationYear"

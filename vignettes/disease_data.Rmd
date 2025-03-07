@@ -32,11 +32,11 @@ The following fields are required to be in the data.
 
 ```{r required fields, echo=FALSE, message=TRUE, warning=TRUE}
 
-wdds_data_required <- wddsWizard::disease_data_schema$properties[wddsWizard::data_required_fields]
+wdds_data_required <- wddsWizard::disease_data_schema$properties[wddsWizard::disease_data_required_fields]
 
 descriptions <- purrr::map_depth(wdds_data_required,1,"description") 
   
-df_data_desc <- data.frame(Field = wddsWizard::data_required_fields, Descriptions = unlist(descriptions),row.names = NULL)
+df_data_desc <- data.frame(Field = wddsWizard::disease_data_required_fields, Descriptions = unlist(descriptions),row.names = NULL)
 
 df_data_desc |>
   dplyr::mutate(TDWG_url = dplyr::case_when(
@@ -73,9 +73,9 @@ becker_data_prelim <- janitor::clean_names(becker_data,case = "lower_camel")
 ```{r missing-fields}
 
 # check that required fields are in dataset
-required_field_check <- wddsWizard::data_required_fields %in% names(becker_data_prelim)
+required_field_check <- wddsWizard::disease_data_required_fields %in% names(becker_data_prelim)
 
-wddsWizard::data_required_fields[!required_field_check]
+wddsWizard::disease_data_required_fields[!required_field_check]
 
 ```
 ### Rename Fields to match standard
@@ -91,7 +91,7 @@ becker_data_clean <- becker_data_prelim |>
   )
 
 # check that all required fields are in the data
-all(wddsWizard::data_required_fields %in% names(becker_data_clean))
+all(wddsWizard::disease_data_required_fields %in% names(becker_data_clean))
 
 ```
 

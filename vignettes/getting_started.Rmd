@@ -59,7 +59,7 @@ The templates may contain additional fields that are not strictly required. Requ
 
 The following fields are required for disease data:
 ```{r required-fields-dd}
-wddsWizard::data_required_fields
+wddsWizard::disease_data_required_fields
 ```
 
 The following fields are required for project metadata:
@@ -69,7 +69,7 @@ wddsWizard::project_metadata_required_fields
 
 ### Disease Data
 
-```{r clean-csv}
+```{r disease-data, warning=FALSE}
 
 ## read in the data
 my_disease_data <- read.csv(file = here::here("inst/extdata/example_data/my_interesting_disease_data.csv"))
@@ -80,7 +80,7 @@ my_disease_data <- clean_field_names(my_disease_data)
 ### Check for required Fields -
 
 # check that all required fields are in the data
-all(wddsWizard::data_required_fields %in% names(my_disease_data))
+all(wddsWizard::disease_data_required_fields %in% names(my_disease_data))
 
 ## Prep for JSON
 
@@ -111,7 +111,7 @@ if(!dd_validation){
 
 ### Project Metadata
 
-```{r prep-metadata}
+```{r prep-metadata, warning=FALSE}
 
 # read in project metadata created from template
 my_project_metadata <- read.csv(here::here("inst/extdata/example_data/my_project_metadata.csv"))
@@ -125,12 +125,12 @@ all(wddsWizard::project_metadata_required_fields %in% names(my_project_metadata_
 
 # convert to json
 
- my_project_metadata_json <- my_project_metadata_prepped |>
+my_project_metadata_json <- my_project_metadata_prepped |>
   jsonlite::toJSON(pretty  = TRUE)
 
 # validate against project metadata schema
 
- schema <- here::here("inst/extdata/wdds_schema/schemas/project_metadata.json")
+schema <- here::here("inst/extdata/wdds_schema/schemas/project_metadata.json")
 
 pm_validator <- jsonvalidate::json_validator(schema,engine = "ajv")
 
@@ -156,16 +156,11 @@ details on preparing those components.
 
 ```{r combine-data}
 
-## this is equivalent to the disease data from the vignette
-becker_disease_data <- wddsWizard::becker_disease_data
-
-## this is equivalent to the project metadata from the vignette
-
-becker_project_metadata <- wddsWizard::becker_project_metadata
 
 ## use append so that you do not add levels to your list
 
-data_package <- append(becker_disease_data,becker_project_metadata)
+data_package <- list(disease_data = my_disease_data_prepped,
+                     project_metadata = my_project_metadata_prepped)
 
 ```
 
@@ -173,22 +168,19 @@ data_package <- append(becker_disease_data,becker_project_metadata)
 
 ```{r make-json}
 
-# prepare for json - prepares data using known methods
-
-data_package_prepped <- data_package |>
-  wddsWizard::prep_for_json()
-
 # check that all required fields are in the data
 
-req_field_check <- wddsWizard::schema_required_fields %in% names(data_package_prepped)
+req_field_check <- wddsWizard::schema_required_fields %in% names(data_package)
 
 if(all(!req_field_check)){
   wddsWizard::schema_required_fields[!req_field_check]  
+} else {
+  print("all required fields present 🥳")
 }
 
 # convert to json
 
-data_package_json <- jsonlite::toJSON(data_package_prepped,pretty = TRUE)
+data_package_json <- jsonlite::toJSON(data_package,pretty = TRUE)
 
 
 ```
@@ -207,7 +199,7 @@ wdds_validator <- jsonvalidate::json_validator(schema,engine = "ajv")
 project_validation <- wdds_validator(data_package_json,verbose = TRUE)
 
 if(project_validation){
-  print("Your data package is valid!")
+  print("Your data package is valid! 🎊 ")
 } else {
 errors <- attributes(project_validation)
 errors$errors

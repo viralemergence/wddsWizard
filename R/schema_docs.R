@@ -4,6 +4,7 @@
 #' recursive set of function
 #'
 #' @param schema_path Character. Path to a json-schema
+#' @param sep  Character. separator to be used by paste_reduce*
 #'
 #' @returns character vector of markdown text
 #' @export

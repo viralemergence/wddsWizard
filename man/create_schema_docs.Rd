@@ -8,6 +8,8 @@ create_schema_docs(schema_path = the$current_schema_path, sep = "\\n")
 }
 \arguments{
 \item{schema_path}{Character. Path to a json-schema}
+
+\item{sep}{Character. separator to be used by paste_reduce*}
 }
 \value{
 character vector of markdown text
