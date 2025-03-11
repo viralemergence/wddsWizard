@@ -24,7 +24,7 @@ library(janitor)
 library(jsonlite)
 ```
 
-This vignette describes how to prepare data for validation against the wildlife disease data standard. We will 1) read an exampl excel spreadsheet, 2) do some light reformatting, and 3) produce a json object.
+This vignette describes how to prepare data for validation against the wildlife disease data standard. We will 1) read an example excel spreadsheet, 2) do some light reformatting, and 3) produce a json object.
 
 ## Required fields
 
