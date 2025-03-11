@@ -10,7 +10,7 @@ See [Getting Started](articles/wddsWizard.html) more information about how to us
 Install from github.
 
 ```
-devtool::install_github("viralemergence/wddsWizard")
+devtools::install_github("viralemergence/wddsWizard")
 ```
 
 ## How does validation work?
