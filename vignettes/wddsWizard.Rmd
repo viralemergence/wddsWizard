@@ -104,8 +104,10 @@ my_disease_data_json <- my_disease_data_prepped |>
 
 schema <- here::here("inst/extdata/wdds_schema/schemas/disease_data.json")
 
+# this creates a function that we can use to validate our data
 dd_validator <- jsonvalidate::json_validator(schema,engine = "ajv")
 
+# use the validator to check if the disease data conforms to the disease_data component of the standard
 dd_validation <- dd_validator(my_disease_data_json,verbose = TRUE)
 
 ## check for errors!

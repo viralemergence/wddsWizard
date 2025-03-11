@@ -42,8 +42,8 @@
 
 #' Create an expanded schema object
 #'
-#' Produces nested list for the schema. This is a
-#' recursive set of function
+#' Produces a list of data frame with name and type for the schema.
+#' This is a recursive set of function and may be expanded to get other properties.
 #'
 #' @param schema_path Character. Path to a json-schema
 #'
@@ -70,7 +70,9 @@ create_schema_list <- function(schema_path = the$current_schema_path){
   return(schema_list_out)
 }
 
-#' Create list of a schema object
+#' Create a list from a schema object
+#'
+#' Creates a data.frame with fields name and type
 #'
 #' @param x List. Schema property or definition
 #' @param idx Name from schema property
@@ -281,10 +283,12 @@ get_ref_list <- function(x,schema_dir){
 }
 
 
-#' Title
+#' Process Array Items
 #'
-#' @param array_items list.
-#' @param out data frame
+#' Processes array items so they can be added to a data frame.
+#'
+#' @param array_items list. List of array items for processing.
+#' @param out data frame. Data frame with name and type.
 #'
 #' @returns data frames with name and type for array items that are objects or character strings atomic (string, null, Boolean, etc) array items.
 #' @export

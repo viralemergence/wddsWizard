@@ -21,6 +21,38 @@ library(dplyr)
 library(stringr)
 ```
 
+## Required fields
+
+The following fields are required to be in the data.
+
+```{r required fields, echo=FALSE, message=TRUE, warning=TRUE}
+
+required_fields <- wddsWizard::project_metadata_schema$properties[wddsWizard::project_metadata_required_fields]
+
+descriptions <- purrr::map_depth(required_fields,1,"description") 
+  
+df_data_desc <- data.frame(Field = wddsWizard::project_metadata_required_fields, Descriptions = unlist(descriptions),row.names = NULL)
+
+df_data_desc |>
+  dplyr::mutate(TDWG_url = dplyr::case_when(
+    stringr::str_detect(string = Descriptions, pattern = "http://rs.tdwg.org/dwc/terms/") ~ stringr::str_extract(string = Descriptions,pattern = "http://rs.tdwg.org/dwc/terms/.*"),
+    TRUE ~ ""
+  )) |>
+  dplyr::mutate(Field = case_when(
+    TDWG_url != "" ~ kableExtra::cell_spec(Field,format = "html",link = TDWG_url),
+    TRUE ~ Field
+  )) |>
+    dplyr::mutate(Descriptions = dplyr::case_when(
+    stringr::str_detect(string = Descriptions, pattern = "http://rs.tdwg.org/dwc/terms/") ~ stringr::str_remove(string = Descriptions,pattern = "See http://rs.tdwg.org/dwc/terms/.*"),
+    TRUE ~ Descriptions
+  )) |>
+  dplyr::select(-TDWG_url) |>
+  kableExtra::kbl(escape = FALSE) |>
+  kableExtra::kable_styling()
+
+```
+
+
 ## Load in the CSV and clean it up
 
 Our example data requires some light cleaning to make transforming it into csv

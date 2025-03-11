@@ -3,5 +3,5 @@
 #' A bat coronavirus dataset that conforms to the wildlife disease data standard.
 #' See data standard for field descriptions
 #'
-#' @source <https://www.ebi.ac.uk/pride/archive/projects/PXD031075>
+#' @source <https://pharos.viralemergence.org/projects/?prj=prjRPayEvMecN>
 "becker_disease_data"
