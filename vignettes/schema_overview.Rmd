@@ -52,7 +52,7 @@ In a JSON-schema, fields can have parent child relationships. A field may itself
 standard defines a `data` object that is a flat table with constraints, types, and/or
 requirements. 
 In this way, JSON-schema allows for the construction of modular 
-schema documents that can leverage existing schemas (e.g. dawrin core, or datacite).
+schema documents that can leverage existing schemas (e.g. darwin core, or datacite).
 
 Once we have created a schema, we can then validate data against it. 
 The validation process happens via a validation engine and tells us if the data conform to the standard.
