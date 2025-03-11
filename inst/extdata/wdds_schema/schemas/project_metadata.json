@@ -12,8 +12,8 @@
                   "description": "Whether or not research was conducted in response to a known or suspected infectious disease outbreak, observed animal morbidity or mortality, etc.",
                   "type":"boolean"
                       },
-                  "archival":{
-                      "description":"Whether samples were from an archival source (e.g., museum collections, biobanks).",
+                "archival":{
+                  "description":"Whether samples were from an archival source (e.g., museum collections, biobanks).",
                   "type":"boolean"
             }
           },

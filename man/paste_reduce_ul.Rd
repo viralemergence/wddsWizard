@@ -4,7 +4,7 @@
 \alias{paste_reduce_ul}
 \title{Paste Reduce unordered list item}
 \usage{
-paste_reduce_ul(x, y, sep = "\\n- ")
+paste_reduce_ul(x, y, sep = "\\n - ")
 }
 \arguments{
 \item{x}{Character}

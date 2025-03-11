@@ -33,6 +33,13 @@
 #'
 "schema_properties"
 
+#' Wildlife Disease Data Standard - schema terms
+#'
+#'
+#' Markdown of schema terms
+#'
+"schema_terms"
+
 #' Create an expanded schema object
 #'
 #' Produces nested list for the schema. This is a

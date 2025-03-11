@@ -116,14 +116,12 @@
         "date": {
             "type": "string",
             "anyOf": [
-                {"format": "year"},
-                {"format": "yearmonth"},
+                {"pattern": "^[0-9]{4}$"},
+                {"format": "^[0-9]{4}$-^[0-9]{2}$"},
                 {"format": "date"},
                 {"format": "datetime"},
-                {"format": "year-range"},
-                {"format": "yearmonth-range"},
-                {"format": "date-range"},
-                {"format": "datetime-range"}
+                {"pattern": "^[0-9]{4}$-^[0-9]{4}$"},
+                {"pattern": "^[0-9]{4}$-^[0-9]{2}$-^[0-9]{4}$-^[0-9]{2}$"}
             ]
         },
         "dateType": {
