@@ -114,9 +114,9 @@ refers to a list or JSON object that contains both the `disease_data` and
 
 ## Important vocabulary
 
-**Property**: synonymous with field or column in a table. 
-**Required**: A property is must be included for a given schema or object within a schema.
-**Array**: A comma separated group of values. Similar to a vector in R but a little more flexible.  
+**Property**: synonymous with field or column in a table.   
+**Required**: A property is must be included for a given schema or object within a schema.  
+**Array**: A comma separated group of values. Similar to a vector in R but a little more flexible.    
 
 
 ## Terms
