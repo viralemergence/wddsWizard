@@ -8,7 +8,7 @@
 An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 2 rows and 21 columns.
 }
 \source{
-\url{https://www.ebi.ac.uk/pride/archive/projects/PXD031075}
+\url{https://pharos.viralemergence.org/projects/?prj=prjRPayEvMecN}
 }
 \usage{
 becker_disease_data

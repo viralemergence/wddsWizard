@@ -11,7 +11,7 @@ An object of class \code{list} of length 7.
 minimal_project_metadata
 }
 \description{
-This is a minimal project metadata example. Its a list with the minimal
+This is a minimal project metadata example. It is a list with the minimal
 items required for project metadata.
 }
 \keyword{datasets}

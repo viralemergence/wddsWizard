@@ -2,7 +2,7 @@
 % Please edit documentation in R/wdds_schema.R
 \name{create_object_list}
 \alias{create_object_list}
-\title{Create list of a schema object}
+\title{Create a list from a schema object}
 \usage{
 create_object_list(x, idx, schema_dir)
 }
@@ -17,5 +17,5 @@ create_object_list(x, idx, schema_dir)
 data frame with type and name
 }
 \description{
-Create list of a schema object
+Creates a data.frame with fields name and type
 }

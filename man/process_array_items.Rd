@@ -2,18 +2,18 @@
 % Please edit documentation in R/wdds_schema.R
 \name{process_array_items}
 \alias{process_array_items}
-\title{Title}
+\title{Process Array Items}
 \usage{
 process_array_items(array_items, out)
 }
 \arguments{
-\item{array_items}{list.}
+\item{array_items}{list. List of array items for processing.}
 
-\item{out}{data frame}
+\item{out}{data frame. Data frame with name and type.}
 }
 \value{
 data frames with name and type for array items that are objects or character strings atomic (string, null, Boolean, etc) array items.
 }
 \description{
-Title
+Processes array items so they can be added to a data frame.
 }

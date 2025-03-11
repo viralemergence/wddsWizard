@@ -13,8 +13,8 @@ create_schema_list(schema_path = the$current_schema_path)
 character vector of markdown text
 }
 \description{
-Produces nested list for the schema. This is a
-recursive set of function
+Produces a list of data frame with name and type for the schema.
+This is a recursive set of function and may be expanded to get other properties.
 }
 \examples{
 
