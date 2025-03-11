@@ -30,12 +30,12 @@ Data sets either pass (🎉) or fail with informative errors.
 ## Getting Started
 
 The data standard is designed to be flexible and accessible. 
-Its composed two components: disease data and project metadata.
+It is composed of two components: disease data and project metadata.
 The disease data component describes the contents and structure of data related to the detection (or not) of a parasite in a given host. 
 The project metadata component describes the contents and structure of data related to the creation of the disease data component. 
 The disease data component allows us to create a collection of datasets that can be re-used, aggregated, and shared, while the project metadata component provides context for the data, makes it easier to find the dataset, and gives clear information about attribution and use (rights/license). 
 
-Using this package, you can validate one or both components of data standard. 
+Using this package, you can validate one or both components of the data standard. 
 It will be helpful to open the [Data Standard Terms](schema_overview.html#terms) in a separate browser tab as you go through the vignette and explore templates. 
 
 If you use the templates provided, you can focus on the field descriptions and largely ignore types and array items.
