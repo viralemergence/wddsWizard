@@ -29,13 +29,14 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
+<li class="nav-item"><a class="nav-link" href="../articles/wddsWizard.html">Get started</a></li>
 <li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="active nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
 <li><a class="dropdown-item" href="../articles/disease_data.html">Wildlife Disease Data</a></li>
     <li><a class="dropdown-item" href="../articles/project_metadata.html">Project Metadata</a></li>
-    <li><a class="dropdown-item" href="../articles/whole_game.html">The Whole Game</a></li>
+    <li><a class="dropdown-item" href="../articles/schema_overview.html">Schema Overview</a></li>
   </ul>
 </li>
       </ul>
@@ -52,7 +53,7 @@
 
 
 
-
+<script src="project_metadata_files/kePrint-0.0.1/kePrint.js"></script><link href="project_metadata_files/lightable-0.0.1/lightable.css" rel="stylesheet">
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
 
@@ -79,6 +80,82 @@ restructure the data, and then create a json object.</p>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;     intersect, setdiff, setequal, union</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://stringr.tidyverse.org" class="external-link">stringr</a></span><span class="op">)</span></span></code></pre></div>
+<div class="section level2">
+<h2 id="required-fields">Required fields<a class="anchor" aria-label="anchor" href="#required-fields"></a>
+</h2>
+<p>The following fields are required to be in the data.</p>
+<table class="table table" style="margin-left: auto; margin-right: auto;">
+<thead><tr>
+<th style="text-align:left;">
+Field
+</th>
+<th style="text-align:left;">
+Descriptions
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+methodology
+</td>
+<td style="text-align:left;">
+A broad categorization of how data were collected.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+creators
+</td>
+<td style="text-align:left;">
+The full names of the creators. Should be in the format familyName,
+givenName.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+titles
+</td>
+<td style="text-align:left;">
+A name or title by which a resource is known.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+publicationYear
+</td>
+<td style="text-align:left;">
+The year when the data was or will be made publicly available.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+language
+</td>
+<td style="text-align:left;">
+The primary language of the resource.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+descriptions
+</td>
+<td style="text-align:left;">
+All additional information that does not fit in any of the other
+categories. May be used for technical information or detailed
+information associated with a scientific instrument.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+fundingReferences
+</td>
+<td style="text-align:left;">
+Name and other identifying information of a funding provider.
+</td>
+</tr>
+</tbody>
+</table>
+</div>
 <div class="section level2">
 <h2 id="load-in-the-csv-and-clean-it-up">Load in the CSV and clean it up<a class="anchor" aria-label="anchor" href="#load-in-the-csv-and-clean-it-up"></a>
 </h2>
@@ -159,90 +236,31 @@ exist in this package! These mostly tag list items with
 <code><a href="https://jeroen.r-universe.dev/jsonlite/reference/unbox.html" class="external-link">jsonlite::unbox</a></code> and/or wrap things in lists so that when
 converted to json, they match the data standard’s expected formats.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/prep_for_json.html">prep_for_json</a></span><span class="op">(</span><span class="va">project_metadata_list_entities</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">jsonlite</span><span class="fu">::</span><span class="fu"><a href="https://jeroen.r-universe.dev/jsonlite/reference/fromJSON.html" class="external-link">toJSON</a></span><span class="op">(</span>pretty  <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="co">#&gt; {</span></span>
-<span><span class="co">#&gt;   "creators": [</span></span>
-<span><span class="co">#&gt;     {</span></span>
-<span><span class="co">#&gt;         "name": "Daniel J. Becker",</span></span>
-<span><span class="co">#&gt;         "givenName": "Daniel J.",</span></span>
-<span><span class="co">#&gt;         "familyName": "Becker",</span></span>
-<span><span class="co">#&gt;         "affiliation": [</span></span>
-<span><span class="co">#&gt;           {</span></span>
-<span><span class="co">#&gt;             "name": "Department of Biology, University of Oklahoma, Norman, OK, USA",</span></span>
-<span><span class="co">#&gt;             "affiliationIdentifier": "https://ror.org/02aqsxs83"</span></span>
-<span><span class="co">#&gt;           }</span></span>
-<span><span class="co">#&gt;         ],</span></span>
-<span><span class="co">#&gt;         "nameIdentifiers": [</span></span>
-<span><span class="co">#&gt;           {</span></span>
-<span><span class="co">#&gt;             "nameIdentifier": "https://orcid.org/0000-0003-4315-8628",</span></span>
-<span><span class="co">#&gt;             "nameIdentifierScheme": "ORCID"</span></span>
-<span><span class="co">#&gt;           }</span></span>
-<span><span class="co">#&gt;         ]</span></span>
-<span><span class="co">#&gt;       },</span></span>
-<span><span class="co">#&gt;     {</span></span>
-<span><span class="co">#&gt;         "name": "Guang-Sheng Lei",</span></span>
-<span><span class="co">#&gt;         "givenName": "Guang-Sheng",</span></span>
-<span><span class="co">#&gt;         "familyName": "Lei",</span></span>
-<span><span class="co">#&gt;         "affiliation": [</span></span>
-<span><span class="co">#&gt;           {</span></span>
-<span><span class="co">#&gt;             "name": "Department of Pathology and Laboratory Medicine, Indiana University School of Medicine, Indianapolis, IN, USA",</span></span>
-<span><span class="co">#&gt;             "affiliationIdentifier": "https://ror.org/02ets8c94"</span></span>
-<span><span class="co">#&gt;           }</span></span>
-<span><span class="co">#&gt;         ]</span></span>
-<span><span class="co">#&gt;       }</span></span>
-<span><span class="co">#&gt;   ],</span></span>
-<span><span class="co">#&gt;   "descriptions": [</span></span>
-<span><span class="co">#&gt;     {</span></span>
-<span><span class="co">#&gt;         "description": "Bats can harbor many pathogens without showing disease…",</span></span>
-<span><span class="co">#&gt;         "descriptionType": "Abstract"</span></span>
-<span><span class="co">#&gt;       }</span></span>
-<span><span class="co">#&gt;   ],</span></span>
-<span><span class="co">#&gt;   "fundingReferences": [</span></span>
-<span><span class="co">#&gt;     {</span></span>
-<span><span class="co">#&gt;         "funderName": "National Geographic Society",</span></span>
-<span><span class="co">#&gt;         "funderIdentifier": "http://dx.doi.org/10.13039/100006733",</span></span>
-<span><span class="co">#&gt;         "awardNumber": "NGS-55503R-19"</span></span>
-<span><span class="co">#&gt;       },</span></span>
-<span><span class="co">#&gt;     {</span></span>
-<span><span class="co">#&gt;         "funderName": "Indiana University",</span></span>
-<span><span class="co">#&gt;         "funderIdentifier": "http://dx.doi.org/10.13039/100006733"</span></span>
-<span><span class="co">#&gt;       },</span></span>
-<span><span class="co">#&gt;     {</span></span>
-<span><span class="co">#&gt;         "funderName": "College of Charleston",</span></span>
-<span><span class="co">#&gt;         "funderIdentifier": "http://dx.doi.org/10.13039/100009789"</span></span>
-<span><span class="co">#&gt;       }</span></span>
-<span><span class="co">#&gt;   ],</span></span>
-<span><span class="co">#&gt;   "identifiers": [</span></span>
-<span><span class="co">#&gt;     {</span></span>
-<span><span class="co">#&gt;         "identifier": "https://www.ebi.ac.uk/pride/archive/projects/PXD031075"</span></span>
-<span><span class="co">#&gt;       }</span></span>
-<span><span class="co">#&gt;   ],</span></span>
-<span><span class="co">#&gt;   "language": "en",</span></span>
-<span><span class="co">#&gt;   "methodology": {</span></span>
-<span><span class="co">#&gt;     "eventBased": false,</span></span>
-<span><span class="co">#&gt;     "archival": false</span></span>
-<span><span class="co">#&gt;   },</span></span>
-<span><span class="co">#&gt;   "publicationYear": "2022",</span></span>
-<span><span class="co">#&gt;   "rights": [</span></span>
-<span><span class="co">#&gt;     {</span></span>
-<span><span class="co">#&gt;         "rights": "CC0"</span></span>
-<span><span class="co">#&gt;       }</span></span>
-<span><span class="co">#&gt;   ],</span></span>
-<span><span class="co">#&gt;   "subjects": [</span></span>
-<span><span class="co">#&gt;     {</span></span>
-<span><span class="co">#&gt;         "subject": "Proteomics"</span></span>
-<span><span class="co">#&gt;       },</span></span>
-<span><span class="co">#&gt;     {</span></span>
-<span><span class="co">#&gt;         "subject": "Immune Response"</span></span>
-<span><span class="co">#&gt;       }</span></span>
-<span><span class="co">#&gt;   ],</span></span>
-<span><span class="co">#&gt;   "titles": [</span></span>
-<span><span class="co">#&gt;     {</span></span>
-<span><span class="co">#&gt;       "title": "Serum proteomics of coronavirus shedding in vampire bats (Desmodus rotundus)"</span></span>
-<span><span class="co">#&gt;     }</span></span>
-<span><span class="co">#&gt;   ]</span></span>
-<span><span class="co">#&gt; }</span></span></code></pre></div>
+<code class="sourceCode R"><span> <span class="va">project_metadata_json</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/prep_for_json.html">prep_for_json</a></span><span class="op">(</span><span class="va">project_metadata_list_entities</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">jsonlite</span><span class="fu">::</span><span class="fu"><a href="https://jeroen.r-universe.dev/jsonlite/reference/fromJSON.html" class="external-link">toJSON</a></span><span class="op">(</span>pretty  <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="validate-project-metadata">Validate Project metadata<a class="anchor" aria-label="anchor" href="#validate-project-metadata"></a>
+</h2>
+<p>We can validate the entire project metadata object by using the
+<code>project_metadata.json</code> schema.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">schema</span> <span class="op">&lt;-</span> <span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html" class="external-link">here</a></span><span class="op">(</span><span class="st">"inst/extdata/wdds_schema/schemas/project_metadata.json"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">project_validator</span> <span class="op">&lt;-</span> <span class="fu">jsonvalidate</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/jsonvalidate/reference/json_validator.html" class="external-link">json_validator</a></span><span class="op">(</span><span class="va">schema</span>,engine <span class="op">=</span> <span class="st">"ajv"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">project_validation</span> <span class="op">&lt;-</span> <span class="fu">project_validator</span><span class="op">(</span><span class="va">project_metadata_json</span>,verbose <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## check for errors!</span></span>
+<span></span>
+<span><span class="va">errors</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/attributes.html" class="external-link">attributes</a></span><span class="op">(</span><span class="va">project_validation</span><span class="op">)</span></span>
+<span></span>
+<span><span class="kw">if</span><span class="op">(</span><span class="op">!</span><span class="va">project_validation</span><span class="op">)</span><span class="op">{</span></span>
+<span>  <span class="va">errors</span><span class="op">$</span><span class="va">errors</span>  </span>
+<span><span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="st">"Valid project metadata!😁"</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span><span class="co">#&gt; [1] "Valid project metadata!😁"</span></span></code></pre></div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
