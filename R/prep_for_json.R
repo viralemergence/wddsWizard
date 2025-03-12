@@ -431,6 +431,7 @@ prep_fundingReferences <- function(x){
 #' @param x List. methodology component of a list
 #'
 #' @returns properly formatted list
+#' @importFrom rlang .data
 #' @export
 #'
 #' @examples
@@ -448,8 +449,8 @@ prep_methodology <- function(x){
 
   # set these to be explicitly logical
   x <- x |>
-     dplyr::mutate(eventBased = as.logical(eventBased),
-            archival=  as.logical(archival))
+     dplyr::mutate(eventBased = as.logical(.data$eventBased),
+            archival=  as.logical(.data$archival))
 
   prep_object(x,unbox = TRUE)
 }
@@ -559,11 +560,12 @@ prep_for_json <- function(x,prep_methods_list = prep_methods()){
 #'
 #' The `get_entity` function creates standard entities that will be easier to transform json.
 #'
-#' Pivots data from long to wide.
+#' Pivots data from long to wide and formats column names.
 #'
 #' @param x data frame. A "long" form data frame with the fields Group, entity_id, Value, and variable.
 #'
 #' @returns data frame in "wide" form
+#' @importFrom rlang .data
 #' @export
 #'
 #' @examples
@@ -575,11 +577,11 @@ prep_for_json <- function(x,prep_methods_list = prep_methods()){
 #'
 get_entity <- function(x){
   y <- x |>
-    dplyr::select(-Group,-entity_id) |>
-    dplyr::filter(Value != "") |>
-    dplyr::mutate(Variable = snakecase::to_lower_camel_case(Variable))
+    dplyr::select(-.data$Group,-.data$entity_id) |>
+    dplyr::filter(.data$Value != "") |>
+    dplyr::mutate(Variable = snakecase::to_lower_camel_case(.data$Variable))
 
-  z <- tidyr::pivot_wider(y,names_from = Variable, values_from = Value)
+  z <- tidyr::pivot_wider(y,names_from = .data$Variable, values_from = .data$Value)
 
 
   return(z)
@@ -611,20 +613,21 @@ clean_field_names <- function(x){
 #' @param prep_methods_list list. Named list of methods where each items is a function to applied to corresponding items in x.Default is `prep_methods()`
 #'
 #' @returns Named list ready to be converted to json
+#' @importFrom rlang .data
 #' @export
 prep_from_metadata_template <- function(project_metadata, prep_methods_list = prep_methods()){
 
   ## turn empty strings into NAs in the group field
   project_metadata <- project_metadata |>
     dplyr::mutate(Group = dplyr::case_when(
-      Group != "" ~ Group,
+      .data$Group != "" ~ .data$Group,
       TRUE ~ NA
     ))
 
   ## use `fill` to complete the items column and `mutate` to make groups a little
   ## more ergonomic
 
-  project_metadata_filled <- tidyr::fill(data = project_metadata,Group)
+  project_metadata_filled <- tidyr::fill(data = project_metadata,.data$Group)
 
 
   ## Restructure data
@@ -637,19 +640,19 @@ prep_from_metadata_template <- function(project_metadata, prep_methods_list = pr
   # get ids for components of a group.
   project_metadata_ids <- project_metadata_filled |>
     dplyr::mutate(
-      entity_id = stringr::str_extract(string = Group,pattern = "[0-9]"),
+      entity_id = stringr::str_extract(string = .data$Group,pattern = "[0-9]"),
       # make sure that there are no NA entity IDs
       entity_id = dplyr::case_when(
-        is.na(entity_id) ~ "1",
-        TRUE ~ entity_id
+        is.na(.data$entity_id) ~ "1",
+        TRUE ~ .data$entity_id
       )
     ) |>
     # drop entity ids from group field and convert to camel case
     dplyr::mutate(
-      Group = stringr::str_replace_all(string = Group,
+      Group = stringr::str_replace_all(string = .data$Group,
                                        pattern = " [0-9]",
                                        replacement = ""),
-      Group = snakecase::to_lower_camel_case(Group,abbreviations = "ID")
+      Group = snakecase::to_lower_camel_case(.data$Group,abbreviations = "ID")
       )
 
 

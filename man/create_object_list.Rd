@@ -17,5 +17,5 @@ create_object_list(x, idx, schema_dir)
 data frame with type and name
 }
 \description{
-Creates a data.frame with fields name and type
+Creates a data.frame with the fields name and type
 }

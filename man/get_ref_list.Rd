@@ -21,5 +21,5 @@ external references ('"$ref":"schemas/datacite/datacite.json"').
 \details{
 For external references, it can handle both pointers and references to entire schemas.
 This function navigates between parent and child schemas by manipulating
-variables in the  package environment \code{the}.
+variables in the package environment \code{the}.
 }
