@@ -21,6 +21,38 @@ library(dplyr)
 library(stringr)
 ```
 
+## Required fields
+
+The following fields are required to be in the data.
+
+```{r required fields, echo=FALSE, message=TRUE, warning=TRUE}
+
+required_fields <- wddsWizard::project_metadata_schema$properties[wddsWizard::project_metadata_required_fields]
+
+descriptions <- purrr::map_depth(required_fields,1,"description") 
+  
+df_data_desc <- data.frame(Field = wddsWizard::project_metadata_required_fields, Descriptions = unlist(descriptions),row.names = NULL)
+
+df_data_desc |>
+  dplyr::mutate(TDWG_url = dplyr::case_when(
+    stringr::str_detect(string = Descriptions, pattern = "http://rs.tdwg.org/dwc/terms/") ~ stringr::str_extract(string = Descriptions,pattern = "http://rs.tdwg.org/dwc/terms/.*"),
+    TRUE ~ ""
+  )) |>
+  dplyr::mutate(Field = case_when(
+    TDWG_url != "" ~ kableExtra::cell_spec(Field,format = "html",link = TDWG_url),
+    TRUE ~ Field
+  )) |>
+    dplyr::mutate(Descriptions = dplyr::case_when(
+    stringr::str_detect(string = Descriptions, pattern = "http://rs.tdwg.org/dwc/terms/") ~ stringr::str_remove(string = Descriptions,pattern = "See http://rs.tdwg.org/dwc/terms/.*"),
+    TRUE ~ Descriptions
+  )) |>
+  dplyr::select(-TDWG_url) |>
+  kableExtra::kbl(escape = FALSE) |>
+  kableExtra::kable_styling()
+
+```
+
+
 ## Load in the CSV and clean it up
 
 Our example data requires some light cleaning to make transforming it into csv
@@ -100,9 +132,33 @@ jsonlite::toJSON(project_metadata_list_entities,pretty = TRUE,dataframe = "colum
 BUT because datacite's structures are more complex, we need to do some prep. Luckily, there are a host of prep functions that already exist in this package! These mostly tag list items with `jsonlite::unbox` and/or wrap things in lists so that when converted to json, they match the data standard's expected formats. 
 
 ```{r prep-data}
-prep_for_json(project_metadata_list_entities) |>
+ project_metadata_json <- prep_for_json(project_metadata_list_entities) |>
   jsonlite::toJSON(pretty  = TRUE)
 ```
+
+## Validate Project metadata
+
+We can validate the entire project metadata object by using the `project_metadata.json` schema.
+
+```{r validate-project, message=FALSE, warning=FALSE}
+schema <- here::here("inst/extdata/wdds_schema/schemas/project_metadata.json")
+
+project_validator <- jsonvalidate::json_validator(schema,engine = "ajv")
+
+project_validation <- project_validator(project_metadata_json,verbose = TRUE)
+
+## check for errors!
+
+errors <- attributes(project_validation)
+
+if(!project_validation){
+  errors$errors  
+} else {
+  print("Valid project metadata!😁")
+}
+```
+
+
 
 
 

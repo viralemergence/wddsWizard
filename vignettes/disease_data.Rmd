@@ -2,7 +2,7 @@
 title: "Wildlife Disease Data"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Field Data}
+  %\VignetteIndexEntry{Wildlife Disease Data}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -24,7 +24,7 @@ library(janitor)
 library(jsonlite)
 ```
 
-This vignette describes how to prepare data for validation against the wildlife disease data standard. We will 1) read an exampl excel spreadsheet, 2) do some light reformatting, and 3) produce a json object.
+This vignette describes how to prepare data for validation against the wildlife disease data standard. We will 1) read an example excel spreadsheet, 2) do some light reformatting, and 3) produce a json object.
 
 ## Required fields
 
@@ -32,11 +32,11 @@ The following fields are required to be in the data.
 
 ```{r required fields, echo=FALSE, message=TRUE, warning=TRUE}
 
-wdds_data_required <- wddsWizard::wdds_schema$properties$data$properties[wddsWizard::data_required_fields]
+wdds_data_required <- wddsWizard::disease_data_schema$properties[wddsWizard::disease_data_required_fields]
 
 descriptions <- purrr::map_depth(wdds_data_required,1,"description") 
   
-df_data_desc <- data.frame(Field = wddsWizard::data_required_fields, Descriptions = unlist(descriptions),row.names = NULL)
+df_data_desc <- data.frame(Field = wddsWizard::disease_data_required_fields, Descriptions = unlist(descriptions),row.names = NULL)
 
 df_data_desc |>
   dplyr::mutate(TDWG_url = dplyr::case_when(
@@ -73,9 +73,9 @@ becker_data_prelim <- janitor::clean_names(becker_data,case = "lower_camel")
 ```{r missing-fields}
 
 # check that required fields are in dataset
-required_field_check <- wddsWizard::data_required_fields %in% names(becker_data_prelim)
+required_field_check <- wddsWizard::disease_data_required_fields %in% names(becker_data_prelim)
 
-wddsWizard::data_required_fields[!required_field_check]
+wddsWizard::disease_data_required_fields[!required_field_check]
 
 ```
 ### Rename Fields to match standard
@@ -91,7 +91,7 @@ becker_data_clean <- becker_data_prelim |>
   )
 
 # check that all required fields are in the data
-all(wddsWizard::data_required_fields %in% names(becker_data_clean))
+all(wddsWizard::disease_data_required_fields %in% names(becker_data_clean))
 
 ```
 
@@ -101,8 +101,28 @@ all(wddsWizard::data_required_fields %in% names(becker_data_clean))
 becker_prepped <- prep_data(becker_data_clean)
 
 ## wrap the prepped data in list
-becker_data <- list(data = becker_prepped)
+becker_data_json <- becker_prepped |>
+  jsonlite::toJSON(pretty = TRUE)
 
-jsonlite::toJSON(becker_data,pretty = TRUE)
+```
 
+
+## Validate disease data
+```{r validate-data}
+
+schema <- here::here("inst/extdata/wdds_schema/schemas/disease_data.json")
+
+dd_validator <- jsonvalidate::json_validator(schema,engine = "ajv")
+
+dd_validation <- dd_validator(becker_data_json,verbose = TRUE)
+
+## check for errors!
+
+errors <- attributes(dd_validation)
+
+if(!dd_validation){
+  errors$errors  
+} else {
+  print("Valid project metadata!😁")
+}
 ```

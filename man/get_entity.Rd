@@ -16,7 +16,7 @@ data frame in "wide" form
 The \code{get_entity} function creates standard entities that will be easier to transform json.
 }
 \details{
-Pivots data from long to wide.
+Pivots data from long to wide and formats column names.
 }
 \examples{
 

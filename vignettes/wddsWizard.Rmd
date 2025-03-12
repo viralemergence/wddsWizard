@@ -1,0 +1,239 @@
+---
+title: "Getting Started"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Getting Started}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(wddsWizard)
+library(jsonvalidate)
+```
+
+This package is home to the [Wildlife Disease Data Standard](https://doi.org/10.32942/X2TW4J).
+It provides template csv files for storing data and a set of functions for validating datasets against the standard. 
+
+## The Whole game
+
+Flat data files (csv/xlsx) are imported into R, lightly restructured, and then converted to JSON and validated against the Wildlife Disease Data Standard. 
+Data sets either pass (🎉) or fail with informative errors. 
+
+## Getting Started
+
+The data standard is designed to be flexible and accessible. 
+It is composed of two components: disease data and project metadata.
+The disease data component describes the contents and structure of data related to the detection (or not) of a parasite in a given host. 
+The project metadata component describes the contents and structure of data related to the creation of the disease data component. 
+The disease data component allows us to create a collection of datasets that can be re-used, aggregated, and shared, while the project metadata component provides context for the data, makes it easier to find the dataset, and gives clear information about attribution and use (rights/license). 
+
+Using this package, you can validate one or both components of the data standard. 
+It will be helpful to open the [Data Standard Terms](schema_overview.html#terms) in a separate browser tab as you go through the vignette and explore templates. 
+
+If you use the templates provided, you can focus on the field descriptions and largely ignore types and array items.
+
+### Templates
+
+We have created several templates to make it easier to get started using the Wildlife Disease Data Standard.
+
+```{r templates}
+# list templates
+wdds_template()
+```
+
+You can make your own copies of the template files with the `use_template` function.
+
+```{r use-template, eval=FALSE}
+
+use_template("disease_data_template.csv",file_name = "my_interesting_disease_data.csv",open = TRUE)
+
+use_template("project_metadata_template.csv",file_name = "my_project_metadata.csv",open = TRUE)
+```
+
+The templates may contain additional fields that are not strictly required. Required fields are clearly marked in [Data Standard Terms](schema_overview.html#terms) documentation.
+
+The following fields are required for disease data:
+```{r required-fields-dd}
+wddsWizard::disease_data_required_fields
+```
+
+The following fields are required for project metadata:
+```{r required-fields-pmd}
+wddsWizard::project_metadata_required_fields
+```
+
+### Disease Data
+
+Disease data are expected to be in a "tidy" form (think CSV or XLS where each row is an observation and each column is a property). 
+Each column in the table that is part of the standard will be validated. 
+You may include additional columns as needed. 
+
+Disease data and project metadata can be validated separately. 
+In the code below we will read in a csv file, do some light wrangling, transform the data to JSON, and then validate the data. 
+
+```{r disease-data, warning=FALSE}
+
+## read in the data
+my_disease_data <- read.csv(file = here::here("inst/extdata/example_data/my_interesting_disease_data.csv"))
+
+# clean up field names to match JSON schema
+my_disease_data <- clean_field_names(my_disease_data)
+
+### Check for required Fields -
+
+# check that all required fields are in the data
+all(wddsWizard::disease_data_required_fields %in% names(my_disease_data))
+
+## Prep for JSON
+
+my_disease_data_prepped <- prep_data(my_disease_data)
+
+## make the JSON!
+my_disease_data_json <- my_disease_data_prepped |>
+  jsonlite::toJSON(pretty = TRUE)
+
+### validate the JSON 
+
+schema <- here::here("inst/extdata/wdds_schema/schemas/disease_data.json")
+
+# this creates a function that we can use to validate our data
+dd_validator <- jsonvalidate::json_validator(schema,engine = "ajv")
+
+# use the validator to check if the disease data conforms to the disease_data component of the standard
+dd_validation <- dd_validator(my_disease_data_json,verbose = TRUE)
+
+## check for errors!
+
+errors <- attributes(dd_validation)
+
+if(!dd_validation){
+  errors$errors  
+} else {
+  print("Valid disease data!😁")
+}
+```
+
+### Project Metadata
+
+Project metadata largely follow the [Datacite Metadata Schema](https://datacite-metadata-schema.readthedocs.io/en/4.5/). 
+Again, the data standard allows you to include additional properties.
+
+Note that if you are comfortable with JSON, it may be easier to write project metadata directly as JSON. 
+
+In the example below, we will use project metadata created from the  project metadata template to create JSON that can be validated against the project metadata component of the data standard.  
+
+```{r prep-metadata, warning=FALSE}
+
+# read in project metadata created from template
+my_project_metadata <- read.csv(here::here("inst/extdata/example_data/my_project_metadata.csv"))
+
+# prepare project metadata
+my_project_metadata_prepped <- prep_from_metadata_template(my_project_metadata)
+
+
+# check that all required fields are in the project metadata
+all(wddsWizard::project_metadata_required_fields %in% names(my_project_metadata_prepped))
+
+# convert to json
+
+my_project_metadata_json <- my_project_metadata_prepped |>
+  jsonlite::toJSON(pretty  = TRUE)
+
+# validate against project metadata schema
+
+schema <- here::here("inst/extdata/wdds_schema/schemas/project_metadata.json")
+
+pm_validator <- jsonvalidate::json_validator(schema,engine = "ajv")
+
+pm_validation <- pm_validator(my_project_metadata_json,verbose = TRUE)
+
+## check for errors!
+
+errors <- attributes(pm_validation)
+
+if(!pm_validation){
+  errors$errors  
+} else {
+  print("Valid project metadata!😁")
+}
+
+```
+
+See the vignettes on [Project Metadata](project_metadata.html) and [Wildlife Disease Data](disease_data.html) for more
+details on preparing those components. 
+
+
+## Combine disease data and project metadata
+
+Finally we will check the disease data and the project metadata against the standard.
+
+### Combine components
+
+The first thing we have to do is combine the disease data and project metadata components in a list and check that we have all the required fields. 
+
+```{r combine-data}
+
+## use append so that you do not add levels to your list
+
+data_package <- list(disease_data = my_disease_data_prepped,
+                     project_metadata = my_project_metadata_prepped)
+
+# check that all required fields are in the data
+
+req_field_check <- wddsWizard::schema_required_fields %in% names(data_package)
+
+if(all(!req_field_check)){
+  wddsWizard::schema_required_fields[!req_field_check]  
+} else {
+  print("all required fields present 🥳")
+}
+
+```
+
+### Make JSON
+
+Next we will convert the `data_package` so that it can be validated. 
+
+```{r make-json}
+
+# convert to json
+
+data_package_json <- jsonlite::toJSON(data_package,pretty = TRUE)
+
+
+```
+
+### Validate your json!
+
+Here we will use the {jsonvalidate} package to make sure `data_package_json` 
+conforms to the wildlife disease data standard.
+
+```{r json-validate, warning=FALSE}
+
+schema <- here::here("inst/extdata/wdds_schema/wdds_schema.json")
+
+wdds_validator <- jsonvalidate::json_validator(schema,engine = "ajv")
+
+project_validation <- wdds_validator(data_package_json,verbose = TRUE)
+
+if(project_validation){
+  print("Your data package is valid! 🎊 ")
+} else {
+errors <- attributes(project_validation)
+errors$errors
+}
+
+```
+
+### Handling Errors
+
+You're going to get some 
+

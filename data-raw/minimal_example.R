@@ -1,6 +1,6 @@
 ## code to prepare `minimal_dataset` dataset goes here
 
-minimal_dataset <- jsonlite::fromJSON(txt = '{
+minimal_disease_data <- jsonlite::fromJSON(txt = '{
 
   "animalID":["d","e","f"],
   "sampleID":["a","b","c"],
@@ -18,7 +18,7 @@ minimal_dataset <- jsonlite::fromJSON(txt = '{
     }') |>
   as.data.frame()
 
-usethis::use_data(minimal_dataset, overwrite = TRUE)
+usethis::use_data(minimal_disease_data, overwrite = TRUE)
 
 project_metadata_json <- '{
 "creators":[{
