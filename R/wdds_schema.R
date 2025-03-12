@@ -72,7 +72,7 @@ create_schema_list <- function(schema_path = the$current_schema_path){
 
 #' Create a list from a schema object
 #'
-#' Creates a data.frame with fields name and type
+#' Creates a data.frame with the fields name and type
 #'
 #' @param x List. Schema property or definition
 #' @param idx Name from schema property
@@ -158,7 +158,7 @@ create_object_list <- function(x,idx, schema_dir){
 #'
 #' For external references, it can handle both pointers and references to entire schemas.
 #' This function navigates between parent and child schemas by manipulating
-#' variables in the  package environment `the`.
+#' variables in the package environment `the`.
 #'
 #' @param x List. Must have property "$ref"
 #' @param schema_dir Character. Directory for the current schema.
@@ -238,7 +238,7 @@ get_ref_list <- function(x,schema_dir){
     }
 
     if(length(out$type) > 1){
-      print("get_ref_list: because out length > 1")
+      print("get_ref_list: length(out) > 1")
       print(class(out))
       print(names(out))
 
