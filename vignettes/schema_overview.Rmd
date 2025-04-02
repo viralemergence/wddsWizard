@@ -170,7 +170,7 @@ wddsWizard::schema_terms |>
 
 - ### sampleMaterial  
 **Type**: array  
-**Description**: Organic material from the animal body (i.e., tissue or fluid) extracted into a sample (e.g., “liver”; “blood”; “skin”; “whole organism”).  
+**Description**: Organic tissue or fluid being collected (e.g., “liver”; “blood”; “skin”; “whole organism”).  
 **Example Values**: liver, blood, skin, whole organism     
 **Array Items**
     - **type**: string, null  
