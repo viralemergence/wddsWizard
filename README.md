@@ -3,7 +3,7 @@
 This is an R package for validating data against the Wildlife Disease Data Standard. 
 It allows users to restructure and validate data sets. 
 
-See [Getting Started](articles/wddsWizard.html) more information about how to use the package. 
+See [Getting Started]([articles/wddsWizard.html](https://viralemergence.github.io/wddsWizard/articles/wddsWizard.html)) more information about how to use the package. 
 
 ## Installation
 
@@ -39,7 +39,7 @@ This package can be used to explore Wildlife Disease Data Standard and validate 
 
 See our preprint [A minimum data standard for wildlife disease studies](https://doi.org/10.32942/X2TW4J) for discussions of appropriate use and  more complex data structures (e.g. pooled samples, parasites with an arthropod vector, etc.).
 
-See the [Getting Started](wddsWizard.html) vignette for code examples and a more hands on approach to getting familiar with the package.
+See the [Getting Started](https://viralemergence.github.io/wddsWizard/articles/wddsWizard.html) vignette for code examples and a more hands on approach to getting familiar with the package.
 
 ### Starting from scratch - don't have any data, yet!
 
@@ -61,11 +61,11 @@ You will need to re-name fields that correspond to the those in the standard.
 ### Validating your data
 
 This package has vignettes describing how to move from CSV/excel to JSON for
-[project metadata](project_metadata.html) and [wildlife disease data](disease_data.html).
+[project metadata](https://viralemergence.github.io/wddsWizard/articles/project_metadata.html) and [wildlife disease data](https://viralemergence.github.io/wddsWizard/articles/disease_data.html).
 
 ## How does validation work?
 
 This package uses [JSON schemas](https://json-schema.org/) and the [AJV engine](https://ajv.js.org/) to do the validation.
 
-See [Schema Overview](schema_overview.html) for more information about the data standard and json schemas.
+See [Schema Overview](https://viralemergence.github.io/wddsWizard/articles/schema_overview.html) for more information about the data standard and json schemas.
 
