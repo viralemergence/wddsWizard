@@ -3,7 +3,7 @@
 This is an R package for validating data against the Wildlife Disease Data Standard. 
 It allows users to restructure and validate data sets. 
 
-See [Getting Started]([articles/wddsWizard.html](https://viralemergence.github.io/wddsWizard/articles/wddsWizard.html)) more information about how to use the package. 
+See [Getting Started](https://viralemergence.github.io/wddsWizard/articles/wddsWizard.html) more information about how to use the package. 
 
 ## Installation
 
