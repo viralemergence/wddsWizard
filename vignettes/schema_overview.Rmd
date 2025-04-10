@@ -66,7 +66,7 @@ refers to a list or JSON object that contains both the `disease_data` and
 ## Important vocabulary
 
 **Property**: synonymous with field or column in a table. A property corresponds to a particular attribute (e.g. age, collectedBy, latitude, etc) of the data.  
-**Required**: A property is must be included for a given schema or object within a schema. 
+**Required**: A property is must be included for a given schema or object within a schema.  
 **Type**: [Type of data](https://json-schema.org/understanding-json-schema/reference/type). Common values include array, object, string, number, integer, null, and boolean.   
 **Array**: A comma separated group of values. Similar to a vector in R but a little more flexible.  
 **Array Items**: Array items define acceptable values for an array.  
