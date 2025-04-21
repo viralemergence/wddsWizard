@@ -36,5 +36,5 @@ Depends:
     R (>= 3.5)
 LazyData: true
 License: MIT + file LICENSE
-URL: https://github.com/viralemergence/wddsWizard
+URL: https://viralemergence.github.io/wddsWizard/
 BugReports: https://github.com/viralemergence/wddsWizard/issues
