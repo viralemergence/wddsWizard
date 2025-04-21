@@ -207,13 +207,6 @@ wddsWizard::schema_terms |>
     - **type**: boolean, null  
     - **minItems**: 1    
 
-- ### healthNotes  
-**Type**: array  
-**Description**: Any additional (unstructured) notes about the state of the animal, such as disease presentation.   
-**Array Items**
-    - **type**: string, null  
-    - **minItems**: 1    
-
 - ### hostLifeStage  
 **Type**: array  
 **Description**: The life stage of the animal from which the sample was collected (as appropriate for the organism) (e.g., juvenile, adult). See http://rs.tdwg.org/dwc/terms/lifeStage  

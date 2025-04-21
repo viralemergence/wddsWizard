@@ -5,7 +5,7 @@
 \alias{schema_properties}
 \title{Wildlife Disease Data Standard - schema properties}
 \format{
-An object of class \code{data.frame} with 79 rows and 4 columns.
+An object of class \code{data.frame} with 78 rows and 4 columns.
 }
 \usage{
 schema_properties
