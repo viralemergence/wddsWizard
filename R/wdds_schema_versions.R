@@ -45,7 +45,7 @@ get_schema_version <- function(zenodo_id,version,latest_version){
   fs::file_delete(zip_path)
 
   # rename unzipped
-  version <- stringr::str_replace_all(string = version,pattern = "\\.",replacement = "_")
+  version <- sanitize_version(version)
   version_dir_path <- sprintf("inst/extdata/wdds_archive/%s",version)
   fs::dir_create(path = version_dir_path)
 
@@ -80,10 +80,24 @@ update_schema_versions <- function(df = list_schema_versions()){
 
 set_schema_version <- function(version = "latest"){
 
- # the$current_schema_path
-  ## if latest, copy contents to wdds_schema
-  if(version == "latest"){
-    fs::dir_copy(path = version_wdds_schema,new_path = "inst/extdata/wdds_schema/",overwrite = TRUE)
-  }
+  # sanitize version
+  version <- sanitize_version(version)
+
+  # set path
+  archive_path <- sprintf("inst/extdata/wdds_archive/%s/wdds_schema",version)
+
+  # copy contents to right place
+  fs::dir_copy(path = archive_path,
+               new_path = "inst/extdata/wdds_schema/",
+               overwrite = TRUE)
+
+  # set env variables e.g. the$current_schema... I think no
+
+
+}
+
+sanitize_version <- function(version){
+  version_clean <- stringr::str_replace_all(string = version,pattern = "\\.",replacement = "_")
+  return(version_clean)
 }
 
