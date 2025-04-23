@@ -39,7 +39,7 @@ Once we have created a schema, we can then validate data against it.
 The validation process happens via a validation engine and tells us if the data conform to the standard.
 If the data do not conform, then the validation engine tells us precisely where the data are non-conformant and what the data standard expected to see. 
 
-![](https://json-schema.org/img/json_schema.svg){width=95%}
+![json schema validation diagram. A json object and a json schema are compared to each other in a json validation engine. The validation engine returns the results of the validation checks.](https://json-schema.org/img/json_schema.svg){width=95%}
 
 For more detailed information see [JSON-Schema.org](https://json-schema.org/overview/what-is-jsonschema)
 

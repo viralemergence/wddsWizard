@@ -59,7 +59,7 @@ Our example data requires some light cleaning to make transforming it into csv
 easier. 
 
 ```{r load-data}
-project_metadata <- read.csv("../inst/extdata/example_data/example_project_metadata.csv")
+ project_metadata  <- wdds_example_data(version = "latest",file = "example_project_metadata.csv") |> read.csv()
 
 ## turn empty strings into NAs in the group field
 project_metadata <- project_metadata |>
@@ -141,7 +141,8 @@ BUT because datacite's structures are more complex, we need to do some prep. Luc
 We can validate the entire project metadata object by using the `project_metadata.json` schema.
 
 ```{r validate-project, message=FALSE, warning=FALSE}
-schema <- here::here("inst/extdata/wdds_schema/schemas/project_metadata.json")
+
+schema <- wdds_json(version = "latest", file = "schemas/project_metadata.json")
 
 project_validator <- jsonvalidate::json_validator(schema,engine = "ajv")
 

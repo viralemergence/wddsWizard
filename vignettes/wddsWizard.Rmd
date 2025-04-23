@@ -82,7 +82,8 @@ In the code below we will read in a csv file, do some light wrangling, transform
 ```{r disease-data, warning=FALSE}
 
 ## read in the data
-my_disease_data <- read.csv(file = here::here("inst/extdata/example_data/my_interesting_disease_data.csv"))
+my_disease_data <- wdds_example_data(version = "latest",file = "my_interesting_disease_data.csv") |>
+  read.csv()
 
 # clean up field names to match JSON schema
 my_disease_data <- clean_field_names(my_disease_data)
@@ -102,7 +103,8 @@ my_disease_data_json <- my_disease_data_prepped |>
 
 ### validate the JSON 
 
-schema <- here::here("inst/extdata/wdds_schema/schemas/disease_data.json")
+# get the schema file
+schema <- wdds_json(version = "latest",file = "schemas/disease_data.json")
 
 # this creates a function that we can use to validate our data
 dd_validator <- jsonvalidate::json_validator(schema,engine = "ajv")
@@ -133,7 +135,9 @@ In the example below, we will use project metadata created from the  project met
 ```{r prep-metadata, warning=FALSE}
 
 # read in project metadata created from template
-my_project_metadata <- read.csv(here::here("inst/extdata/example_data/my_project_metadata.csv"))
+
+my_project_metadata <- wdds_example_data(version = "latest",file = "my_project_metadata.csv") |>
+   read.csv()
 
 # prepare project metadata
 my_project_metadata_prepped <- prep_from_metadata_template(my_project_metadata)
@@ -149,7 +153,7 @@ my_project_metadata_json <- my_project_metadata_prepped |>
 
 # validate against project metadata schema
 
-schema <- here::here("inst/extdata/wdds_schema/schemas/project_metadata.json")
+schema <- wdds_json(version = "latest",file = "schemas/project_metadata.json")
 
 pm_validator <- jsonvalidate::json_validator(schema,engine = "ajv")
 
@@ -218,7 +222,7 @@ conforms to the wildlife disease data standard.
 
 ```{r json-validate, warning=FALSE}
 
-schema <- here::here("inst/extdata/wdds_schema/wdds_schema.json")
+schema <- wdds_json(version = "latest", file = "wdds_schema.json")
 
 wdds_validator <- jsonvalidate::json_validator(schema,engine = "ajv")
 

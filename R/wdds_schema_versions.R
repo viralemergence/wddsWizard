@@ -68,8 +68,8 @@ download_deposit_version <- function(zenodo_id,version,latest_version,  dir_path
   zip_file  <- fs::path_file(id_json$files$key)
 
   zip_path <- sprintf("%s/%s",dir_path,zip_file)
-  download.file(url = id_json$files$links$self,destfile = zip_path)
-  unzip_result <- unzip(zipfile = zip_path,exdir = dir_path, overwrite = TRUE)
+  utils::download.file(url = id_json$files$links$self,destfile = zip_path)
+  unzip_result <- utils::unzip(zipfile = zip_path,exdir = dir_path, overwrite = TRUE)
 
   unzip_path <- fs::path_common(unzip_result)
 
@@ -149,7 +149,7 @@ batch_download_deposit_versions <- function(df = list_deposit_versions(), dir_pa
 #'
 #' @param version Character. identifier for a version e.g. "v.1.0.2" or "latest"
 #'
-#' @returns
+#' @returns Character. Current schema version.
 #'
 set_wdds_version <- function(version = "latest"){
 
