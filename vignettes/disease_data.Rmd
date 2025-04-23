@@ -62,7 +62,8 @@ df_data_desc |>
 ```{r clean-csv}
 
 ## read 
-becker_data <- readxl::read_xlsx(path = here::here("inst/extdata/example_data/Becker_demo_dataset.xlsx"))
+becker_data <- wdds_example_data(version = "latest",file = "Becker_demo_dataset.xlsx") |>
+ readxl::read_xlsx()
 
 becker_data_prelim <- janitor::clean_names(becker_data,case = "lower_camel")
 ```
@@ -110,7 +111,8 @@ becker_data_json <- becker_prepped |>
 ## Validate disease data
 ```{r validate-data}
 
-schema <- here::here("inst/extdata/wdds_schema/schemas/disease_data.json")
+## get the schema -- notice that you can set the version of the schema 
+schema <-  wdds_json(version = "latest",file = "schemas/disease_data.json")
 
 dd_validator <- jsonvalidate::json_validator(schema,engine = "ajv")
 
