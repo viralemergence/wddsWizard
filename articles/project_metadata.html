@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">wddsWizard</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -164,7 +164,7 @@ Name and other identifying information of a funding provider.
 <p>Our example data requires some light cleaning to make transforming it
 into csv easier.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">project_metadata</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span><span class="st">"../inst/extdata/example_data/example_project_metadata.csv"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span> <span class="va">project_metadata</span>  <span class="op">&lt;-</span> <span class="fu"><a href="../reference/wdds_example_data.html">wdds_example_data</a></span><span class="op">(</span>version <span class="op">=</span> <span class="st">"latest"</span>,file <span class="op">=</span> <span class="st">"example_project_metadata.csv"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">## turn empty strings into NAs in the group field</span></span>
 <span><span class="va">project_metadata</span> <span class="op">&lt;-</span> <span class="va">project_metadata</span> <span class="op">|&gt;</span></span>
@@ -247,7 +247,8 @@ converted to json, they match the data standard’s expected formats.</p>
 <p>We can validate the entire project metadata object by using the
 <code>project_metadata.json</code> schema.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">schema</span> <span class="op">&lt;-</span> <span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html" class="external-link">here</a></span><span class="op">(</span><span class="st">"inst/extdata/wdds_schema/schemas/project_metadata.json"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span></span>
+<span><span class="va">schema</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/wdds_json.html">wdds_json</a></span><span class="op">(</span>version <span class="op">=</span> <span class="st">"latest"</span>, file <span class="op">=</span> <span class="st">"schemas/project_metadata.json"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">project_validator</span> <span class="op">&lt;-</span> <span class="fu">jsonvalidate</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/jsonvalidate/reference/json_validator.html" class="external-link">json_validator</a></span><span class="op">(</span><span class="va">schema</span>,engine <span class="op">=</span> <span class="st">"ajv"</span><span class="op">)</span></span>
 <span></span>
