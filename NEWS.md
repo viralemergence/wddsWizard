@@ -1,3 +1,5 @@
+# wddsWizard 0.0.3
+
 # wddsWizard 0.0.2
 
 * using wdds_* functions users can use different schema versions and access files
