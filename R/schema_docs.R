@@ -11,7 +11,9 @@
 #'
 #' @examples
 #'
+#'\dontrun{
 #' create_schema_docs()
+#'}
 #'
 create_schema_docs <- function(schema_path = the$current_schema_path, sep = "\n"){
 

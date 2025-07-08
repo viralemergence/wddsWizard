@@ -91,7 +91,16 @@ prep_array_objects <- function(x){
   if(is.data.frame(x)){
     x <- list(x)
   }
-purrr::map(x, jsonlite::unbox)
+  purrr::map(x, function(x){
+    # unboxing tibbles causes a serious warning.
+    if(tibble::is_tibble(x)){
+      x <- as.data.frame(x)
+    }
+
+    out <- jsonlite::unbox(x)
+    return(out)
+  }
+  )
 }
 
 #' Prepare an object
@@ -297,7 +306,7 @@ prep_subjects <- function(x){
 #'
 #' @param x tibble from prep_creators
 #'
-#' @returns tibble with affilition fields in a list column called `affilition`
+#' @returns tibble with affiliation fields in a list column called `affiliation`
 #' @export
 #'
 prep_affiliation <- function(x){

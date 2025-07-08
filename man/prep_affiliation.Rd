@@ -10,7 +10,7 @@ prep_affiliation(x)
 \item{x}{tibble from prep_creators}
 }
 \value{
-tibble with affilition fields in a list column called \code{affilition}
+tibble with affiliation fields in a list column called \code{affiliation}
 }
 \description{
 There are affiliations associated with a creator.

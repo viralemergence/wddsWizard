@@ -15,25 +15,25 @@ Imports:
     dplyr,
     fs,
     here,
-    janitor,
     jsonlite,
-    jsonvalidate,
-    kableExtra,
     purrr,
-    readxl,
     rlang,
     snakecase,
     stringr,
-    tibble,
     tidyr
 Suggests: 
     knitr,
     rmarkdown,
+    janitor,
+    kableExtra,
+    readxl,
+    tibble,
+    jsonvalidate,
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
 VignetteBuilder: knitr
 Depends: 
-    R (>= 3.5)
+    R (>= 4.1.0)
 LazyData: true
 License: MIT + file LICENSE
 URL: https://viralemergence.github.io/wddsWizard/
