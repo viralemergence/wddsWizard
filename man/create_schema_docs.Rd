@@ -20,6 +20,8 @@ recursive set of function
 }
 \examples{
 
+\dontrun{
 create_schema_docs()
+}
 
 }
