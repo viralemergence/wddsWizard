@@ -42,7 +42,7 @@ By using a data standard we can contribute to a virtuous cycle that promotes hig
 
 This package can be used to explore Wildlife Disease Data Standard and validate data. 
 
-See our preprint [A minimum data standard for wildlife disease studies](https://doi.org/10.32942/X2TW4J) for discussions of appropriate use and  more complex data structures (e.g. pooled samples, parasites with an arthropod vector, etc.).
+See our paper [A minimum data standard for wildlife disease studies]([https://doi.org/10.32942/X2TW4J](https://www.nature.com/articles/s41597-025-05332-x)) for discussions of appropriate use and  more complex data structures (e.g. pooled samples, parasites with an arthropod vector, etc.).
 
 See the [Getting Started](https://viralemergence.github.io/wddsWizard/articles/wddsWizard.html) vignette for code examples and a more hands on approach to getting familiar with the package.
 
