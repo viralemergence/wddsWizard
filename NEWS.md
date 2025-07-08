@@ -1,5 +1,7 @@
 # wddsWizard 0.0.3
 
+* fixes issue with tibble row names being set
+
 # wddsWizard 0.0.2
 
 * using wdds_* functions users can use different schema versions and access files
