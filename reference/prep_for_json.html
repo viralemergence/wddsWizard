@@ -77,59 +77,48 @@ the names of the list items should match the names in the methods list</p></dd>
 <span class="r-in"><span>   <span class="fu">prep_for_json</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $creators</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $creators[[1]]</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Setting row names on a tibble is deprecated.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 5</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   name             givenName familyName affiliation      nameIdentifiers </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">*</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> Daniel J. Becker Daniel J. Becker     <span style="color: #949494;">&lt;tibble [1 × 2]&gt;</span> <span style="color: #949494;">&lt;tibble [1 × 2]&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                 name givenName familyName</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [x] Daniel J. Becker Daniel J.     Becker</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                   affiliation</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [x] Department of Biology, University of Oklahoma, Norman, OK, USA, https://ror.org/02aqsxs83</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                  nameIdentifiers</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [x] https://orcid.org/0000-0003-4315-8628, ORCID</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $creators[[2]]</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Setting row names on a tibble is deprecated.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 4</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   name            givenName   familyName affiliation     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">*</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> Guang-Sheng Lei Guang-Sheng Lei        <span style="color: #949494;">&lt;tibble [1 × 2]&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                name   givenName familyName</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [x] Guang-Sheng Lei Guang-Sheng        Lei</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                                                                  affiliation</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [x] Department of Pathology and Laboratory Medicine, Indiana University School of Medicine, Indianapolis, IN, USA, https://ror.org/02ets8c94</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $descriptions</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $descriptions[[1]]</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Setting row names on a tibble is deprecated.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 2</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   description                                                    descriptionType</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">*</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                                          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> Bats can harbor many pathogens without showing disease. Howev… Abstract       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 description</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [x] Bats can harbor many pathogens without showing disease. However, the mechanisms by which bats resolve these infections or limit pathology remain unclear. To illuminate the bat immune response to coronaviruses, viruses with high public health significance, we will use serum proteomics to assess broad differences in immune proteins of uninfected and infected vampire bats (Desmodus rotundus). In contrast to global profiling techniques of blood such as transcriptomics, proteomics provides a unique perspective into immunology, as the serum proteome includes proteins from not only blood but also those secreted from proximal tissues. Here, we expand our recent work on the serum proteome of wild vampire bats (Desmodus rotundus) to better understand CoV pathogenesis. Across 19 bats sampled in 2019 in northern Belize with available sera, we detected CoVs in oral or rectal swabs from four individuals. We used data independent acquisition-based mass spectrometry to profile and compare the undepleted serum proteome of these 19 bats. These results will provide much needed insight into changes in the bat serum proteome in response to coronavirus infection.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     descriptionType</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [x]        Abstract</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $fundingReferences</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $fundingReferences[[1]]</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Setting row names on a tibble is deprecated.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 3</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   funderName                  funderIdentifier                     awardNumber  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">*</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> National Geographic Society http://dx.doi.org/10.13039/100006733 NGS-55503R-19</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                      funderName                     funderIdentifier</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [x] National Geographic Society http://dx.doi.org/10.13039/100006733</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       awardNumber</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [x] NGS-55503R-19</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $fundingReferences[[2]]</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Setting row names on a tibble is deprecated.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 2</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   funderName         funderIdentifier                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">*</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                               </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> Indiana University http://dx.doi.org/10.13039/100006733</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             funderName                     funderIdentifier</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [x] Indiana University http://dx.doi.org/10.13039/100006733</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $fundingReferences[[3]]</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Setting row names on a tibble is deprecated.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 2</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   funderName            funderIdentifier                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">*</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                 <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                               </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> College of Charleston http://dx.doi.org/10.13039/100009789</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                funderName                     funderIdentifier</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [x] College of Charleston http://dx.doi.org/10.13039/100009789</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $identifier</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $identifier[[1]]</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Setting row names on a tibble is deprecated.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 2</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   identifier            identifierType</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">*</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                 <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> 10.5072/zenodo.168108 DOI           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                identifier identifierType</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [x] 10.5072/zenodo.168108            DOI</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $language</span>
@@ -148,52 +137,36 @@ the names of the list items should match the names in the methods list</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $relatedIdentifiers</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $relatedIdentifiers[[1]]</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Setting row names on a tibble is deprecated.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 3</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   relatedIdentifier                           relatedIdentifierType relationType</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">*</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                 <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> https://pharos.viralemergence.org/projects… URL                   IsVersionOf </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                 relatedIdentifier</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [x] https://pharos.viralemergence.org/projects/?prj=prjRPayEvMecN</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     relatedIdentifierType relationType</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [x]                   URL  IsVersionOf</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $relatedIdentifiers[[2]]</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Setting row names on a tibble is deprecated.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 3</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   relatedIdentifier         relatedIdentifierType relationType</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">*</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                 <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> 10.3389/fviro.2022.862961 DOI                   IsPartOf    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             relatedIdentifier relatedIdentifierType relationType</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [x] 10.3389/fviro.2022.862961                   DOI     IsPartOf</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $rights</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $rights[[1]]</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Setting row names on a tibble is deprecated.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 1</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   rights</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">*</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> CC0   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     rights</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [x]    CC0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $subjects</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $subjects[[1]]</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Setting row names on a tibble is deprecated.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 1</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   subject   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">*</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> Proteomics</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        subject</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [x] Proteomics</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $subjects[[2]]</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Setting row names on a tibble is deprecated.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 1</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   subject        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">*</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> Immune Response</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             subject</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [x] Immune Response</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $titles</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $titles[[1]]</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Setting row names on a tibble is deprecated.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 1</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   title                                                                       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">*</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                                                       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> Serum proteomics of coronavirus shedding in vampire bats (Desmodus rotundus)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                            title</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [x] Serum proteomics of coronavirus shedding in vampire bats (Desmodus rotundus)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
