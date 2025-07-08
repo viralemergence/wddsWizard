@@ -14,6 +14,7 @@ RoxygenNote: 7.3.2
 Imports: 
     dplyr,
     fs,
+    here,
     jsonlite,
     purrr,
     rlang,
@@ -23,7 +24,6 @@ Imports:
 Suggests: 
     knitr,
     rmarkdown,
-    here,
     janitor,
     kableExtra,
     readxl,
