@@ -56,7 +56,7 @@ list_deposit_versions <- function(parent_id = "15020049"){
 #' @returns String. Path to downloaded version.
 #' @export
 #'
-download_deposit_version <- function(zenodo_id,version,latest_version,  dir_path){
+download_deposit_version <- function(zenodo_id,version,latest_version, dir_path){
   ## create folder in archive for version
 
   fs::dir_create(path = dir_path)

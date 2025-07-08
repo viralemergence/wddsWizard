@@ -1,3 +1,7 @@
+# wddsWizard 0.1.0
+
+* using R6 to make package environment cleaner
+
 # wddsWizard 0.0.3
 
 * fixes issue with tibble row names being set
