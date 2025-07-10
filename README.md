@@ -10,6 +10,9 @@ It allows users to restructure and validate data sets.
 
 See [Getting Started](https://viralemergence.github.io/wddsWizard/articles/wddsWizard.html) more information about how to use the package. 
 
+See our paper [A minimum data standard for wildlife disease research and surveillance](https://www.nature.com/articles/s41597-025-05332-x) for discussions of appropriate use and  more complex data structures (e.g. pooled samples, parasites with an arthropod vector, etc.).
+
+
 ## Installation
 
 Install from github.
