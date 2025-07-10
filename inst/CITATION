@@ -1,0 +1,7 @@
+bibentry(
+  bibtype  = "Misc",
+  title    = "Data Wizard for a Minimal Wildlife Disease Data Standard",
+  author   = as.person("Collin J. Schwantes [aut]"),
+  year     = "2025",
+  doi      = "10.5281/zenodo.15857143"
+)
