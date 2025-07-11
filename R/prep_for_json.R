@@ -60,13 +60,15 @@ prep_atomic <- function(x){
 
 #' Prepare an array of objects
 #'
-#'  wraps a tibble/dataframe in a list and/or unboxes list items that are 1 row
-#'  tibbles/dataframes. This will result in an array of objects being created.
+#'  wraps a data frame in a list and or unboxes list items that are 1 row
+#'  dataframes. This will result in an array of objects being created.
 #'
 #'
-#' @param x list of tibbles/data frames or a tibble/data frame
+#' @param x list of data frames or a data frame
 #'
 #' @returns list of single row unboxed data frames
+#' @family JSON Prep
+#'
 #' @export
 #'
 #' @examples
@@ -477,6 +479,7 @@ prep_methodology <- function(x){
 #' Prepares an array of objects
 #'
 #' @inherit prep_array_objects
+#' @family JSON Prep
 #' @export
 #' @examples
 #'
@@ -493,6 +496,7 @@ prep_titles <- function(x){
 #' Prepares an object of arrays.
 #'
 #' @inherit prep_object
+#' @family JSON Prep
 #' @export
 prep_data <- function(x){
   prep_object(x)

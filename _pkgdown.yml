@@ -1,3 +1,29 @@
 url: https://viralemergence.github.io/wddsWizard/
 template:
   bootstrap: 5
+reference:
+- title: Data
+  desc: Example datasets and other useful objects
+- contents:
+  - has_concept("Data")
+- title: Templates
+  desc: Templates for creating data that conforms to the standard
+- contents:
+  - has_concept("Templates")
+- title: WDDS Deposit
+  desc: Functions for interacting with the Zenodo Deposit
+- contents:
+  - has_concept("WDDS deposit")
+- title: JSON Prep
+  desc: Functions for getting data into proper JSON format
+- contents:
+  - has_concept("JSON Prep")
+- title: Schema
+  desc: Functions for accessing and manipulating a JSON Schema
+- contents:
+  - has_concept("Schema")
+- title: Schema Docs
+  desc: Functions for creating documentation from Schema
+- contents:
+  - has_concept("Schema Docs")
+

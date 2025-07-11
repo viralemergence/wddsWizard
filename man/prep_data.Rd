@@ -45,6 +45,7 @@ Other JSON Prep:
 \code{\link{clean_field_names}()},
 \code{\link{get_entity}()},
 \code{\link{prep_affiliation}()},
+\code{\link{prep_array_objects}()},
 \code{\link{prep_atomic}()},
 \code{\link{prep_creators}()},
 \code{\link{prep_descriptions}()},
@@ -56,8 +57,11 @@ Other JSON Prep:
 \code{\link{prep_methodology}()},
 \code{\link{prep_methods}()},
 \code{\link{prep_nameIdentifiers}()},
+\code{\link{prep_object}()},
 \code{\link{prep_publicationYear}()},
 \code{\link{prep_relatedIdentifiers}()},
 \code{\link{prep_rights}()},
-\code{\link{prep_subjects}()}
+\code{\link{prep_subjects}()},
+\code{\link{prep_titles}()}
 }
+\concept{JSON Prep}
