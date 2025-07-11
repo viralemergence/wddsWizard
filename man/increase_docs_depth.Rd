@@ -16,3 +16,13 @@ character
 Pads the left side of any list items with an extra
 4 spaces
 }
+\seealso{
+Other Schema Docs: 
+\code{\link{create_object_docs}()},
+\code{\link{create_schema_docs}()},
+\code{\link{get_ref}()},
+\code{\link{get_required_fields}()},
+\code{\link{paste_reduce}()},
+\code{\link{paste_reduce_ul}()}
+}
+\concept{Schema Docs}

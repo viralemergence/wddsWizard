@@ -13,4 +13,14 @@ project_metadata_required_fields
 \description{
 See data standard JSON file for field descriptions.
 }
+\seealso{
+Other Data: 
+\code{\link{becker_disease_data}},
+\code{\link{becker_project_metadata}},
+\code{\link{disease_data_required_fields}},
+\code{\link{minimal_disease_data}},
+\code{\link{minimal_project_metadata}},
+\code{\link{schema_required_fields}}
+}
+\concept{Data}
 \keyword{datasets}

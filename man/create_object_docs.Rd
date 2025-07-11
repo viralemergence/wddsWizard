@@ -21,3 +21,13 @@ Character formatted markdown text
 \description{
 Create Docs Section for a schema object
 }
+\seealso{
+Other Schema Docs: 
+\code{\link{create_schema_docs}()},
+\code{\link{get_ref}()},
+\code{\link{get_required_fields}()},
+\code{\link{increase_docs_depth}()},
+\code{\link{paste_reduce}()},
+\code{\link{paste_reduce_ul}()}
+}
+\concept{Schema Docs}

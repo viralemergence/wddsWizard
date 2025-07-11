@@ -25,7 +25,7 @@
 #' indicates if this is the latest version.
 #'
 #' @export
-#'
+#' @family WDDS deposit
 #' @examplesIf curl::has_internet()
 #'
 #' list_deposit_versions()
@@ -65,7 +65,7 @@ list_deposit_versions <- function(parent_id = "15020049"){
 #'
 #' @returns String. Path to downloaded version.
 #' @export
-#'
+#' @family WDDS deposit
 #' @examplesIf curl::has_internet()
 #' # list all deposit versions
 #' list_deposit_versions()
@@ -155,7 +155,7 @@ download_deposit_version <- function(zenodo_id,version,latest_version,  dir_path
 #'
 #' @returns List of download locations.
 #' @export
-#'
+#' @family WDDS deposit
 #' @examples
 #' \dontrun{
 #' # download all versions
@@ -179,7 +179,7 @@ batch_download_deposit_versions <- function(df = list_deposit_versions(), dir_pa
 #'
 #' @param version Character. identifier for a version e.g. "v.1.0.2" or "latest".
 #' Default is "latest".
-#'
+#' @family WDDS deposit
 #' @returns Character. Current schema version.
 #'
 set_wdds_version <- function(version = "latest"){
@@ -213,7 +213,7 @@ set_wdds_version <- function(version = "latest"){
 #'
 #' @returns Character. Version identifier with no periods.
 #' @export
-#'
+#' @family WDDS deposit
 #' @examples
 #'
 #' sanitize_version("v.1.1.0")
@@ -246,7 +246,7 @@ sanitize_version <- function(version){
 #'
 #' @returns Character. Either version identifiers, relative file paths within a version, or a specific file path.
 #' @export
-#'
+#' @family WDDS deposit
 #' @examples
 #'
 #' # see which versions are in the package
@@ -325,7 +325,7 @@ wdds_json <- function(version = NULL, file = NULL) {
 #'
 #' @returns Character. Either version identifiers or file paths.
 #' @export
-#'
+#' @family WDDS deposit
 #' @examples
 #'
 #' # see which versions are in the package
@@ -397,7 +397,7 @@ wdds_example_data <- function(version = NULL, file = NULL) {
 #'
 #' @returns Character. Either version identifiers or file paths.
 #' @export
-#'
+#' @family WDDS deposit
 #' @examples
 #'
 #' # see which versions are in the package

@@ -1,28 +1,28 @@
 #' Wildlife Disease Data Standard
 #'
 #' See data standard JSON file for field descriptions.
-#'
+#' @family Schema
 "wdds_schema"
 
 #' Wildlife Disease Data Standard - data
 #'
 #'
 #' See data standard JSON file for field descriptions.
-#'
+#' @family Schema
 "disease_data_schema"
 
 #' Wildlife Disease Data Standard - project_metadata
 #'
 #'
 #' See data standard JSON file for field descriptions.
-#'
+#' @family Schema
 "project_metadata_schema"
 
 #' Datacite Data Stadnard
 #'
 #'
 #' See data standard JSON file for field descriptions.
-#'
+#' @family Schema
 "datacite_schema"
 
 
@@ -30,14 +30,14 @@
 #'
 #'
 #' A data frame of schema names and types.
-#'
+#' @family Schema
 "schema_properties"
 
 #' Wildlife Disease Data Standard - schema terms
 #'
 #'
 #' Markdown of schema terms
-#'
+#' @family Schema
 "schema_terms"
 
 #' Create an expanded schema object
@@ -50,7 +50,7 @@
 #'
 #' @returns character vector of markdown text
 #' @export
-#'
+#' @family Schema
 #' @examplesIf curl::has_internet()
 #'
 #' create_schema_list()
@@ -78,7 +78,7 @@ create_schema_list <- function(schema_path = the$current_schema_path){
 #' @param x List. Schema property or definition
 #' @param idx Name from schema property
 #' @param schema_dir Character. directory where the schema is stored
-#'
+#' @family Schema
 #' @returns data frame with type and name
 create_object_list <- function(x,idx, schema_dir){
 
@@ -162,7 +162,7 @@ create_object_list <- function(x,idx, schema_dir){
 #'
 #' @param x List. Must have property "$ref"
 #' @param schema_dir Character. Directory for the current schema.
-#'
+#' @family Schema
 #' @returns data frame with name or type.
 #'
 get_ref_list <- function(x,schema_dir){
@@ -288,7 +288,7 @@ get_ref_list <- function(x,schema_dir){
 #'
 #' @param array_items list. List of array items for processing.
 #' @param out data frame. Data frame with name and type.
-#'
+#' @family Schema
 #' @returns data frames with name and type for array items that are objects or character strings atomic (string, null, Boolean, etc) array items.
 #'
 process_array_items <- function(array_items, out){

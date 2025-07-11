@@ -10,7 +10,7 @@
 #'
 #' @returns character vector of markdown text
 #' @export
-#'
+#' @family Schema Docs
 #' @examples
 #'
 #'\dontrun{
@@ -46,7 +46,7 @@ create_schema_docs <- function(schema_path = the$current_schema_path, sep = "\n"
 #'
 #' @returns character vector of required fields
 #' @export
-#'
+#' @family Schema Docs
 #' @examples
 #' schema_list <- jsonlite::read_json(wdds_json("latest","schemas/disease_data.json"))
 #' get_required_fields(schema_list)
@@ -68,7 +68,7 @@ get_required_fields <- function(schema_list){
 #' @param idx Name from schema property
 #' @param required_fields Character. Vector of required fields
 #' @param schema_dir Character. directory where the schema is stored
-#'
+#' @family Schema Docs
 #' @returns Character formatted markdown text
 
 create_object_docs <- function(x,idx, required_fields, schema_dir){
@@ -235,7 +235,7 @@ create_object_docs <- function(x,idx, required_fields, schema_dir){
 #'
 #' @returns Character
 #' @export
-#'
+#' @family Schema Docs
 #' @examples
 #'
 #' text_a <- "hello"
@@ -258,7 +258,7 @@ paste_reduce <- function(x, y, sep = "\n"){
 #'
 #' @returns Character
 #' @export
-#'
+#' @family Schema Docs
 #' @examples
 #'
 #' text_a <- "hello"
@@ -280,7 +280,7 @@ paste_reduce_ul <- function(x, y, sep = "\n - "){
 #'
 #' @param x List. Must have property "$ref"
 #' @param schema_dir Character. Directory for the current schema.
-#'
+#' @family Schema Docs
 #' @returns List or Character. Character is only returned if an entire schema is referenced.
 
 get_ref <- function(x,schema_dir){
@@ -365,7 +365,7 @@ get_ref <- function(x,schema_dir){
 #' 4 spaces
 #'
 #' @param string Character. item to be parsed
-#'
+#' @family Schema Docs
 #' @returns character
 
 increase_docs_depth <- function(string){

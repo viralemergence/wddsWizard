@@ -6,7 +6,7 @@
 #'
 #' @param template_file character. file name for a template. Default is `NULL`
 #' to return template files
-#'
+#' @family Templates
 #' @returns file paths or, if path = NULL, a list of file names
 #'
 wdds_template <- function(template_file = NULL) {
@@ -30,7 +30,7 @@ wdds_template <- function(template_file = NULL) {
 #'
 #' @returns Character. If no template_file value is provided, lists all template files in the package. If a file is created, it returns the file path for that new file.
 #' @export
-#'
+#' @family Templates
 #' @examples
 #'
 #' # return available templates

@@ -19,3 +19,16 @@ data frame with type and name
 \description{
 Creates a data.frame with the fields name and type
 }
+\seealso{
+Other Schema: 
+\code{\link{create_schema_list}()},
+\code{\link{datacite_schema}},
+\code{\link{disease_data_schema}},
+\code{\link{get_ref_list}()},
+\code{\link{process_array_items}()},
+\code{\link{project_metadata_schema}},
+\code{\link{schema_properties}},
+\code{\link{schema_terms}},
+\code{\link{wdds_schema}}
+}
+\concept{Schema}

@@ -16,3 +16,14 @@ Character. Current schema version.
 \description{
 Used to keep the package and data standard in alignment.
 }
+\seealso{
+Other WDDS deposit: 
+\code{\link{batch_download_deposit_versions}()},
+\code{\link{download_deposit_version}()},
+\code{\link{list_deposit_versions}()},
+\code{\link{sanitize_version}()},
+\code{\link{wdds_data_templates}()},
+\code{\link{wdds_example_data}()},
+\code{\link{wdds_json}()}
+}
+\concept{WDDS deposit}

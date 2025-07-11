@@ -36,3 +36,14 @@ download_deposit_version("15270582","v.1.0.3",TRUE,"data")
 
 \dontshow{\}) # examplesIf}
 }
+\seealso{
+Other WDDS deposit: 
+\code{\link{batch_download_deposit_versions}()},
+\code{\link{list_deposit_versions}()},
+\code{\link{sanitize_version}()},
+\code{\link{set_wdds_version}()},
+\code{\link{wdds_data_templates}()},
+\code{\link{wdds_example_data}()},
+\code{\link{wdds_json}()}
+}
+\concept{WDDS deposit}

@@ -13,7 +13,7 @@
 #'
 #' @returns an unboxed dataframe with 1 row
 #' @export
-#'
+#' @family JSON Prep
 #' @examples
 #'
 #' x <- 1
@@ -117,7 +117,7 @@ prep_array_objects <- function(x){
 #'
 #' @returns List of formatted objects
 #' @export
-#'
+#' @family JSON Prep
 #' @examples
 #'
 #' cars_small  <- datasets::cars[1:10,]
@@ -167,7 +167,7 @@ prep_object <- function(x, unbox = FALSE){
 #'
 #' @returns List with x marked as unbox (do not make an array)
 #' @export
-#'
+#' @family JSON Prep
 #' @examples
 #'
 #' x  <- wddsWizard::becker_project_metadata$descriptions
@@ -187,7 +187,7 @@ prep_descriptions <- function(x){
 #'
 #' @returns List with x marked as do not unbox
 #' @export
-#'
+#' @family JSON Prep
 #' @examples
 #'
 #' wddsWizard::becker_project_metadata$identifiers |> prep_identifier()
@@ -202,7 +202,7 @@ prep_identifier <- function(x){
 #'
 #' @returns List with x marked as do not unbox
 #' @export
-#'
+#' @family JSON Prep
 #' @examples
 #'
 #' wddsWizard::becker_project_metadata$relatedIdentifiers |> prep_relatedIdentifiers()
@@ -221,7 +221,7 @@ prep_relatedIdentifiers <- function(x){
 #'
 #' @returns an unboxed dataframe with 1 row
 #' @export
-#'
+#' @family JSON Prep
 #' @examples
 #'
 #' a <- data.frame("language" = "en")
@@ -242,7 +242,7 @@ prep_language <- function(x){
 #'
 #' @returns an unboxed dataframe with 1 row
 #' @export
-#'
+#' @family JSON Prep
 #' @examples
 #' pub_year <- data.frame("publicationYear" = "2025")
 #'
@@ -263,7 +263,7 @@ prep_publicationYear <- function(x){
 #'
 #' @returns list of unboxed data frames
 #' @export
-#'
+#' @family JSON Prep
 #' @examples
 #'
 #'  wddsWizard::becker_project_metadata$rights |> prep_rights()
@@ -283,7 +283,7 @@ prep_rights <- function(x){
 #'
 #' @returns list of unboxed data frames
 #' @export
-#'
+#' @family JSON Prep
 #' @examples
 #' wddsWizard::becker_project_metadata$subjects |> prep_subjects()
 #'
@@ -309,7 +309,7 @@ prep_subjects <- function(x){
 #'
 #' @returns Data frame with affiliation fields in a list column called `affiliation`
 #' @export
-#'
+#' @family JSON Prep
 #' @examples
 #' creator_df <- wddsWizard::becker_project_metadata$creators[[1]]
 #' creator_df_aff_prepped  <- prep_affiliation(creator_df)
@@ -360,7 +360,7 @@ prep_affiliation <- function(x){
 #'
 #' @returns data frame with a nameIdentifiers column as list
 #' @export
-#'
+#' @family JSON Prep
 #' @examples
 #' creator_df <- wddsWizard::becker_project_metadata$creators[[1]]
 #' creator_df_nameID_prepped  <- prep_nameIdentifiers(creator_df)
@@ -409,7 +409,7 @@ prep_nameIdentifiers <- function(x){
 #'
 #' @returns List of unboxed data frames
 #' @export
-#'
+#' @family JSON Prep
 #' @examples
 #'
 #' wddsWizard::becker_project_metadata$creators |>
@@ -432,7 +432,7 @@ prep_creators <- function(x){
 #'
 #' @returns list of single row unboxed data frames
 #' @export
-#'
+#' @family JSON Prep
 #' @examples
 #'
 #' wddsWizard::becker_project_metadata$fundingReferences |>
@@ -450,7 +450,7 @@ prep_fundingReferences <- function(x){
 #' @returns properly formatted list
 #' @importFrom rlang .data
 #' @export
-#'
+#' @family JSON Prep
 #' @examples
 #'
 #'\dontrun{
@@ -506,7 +506,7 @@ prep_data <- function(x){
 #'
 #' @returns list of methods
 #' @export
-#'
+#' @family JSON Prep
 #' @examples
 #'
 #' prep_methods()
@@ -542,7 +542,7 @@ prep_methods <- function(){
 #'
 #' @returns Named list where methods have been applied.
 #' @export
-#'
+#' @family JSON Prep
 #' @examples
 #'
 #' wddsWizard::becker_project_metadata |>
@@ -582,7 +582,7 @@ prep_for_json <- function(x,prep_methods_list = prep_methods()){
 #' @returns data frame in "wide" form
 #' @importFrom rlang .data
 #' @export
-#'
+#' @family JSON Prep
 #' @examples
 #'
 #' df <- data.frame(Group = 1, entity_id = 1, Value = 1:3, Variable = letters[1:3])
@@ -609,7 +609,7 @@ get_entity <- function(x){
 #' @returns object with names in `snakecase::to_lower_camel_case` format
 #'
 #' @export
-#'
+#' @family JSON Prep
 #' @examples
 #'
 #' df  <- data.frame("Sample ID"= 1:10, "Name"= "Fred", "Host Identification"= "Pinus strobus")
@@ -630,7 +630,7 @@ clean_field_names <- function(x){
 #' @returns Named list ready to be converted to json
 #' @importFrom rlang .data
 #' @export
-#'
+#' @family JSON Prep
 #' @examples
 #'\dontrun{
 #' # create

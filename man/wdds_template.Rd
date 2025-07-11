@@ -19,3 +19,8 @@ Displays file paths for Wildlife Disease Data Standard templates
 \details{
 If path is null, displays all files in the templates folder.
 }
+\seealso{
+Other Templates: 
+\code{\link{use_template}()}
+}
+\concept{Templates}

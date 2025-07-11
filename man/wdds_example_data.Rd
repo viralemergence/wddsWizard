@@ -47,3 +47,14 @@ wdds_example_data(version = "v_1_0_2",file = "Becker_demo_dataset.xlsx")
 
 
 }
+\seealso{
+Other WDDS deposit: 
+\code{\link{batch_download_deposit_versions}()},
+\code{\link{download_deposit_version}()},
+\code{\link{list_deposit_versions}()},
+\code{\link{sanitize_version}()},
+\code{\link{set_wdds_version}()},
+\code{\link{wdds_data_templates}()},
+\code{\link{wdds_json}()}
+}
+\concept{WDDS deposit}

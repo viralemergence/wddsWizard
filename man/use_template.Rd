@@ -42,3 +42,8 @@ use_template("disease_data_template.csv")
 
 
 }
+\seealso{
+Other Templates: 
+\code{\link{wdds_template}()}
+}
+\concept{Templates}

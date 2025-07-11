@@ -23,3 +23,13 @@ For external references, it can handle both pointers and references to entire sc
 This function navigates between parent and child schemas by manipulating
 variables in the  package environment \code{the}.
 }
+\seealso{
+Other Schema Docs: 
+\code{\link{create_object_docs}()},
+\code{\link{create_schema_docs}()},
+\code{\link{get_required_fields}()},
+\code{\link{increase_docs_depth}()},
+\code{\link{paste_reduce}()},
+\code{\link{paste_reduce_ul}()}
+}
+\concept{Schema Docs}
