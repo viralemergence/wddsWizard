@@ -21,3 +21,8 @@ with properties "nameIdentifier", "nameIdentifierScheme" ,
 and "schemeUri". This function takes the \verb{name identifiers} fields and restructures
 as a list within the data frame.
 }
+\examples{
+creator_df <- wddsWizard::becker_project_metadata$creators[[1]]
+creator_df_nameID_prepped  <- prep_nameIdentifiers(creator_df)
+
+}

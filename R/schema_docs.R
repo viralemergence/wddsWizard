@@ -44,6 +44,11 @@ create_schema_docs <- function(schema_path = the$current_schema_path, sep = "\n"
 #'
 #' @returns character vector of required fields
 #' @export
+#'
+#' @examples
+#' schema_list <- jsonlite::read_json(wdds_json("latest","schemas/disease_data.json"))
+#' get_required_fields(schema_list)
+#'
 get_required_fields <- function(schema_list){
 
   required_fields <- ""
@@ -63,7 +68,7 @@ get_required_fields <- function(schema_list){
 #' @param schema_dir Character. directory where the schema is stored
 #'
 #' @returns Character formatted markdown text
-#' @export
+
 create_object_docs <- function(x,idx, required_fields, schema_dir){
 
   sprintf("create_object_docs: %s",idx) |>
@@ -274,7 +279,7 @@ paste_reduce_ul <- function(x, y, sep = "\n - "){
 #' @param schema_dir Character. Directory for the current schema.
 #'
 #' @returns List or Character. Character is only returned if an entire schema is referenced.
-#' @export
+
 get_ref <- function(x,schema_dir){
 
   # get the reference
@@ -359,7 +364,7 @@ get_ref <- function(x,schema_dir){
 #' @param string Character. item to be parsed
 #'
 #' @returns character
-#' @export
+
 increase_docs_depth <- function(string){
 
   ## increase depth for subitems

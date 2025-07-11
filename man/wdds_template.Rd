@@ -18,9 +18,3 @@ Displays file paths for Wildlife Disease Data Standard templates
 \details{
 If path is null, displays all files in the templates folder.
 }
-\examples{
-
-
-wdds_template()
-
-}

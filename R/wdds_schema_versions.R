@@ -4,6 +4,8 @@
 
 
 
+### change to wdds_list_versions
+
 #' List Versions of a deposit on Zenodo
 #'
 #' This function list all the versions of a deposit associated with a parent id.
@@ -22,6 +24,13 @@
 #' indicates if this is the latest version.
 #'
 #' @export
+#'
+#' @examplesIf curl::has_internet()
+#'
+#' list_deposit_versions()
+#'
+#'
+#'
 #'
 list_deposit_versions <- function(parent_id = "15020049"){
   parent_url <- sprintf("https://zenodo.org/api/records/%s",parent_id)
@@ -56,6 +65,17 @@ list_deposit_versions <- function(parent_id = "15020049"){
 #' @returns String. Path to downloaded version.
 #' @export
 #'
+#' @examplesIf curl::has_internet()
+#' # list all deposit versions
+#' list_deposit_versions()
+#'
+#' # download the deposit
+#'
+#' \dontrun{
+#' download_deposit_version("15270582","v.1.0.3",TRUE,"data")
+#' }
+#'
+#'
 download_deposit_version <- function(zenodo_id,version,latest_version,  dir_path){
   ## create folder in archive for version
 
@@ -68,6 +88,7 @@ download_deposit_version <- function(zenodo_id,version,latest_version,  dir_path
   zip_file  <- fs::path_file(id_json$files$key)
 
   zip_path <- sprintf("%s/%s",dir_path,zip_file)
+  # replace utils::download.file with curl
   utils::download.file(url = id_json$files$links$self,destfile = zip_path)
   unzip_result <- utils::unzip(zipfile = zip_path,exdir = dir_path, overwrite = TRUE)
 
@@ -133,6 +154,13 @@ download_deposit_version <- function(zenodo_id,version,latest_version,  dir_path
 #' @returns List of download locations.
 #' @export
 #'
+#' @examples
+#' \dontrun{
+#' # download all versions
+#' batch_download_deposit_versions( dir_path = "data")
+#' }
+#'
+#'
 batch_download_deposit_versions <- function(df = list_deposit_versions(), dir_path){
 
   df$dir_path <- dir_path
@@ -192,6 +220,7 @@ sanitize_version <- function(version){
   return(version_clean)
 }
 
+### should be renamed to wdds_json_schema
 
 #' Provides Access to Versioned Schema Files
 #'
@@ -203,7 +232,7 @@ sanitize_version <- function(version){
 #' This function does three things.
 #'
 #' 1) Shows all versions of the schema in the package,
-#' 2) Provides paths to all schema files associated with a version of the schema
+#' 2) Provides relative paths to all schema files associated with a version of the schema
 #' 3) Provides a specific file path in a specific version of the schema.
 #'
 #'
@@ -212,7 +241,7 @@ sanitize_version <- function(version){
 #' @param file Character. Specific file from the wdds deposit. Leave as NULL to
 #' see all files in a version.
 #'
-#' @returns Character. Either version identifiers or file paths.
+#' @returns Character. Either version identifiers, relative file paths within a version, or a specific file path.
 #' @export
 #'
 #' @examples
@@ -245,11 +274,18 @@ wdds_json <- function(version = NULL, file = NULL) {
 
   if(is.null(file)){
 
-  out  <- fs::dir_ls(system.file("extdata/wdds_archive",
+  full_paths  <- fs::dir_ls(system.file("extdata/wdds_archive",
                            version_dir,
                            package = "wddsWizard",
                            mustWork = TRUE),
                recurse = TRUE)
+
+  files_only <- full_paths[fs::is_file(full_paths)]
+
+  version_dir_slash <- sprintf("%s/",version_dir)
+
+  out <- stringr::str_split(files_only,version_dir_slash) |>
+    purrr::map_chr(~.x[[2]])
 
   return(out)
   }

@@ -46,7 +46,7 @@ We have created several templates to make it easier to get started using the Wil
 
 ```{r templates}
 # list templates
-wdds_template()
+use_template()
 ```
 
 You can make your own copies of the template files with the `use_template` function.

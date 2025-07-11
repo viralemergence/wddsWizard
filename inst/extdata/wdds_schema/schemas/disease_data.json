@@ -86,7 +86,7 @@
           }
         },
        "sampleMaterial":{
-          "description":"Organic tissue or fluid being collected (e.g., “liver”; “blood”; “skin”; “whole organism”).",
+          "description":"Organic material from the animal body (i.e., tissue or fluid) extracted into a sample (e.g., “liver”; “blood”; “skin”; “whole organism”).",
           "examples":["liver", "blood", "skin", "whole organism"],
           "type":"array",
           "items":{
@@ -126,6 +126,14 @@
             "type":"array",
             "items":{
               "type": ["boolean","null"],
+              "minItems":1
+            }
+          },
+          "healthNotes":{
+            "description":"Any additional (unstructured) notes about the state of the animal, such as disease presentation.",
+            "type":"array",
+            "items":{
+              "type": ["string","null"],
               "minItems":1
             }
           },

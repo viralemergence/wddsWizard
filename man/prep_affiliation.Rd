@@ -7,10 +7,10 @@
 prep_affiliation(x)
 }
 \arguments{
-\item{x}{tibble from prep_creators}
+\item{x}{Data frame from prep_creators}
 }
 \value{
-tibble with affiliation fields in a list column called \code{affiliation}
+Data frame with affiliation fields in a list column called \code{affiliation}
 }
 \description{
 There are affiliations associated with a creator.
@@ -24,4 +24,9 @@ as a list within the dataframe.
 Affiliation fields to be converted to a list: "affiliation", #' "affiliationIdentifier",
 "affiliationIdentifierScheme" ,
 "schemeUri"
+}
+\examples{
+creator_df <- wddsWizard::becker_project_metadata$creators[[1]]
+creator_df_aff_prepped  <- prep_affiliation(creator_df)
+
 }

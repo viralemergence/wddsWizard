@@ -23,3 +23,12 @@ will be an attribute in that json called parent that looks like
 "https://zenodo.org/api/records/15020049". The 8 digit string at the end of
 the url is the parent id.
 }
+\examples{
+\dontshow{if (curl::has_internet()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+
+list_deposit_versions()
+
+
+
+\dontshow{\}) # examplesIf}
+}

@@ -20,3 +20,16 @@ Named list ready to be converted to json
 \description{
 Prepare metadata from the metadata template
 }
+\examples{
+\dontrun{
+# create
+wddsWizard::use_template("project_metadata_template.csv",folder = "data", file_name = "my_project_metadata.csv")
+project_metadata  <- read.csv("data/my_project_metadata.csv")
+
+prepped_project_metadata  <- wddsWizard::prep_from_metadata_template(project_metadata)
+
+ project_metadat_json <- jsonlite::toJSON(prepped_project_metadata, pretty = TRUE)
+}
+
+
+}

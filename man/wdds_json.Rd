@@ -14,7 +14,7 @@ all versions.}
 see all files in a version.}
 }
 \value{
-Character. Either version identifiers or file paths.
+Character. Either version identifiers, relative file paths within a version, or a specific file path.
 }
 \description{
 Since schema versions may change during the life cycle of project, it is
@@ -26,7 +26,7 @@ may need.
 This function does three things.
 \enumerate{
 \item Shows all versions of the schema in the package,
-\item Provides paths to all schema files associated with a version of the schema
+\item Provides relative paths to all schema files associated with a version of the schema
 \item Provides a specific file path in a specific version of the schema.
 }
 }

@@ -19,4 +19,5 @@ creates an array of objects
 
 wddsWizard::becker_project_metadata$fundingReferences |>
  prep_fundingReferences()
+
 }

@@ -17,7 +17,8 @@ Produces a list of data frame with name and type for the schema.
 This is a recursive set of function and may be expanded to get other properties.
 }
 \examples{
+\dontshow{if (curl::has_internet()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 
 create_schema_list()
-
+\dontshow{\}) # examplesIf}
 }

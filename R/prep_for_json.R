@@ -275,7 +275,7 @@ prep_rights <- function(x){
 
 #' Prepare subjects
 #'
-#' Subjects or keywords describing a work. Prepares an array of objects
+#' Subjects or keywords describing a work. Prepares an array of objects.
 #'
 #'
 #' @param x named list, vector, or data.frame of with 1:1 name:value pairs
@@ -304,15 +304,19 @@ prep_subjects <- function(x){
 #' "affiliationIdentifierScheme" ,
 #' "schemeUri"
 #'
-#' @param x tibble from prep_creators
+#' @param x Data frame from prep_creators
 #'
-#' @returns tibble with affiliation fields in a list column called `affiliation`
+#' @returns Data frame with affiliation fields in a list column called `affiliation`
 #' @export
+#'
+#' @examples
+#' creator_df <- wddsWizard::becker_project_metadata$creators[[1]]
+#' creator_df_aff_prepped  <- prep_affiliation(creator_df)
 #'
 prep_affiliation <- function(x){
   # check if affiliation is already properly formatted...
 
-  # create placeholder df
+  # affiliation columns
   aff_cols <- c("affiliation",
              "affiliationIdentifier" ,
              "affiliationIdentifierScheme" ,
@@ -335,7 +339,7 @@ prep_affiliation <- function(x){
   # drop Affiliation columns then add nested column
 
   x_aff_nested <- x[!aff_filter]
-  x_aff_nested$affiliation <- list(x_aff) ## not sure why prep_array_object doesnt work here...
+  x_aff_nested$affiliation <- list(x_aff)
 
   return(x_aff_nested)
 }
@@ -356,11 +360,15 @@ prep_affiliation <- function(x){
 #' @returns data frame with a nameIdentifiers column as list
 #' @export
 #'
+#' @examples
+#' creator_df <- wddsWizard::becker_project_metadata$creators[[1]]
+#' creator_df_nameID_prepped  <- prep_nameIdentifiers(creator_df)
+#'
 prep_nameIdentifiers <- function(x){
 
   # check if nameIdentifiers is already properly formatted...
 
-  # name identifier object proprerties
+  # name identifier columns
   nid_cols <- c("nameIdentifier",
                 "nameIdentifierScheme" ,
                 "schemeUri" )
@@ -428,13 +436,12 @@ prep_creators <- function(x){
 #'
 #' wddsWizard::becker_project_metadata$fundingReferences |>
 #'  prep_fundingReferences()
+#'
 prep_fundingReferences <- function(x){
   prep_array_objects(x)
 }
 
 
-
-## methodologoy this is a real object within the schema
 #' Prep methodology for conversion to json
 #'
 #' @param x List. methodology component of a list
@@ -463,10 +470,6 @@ prep_methodology <- function(x){
 
   prep_object(x,unbox = TRUE)
 }
-
-
-
-## titles is an array of objects
 
 #' Prepare Titles
 #'
@@ -624,6 +627,19 @@ clean_field_names <- function(x){
 #' @returns Named list ready to be converted to json
 #' @importFrom rlang .data
 #' @export
+#'
+#' @examples
+#'\dontrun{
+#' # create
+#' wddsWizard::use_template("project_metadata_template.csv",folder = "data", file_name = "my_project_metadata.csv")
+#' project_metadata  <- read.csv("data/my_project_metadata.csv")
+#'
+#' prepped_project_metadata  <- wddsWizard::prep_from_metadata_template(project_metadata)
+#'
+#'  project_metadat_json <- jsonlite::toJSON(prepped_project_metadata, pretty = TRUE)
+#'}
+#'
+#'
 prep_from_metadata_template <- function(project_metadata, prep_methods_list = prep_methods()){
 
   ## turn empty strings into NAs in the group field

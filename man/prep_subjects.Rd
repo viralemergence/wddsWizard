@@ -13,7 +13,7 @@ prep_subjects(x)
 list of unboxed data frames
 }
 \description{
-Subjects or keywords describing a work. Prepares an array of objects
+Subjects or keywords describing a work. Prepares an array of objects.
 }
 \examples{
 wddsWizard::becker_project_metadata$subjects |> prep_subjects()

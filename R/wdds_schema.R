@@ -50,7 +50,7 @@
 #' @returns character vector of markdown text
 #' @export
 #'
-#' @examples
+#' @examplesIf curl::has_internet()
 #'
 #' create_schema_list()
 #'
@@ -79,7 +79,6 @@ create_schema_list <- function(schema_path = the$current_schema_path){
 #' @param schema_dir Character. directory where the schema is stored
 #'
 #' @returns data frame with type and name
-#' @export
 create_object_list <- function(x,idx, schema_dir){
 
   # this is the final shape of our data
@@ -164,7 +163,6 @@ create_object_list <- function(x,idx, schema_dir){
 #' @param schema_dir Character. Directory for the current schema.
 #'
 #' @returns data frame with name or type.
-#' @export
 #'
 get_ref_list <- function(x,schema_dir){
 
@@ -291,7 +289,6 @@ get_ref_list <- function(x,schema_dir){
 #' @param out data frame. Data frame with name and type.
 #'
 #' @returns data frames with name and type for array items that are objects or character strings atomic (string, null, Boolean, etc) array items.
-#' @export
 #'
 process_array_items <- function(array_items, out){
   items <- purrr::imap(array_items,function(x,idx){

@@ -31,7 +31,11 @@ This function allows you to easily copy and open a template from the package.
 }
 \examples{
 
+# return available templates
+use_template()
+
 \dontrun{
+
 # makes a copy of the disease data template in the current working directory
 use_template("disease_data_template.csv")
 }

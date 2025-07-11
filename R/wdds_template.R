@@ -7,15 +7,10 @@
 #' @param template_file character. file name for a template
 #'
 #' @returns file paths or, if path = NULL, a list of file names
-#' @export
-#'
-#' @examples
-#'
-#'
-#' wdds_template()
 #'
 wdds_template <- function(template_file = NULL) {
   if (is.null(template_file)) {
+    cli::cli_alert_info("Provide a value to `template_file` to use the template")
     dir(system.file("extdata/data_templates", package = "wddsWizard"))
   } else {
     system.file("extdata/data_templates", template_file, package = "wddsWizard", mustWork = TRUE)
@@ -37,7 +32,11 @@ wdds_template <- function(template_file = NULL) {
 #'
 #' @examples
 #'
+#' # return available templates
+#' use_template()
+#'
 #' \dontrun{
+#'
 #' # makes a copy of the disease data template in the current working directory
 #' use_template("disease_data_template.csv")
 #' }
