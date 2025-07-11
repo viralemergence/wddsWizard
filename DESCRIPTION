@@ -7,7 +7,7 @@ Authors@R:
           email = "collin@viralemergence.org",
           role = c("aut","cre"),
           comment = c(ORCID = "0000-0002-9882-941X"))
-Description: Facilitates compliance with the Wildlife Disease Data Standard. It allows users to restructure and validate datasets. 
+Description: Facilitates compliance and working with the Wildlife Disease Data Standard stored on Zenodo <https://doi.org/10.5281/zenodo.15020049>. It allows users to restructure and validate datasets. 
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2

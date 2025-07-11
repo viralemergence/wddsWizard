@@ -9,7 +9,7 @@
 #'
 #'  This is useful when a property or definition is of type string, number, logical and of length 1.
 #'
-#' @param x vector
+#' @param x vector or single row data frame
 #'
 #' @returns an unboxed dataframe with 1 row
 #' @export
@@ -30,30 +30,25 @@
 #'
 prep_atomic <- function(x){
   if(is.data.frame(x)){
-    if(nrow(x)>1){
-      msg = "x is a data frame with more than 1 row. Not clear which item should
+
+    msg <- "x is a data frame with more than 1 row and more than 1 column. Not clear which item should
       be converted to atomic. Please provide either a single row, non-nested, data frame or
       a single value vector"
-      rlang::abort(msg)
-    }
+
+    assertthat::assert_that(nrow(x)==1 & ncol(x) == 1, msg = msg)
 
     x<-x[1,1][[1]]
 
-    if(!is.vector(x)){
-
-      x_class<-class(x)
-
-      msg = sprintf("x is a %s, not a vector. Not clear which item should
+    msg_vec <- sprintf("x is a %s, not a vector. Not clear which item should
       be converted to atomic. Please provide either a single row,non-nested, data frame or
       a single value vector",x_class)
-      rlang::abort(msg)
-    }
+    cli::cli_abort(message = msg)
+
+    assertthat::assert_that(is.vector(x), msg_vec)
   }
 
-  if(length(x) != 1){
-    msg = "x is not length 1, please provide a vector of length one"
-    rlang::abort(msg)
-  }
+  msg_len <- "x is not length 1, please provide a vector of length one"
+  assertthat::assert_that(length(x) == 1,msg = msg_len)
 
   jsonlite::unbox(x)
 }
@@ -90,11 +85,16 @@ prep_atomic <- function(x){
 #'
 #'
 prep_array_objects <- function(x){
+
+  assertthat::assert_that(is.list(x) | is.data.frame(x), msg = "x must be a list or data frame")
+
   if(is.data.frame(x)){
     x <- list(x)
   }
+
   purrr::map(x, function(x){
-    # unboxing tibbles causes a serious warning.
+    assertthat::assert_that(nrow(x) == 1, msg = "Cannot unbox data frames with more than 1 row")
+    # unboxing tibbles causes a depreciation warning.
     if(tibble::is_tibble(x)){
       x <- as.data.frame(x)
     }
