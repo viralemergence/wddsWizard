@@ -7,7 +7,8 @@
 list_deposit_versions(parent_id = "15020049")
 }
 \arguments{
-\item{parent_id}{String. Identifier for a Zenodo deposit with multiple versions.}
+\item{parent_id}{String. Identifier for a Zenodo deposit with multiple versions.
+Default is the parent id for the wdds zenodo deposit.}
 }
 \value{
 Data frame. The data frame contains the Zenodo id for each version of

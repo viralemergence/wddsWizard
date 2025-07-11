@@ -9,7 +9,8 @@ prep_object(x, unbox = FALSE)
 \arguments{
 \item{x}{named vector, list, or data frame}
 
-\item{unbox}{logical Should items be unboxed (not arrays)?}
+\item{unbox}{logical Should items be unboxed (not arrays)? Default is FALSE
+meaning items will remain as arrays when converted to json.}
 }
 \value{
 List of formatted objects

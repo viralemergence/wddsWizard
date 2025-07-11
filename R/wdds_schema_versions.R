@@ -18,6 +18,7 @@
 #'
 #'
 #' @param parent_id String. Identifier for a Zenodo deposit with multiple versions.
+#' Default is the parent id for the wdds zenodo deposit.
 #'
 #' @returns Data frame. The data frame contains the Zenodo id for each version of
 #' the deposit, as well as the version name, and logical field called latest that
@@ -148,7 +149,8 @@ download_deposit_version <- function(zenodo_id,version,latest_version,  dir_path
 #'
 #' This is `download_deposit_version` wrapped in a `purr::pmap` call.
 #'
-#' @param df Data frame. Has the same structure as the output of `list_deposit_versions`
+#' @param df Data frame. Has the same structure as the output of [list_deposit_versions()].
+#' Default is `list_deposit_versions()` so that it downloads all versions of the deposit.
 #' @param dir_path Character. Path to folder where files should be downloaded.
 #'
 #' @returns List of download locations.
@@ -175,7 +177,8 @@ batch_download_deposit_versions <- function(df = list_deposit_versions(), dir_pa
 #'
 #'  Used to keep the package and data standard in alignment.
 #'
-#' @param version Character. identifier for a version e.g. "v.1.0.2" or "latest"
+#' @param version Character. identifier for a version e.g. "v.1.0.2" or "latest".
+#' Default is "latest".
 #'
 #' @returns Character. Current schema version.
 #'
@@ -229,17 +232,17 @@ sanitize_version <- function(version){
 #' This function allows you to quickly retrieve whichever schema version you
 #' may need.
 #'
-#' This function does three things.
+#' This function does three things:
 #'
-#' 1) Shows all versions of the schema in the package,
-#' 2) Provides relative paths to all schema files associated with a version of the schema
-#' 3) Provides a specific file path in a specific version of the schema.
+#' 1) Shows all versions of the schema in the package if both version and file are NULL.
+#' 2) Provides relative paths to all schema files associated with a version of the schema if only version is provided.
+#' 3) Provides a specific file path in a specific version of the schema if version and file path are provided.
 #'
 #'
 #' @param version Character. Version of the wdds deposit. Leave as NULL to see
-#' all versions.
+#' all versions. Default is NULL to return character vector of versions.
 #' @param file Character. Specific file from the wdds deposit. Leave as NULL to
-#' see all files in a version.
+#' see all files in a version. Default is NULL to return character vector of relative file paths.
 #'
 #' @returns Character. Either version identifiers, relative file paths within a version, or a specific file path.
 #' @export
@@ -309,15 +312,16 @@ wdds_json <- function(version = NULL, file = NULL) {
 #'
 #' This function does three things.
 #'
-#' 1) Shows all versions of the schema in the package,
-#' 2) Provides paths to all example data files associated with a version of the schema
-#' 3) Provides a specific file path in a specific version of the example data
+#' 1) Shows all versions of the schema in the package if version is NULL.
+#' 2) Provides paths to all example data files associated with a version of the schema if version is provided and file is NULL.
+#' 3) Provides a specific file path in a specific version of the example data if both file and version are provided.
 #'
 #'
 #' @param version Character. Version of the wdds deposit. Leave as NULL to see
-#' all versions.
+#' all versions. Default is NULL to return a character vector of versions.
 #' @param file Character. Specific file from the wdds deposit. Leave as NULL to
-#' see all files in a version.
+#' see all files in a version. Default is NULL to return all files associated with a
+#' given version.
 #'
 #' @returns Character. Either version identifiers or file paths.
 #' @export
@@ -381,9 +385,9 @@ wdds_example_data <- function(version = NULL, file = NULL) {
 #'
 #' This function does three things.
 #'
-#' 1) Shows all versions of the schema in the package,
-#' 2) Provides paths to all example data files associated with a version of the schema
-#' 3) Provides a specific file path in a specific version of the example data
+#' 1) Shows all versions of the schema in the package if version is `NULL`
+#' 2) Provides paths to all example data files associated with a version of the schema if version is not `NULL` and file is `NULL`
+#' 3) Provides a specific file path in a specific version of the example data if both version and file are specified.
 #'
 #'
 #' @param version Character. Version of the wdds deposit. Leave as NULL to see

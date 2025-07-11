@@ -8,10 +8,11 @@ wdds_example_data(version = NULL, file = NULL)
 }
 \arguments{
 \item{version}{Character. Version of the wdds deposit. Leave as NULL to see
-all versions.}
+all versions. Default is NULL to return a character vector of versions.}
 
 \item{file}{Character. Specific file from the wdds deposit. Leave as NULL to
-see all files in a version.}
+see all files in a version. Default is NULL to return all files associated with a
+given version.}
 }
 \value{
 Character. Either version identifiers or file paths.
@@ -25,9 +26,9 @@ example data you may need.
 \details{
 This function does three things.
 \enumerate{
-\item Shows all versions of the schema in the package,
-\item Provides paths to all example data files associated with a version of the schema
-\item Provides a specific file path in a specific version of the example data
+\item Shows all versions of the schema in the package if version is NULL.
+\item Provides paths to all example data files associated with a version of the schema if version is provided and file is NULL.
+\item Provides a specific file path in a specific version of the example data if both file and version are provided.
 }
 }
 \examples{

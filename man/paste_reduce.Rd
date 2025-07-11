@@ -11,7 +11,7 @@ paste_reduce(x, y, sep = "\\n")
 
 \item{y}{Character}
 
-\item{sep}{Character}
+\item{sep}{Character. Default is a line break \code{"\\n"}}
 }
 \value{
 Character

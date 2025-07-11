@@ -7,7 +7,8 @@
 wdds_template(template_file = NULL)
 }
 \arguments{
-\item{template_file}{character. file name for a template}
+\item{template_file}{character. file name for a template. Default is \code{NULL}
+to return template files}
 }
 \value{
 file paths or, if path = NULL, a list of file names

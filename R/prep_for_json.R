@@ -112,7 +112,8 @@ prep_array_objects <- function(x){
 #'  multiple values at a given position, it won't work.
 #'
 #' @param x named vector, list, or data frame
-#' @param unbox logical Should items be unboxed (not arrays)?
+#' @param unbox logical Should items be unboxed (not arrays)? Default is FALSE
+#' meaning items will remain as arrays when converted to json.
 #'
 #' @returns List of formatted objects
 #' @export
@@ -535,7 +536,9 @@ prep_methods <- function(){
 #'
 #' @param x list. Named list of data frames, lists, or vectors. For methods to be applied,
 #' the names of the list items should match the names in the methods list
-#' @param prep_methods_list list. Named list of methods where each items is a function to applied to corresponding items in x.
+#' @param prep_methods_list list. Named list of methods where each items is a
+#' function to applied to corresponding items in x. Default is full list of methods
+#' from [prep_methods()].
 #'
 #' @returns Named list where methods have been applied.
 #' @export
@@ -622,7 +625,7 @@ clean_field_names <- function(x){
 #' Prepare metadata from the metadata template
 #'
 #' @param project_metadata Data frame. Should correspond to the structure of the project_metadata_template.csv
-#' @param prep_methods_list list. Named list of methods where each items is a function to applied to corresponding items in x.Default is `prep_methods()`
+#' @param prep_methods_list list. Named list of methods where each items is a function to applied to corresponding items in x.Default is [prep_methods()].
 #'
 #' @returns Named list ready to be converted to json
 #' @importFrom rlang .data
@@ -631,7 +634,9 @@ clean_field_names <- function(x){
 #' @examples
 #'\dontrun{
 #' # create
-#' wddsWizard::use_template("project_metadata_template.csv",folder = "data", file_name = "my_project_metadata.csv")
+#' wddsWizard::use_template("project_metadata_template.csv",
+#'                           folder = "data",
+#'                           file_name = "my_project_metadata.csv")
 #' project_metadata  <- read.csv("data/my_project_metadata.csv")
 #'
 #' prepped_project_metadata  <- wddsWizard::prep_from_metadata_template(project_metadata)

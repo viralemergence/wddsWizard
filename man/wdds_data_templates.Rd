@@ -25,9 +25,9 @@ templates you may need.
 \details{
 This function does three things.
 \enumerate{
-\item Shows all versions of the schema in the package,
-\item Provides paths to all example data files associated with a version of the schema
-\item Provides a specific file path in a specific version of the example data
+\item Shows all versions of the schema in the package if version is \code{NULL}
+\item Provides paths to all example data files associated with a version of the schema if version is not \code{NULL} and file is \code{NULL}
+\item Provides a specific file path in a specific version of the example data if both version and file are specified.
 }
 }
 \examples{

@@ -10,7 +10,9 @@ prep_for_json(x, prep_methods_list = prep_methods())
 \item{x}{list. Named list of data frames, lists, or vectors. For methods to be applied,
 the names of the list items should match the names in the methods list}
 
-\item{prep_methods_list}{list. Named list of methods where each items is a function to applied to corresponding items in x.}
+\item{prep_methods_list}{list. Named list of methods where each items is a
+function to applied to corresponding items in x. Default is full list of methods
+from \code{\link[=prep_methods]{prep_methods()}}.}
 }
 \value{
 Named list where methods have been applied.

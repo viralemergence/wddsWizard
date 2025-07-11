@@ -3,8 +3,10 @@
 #' Produces nested markdown that documents a schema. This is a
 #' recursive set of function
 #'
-#' @param schema_path Character. Path to a json-schema
-#' @param sep  Character. separator to be used by paste_reduce*
+#' @param schema_path Character. Path to a json-schema. Default is the current schema path
+#' set in the package environment `the`.
+#' @param sep  Character. separator to be used by [paste_reduce()]. Default is
+#' `"\n"` to create line breaks.
 #'
 #' @returns character vector of markdown text
 #' @export
@@ -229,7 +231,7 @@ create_object_docs <- function(x,idx, required_fields, schema_dir){
 #'
 #' @param x Character
 #' @param y Character
-#' @param sep Character
+#' @param sep Character. Default is a line break `"\n"`
 #'
 #' @returns Character
 #' @export
@@ -251,7 +253,8 @@ paste_reduce <- function(x, y, sep = "\n"){
 #'
 #' @param x Character
 #' @param y Character
-#' @param sep Character
+#' @param sep Character. Default is a line break followed by a dash `"\n - "` to
+#' create an unordered list in markdown.
 #'
 #' @returns Character
 #' @export

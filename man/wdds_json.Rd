@@ -8,10 +8,10 @@ wdds_json(version = NULL, file = NULL)
 }
 \arguments{
 \item{version}{Character. Version of the wdds deposit. Leave as NULL to see
-all versions.}
+all versions. Default is NULL to return character vector of versions.}
 
 \item{file}{Character. Specific file from the wdds deposit. Leave as NULL to
-see all files in a version.}
+see all files in a version. Default is NULL to return character vector of relative file paths.}
 }
 \value{
 Character. Either version identifiers, relative file paths within a version, or a specific file path.
@@ -23,11 +23,11 @@ This function allows you to quickly retrieve whichever schema version you
 may need.
 }
 \details{
-This function does three things.
+This function does three things:
 \enumerate{
-\item Shows all versions of the schema in the package,
-\item Provides relative paths to all schema files associated with a version of the schema
-\item Provides a specific file path in a specific version of the schema.
+\item Shows all versions of the schema in the package if both version and file are NULL.
+\item Provides relative paths to all schema files associated with a version of the schema if only version is provided.
+\item Provides a specific file path in a specific version of the schema if version and file path are provided.
 }
 }
 \examples{

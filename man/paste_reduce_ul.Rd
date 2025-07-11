@@ -11,7 +11,8 @@ paste_reduce_ul(x, y, sep = "\\n - ")
 
 \item{y}{Character}
 
-\item{sep}{Character}
+\item{sep}{Character. Default is a line break followed by a dash \code{"\\n - "} to
+create an unordered list in markdown.}
 }
 \value{
 Character

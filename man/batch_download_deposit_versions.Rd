@@ -7,7 +7,8 @@
 batch_download_deposit_versions(df = list_deposit_versions(), dir_path)
 }
 \arguments{
-\item{df}{Data frame. Has the same structure as the output of \code{list_deposit_versions}}
+\item{df}{Data frame. Has the same structure as the output of \code{\link[=list_deposit_versions]{list_deposit_versions()}}.
+Default is \code{list_deposit_versions()} so that it downloads all versions of the deposit.}
 
 \item{dir_path}{Character. Path to folder where files should be downloaded.}
 }

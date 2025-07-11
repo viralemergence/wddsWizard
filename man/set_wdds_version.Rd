@@ -7,7 +7,8 @@
 set_wdds_version(version = "latest")
 }
 \arguments{
-\item{version}{Character. identifier for a version e.g. "v.1.0.2" or "latest"}
+\item{version}{Character. identifier for a version e.g. "v.1.0.2" or "latest".
+Default is "latest".}
 }
 \value{
 Character. Current schema version.

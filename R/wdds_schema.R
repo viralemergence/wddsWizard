@@ -45,7 +45,8 @@
 #' Produces a list of data frame with name and type for the schema.
 #' This is a recursive set of function and may be expanded to get other properties.
 #'
-#' @param schema_path Character. Path to a json-schema
+#' @param schema_path Character. Path to a json-schema. Default is the current
+#' schema path from the package environment,
 #'
 #' @returns character vector of markdown text
 #' @export

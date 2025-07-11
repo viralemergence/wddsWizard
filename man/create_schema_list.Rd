@@ -7,7 +7,8 @@
 create_schema_list(schema_path = the$current_schema_path)
 }
 \arguments{
-\item{schema_path}{Character. Path to a json-schema}
+\item{schema_path}{Character. Path to a json-schema. Default is the current
+schema path from the package environment,}
 }
 \value{
 character vector of markdown text

@@ -4,7 +4,8 @@
 #'
 #'  If path is null, displays all files in the templates folder.
 #'
-#' @param template_file character. file name for a template
+#' @param template_file character. file name for a template. Default is `NULL`
+#' to return template files
 #'
 #' @returns file paths or, if path = NULL, a list of file names
 #'
@@ -21,11 +22,11 @@ wdds_template <- function(template_file = NULL) {
 #'
 #' This function allows you to easily copy and open a template from the package.
 #'
-#' @param template_file character. File name for a template.
+#' @param template_file character. File name for a template. Defaults to `NULL` to return all template files.
 #' @param folder character. Where should the template be copied to? Default is the current working directory.
 #' @param file_name character. What should the copied file be called? Default is to use whatever value is supplied to template_file.
-#' @param open logical. Should the file be opened?
-#' @param overwrite logical. Should a file with the same name in the destination folder be overwritten?
+#' @param open logical. Should the file be opened? Defaults to TRUE if interactive.
+#' @param overwrite logical. Should a file with the same name in the destination folder be overwritten? Default is FALSE to avoid accidentally overwriting data.
 #'
 #' @returns Character. If no template_file value is provided, lists all template files in the package. If a file is created, it returns the file path for that new file.
 #' @export

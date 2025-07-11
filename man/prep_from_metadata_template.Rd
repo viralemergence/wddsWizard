@@ -12,7 +12,7 @@ prep_from_metadata_template(
 \arguments{
 \item{project_metadata}{Data frame. Should correspond to the structure of the project_metadata_template.csv}
 
-\item{prep_methods_list}{list. Named list of methods where each items is a function to applied to corresponding items in x.Default is \code{prep_methods()}}
+\item{prep_methods_list}{list. Named list of methods where each items is a function to applied to corresponding items in x.Default is \code{\link[=prep_methods]{prep_methods()}}.}
 }
 \value{
 Named list ready to be converted to json
@@ -23,7 +23,9 @@ Prepare metadata from the metadata template
 \examples{
 \dontrun{
 # create
-wddsWizard::use_template("project_metadata_template.csv",folder = "data", file_name = "my_project_metadata.csv")
+wddsWizard::use_template("project_metadata_template.csv",
+                          folder = "data",
+                          file_name = "my_project_metadata.csv")
 project_metadata  <- read.csv("data/my_project_metadata.csv")
 
 prepped_project_metadata  <- wddsWizard::prep_from_metadata_template(project_metadata)

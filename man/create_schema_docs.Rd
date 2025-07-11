@@ -7,9 +7,11 @@
 create_schema_docs(schema_path = the$current_schema_path, sep = "\\n")
 }
 \arguments{
-\item{schema_path}{Character. Path to a json-schema}
+\item{schema_path}{Character. Path to a json-schema. Default is the current schema path
+set in the package environment \code{the}.}
 
-\item{sep}{Character. separator to be used by paste_reduce*}
+\item{sep}{Character. separator to be used by \code{\link[=paste_reduce]{paste_reduce()}}. Default is
+\code{"\\n"} to create line breaks.}
 }
 \value{
 character vector of markdown text
