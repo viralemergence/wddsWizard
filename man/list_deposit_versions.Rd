@@ -28,9 +28,6 @@ the url is the parent id.
 \dontshow{if (curl::has_internet()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 
 list_deposit_versions()
-
-
-
 \dontshow{\}) # examplesIf}
 }
 \seealso{

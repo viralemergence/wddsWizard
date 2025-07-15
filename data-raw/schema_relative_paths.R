@@ -1,7 +1,6 @@
+# used to better understand how relative paths work with jsonvalidate
 
-#used to better understand how relative paths work with jsonvalidate
-
-user_schema = '{
+user_schema <- '{
   "$schema": "http://json-schema.org/draft-07/schema",
   "type": "object",
   "required": ["address"],

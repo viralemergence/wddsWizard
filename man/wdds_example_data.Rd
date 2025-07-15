@@ -43,8 +43,7 @@ wdds_example_data(version = "latest")
 
 # get the file path for a specific file
 
-wdds_example_data(version = "v_1_0_2",file = "Becker_demo_dataset.xlsx")
-
+wdds_example_data(version = "v_1_0_2", file = "Becker_demo_dataset.xlsx")
 
 }
 \seealso{

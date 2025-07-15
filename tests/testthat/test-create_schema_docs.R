@@ -10,4 +10,3 @@ test_that("create_schema_docs fails with non character", {
 test_that("create_schema_docs fails with fake file", {
   expect_error(create_schema_docs(schema_path = "fake.file"))
 })
-

@@ -85,7 +85,6 @@ file and reflects the structure of that file.
 Any item marked as <span style="color: black;background-color: #ffc107;">REQUIRED</span> must be included. 
 
 ```{r terms, eval=FALSE, include=FALSE, results='asis'}
-
 wddsWizard::schema_terms |>
   cat()
 ```

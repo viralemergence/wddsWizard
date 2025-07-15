@@ -7,7 +7,7 @@ library(jsonlite)
 ## read xl
 becker_data <- readxl::read_xlsx(path = here::here("inst/extdata/example_data/Becker_demo_dataset.xlsx"))
 
-becker_data_prelim <- janitor::clean_names(becker_data,case = "lower_camel")
+becker_data_prelim <- janitor::clean_names(becker_data, case = "lower_camel")
 
 becker_disease_data <- becker_data_prelim |>
   dplyr::rename(

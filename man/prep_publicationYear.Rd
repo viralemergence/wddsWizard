@@ -20,7 +20,6 @@ pub_year <- data.frame("publicationYear" = "2025")
 
 prep_language(pub_year)
 
-
 }
 \seealso{
 Other JSON Prep: 

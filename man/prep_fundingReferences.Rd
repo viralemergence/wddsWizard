@@ -18,7 +18,7 @@ creates an array of objects
 \examples{
 
 wddsWizard::becker_project_metadata$fundingReferences |>
- prep_fundingReferences()
+  prep_fundingReferences()
 
 }
 \seealso{

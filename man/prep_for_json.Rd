@@ -24,13 +24,18 @@ list.
 \examples{
 
 wddsWizard::becker_project_metadata |>
-   prep_for_json()
+  prep_for_json()
 
- a <- list("hello_world" = 1:10 )
- methods_list <- list("hello_world" = function(x){x*2},
-                       "unused_method" = function(x){x/2})
- prep_for_json(a,methods_list)
-
+a <- list("hello_world" = 1:10)
+methods_list <- list(
+  "hello_world" = function(x) {
+    x * 2
+  },
+  "unused_method" = function(x) {
+    x / 2
+  }
+)
+prep_for_json(a, methods_list)
 
 }
 \seealso{

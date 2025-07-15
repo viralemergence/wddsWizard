@@ -3,7 +3,7 @@ devtools::load_all()
 
 schema_terms <- create_schema_docs(here::here("inst/extdata/wdds_schema/wdds_schema.json"))
 
-schema_terms<- stringr::str_replace_all(schema_terms,pattern ="- -",replacement = "-" )
+schema_terms <- stringr::str_replace_all(schema_terms, pattern = "- -", replacement = "-")
 #
 # header_yml <- '---
 # title: "deleteme"
@@ -16,10 +16,9 @@ schema_terms<- stringr::str_replace_all(schema_terms,pattern ="- -",replacement 
 #   cat(file = "vignettes/deleteme.Rmd")
 
 
-schema_terms|>
+schema_terms |>
   cat(file = "vignettes/schema_overview.Rmd", append = TRUE)
 
 # pkgdown::build_site()
 
 usethis::use_data(schema_terms, overwrite = TRUE)
-

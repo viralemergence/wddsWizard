@@ -19,37 +19,36 @@
 #' x <- 1
 #'
 #' # values in x are stored in an array
-#' x|>
-#' jsonlite::toJSON()
-#'  # output is [1]
+#' x |>
+#'   jsonlite::toJSON()
+#' # output is [1]
 #'
 #' # values in x are NOT stored in an array (no square brackets)
 #' prep_atomic(x) |>
 #'   jsonlite::toJSON()
-#'# output is 1
+#' # output is 1
 #'
-prep_atomic <- function(x){
-  if(is.data.frame(x)){
-
+prep_atomic <- function(x) {
+  if (is.data.frame(x)) {
     msg <- "x is a data frame with more than 1 row and more than 1 column. Not clear which item should
       be converted to atomic. Please provide either a single row, non-nested, data frame or
       a single value vector"
 
-    assertthat::assert_that(nrow(x)==1 & ncol(x) == 1, msg = msg)
+    assertthat::assert_that(nrow(x) == 1 & ncol(x) == 1, msg = msg)
 
-    x<-x[1,1][[1]]
+    x <- x[1, 1][[1]]
 
     x_class <- class(x)
 
     msg_vec <- sprintf("x is a %s, not a vector. Not clear which item should
       be converted to atomic. Please provide either a single row,non-nested, data frame or
-      a single value vector",x_class)
+      a single value vector", x_class)
 
     assertthat::assert_that(is.vector(x), msg = msg_vec)
   }
 
   msg_len <- "x is not length 1, please provide a vector of length one"
-  assertthat::assert_that(length(x) == 1,msg = msg_len)
+  assertthat::assert_that(length(x) == 1, msg = msg_len)
 
   jsonlite::unbox(x)
 }
@@ -71,39 +70,38 @@ prep_atomic <- function(x){
 #'
 #' # note that you cannot unbox data frames with more than 1 row
 #'
-#' x <- list(tibble::tibble(age = 1,group = letters[1]),
-#'           tibble::tibble(age = 2,group = letters[2]))
+#' x <- list(
+#'   tibble::tibble(age = 1, group = letters[1]),
+#'   tibble::tibble(age = 2, group = letters[2])
+#' )
 #'
 #' # running jsonlite::toJSON on an unmodified object results in
 #' # extra square brackets - an array of arrays of objects
 #' jsonlite::toJSON(x, pretty = TRUE)
 #'
 #' # with the prepped data we get an array of objects
-#' x_prepped  <- prep_array_objects(x)
+#' x_prepped <- prep_array_objects(x)
 #'
 #' x_prepped |>
 #'   jsonlite::toJSON(pretty = TRUE)
 #'
-#'
-prep_array_objects <- function(x){
-
+prep_array_objects <- function(x) {
   assertthat::assert_that(is.list(x) | is.data.frame(x), msg = "x must be a list or data frame")
 
-  if(is.data.frame(x)){
+  if (is.data.frame(x)) {
     x <- list(x)
   }
 
-  purrr::map(x, function(x){
+  purrr::map(x, function(x) {
     assertthat::assert_that(nrow(x) == 1, msg = "Cannot unbox data frames with more than 1 row")
     # unboxing tibbles causes a depreciation warning.
-    if(tibble::is_tibble(x)){
+    if (tibble::is_tibble(x)) {
       x <- as.data.frame(x)
     }
 
     out <- jsonlite::unbox(x)
     return(out)
-  }
-  )
+  })
 }
 
 #' Prepare an object
@@ -123,7 +121,7 @@ prep_array_objects <- function(x){
 #' @family JSON Prep
 #' @examples
 #'
-#' cars_small  <- datasets::cars[1:10,]
+#' cars_small <- datasets::cars[1:10, ]
 #'
 #' # creates an array of objects where each
 #' # row is an object
@@ -140,20 +138,18 @@ prep_array_objects <- function(x){
 #' prep_object(x) |>
 #'   jsonlite::toJSON(pretty = TRUE)
 #'
-#'
-prep_object <- function(x, unbox = FALSE){
-
+prep_object <- function(x, unbox = FALSE) {
   check_for_names <- assertthat::has_attr(x, "names")
-  assertthat::assert_that(check_for_names,msg = "X must have names")
+  assertthat::assert_that(check_for_names, msg = "X must have names")
 
-  if(is.matrix(x)){
+  if (is.matrix(x)) {
     x <- as.data.frame(x)
   }
 
   x_list <- as.list(x)
 
   ## is this redundent with prep atomic?
-  if(unbox){
+  if (unbox) {
     x_list <- purrr::map(x_list, jsonlite::unbox)
   }
 
@@ -172,12 +168,11 @@ prep_object <- function(x, unbox = FALSE){
 #' @family JSON Prep
 #' @examples
 #'
-#' x  <- wddsWizard::becker_project_metadata$descriptions
+#' x <- wddsWizard::becker_project_metadata$descriptions
 #'
 #' prep_descriptions(x) |> jsonlite::toJSON()
 #'
-#'
-prep_descriptions <- function(x){
+prep_descriptions <- function(x) {
   prep_array_objects(x)
 }
 
@@ -194,7 +189,7 @@ prep_descriptions <- function(x){
 #'
 #' wddsWizard::becker_project_metadata$identifier |> prep_identifier()
 #'
-prep_identifier <- function(x){
+prep_identifier <- function(x) {
   prep_array_objects(x)
 }
 
@@ -209,7 +204,7 @@ prep_identifier <- function(x){
 #'
 #' wddsWizard::becker_project_metadata$relatedIdentifiers |> prep_relatedIdentifiers()
 #'
-prep_relatedIdentifiers <- function(x){
+prep_relatedIdentifiers <- function(x) {
   prep_array_objects(x)
 }
 
@@ -230,9 +225,7 @@ prep_relatedIdentifiers <- function(x){
 #'
 #' prep_language(a)
 #'
-prep_language <- function(x){
-
-
+prep_language <- function(x) {
   prep_atomic(x)
 }
 
@@ -250,8 +243,7 @@ prep_language <- function(x){
 #'
 #' prep_language(pub_year)
 #'
-#'
-prep_publicationYear <- function(x){
+prep_publicationYear <- function(x) {
   prep_atomic(x)
 }
 
@@ -268,9 +260,9 @@ prep_publicationYear <- function(x){
 #' @family JSON Prep
 #' @examples
 #'
-#'  wddsWizard::becker_project_metadata$rights |> prep_rights()
+#' wddsWizard::becker_project_metadata$rights |> prep_rights()
 #'
-prep_rights <- function(x){
+prep_rights <- function(x) {
   prep_array_objects(x)
 }
 
@@ -289,8 +281,8 @@ prep_rights <- function(x){
 #' @examples
 #' wddsWizard::becker_project_metadata$subjects |> prep_subjects()
 #'
-prep_subjects <- function(x){
-    prep_array_objects(x)
+prep_subjects <- function(x) {
+  prep_array_objects(x)
 }
 
 
@@ -314,31 +306,32 @@ prep_subjects <- function(x){
 #' @family JSON Prep
 #' @examples
 #' creator_df <- wddsWizard::becker_project_metadata$creators[[1]]
-#' creator_df_aff_prepped  <- prep_affiliation(creator_df)
+#' creator_df_aff_prepped <- prep_affiliation(creator_df)
 #'
-prep_affiliation <- function(x){
-
+prep_affiliation <- function(x) {
   assertthat::assert_that(is.data.frame(x), msg = "x must be a data frame")
 
   # affiliation columns
-  aff_cols <- c("affiliation",
-             "affiliationIdentifier" ,
-             "affiliationIdentifierScheme" ,
-             "schemeUri" )
+  aff_cols <- c(
+    "affiliation",
+    "affiliationIdentifier",
+    "affiliationIdentifierScheme",
+    "schemeUri"
+  )
 
 
   # get values from x
   aff_filter <- names(x) %in% aff_cols
 
   # jump out of the function if no affiliation fields present
-  if(all(!aff_filter)){
+  if (all(!aff_filter)) {
     return(x)
   }
 
   x_aff <- x[aff_filter]
   # rename affiliation to name
   x_aff <- x_aff |>
-    dplyr::rename("name"= "affiliation")
+    dplyr::rename("name" = "affiliation")
 
   # drop Affiliation columns then add nested column
 
@@ -366,25 +359,26 @@ prep_affiliation <- function(x){
 #' @family JSON Prep
 #' @examples
 #' creator_df <- wddsWizard::becker_project_metadata$creators[[1]]
-#' creator_df_nameID_prepped  <- prep_nameIdentifiers(creator_df)
+#' creator_df_nameID_prepped <- prep_nameIdentifiers(creator_df)
 #'
-prep_nameIdentifiers <- function(x){
-
+prep_nameIdentifiers <- function(x) {
   assertthat::assert_that(is.data.frame(x), msg = "x must be a data frame")
 
   # check if nameIdentifiers is already properly formatted...
 
   # name identifier columns
-  nid_cols <- c("nameIdentifier",
-                "nameIdentifierScheme" ,
-                "schemeUri" )
+  nid_cols <- c(
+    "nameIdentifier",
+    "nameIdentifierScheme",
+    "schemeUri"
+  )
 
 
   # get values from x
   nid_filter <- names(x) %in% nid_cols
 
   # jump out of the function if no name identifiers fields present
-  if(all(!nid_filter)){
+  if (all(!nid_filter)) {
     return(x)
   }
 
@@ -393,7 +387,7 @@ prep_nameIdentifiers <- function(x){
 
   # check for required nameIdentifierScheme
 
-  if(!"nameIdentifierScheme" %in% names(x_nid)){
+  if (!"nameIdentifierScheme" %in% names(x_nid)) {
     x_nid$nameIdentifierScheme <- "ORCID"
   }
 
@@ -418,14 +412,13 @@ prep_nameIdentifiers <- function(x){
 #' @examples
 #'
 #' wddsWizard::becker_project_metadata$creators |>
-#'  prep_creators()
+#'   prep_creators()
 #'
-prep_creators <- function(x){
+prep_creators <- function(x) {
+  assertthat::assert_that(is.list(x), msg = "x must be a list")
 
-  assertthat::assert_that(is.list(x), msg= "x must be a list")
-
-  x_aff <- purrr::map(x,prep_affiliation)
-  x_nid <- purrr::map(x_aff,prep_nameIdentifiers)
+  x_aff <- purrr::map(x, prep_affiliation)
+  x_nid <- purrr::map(x_aff, prep_nameIdentifiers)
   out <- prep_array_objects(x_nid)
 
   return(out)
@@ -443,9 +436,9 @@ prep_creators <- function(x){
 #' @examples
 #'
 #' wddsWizard::becker_project_metadata$fundingReferences |>
-#'  prep_fundingReferences()
+#'   prep_fundingReferences()
 #'
-prep_fundingReferences <- function(x){
+prep_fundingReferences <- function(x) {
   prep_array_objects(x)
 }
 
@@ -459,30 +452,30 @@ prep_fundingReferences <- function(x){
 #' @export
 #' @family JSON Prep
 #' @examples
-#'
-#'\dontrun{
+#' \dontrun{
 #' prepped_list <- project_metadata_list_entities
-#'  prepped_list$methodology <- prep_methodology(project_metadata_list_entities$methodology)
+#' prepped_list$methodology <- prep_methodology(project_metadata_list_entities$methodology)
 #'
-#'  OR
+#' OR
 #'
-#'  prepped_list <- purrr::modify_at(project_metadata_list_entities,"methodology",prep_methodology)
-#'}
+#' prepped_list <- purrr::modify_at(project_metadata_list_entities, "methodology", prep_methodology)
+#' }
 #'
-prep_methodology <- function(x){
+prep_methodology <- function(x) {
+  assertthat::assert_that(is.list(x), msg = "x must be a list")
 
-  assertthat::assert_that(is.list(x),msg = "x must be a list")
-
-  check_for_names  <- c("eventBased","archival") %in% names(x)
+  check_for_names <- c("eventBased", "archival") %in% names(x)
 
   assertthat::assert_that(all(check_for_names), msg = "x must have items `eventBased` and `archival`")
 
   # set these to be explicitly logical
   x <- x |>
-     dplyr::mutate(eventBased = as.logical(.data$eventBased),
-            archival=  as.logical(.data$archival))
+    dplyr::mutate(
+      eventBased = as.logical(.data$eventBased),
+      archival = as.logical(.data$archival)
+    )
 
-  prep_object(x,unbox = TRUE)
+  prep_object(x, unbox = TRUE)
 }
 
 #' Prepare Titles
@@ -495,9 +488,9 @@ prep_methodology <- function(x){
 #' @examples
 #'
 #' wddsWizard::becker_project_metadata$titles |>
-#' prep_titles()
+#'   prep_titles()
 #'
-prep_titles <- function(x){
+prep_titles <- function(x) {
   prep_array_objects(x)
 }
 
@@ -509,7 +502,7 @@ prep_titles <- function(x){
 #' @inherit prep_object
 #' @family JSON Prep
 #' @export
-prep_data <- function(x){
+prep_data <- function(x) {
   prep_object(x)
 }
 
@@ -526,7 +519,7 @@ prep_data <- function(x){
 #'
 #' prep_methods()
 #'
-prep_methods <- function(){
+prep_methods <- function() {
   list(
     data = prep_data,
     creators = prep_creators,
@@ -561,25 +554,29 @@ prep_methods <- function(){
 #' @examples
 #'
 #' wddsWizard::becker_project_metadata |>
-#'    prep_for_json()
+#'   prep_for_json()
 #'
-#'  a <- list("hello_world" = 1:10 )
-#'  methods_list <- list("hello_world" = function(x){x*2},
-#'                        "unused_method" = function(x){x/2})
-#'  prep_for_json(a,methods_list)
+#' a <- list("hello_world" = 1:10)
+#' methods_list <- list(
+#'   "hello_world" = function(x) {
+#'     x * 2
+#'   },
+#'   "unused_method" = function(x) {
+#'     x / 2
+#'   }
+#' )
+#' prep_for_json(a, methods_list)
 #'
-#'
-prep_for_json <- function(x,prep_methods_list = prep_methods()){
-
+prep_for_json <- function(x, prep_methods_list = prep_methods()) {
   # get methods we have for properties
-  filter_methods <-  names(prep_methods_list) %in% names(x)
+  filter_methods <- names(prep_methods_list) %in% names(x)
   subset_methods <- prep_methods_list[filter_methods]
 
   prepped_list <- x
-  for(i in  1:length(subset_methods)){
+  for (i in 1:length(subset_methods)) {
     property <- names(subset_methods[i])
     property_method <- subset_methods[[i]]
-    prepped_list <- purrr::modify_at(prepped_list,property,property_method)
+    prepped_list <- purrr::modify_at(prepped_list, property, property_method)
   }
 
   return(prepped_list)
@@ -604,14 +601,13 @@ prep_for_json <- function(x,prep_methods_list = prep_methods()){
 #'
 #' get_entity(df)
 #'
-#'
-get_entity <- function(x){
+get_entity <- function(x) {
   y <- x |>
-    dplyr::select(-.data$Group,-.data$entity_id) |>
+    dplyr::select(-.data$Group, -.data$entity_id) |>
     dplyr::filter(.data$Value != "") |>
     dplyr::mutate(Variable = snakecase::to_lower_camel_case(.data$Variable))
 
-  z <- tidyr::pivot_wider(y,names_from = .data$Variable, values_from = .data$Value)
+  z <- tidyr::pivot_wider(y, names_from = .data$Variable, values_from = .data$Value)
 
 
   return(z)
@@ -627,13 +623,13 @@ get_entity <- function(x){
 #' @family JSON Prep
 #' @examples
 #'
-#' df  <- data.frame("Sample ID"= 1:10, "Name"= "Fred", "Host Identification"= "Pinus strobus")
+#' df <- data.frame("Sample ID" = 1:10, "Name" = "Fred", "Host Identification" = "Pinus strobus")
 #'
 #' clean_field_names(df)
 #'
-clean_field_names <- function(x){
-   names(x) <- snakecase::to_lower_camel_case(names(x),abbreviations = "ID")
-   return(x)
+clean_field_names <- function(x) {
+  names(x) <- snakecase::to_lower_camel_case(names(x), abbreviations = "ID")
+  return(x)
 }
 
 
@@ -647,21 +643,20 @@ clean_field_names <- function(x){
 #' @export
 #' @family JSON Prep
 #' @examples
-#'\dontrun{
+#' \dontrun{
 #' # create
 #' wddsWizard::use_template("project_metadata_template.csv",
-#'                           folder = "data",
-#'                           file_name = "my_project_metadata.csv")
-#' project_metadata  <- read.csv("data/my_project_metadata.csv")
+#'   folder = "data",
+#'   file_name = "my_project_metadata.csv"
+#' )
+#' project_metadata <- read.csv("data/my_project_metadata.csv")
 #'
-#' prepped_project_metadata  <- wddsWizard::prep_from_metadata_template(project_metadata)
+#' prepped_project_metadata <- wddsWizard::prep_from_metadata_template(project_metadata)
 #'
-#'  project_metadat_json <- jsonlite::toJSON(prepped_project_metadata, pretty = TRUE)
-#'}
+#' project_metadat_json <- jsonlite::toJSON(prepped_project_metadata, pretty = TRUE)
+#' }
 #'
-#'
-prep_from_metadata_template <- function(project_metadata, prep_methods_list = prep_methods()){
-
+prep_from_metadata_template <- function(project_metadata, prep_methods_list = prep_methods()) {
   ## turn empty strings into NAs in the group field
   project_metadata <- project_metadata |>
     dplyr::mutate(Group = dplyr::case_when(
@@ -672,7 +667,7 @@ prep_from_metadata_template <- function(project_metadata, prep_methods_list = pr
   ## use `fill` to complete the items column and `mutate` to make groups a little
   ## more ergonomic
 
-  project_metadata_filled <- tidyr::fill(data = project_metadata,.data$Group)
+  project_metadata_filled <- tidyr::fill(data = project_metadata, .data$Group)
 
 
   ## Restructure data
@@ -685,7 +680,7 @@ prep_from_metadata_template <- function(project_metadata, prep_methods_list = pr
   # get ids for components of a group.
   project_metadata_ids <- project_metadata_filled |>
     dplyr::mutate(
-      entity_id = stringr::str_extract(string = .data$Group,pattern = "[0-9]"),
+      entity_id = stringr::str_extract(string = .data$Group, pattern = "[0-9]"),
       # make sure that there are no NA entity IDs
       entity_id = dplyr::case_when(
         is.na(.data$entity_id) ~ "1",
@@ -694,41 +689,44 @@ prep_from_metadata_template <- function(project_metadata, prep_methods_list = pr
     ) |>
     # drop entity ids from group field and convert to camel case
     dplyr::mutate(
-      Group = stringr::str_replace_all(string = .data$Group,
-                                       pattern = " [0-9]",
-                                       replacement = ""),
-      Group = snakecase::to_lower_camel_case(.data$Group,abbreviations = "ID")
-      )
+      Group = stringr::str_replace_all(
+        string = .data$Group,
+        pattern = " [0-9]",
+        replacement = ""
+      ),
+      Group = snakecase::to_lower_camel_case(.data$Group, abbreviations = "ID")
+    )
 
 
   ## split dataframe by Group for further processing
 
-  project_metadata_list  <- split(project_metadata_ids,project_metadata_ids$Group)
+  project_metadata_list <- split(project_metadata_ids, project_metadata_ids$Group)
 
 
   # The `get_entity` function creates standard entities that will be easier to transform json
 
-  project_metadata_list_entities <- purrr::map(project_metadata_list,
-                                               function(x){
+  project_metadata_list_entities <- purrr::map(
+    project_metadata_list,
+    function(x) {
+      x_typed <- dplyr::left_join(x, wddsWizard::schema_properties, by = c("Group" = "name")) |>
+        dplyr::mutate(to_split = dplyr::case_when(
+          is_array ~ TRUE,
+          TRUE ~ FALSE
+        ))
 
-                                                x_typed <- dplyr::left_join(x,wddsWizard::schema_properties, by = c("Group" = "name")) |>
-                                                  dplyr::mutate(to_split = dplyr::case_when(
-                                                    is_array ~ TRUE,
-                                                    TRUE ~ FALSE)
-                                                  )
 
+      if (all(!x_typed$to_split)) {
+        out <- get_entity(x)
+        return(out)
+      }
+      x_list <- split(x, x$entity_id)
+      names(x_list) <- NULL
+      out <- purrr::map(x_list, get_entity)
+      return(out)
+    }
+  )
 
-                                                 if(all(!x_typed$to_split)){
-                                                   out <- get_entity(x)
-                                                   return(out)
-                                                 }
-                                                 x_list <- split(x,x$entity_id)
-                                                 names(x_list) <- NULL
-                                                 out <-purrr::map(x_list, get_entity)
-                                                 return(out)
-                                               })
-
-  out <- prep_for_json(project_metadata_list_entities,prep_methods_list = prep_methods_list)
+  out <- prep_for_json(project_metadata_list_entities, prep_methods_list = prep_methods_list)
 
   return(out)
 }

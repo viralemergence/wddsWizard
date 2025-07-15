@@ -18,7 +18,7 @@ Prepares an array of objects
 \examples{
 
 wddsWizard::becker_project_metadata$titles |>
-prep_titles()
+  prep_titles()
 
 }
 \seealso{

@@ -17,7 +17,7 @@ Clean Field Names
 }
 \examples{
 
-df  <- data.frame("Sample ID"= 1:10, "Name"= "Fred", "Host Identification"= "Pinus strobus")
+df <- data.frame("Sample ID" = 1:10, "Name" = "Fred", "Host Identification" = "Pinus strobus")
 
 clean_field_names(df)
 

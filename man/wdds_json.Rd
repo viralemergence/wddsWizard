@@ -42,8 +42,7 @@ wdds_json(version = "latest")
 
 # get the file path for a specific file
 
-wdds_json(version = "v_1_0_2",file = "schemas/disease_data.json")
-
+wdds_json(version = "v_1_0_2", file = "schemas/disease_data.json")
 
 }
 \seealso{

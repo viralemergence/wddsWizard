@@ -21,7 +21,7 @@ multiple values at a given position, it won't work.
 }
 \examples{
 
-cars_small  <- datasets::cars[1:10,]
+cars_small <- datasets::cars[1:10, ]
 
 # creates an array of objects where each
 # row is an object
@@ -37,7 +37,6 @@ x <- list("hello" = 1:10, "world" = "Earth")
 
 prep_object(x) |>
   jsonlite::toJSON(pretty = TRUE)
-
 
 }
 \seealso{

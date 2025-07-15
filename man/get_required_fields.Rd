@@ -16,7 +16,7 @@ character vector of required fields
 Gets the required fields for an object or schema
 }
 \examples{
-schema_list <- jsonlite::read_json(wdds_json("latest","schemas/disease_data.json"))
+schema_list <- jsonlite::read_json(wdds_json("latest", "schemas/disease_data.json"))
 get_required_fields(schema_list)
 
 }

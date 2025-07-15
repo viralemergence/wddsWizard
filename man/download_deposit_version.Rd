@@ -31,9 +31,8 @@ list_deposit_versions()
 # download the deposit
 
 \dontrun{
-download_deposit_version("15270582","v.1.0.3",TRUE,"data")
+download_deposit_version("15270582", "v.1.0.3", TRUE, "data")
 }
-
 \dontshow{\}) # examplesIf}
 }
 \seealso{

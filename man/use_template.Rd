@@ -40,7 +40,6 @@ use_template()
 use_template("disease_data_template.csv")
 }
 
-
 }
 \seealso{
 Other Templates: 

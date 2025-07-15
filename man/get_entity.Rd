@@ -24,7 +24,6 @@ df <- data.frame(Group = 1, entity_id = 1, Value = 1:3, Variable = letters[1:3])
 
 get_entity(df)
 
-
 }
 \seealso{
 Other JSON Prep: 

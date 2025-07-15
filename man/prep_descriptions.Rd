@@ -17,10 +17,9 @@ Wrapper for \code{prep_array_objects}.
 }
 \examples{
 
-x  <- wddsWizard::becker_project_metadata$descriptions
+x <- wddsWizard::becker_project_metadata$descriptions
 
 prep_descriptions(x) |> jsonlite::toJSON()
-
 
 }
 \seealso{

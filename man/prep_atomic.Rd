@@ -24,9 +24,9 @@ This is useful when a property or definition is of type string, number, logical 
 x <- 1
 
 # values in x are stored in an array
-x|>
-jsonlite::toJSON()
- # output is [1]
+x |>
+  jsonlite::toJSON()
+# output is [1]
 
 # values in x are NOT stored in an array (no square brackets)
 prep_atomic(x) |>

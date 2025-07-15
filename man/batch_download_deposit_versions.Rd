@@ -21,9 +21,8 @@ This is \code{download_deposit_version} wrapped in a \code{purr::pmap} call.
 \examples{
 \dontrun{
 # download all versions
-batch_download_deposit_versions( dir_path = "data")
+batch_download_deposit_versions(dir_path = "data")
 }
-
 
 }
 \seealso{

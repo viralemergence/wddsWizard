@@ -25,7 +25,7 @@ documentation items
 
 text_a <- "hello"
 text_b <- "world"
-paste_reduce_ul(text_a,text_b)
+paste_reduce_ul(text_a, text_b)
 
 }
 \seealso{

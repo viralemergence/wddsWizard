@@ -3,6 +3,6 @@ test_that("create_schema_list works", {
 })
 
 
-test_that("create_schema_list fails if not a file",{
+test_that("create_schema_list fails if not a file", {
   expect_error(create_schema_list(schema_path = NULL))
 })

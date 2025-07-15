@@ -21,7 +21,6 @@ Produces nested markdown that documents a schema. This is a
 recursive set of function
 }
 \examples{
-
 \dontrun{
 create_schema_docs()
 }

@@ -18,7 +18,7 @@ The creator object can be complex so we prepare components of the final object (
 \examples{
 
 wddsWizard::becker_project_metadata$creators |>
- prep_creators()
+  prep_creators()
 
 }
 \seealso{

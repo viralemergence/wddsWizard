@@ -42,8 +42,7 @@ wdds_data_templates(version = "latest")
 
 # get the file path for a specific file
 
-wdds_data_templates(version = "v_1_0_2",file = "disease_data_template.csv")
-
+wdds_data_templates(version = "v_1_0_2", file = "disease_data_template.csv")
 
 }
 \seealso{

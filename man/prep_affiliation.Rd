@@ -27,7 +27,7 @@ Affiliation fields to be converted to a list: "affiliation", #' "affiliationIden
 }
 \examples{
 creator_df <- wddsWizard::becker_project_metadata$creators[[1]]
-creator_df_aff_prepped  <- prep_affiliation(creator_df)
+creator_df_aff_prepped <- prep_affiliation(creator_df)
 
 }
 \seealso{

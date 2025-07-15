@@ -30,14 +30,10 @@
 #'
 #' list_deposit_versions()
 #'
-#'
-#'
-#'
-list_deposit_versions <- function(parent_id = "15020049"){
+list_deposit_versions <- function(parent_id = "15020049") {
+  assertthat::assert_that(is.character(parent_id), msg = "parent_id must be character")
 
-  assertthat::assert_that(is.character(parent_id), msg ="parent_id must be character")
-
-  parent_url <- sprintf("https://zenodo.org/api/records/%s",parent_id)
+  parent_url <- sprintf("https://zenodo.org/api/records/%s", parent_id)
 
   parent_json <- jsonlite::fromJSON(txt = parent_url)
 
@@ -48,9 +44,11 @@ list_deposit_versions <- function(parent_id = "15020049"){
   zenodo_id <- as.character(versions_json$hits$hits$id)
   version_tag <- versions_json$hits$hits$metadata$version
 
-  out <- data.frame(zenodo_id = zenodo_id,
-                    version = version_tag,
-                    latest_version = zenodo_id %in% latest_id )
+  out <- data.frame(
+    zenodo_id = zenodo_id,
+    version = version_tag,
+    latest_version = zenodo_id %in% latest_id
+  )
 
   return(out)
 }
@@ -76,30 +74,29 @@ list_deposit_versions <- function(parent_id = "15020049"){
 #' # download the deposit
 #'
 #' \dontrun{
-#' download_deposit_version("15270582","v.1.0.3",TRUE,"data")
+#' download_deposit_version("15270582", "v.1.0.3", TRUE, "data")
 #' }
 #'
-#'
-download_deposit_version <- function(zenodo_id,version,latest_version,  dir_path){
- assertthat::assert_that(is.character(zenodo_id),msg = "zenodo_id must be character")
- assertthat::assert_that(is.character(version),msg = "version must be character")
- assertthat::assert_that(is.logical(latest_version),msg = "latest_version must be logical")
- assertthat::assert_that(assertthat::is.scalar(dir_path),msg = "dir_path must scalar (a length 1 vector)")
+download_deposit_version <- function(zenodo_id, version, latest_version, dir_path) {
+  assertthat::assert_that(is.character(zenodo_id), msg = "zenodo_id must be character")
+  assertthat::assert_that(is.character(version), msg = "version must be character")
+  assertthat::assert_that(is.logical(latest_version), msg = "latest_version must be logical")
+  assertthat::assert_that(assertthat::is.scalar(dir_path), msg = "dir_path must scalar (a length 1 vector)")
 
   ## create folder in archive for version
   fs::dir_create(path = dir_path) # will not overwrite existing folders
 
 
   ## use id to get the thing
-  api_url <- sprintf("https://zenodo.org/api/records/%s",zenodo_id)
+  api_url <- sprintf("https://zenodo.org/api/records/%s", zenodo_id)
 
   id_json <- jsonlite::fromJSON(api_url)
-  zip_file  <- fs::path_file(id_json$files$key)
+  zip_file <- fs::path_file(id_json$files$key)
 
-  zip_path <- sprintf("%s/%s",dir_path,zip_file)
+  zip_path <- sprintf("%s/%s", dir_path, zip_file)
   # replace utils::download.file with curl
-  utils::download.file(url = id_json$files$links$self,destfile = zip_path)
-  unzip_result <- utils::unzip(zipfile = zip_path,exdir = dir_path, overwrite = TRUE)
+  utils::download.file(url = id_json$files$links$self, destfile = zip_path)
+  unzip_result <- utils::unzip(zipfile = zip_path, exdir = dir_path, overwrite = TRUE)
 
   unzip_path <- fs::path_common(unzip_result)
 
@@ -109,45 +106,50 @@ download_deposit_version <- function(zenodo_id,version,latest_version,  dir_path
 
   # rename unzipped
   version <- sanitize_version(version)
-  version_dir_path <- sprintf("%s/%s",dir_path, version)
+  version_dir_path <- sprintf("%s/%s", dir_path, version)
   fs::dir_create(path = version_dir_path)
 
-  #move wdds_schema
-  unzip_wdds_schema <- sprintf("%s/%s",unzip_path,"wdds_schema")
-  version_wdds_schema <- sprintf("%s/%s",version_dir_path, "wdds_schema")
-  fs::dir_copy(path = unzip_wdds_schema,new_path = version_wdds_schema,
-               overwrite = TRUE)
+  # move wdds_schema
+  unzip_wdds_schema <- sprintf("%s/%s", unzip_path, "wdds_schema")
+  version_wdds_schema <- sprintf("%s/%s", version_dir_path, "wdds_schema")
+  fs::dir_copy(
+    path = unzip_wdds_schema, new_path = version_wdds_schema,
+    overwrite = TRUE
+  )
 
   # move example data
-  unzip_example_data <- sprintf("%s/%s",unzip_path,"example_data")
-  version_example_data <- sprintf("%s/%s",version_dir_path, "example_data")
-  fs::dir_copy(path = unzip_example_data,new_path = version_example_data,
-               overwrite = TRUE)
+  unzip_example_data <- sprintf("%s/%s", unzip_path, "example_data")
+  version_example_data <- sprintf("%s/%s", version_dir_path, "example_data")
+  fs::dir_copy(
+    path = unzip_example_data, new_path = version_example_data,
+    overwrite = TRUE
+  )
 
   # move templates
-  unzip_templates <- sprintf("%s/%s",unzip_path,"data_templates")
-  version_templates <- sprintf("%s/%s",version_dir_path, "data_templates")
-  if(!fs::dir_exists(unzip_templates)){
+  unzip_templates <- sprintf("%s/%s", unzip_path, "data_templates")
+  version_templates <- sprintf("%s/%s", version_dir_path, "data_templates")
+  if (!fs::dir_exists(unzip_templates)) {
     # create directory
     fs::dir_create(unzip_templates)
     # copy files
     unzip_file_paths <- fs::dir_ls(unzip_path)
-    unzip_template_paths <- fs::path_filter(path = unzip_file_paths,regexp = "template\\.")
+    unzip_template_paths <- fs::path_filter(path = unzip_file_paths, regexp = "template\\.")
 
-    fs::file_move(path = unzip_template_paths, new_path =unzip_templates )
-
+    fs::file_move(path = unzip_template_paths, new_path = unzip_templates)
   }
 
-  fs::dir_copy(path = unzip_templates,new_path = version_templates,
-               overwrite = TRUE)
+  fs::dir_copy(
+    path = unzip_templates, new_path = version_templates,
+    overwrite = TRUE
+  )
 
   # remove zip
   fs::dir_delete(unzip_path)
 
-  if(latest_version){
-    latest_dir_path <- sprintf("%s/%s",dir_path,"latest")
+  if (latest_version) {
+    latest_dir_path <- sprintf("%s/%s", dir_path, "latest")
     fs::dir_create(path = latest_dir_path)
-    fs::dir_copy(path = version_dir_path,new_path = latest_dir_path, overwrite = TRUE)
+    fs::dir_copy(path = version_dir_path, new_path = latest_dir_path, overwrite = TRUE)
   }
 
   return(version_wdds_schema)
@@ -167,19 +169,16 @@ download_deposit_version <- function(zenodo_id,version,latest_version,  dir_path
 #' @examples
 #' \dontrun{
 #' # download all versions
-#' batch_download_deposit_versions( dir_path = "data")
+#' batch_download_deposit_versions(dir_path = "data")
 #' }
 #'
-#'
-batch_download_deposit_versions <- function(df = list_deposit_versions(), dir_path){
-
-  assertthat::assert_that(is.data.frame(df),msg = "df must be a data frame")
+batch_download_deposit_versions <- function(df = list_deposit_versions(), dir_path) {
+  assertthat::assert_that(is.data.frame(df), msg = "df must be a data frame")
 
   df$dir_path <- dir_path
 
   ## map over the version and add to archive
-  purrr::pmap(df,download_deposit_version)
-
+  purrr::pmap(df, download_deposit_version)
 }
 
 
@@ -192,24 +191,24 @@ batch_download_deposit_versions <- function(df = list_deposit_versions(), dir_pa
 #' @family WDDS deposit
 #' @returns Character. Current schema version.
 #'
-set_wdds_version <- function(version = "latest"){
-
+set_wdds_version <- function(version = "latest") {
   # sanitize version
   version <- sanitize_version(version)
 
   # set path
-  archive_path <- sprintf("inst/extdata/wdds_archive/%s",version)
+  archive_path <- sprintf("inst/extdata/wdds_archive/%s", version)
 
   # copy contents to right place
-  fs::dir_copy(path = archive_path,
-               new_path = "inst/extdata/",
-               overwrite = TRUE)
+  fs::dir_copy(
+    path = archive_path,
+    new_path = "inst/extdata/",
+    overwrite = TRUE
+  )
 
   # set env variables
   the$wdds_version <- version
 
   return(version)
-
 }
 
 #' Sanitize version ids
@@ -228,9 +227,9 @@ set_wdds_version <- function(version = "latest"){
 #'
 #' sanitize_version("v.1.1.0")
 #'
-sanitize_version <- function(version){
+sanitize_version <- function(version) {
   assertthat::assert_that(is.character(version), msg = "version must be character")
-  version_clean <- stringr::str_replace_all(string = version,pattern = "\\.",replacement = "_")
+  version_clean <- stringr::str_replace_all(string = version, pattern = "\\.", replacement = "_")
   return(version_clean)
 }
 
@@ -270,11 +269,9 @@ sanitize_version <- function(version){
 #'
 #' # get the file path for a specific file
 #'
-#' wdds_json(version = "v_1_0_2",file = "schemas/disease_data.json")
-#'
+#' wdds_json(version = "v_1_0_2", file = "schemas/disease_data.json")
 #'
 wdds_json <- function(version = NULL, file = NULL) {
-
   check_version <- (is.character(version) | is.null(version))
   check_file <- (is.character(file) | is.null(file))
 
@@ -284,38 +281,41 @@ wdds_json <- function(version = NULL, file = NULL) {
   if (is.null(version)) {
     out <- dir(system.file("extdata/wdds_archive", package = "wddsWizard"))
 
-    out_list <- paste("        - ",out)
-    rlang::inform(message = "The following versions of the standard are availble in the package:",body = out_list)
+    out_list <- paste("        - ", out)
+    rlang::inform(message = "The following versions of the standard are availble in the package:", body = out_list)
     return(out)
   }
 
   version_clean <- sanitize_version(version)
   version_dir <- sprintf("%s/wdds_schema", version_clean)
 
-  if(is.null(file)){
+  if (is.null(file)) {
+    full_paths <- fs::dir_ls(
+      system.file("extdata/wdds_archive",
+        version_dir,
+        package = "wddsWizard",
+        mustWork = TRUE
+      ),
+      recurse = TRUE
+    )
 
-  full_paths  <- fs::dir_ls(system.file("extdata/wdds_archive",
-                           version_dir,
-                           package = "wddsWizard",
-                           mustWork = TRUE),
-               recurse = TRUE)
+    files_only <- full_paths[fs::is_file(full_paths)]
 
-  files_only <- full_paths[fs::is_file(full_paths)]
+    version_dir_slash <- sprintf("%s/", version_dir)
 
-  version_dir_slash <- sprintf("%s/",version_dir)
+    out <- stringr::str_split(files_only, version_dir_slash) |>
+      purrr::map_chr(~ .x[[2]])
 
-  out <- stringr::str_split(files_only,version_dir_slash) |>
-    purrr::map_chr(~.x[[2]])
-
-  return(out)
+    return(out)
   }
 
-  file_path <- sprintf("%s/%s",version_dir, file)
+  file_path <- sprintf("%s/%s", version_dir, file)
 
-  out  <- system.file("extdata/wdds_archive",
-                                 file_path,
-                                 package = "wddsWizard",
-                                 mustWork = TRUE)
+  out <- system.file("extdata/wdds_archive",
+    file_path,
+    package = "wddsWizard",
+    mustWork = TRUE
+  )
 
   return(out)
 }
@@ -355,11 +355,9 @@ wdds_json <- function(version = NULL, file = NULL) {
 #'
 #' # get the file path for a specific file
 #'
-#' wdds_example_data(version = "v_1_0_2",file = "Becker_demo_dataset.xlsx")
-#'
+#' wdds_example_data(version = "v_1_0_2", file = "Becker_demo_dataset.xlsx")
 #'
 wdds_example_data <- function(version = NULL, file = NULL) {
-
   check_version <- (is.character(version) | is.null(version))
   check_file <- (is.character(file) | is.null(file))
 
@@ -370,31 +368,34 @@ wdds_example_data <- function(version = NULL, file = NULL) {
   if (is.null(version)) {
     out <- dir(system.file("extdata/wdds_archive", package = "wddsWizard"))
 
-    out_list <- paste("        - ",out)
-    rlang::inform(message = "The following versions of the standard are availble in the package:",body = out_list)
+    out_list <- paste("        - ", out)
+    rlang::inform(message = "The following versions of the standard are availble in the package:", body = out_list)
     return(out)
   }
 
   version_clean <- sanitize_version(version)
   version_dir <- sprintf("%s/example_data", version_clean)
 
-  if(is.null(file)){
-
-    out  <- fs::dir_ls(system.file("extdata/wdds_archive",
-                                   version_dir,
-                                   package = "wddsWizard",
-                                   mustWork = TRUE),
-                       recurse = TRUE)
+  if (is.null(file)) {
+    out <- fs::dir_ls(
+      system.file("extdata/wdds_archive",
+        version_dir,
+        package = "wddsWizard",
+        mustWork = TRUE
+      ),
+      recurse = TRUE
+    )
 
     return(out)
   }
 
-  file_path <- sprintf("%s/%s",version_dir, file)
+  file_path <- sprintf("%s/%s", version_dir, file)
 
-  out  <- system.file("extdata/wdds_archive",
-                      file_path,
-                      package = "wddsWizard",
-                      mustWork = TRUE)
+  out <- system.file("extdata/wdds_archive",
+    file_path,
+    package = "wddsWizard",
+    mustWork = TRUE
+  )
 
   return(out)
 }
@@ -434,11 +435,9 @@ wdds_example_data <- function(version = NULL, file = NULL) {
 #'
 #' # get the file path for a specific file
 #'
-#' wdds_data_templates(version = "v_1_0_2",file = "disease_data_template.csv")
-#'
+#' wdds_data_templates(version = "v_1_0_2", file = "disease_data_template.csv")
 #'
 wdds_data_templates <- function(version = NULL, file = NULL) {
-
   check_version <- (is.character(version) | is.null(version))
   check_file <- (is.character(file) | is.null(file))
 
@@ -449,32 +448,34 @@ wdds_data_templates <- function(version = NULL, file = NULL) {
   if (is.null(version)) {
     out <- dir(system.file("extdata/wdds_archive", package = "wddsWizard"))
 
-    out_list <- paste("        - ",out)
-    rlang::inform(message = "The following versions of the standard are availble in the package:",body = out_list)
+    out_list <- paste("        - ", out)
+    rlang::inform(message = "The following versions of the standard are availble in the package:", body = out_list)
     return(out)
   }
 
   version_clean <- sanitize_version(version)
   version_dir <- sprintf("%s/data_templates", version_clean)
 
-  if(is.null(file)){
-
-    out  <- fs::dir_ls(system.file("extdata/wdds_archive",
-                                   version_dir,
-                                   package = "wddsWizard",
-                                   mustWork = TRUE),
-                       recurse = TRUE)
+  if (is.null(file)) {
+    out <- fs::dir_ls(
+      system.file("extdata/wdds_archive",
+        version_dir,
+        package = "wddsWizard",
+        mustWork = TRUE
+      ),
+      recurse = TRUE
+    )
 
     return(out)
   }
 
-  file_path <- sprintf("%s/%s",version_dir, file)
+  file_path <- sprintf("%s/%s", version_dir, file)
 
-  out  <- system.file("extdata/wdds_archive",
-                      file_path,
-                      package = "wddsWizard",
-                      mustWork = TRUE)
+  out <- system.file("extdata/wdds_archive",
+    file_path,
+    package = "wddsWizard",
+    mustWork = TRUE
+  )
 
   return(out)
 }
-

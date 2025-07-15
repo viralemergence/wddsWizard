@@ -20,19 +20,20 @@ dataframes. This will result in an array of objects being created.
 
 # note that you cannot unbox data frames with more than 1 row
 
-x <- list(tibble::tibble(age = 1,group = letters[1]),
-          tibble::tibble(age = 2,group = letters[2]))
+x <- list(
+  tibble::tibble(age = 1, group = letters[1]),
+  tibble::tibble(age = 2, group = letters[2])
+)
 
 # running jsonlite::toJSON on an unmodified object results in
 # extra square brackets - an array of arrays of objects
 jsonlite::toJSON(x, pretty = TRUE)
 
 # with the prepped data we get an array of objects
-x_prepped  <- prep_array_objects(x)
+x_prepped <- prep_array_objects(x)
 
 x_prepped |>
   jsonlite::toJSON(pretty = TRUE)
-
 
 }
 \seealso{

@@ -17,7 +17,7 @@ Prepares an array of objects
 }
 \examples{
 
- wddsWizard::becker_project_metadata$rights |> prep_rights()
+wddsWizard::becker_project_metadata$rights |> prep_rights()
 
 }
 \seealso{

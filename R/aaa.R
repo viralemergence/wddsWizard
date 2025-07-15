@@ -14,7 +14,7 @@ the$current_sub_schema_dir <- here::here("inst/extdata/wdds_schema/schemas/")
 the$wdds_version <- "latest"
 
 
-here_curl <-function(){
+here_curl <- function() {
   here::here("R/aaa.R")
   curl::has_internet()
 }

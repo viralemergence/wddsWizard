@@ -24,7 +24,7 @@ documentation items
 
 text_a <- "hello"
 text_b <- "world"
-paste_reduce(text_a,text_b)
+paste_reduce(text_a, text_b)
 
 }
 \seealso{

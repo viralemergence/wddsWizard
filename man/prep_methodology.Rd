@@ -16,14 +16,13 @@ properly formatted list
 Prep methodology for conversion to json
 }
 \examples{
-
 \dontrun{
 prepped_list <- project_metadata_list_entities
- prepped_list$methodology <- prep_methodology(project_metadata_list_entities$methodology)
+prepped_list$methodology <- prep_methodology(project_metadata_list_entities$methodology)
 
- OR
+OR
 
- prepped_list <- purrr::modify_at(project_metadata_list_entities,"methodology",prep_methodology)
+prepped_list <- purrr::modify_at(project_metadata_list_entities, "methodology", prep_methodology)
 }
 
 }
