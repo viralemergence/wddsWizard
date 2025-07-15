@@ -82,7 +82,7 @@ create_object_docs <- function(x, idx, required_fields, schema_dir) {
   assertthat::assert_that(fs::dir_exists(schema_dir), msg = "schema_dir doesn't exist. Check path")
 
   sprintf("create_object_docs: %s", idx) |>
-    print()
+    cli::cli_alert_info()
 
   title <- idx
   type <- x$type
@@ -117,8 +117,8 @@ create_object_docs <- function(x, idx, required_fields, schema_dir) {
   if ("$ref" %in% names(x)) {
     reference_pointer <- x[["$ref"]]
 
-    print("create_object_docs: reference in object")
-    print(reference_pointer)
+    cli::cli_alert_info("create_object_docs: reference in object")
+    cli::cli_alert_info(reference_pointer)
 
     x <- get_ref(x, schema_dir)
 
@@ -156,7 +156,7 @@ create_object_docs <- function(x, idx, required_fields, schema_dir) {
           ## needed to check for properties
           the$array_items_parent <- the$array_items
 
-          print("create_object_docs: allof in array_item")
+          cli::cli_alert_info("create_object_docs: allof in array_item")
 
           # get the allof reference
           x <- get_ref(the$array_items$allOf[[1]], the$current_schema_dir)
@@ -293,8 +293,8 @@ get_ref <- function(x, schema_dir) {
   assertthat::assert_that(fs::dir_exists(schema_dir), msg = "schema_dir not found. Check path")
   # get the reference
   reference <- x[["$ref"]]
-  print("get_ref: pointer")
-  print(reference)
+  cli::cli_alert_info("get_ref: pointer")
+  cli::cli_alert_info(reference)
 
   external_reference <- FALSE
   # check if the schema is internal or external
@@ -339,15 +339,15 @@ get_ref <- function(x, schema_dir) {
 
     ## check to see if the ref is a ref
     if ("allOf" %in% names(out)) {
-      print("get_ref: allof")
-      print(out$allOf[[1]])
+      cli::cli_alert_info("get_ref: allof")
+      cli::cli_alert_info(out$allOf[[1]])
       ### get the reference...
       out <- get_ref(out$allOf[[1]], the$current_schema_dir)
     }
 
     if ("$ref" %in% names(out)) {
-      print("get_ref: $ref")
-      print(out["$ref"][1])
+      cli::cli_alert_info("get_ref: $ref")
+      cli::cli_alert_info(out["$ref"][1])
       ### get the reference...slightly different structure
       out <- get_ref(out["$ref"][1], the$current_schema_dir)
     }

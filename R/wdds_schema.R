@@ -91,15 +91,15 @@ create_object_list <- function(x, idx, schema_dir) {
   # name of our data
   out$name <- idx
 
-  print(sprintf("create_object_list: for object %s", idx))
+  cli::cli_alert_info(sprintf("create_object_list: for object %s", idx))
 
 
   # process a reference ----
   if ("$ref" %in% names(x)) {
     reference_pointer <- x[["$ref"]]
 
-    print("create_object_list: reference in object")
-    print(reference_pointer)
+    cli::cli_alert_info("create_object_list: reference in object")
+    cli::cli_alert_info(reference_pointer)
 
     x <- get_ref_list(x, schema_dir)
 
@@ -137,8 +137,8 @@ create_object_list <- function(x, idx, schema_dir) {
 
   ### process objects ----
   if (out$type == "object") {
-    print("create_object_list: process object")
-    print(idx)
+    cli::cli_alert_info("create_object_list: process object")
+    cli::cli_alert_info(idx)
 
     sub_object <- purrr::imap(x$properties, \(x, idx) create_object_list(x, idx, schema_dir = the$current_schema_dir)) |>
       purrr::list_rbind()
@@ -164,10 +164,10 @@ create_object_list <- function(x, idx, schema_dir) {
 #' @returns data frame with name or type.
 #'
 get_ref_list <- function(x, schema_dir) {
-  # get and print the reference
+  # get and cli::cli_alert_info the reference
   reference <- x[["$ref"]]
-  print("get_ref_list: pointer")
-  print(reference)
+  cli::cli_alert_info("get_ref_list: pointer")
+  cli::cli_alert_info(reference)
 
   # assume its not an external reference
   external_reference <- FALSE
@@ -215,8 +215,8 @@ get_ref_list <- function(x, schema_dir) {
 
     ## check for references in out
     if ("$ref" %in% names(out)) {
-      print("get_ref_list: $ref")
-      print(out["$ref"][1])
+      cli::cli_alert_info("get_ref_list: $ref")
+      cli::cli_alert_info(out["$ref"][1])
       ### get the reference...slightly different structure
       out <- get_ref_list(out["$ref"][1], the$current_schema_dir)
       out <- as.data.frame(out[c("name", "type")])
@@ -226,23 +226,23 @@ get_ref_list <- function(x, schema_dir) {
 
     ## check for allof in out
     if ("allOf" %in% names(out)) {
-      print("get_ref_list: allof")
-      print(out$allOf[[1]])
+      cli::cli_alert_info("get_ref_list: allof")
+      cli::cli_alert_info(out$allOf[[1]])
       ### get the reference...
       out <- get_ref_list(out$allOf[[1]], the$current_schema_dir)
     }
 
     if (length(out$type) > 1) {
-      print("get_ref_list: length(out) > 1")
-      print(class(out))
-      print(names(out))
+      cli::cli_alert_info("get_ref_list: length(out) > 1")
+      cli::cli_alert_info(class(out))
+      cli::cli_alert_info(names(out))
 
       return(out)
     }
 
     ## check if out is of type object
     if (out$type == "object") {
-      print("get_ref_list: process object")
+      cli::cli_alert_info("get_ref_list: process object")
       sub_object <- purrr::imap(out$properties, \(x, idx) create_object_list(x, idx, schema_dir = the$current_schema_dir)) |>
         purrr::list_rbind()
 
@@ -254,7 +254,7 @@ get_ref_list <- function(x, schema_dir) {
     out_df <- as.data.frame(out[c("name", "type")])
 
     if (out$type == "array") {
-      print("get_ref_list: process array")
+      cli::cli_alert_info("get_ref_list: process array")
       the$array_items <- out$items
       the$array_items_skip <- FALSE
       out <- process_array_items(out$items, out = out_df)
@@ -262,7 +262,7 @@ get_ref_list <- function(x, schema_dir) {
   } else {
     ## process a whole schema
 
-    print("get_ref_list: process whole schema")
+    cli::cli_alert_info("get_ref_list: process whole schema")
     out <- create_schema_list(schema_path = the$current_schema_path)
     out$whole_schema <- TRUE
     return(out)
@@ -297,7 +297,7 @@ process_array_items <- function(array_items, out) {
       if ("allOf" %in% names(the$array_items)) {
         ## needed to check for properties
         the$array_items_parent <- the$array_items
-        print("process_array_items: allof in array_item")
+        cli::cli_alert_info("process_array_items: allof in array_item")
         x <- get_ref_list(the$array_items$allOf[[1]], the$current_schema_dir)
         sub_object_allof <- purrr::imap(x$properties, \(x, idx) create_object_list(x, idx, schema_dir = the$current_schema_dir)) |>
           purrr::list_rbind()
@@ -317,7 +317,7 @@ process_array_items <- function(array_items, out) {
       }
 
 
-      print("process_array_items: process object")
+      cli::cli_alert_info("process_array_items: process object")
       sub_object <- purrr::imap(the$array_items$properties, \(x, idx) create_object_list(x, idx, schema_dir = the$current_schema_dir)) |>
         purrr::list_rbind()
 
