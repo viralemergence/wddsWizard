@@ -7,7 +7,7 @@
 prep_atomic(x)
 }
 \arguments{
-\item{x}{vector}
+\item{x}{vector or single row data frame}
 }
 \value{
 an unboxed dataframe with 1 row

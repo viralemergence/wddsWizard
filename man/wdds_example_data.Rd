@@ -7,10 +7,10 @@
 wdds_example_data(version = NULL, file = NULL)
 }
 \arguments{
-\item{version}{Character. Version of the wdds deposit. Leave as NULL to see
+\item{version}{Character or NULL. Version of the wdds deposit. Leave as NULL to see
 all versions. Default is NULL to return a character vector of versions.}
 
-\item{file}{Character. Specific file from the wdds deposit. Leave as NULL to
+\item{file}{Character or NULL. Specific file from the wdds deposit. Leave as NULL to
 see all files in a version. Default is NULL to return all files associated with a
 given version.}
 }

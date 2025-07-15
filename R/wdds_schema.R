@@ -51,11 +51,13 @@
 #' @returns character vector of markdown text
 #' @export
 #' @family Schema
-#' @examplesIf curl::has_internet()
+#' @examples
 #'
 #' create_schema_list()
 #'
 create_schema_list <- function(schema_path = the$current_schema_path){
+
+  assertthat::assert_that(fs::file_exists(schema_path), msg = "schema_path must resolve to a file. See fs::file_exists")
 
   # read in the json
   schema_list <- jsonlite::read_json(schema_path)

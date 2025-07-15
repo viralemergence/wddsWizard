@@ -39,12 +39,13 @@ prep_atomic <- function(x){
 
     x<-x[1,1][[1]]
 
+    x_class <- class(x)
+
     msg_vec <- sprintf("x is a %s, not a vector. Not clear which item should
       be converted to atomic. Please provide either a single row,non-nested, data frame or
       a single value vector",x_class)
-    cli::cli_abort(message = msg)
 
-    assertthat::assert_that(is.vector(x), msg_vec)
+    assertthat::assert_that(is.vector(x), msg = msg_vec)
   }
 
   msg_len <- "x is not length 1, please provide a vector of length one"
@@ -141,10 +142,9 @@ prep_array_objects <- function(x){
 #'
 #'
 prep_object <- function(x, unbox = FALSE){
-  if(is.null(names)){
-    msg <- "x must have names"
-    rlang::abort()
-  }
+
+  check_for_names <- assertthat::has_attr(x, "names")
+  assertthat::assert_that(check_for_names,msg = "X must have names")
 
   if(is.matrix(x)){
     x <- as.data.frame(x)
@@ -192,7 +192,7 @@ prep_descriptions <- function(x){
 #' @family JSON Prep
 #' @examples
 #'
-#' wddsWizard::becker_project_metadata$identifiers |> prep_identifier()
+#' wddsWizard::becker_project_metadata$identifier |> prep_identifier()
 #'
 prep_identifier <- function(x){
   prep_array_objects(x)
@@ -317,7 +317,8 @@ prep_subjects <- function(x){
 #' creator_df_aff_prepped  <- prep_affiliation(creator_df)
 #'
 prep_affiliation <- function(x){
-  # check if affiliation is already properly formatted...
+
+  assertthat::assert_that(is.data.frame(x), msg = "x must be a data frame")
 
   # affiliation columns
   aff_cols <- c("affiliation",
@@ -369,6 +370,8 @@ prep_affiliation <- function(x){
 #'
 prep_nameIdentifiers <- function(x){
 
+  assertthat::assert_that(is.data.frame(x), msg = "x must be a data frame")
+
   # check if nameIdentifiers is already properly formatted...
 
   # name identifier columns
@@ -419,6 +422,8 @@ prep_nameIdentifiers <- function(x){
 #'
 prep_creators <- function(x){
 
+  assertthat::assert_that(is.list(x), msg= "x must be a list")
+
   x_aff <- purrr::map(x,prep_affiliation)
   x_nid <- purrr::map(x_aff,prep_nameIdentifiers)
   out <- prep_array_objects(x_nid)
@@ -465,6 +470,12 @@ prep_fundingReferences <- function(x){
 #'}
 #'
 prep_methodology <- function(x){
+
+  assertthat::assert_that(is.list(x),msg = "x must be a list")
+
+  check_for_names  <- c("eventBased","archival") %in% names(x)
+
+  assertthat::assert_that(all(check_for_names), msg = "x must have items `eventBased` and `archival`")
 
   # set these to be explicitly logical
   x <- x |>

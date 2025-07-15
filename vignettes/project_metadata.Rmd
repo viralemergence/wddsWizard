@@ -132,7 +132,8 @@ jsonlite::toJSON(project_metadata_list_entities,pretty = TRUE,dataframe = "colum
 BUT because datacite's structures are more complex, we need to do some prep. Luckily, there are a host of prep functions that already exist in this package! These mostly tag list items with `jsonlite::unbox` and/or wrap things in lists so that when converted to json, they match the data standard's expected formats. 
 
 ```{r prep-data}
- project_metadata_json <- prep_for_json(project_metadata_list_entities) |>
+
+project_metadata_json <- prep_for_json(project_metadata_list_entities) |>
   jsonlite::toJSON(pretty  = TRUE)
 ```
 

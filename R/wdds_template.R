@@ -10,6 +10,9 @@
 #' @returns file paths or, if path = NULL, a list of file names
 #'
 wdds_template <- function(template_file = NULL) {
+
+  assertthat::assert_that(is.null(template_file) | is.character(template_file),msg = "template_file must be null or character.")
+
   if (is.null(template_file)) {
     cli::cli_alert_info("Provide a value to `template_file` to use the template")
     dir(system.file("extdata/data_templates", package = "wddsWizard"))
@@ -52,10 +55,17 @@ use_template <- function(template_file = NULL, folder = fs::path_wd(), file_name
     return(template_path)
   }
 
+  assertthat::assert_that(fs::is_dir(folder), msg = "folder must be a directory that exists")
+  assertthat::assert_that(is.null(file_name) | is.character(file_name),msg = "file_name must be null or character.")
+  assertthat::assert_that(is.logical(open), msg = "open must be logical")
+  assertthat::assert_that(is.logical(overwrite), msg = "overwrite must be logical")
+
+
+
   # if the folder doesnt exist, make it
   if(!fs::dir_exists(folder)){
     msg <- sprintf("creating folder %s",folder)
-    rlang::inform(msg)
+    cli::cli_alert_info(msg)
     fs::dir_create(path =folder, recurse = TRUE)
   }
 
@@ -63,7 +73,7 @@ use_template <- function(template_file = NULL, folder = fs::path_wd(), file_name
   if(is.null(file_name)){
     file_name = fs::path_file(template_path)
     msg <- sprintf("creating file called %s",file_name)
-    rlang::inform(msg)
+    cli::cli_alert_info(msg)
   }
 
   new_file <- fs::path(folder,file_name)

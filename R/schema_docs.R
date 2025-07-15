@@ -19,6 +19,10 @@
 #'
 create_schema_docs <- function(schema_path = the$current_schema_path, sep = "\n"){
 
+  assertthat::assert_that(is.character(schema_path),
+                          msg =  "Schema path must be character")
+  assertthat::assert_that(fs::file_exists(schema_path),
+                          msg =  "File does not exist. Check the path")
 
   # read in the json
   schema_list <- jsonlite::read_json(schema_path)
@@ -53,6 +57,8 @@ create_schema_docs <- function(schema_path = the$current_schema_path, sep = "\n"
 #'
 get_required_fields <- function(schema_list){
 
+  assertthat::assert_that(is.list(schema_list), msg = "schema_list must be a list")
+
   required_fields <- ""
 
   if("required" %in% names(schema_list)){
@@ -72,6 +78,11 @@ get_required_fields <- function(schema_list){
 #' @returns Character formatted markdown text
 
 create_object_docs <- function(x,idx, required_fields, schema_dir){
+
+  assertthat::assert_that(is.list(x), msg = "x must be a list")
+  assertthat::assert_that(is.character(idx), msg = "idx must be character")
+  assertthat::assert_that(is.character(required_fields), msg = "required_fields must be character")
+  assertthat::assert_that(fs::dir_exists(schema_dir), msg = "schema_dir doesn't exist. Check path")
 
   sprintf("create_object_docs: %s",idx) |>
     print()
@@ -243,6 +254,8 @@ create_object_docs <- function(x,idx, required_fields, schema_dir){
 #' paste_reduce(text_a,text_b)
 #'
 paste_reduce <- function(x, y, sep = "\n"){
+  assertthat::assert_that(assertthat::not_empty(x), msg = "paste_reduce: x must not be empty")
+  assertthat::assert_that(assertthat::not_empty(sep), msg = "paste_reduce: sep must not be empty")
   paste(x, y, sep = sep)
 }
 
@@ -266,7 +279,7 @@ paste_reduce <- function(x, y, sep = "\n"){
 #' paste_reduce_ul(text_a,text_b)
 #'
 paste_reduce_ul <- function(x, y, sep = "\n - "){
-  paste(x, y, sep = sep)
+  paste_reduce(x,y,sep)
 }
 
 #' Get schema references
@@ -284,7 +297,8 @@ paste_reduce_ul <- function(x, y, sep = "\n - "){
 #' @returns List or Character. Character is only returned if an entire schema is referenced.
 
 get_ref <- function(x,schema_dir){
-
+  assertthat::assert_that(is.list(x), msg = "x must be a list")
+  assertthat::assert_that(fs::dir_exists(schema_dir), msg = "schema_dir not found. Check path")
   # get the reference
   reference <- x[["$ref"]]
   print("get_ref: pointer")
@@ -370,6 +384,7 @@ get_ref <- function(x,schema_dir){
 
 increase_docs_depth <- function(string){
 
+  assertthat::assert_that(is.character(string), msg = "string must be character")
   ## increase depth for subitems
   string_d1 <- stringr::str_replace_all(string,pattern = "\n    - #",replacement = "\n        - #")
 

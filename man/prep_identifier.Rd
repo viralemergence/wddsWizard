@@ -17,7 +17,7 @@ Prepare identifier for a scholarly work. Wrapper for prep_array_objects
 }
 \examples{
 
-wddsWizard::becker_project_metadata$identifiers |> prep_identifier()
+wddsWizard::becker_project_metadata$identifier |> prep_identifier()
 
 }
 \seealso{

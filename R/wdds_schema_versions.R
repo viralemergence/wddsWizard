@@ -34,6 +34,9 @@
 #'
 #'
 list_deposit_versions <- function(parent_id = "15020049"){
+
+  assertthat::assert_that(is.character(parent_id), msg ="parent_id must be character")
+
   parent_url <- sprintf("https://zenodo.org/api/records/%s",parent_id)
 
   parent_json <- jsonlite::fromJSON(txt = parent_url)
@@ -78,9 +81,14 @@ list_deposit_versions <- function(parent_id = "15020049"){
 #'
 #'
 download_deposit_version <- function(zenodo_id,version,latest_version,  dir_path){
-  ## create folder in archive for version
+ assertthat::assert_that(is.character(zenodo_id),msg = "zenodo_id must be character")
+ assertthat::assert_that(is.character(version),msg = "version must be character")
+ assertthat::assert_that(is.logical(latest_version),msg = "latest_version must be logical")
+ assertthat::assert_that(assertthat::is.scalar(dir_path),msg = "dir_path must scalar (a length 1 vector)")
 
-  fs::dir_create(path = dir_path)
+  ## create folder in archive for version
+  fs::dir_create(path = dir_path) # will not overwrite existing folders
+
 
   ## use id to get the thing
   api_url <- sprintf("https://zenodo.org/api/records/%s",zenodo_id)
@@ -165,6 +173,8 @@ download_deposit_version <- function(zenodo_id,version,latest_version,  dir_path
 #'
 batch_download_deposit_versions <- function(df = list_deposit_versions(), dir_path){
 
+  assertthat::assert_that(is.data.frame(df),msg = "df must be a data frame")
+
   df$dir_path <- dir_path
 
   ## map over the version and add to archive
@@ -219,6 +229,7 @@ set_wdds_version <- function(version = "latest"){
 #' sanitize_version("v.1.1.0")
 #'
 sanitize_version <- function(version){
+  assertthat::assert_that(is.character(version), msg = "version must be character")
   version_clean <- stringr::str_replace_all(string = version,pattern = "\\.",replacement = "_")
   return(version_clean)
 }
@@ -239,9 +250,9 @@ sanitize_version <- function(version){
 #' 3) Provides a specific file path in a specific version of the schema if version and file path are provided.
 #'
 #'
-#' @param version Character. Version of the wdds deposit. Leave as NULL to see
+#' @param version Character or NULL. Version of the wdds deposit. Leave as NULL to see
 #' all versions. Default is NULL to return character vector of versions.
-#' @param file Character. Specific file from the wdds deposit. Leave as NULL to
+#' @param file Character or NULL. Specific file from the wdds deposit. Leave as NULL to
 #' see all files in a version. Default is NULL to return character vector of relative file paths.
 #'
 #' @returns Character. Either version identifiers, relative file paths within a version, or a specific file path.
@@ -263,6 +274,12 @@ sanitize_version <- function(version){
 #'
 #'
 wdds_json <- function(version = NULL, file = NULL) {
+
+  check_version <- (is.character(version) | is.null(version))
+  check_file <- (is.character(file) | is.null(file))
+
+  assertthat::assert_that(check_version, msg = "version must be character or NULL")
+  assertthat::assert_that(check_file, msg = "file must be character or NULL")
 
   if (is.null(version)) {
     out <- dir(system.file("extdata/wdds_archive", package = "wddsWizard"))
@@ -317,9 +334,9 @@ wdds_json <- function(version = NULL, file = NULL) {
 #' 3) Provides a specific file path in a specific version of the example data if both file and version are provided.
 #'
 #'
-#' @param version Character. Version of the wdds deposit. Leave as NULL to see
+#' @param version Character or NULL. Version of the wdds deposit. Leave as NULL to see
 #' all versions. Default is NULL to return a character vector of versions.
-#' @param file Character. Specific file from the wdds deposit. Leave as NULL to
+#' @param file Character or NULL. Specific file from the wdds deposit. Leave as NULL to
 #' see all files in a version. Default is NULL to return all files associated with a
 #' given version.
 #'
@@ -342,6 +359,13 @@ wdds_json <- function(version = NULL, file = NULL) {
 #'
 #'
 wdds_example_data <- function(version = NULL, file = NULL) {
+
+  check_version <- (is.character(version) | is.null(version))
+  check_file <- (is.character(file) | is.null(file))
+
+  assertthat::assert_that(check_version, msg = "version must be character or NULL")
+  assertthat::assert_that(check_file, msg = "file must be character or NULL")
+
 
   if (is.null(version)) {
     out <- dir(system.file("extdata/wdds_archive", package = "wddsWizard"))
@@ -414,6 +438,13 @@ wdds_example_data <- function(version = NULL, file = NULL) {
 #'
 #'
 wdds_data_templates <- function(version = NULL, file = NULL) {
+
+  check_version <- (is.character(version) | is.null(version))
+  check_file <- (is.character(file) | is.null(file))
+
+  assertthat::assert_that(check_version, msg = "version must be character or NULL")
+  assertthat::assert_that(check_file, msg = "file must be character or NULL")
+
 
   if (is.null(version)) {
     out <- dir(system.file("extdata/wdds_archive", package = "wddsWizard"))
