@@ -94,8 +94,7 @@ download_deposit_version <- function(zenodo_id, version, latest_version, dir_pat
   zip_file <- fs::path_file(id_json$files$key)
 
   zip_path <- sprintf("%s/%s", dir_path, zip_file)
-  # replace utils::download.file with curl
-  utils::download.file(url = id_json$files$links$self, destfile = zip_path)
+  curl::curl_download(url = id_json$files$links$self, destfile = zip_path)
   unzip_result <- utils::unzip(zipfile = zip_path, exdir = dir_path, overwrite = TRUE)
 
   unzip_path <- fs::path_common(unzip_result)
