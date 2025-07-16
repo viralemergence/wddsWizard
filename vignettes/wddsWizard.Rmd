@@ -46,15 +46,15 @@ We have created several templates to make it easier to get started using the Wil
 
 ```{r templates}
 # list templates
-use_template()
+use_wdds_template()
 ```
 
-You can make your own copies of the template files with the `use_template` function.
+You can make your own copies of the template files with the `use_wdds_template` function.
 
 ```{r use-template, eval=FALSE}
-use_template("disease_data_template.csv", file_name = "my_interesting_disease_data.csv", open = TRUE)
+use_wdds_template("disease_data_template.csv", file_name = "my_interesting_disease_data.csv", open = TRUE)
 
-use_template("project_metadata_template.csv", file_name = "my_project_metadata.csv", open = TRUE)
+use_wdds_template("project_metadata_template.csv", file_name = "my_project_metadata.csv", open = TRUE)
 ```
 
 The templates may contain additional fields that are not strictly required. Required fields are clearly marked in [Data Standard Terms](schema_overview.html#terms) documentation.

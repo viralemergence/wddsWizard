@@ -2,7 +2,7 @@
 % Please edit documentation in R/prep_for_json.R
 \name{prep_from_metadata_template}
 \alias{prep_from_metadata_template}
-\title{Prepare metadata from the metadata template}
+\title{Prepare metadata created from the metadata template for conversion to JSON}
 \usage{
 prep_from_metadata_template(
   project_metadata,
@@ -18,7 +18,11 @@ prep_from_metadata_template(
 Named list ready to be converted to json
 }
 \description{
-Prepare metadata from the metadata template
+A convenience function for those who used the metadata template to create their project
+metadata data.
+}
+\details{
+Does some light data formatting to make conversion to json easier.
 }
 \examples{
 \dontrun{

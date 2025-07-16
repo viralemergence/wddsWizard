@@ -1,7 +1,7 @@
 citHeader("To cite wddsWizard in publications use:")
 
 bibentry(
-  key      = "wddsWizard"
+  key      = "wddsWizard",
   bibtype  = "Misc",
   title    = "Data Wizard for a Minimal Wildlife Disease Data Standard",
   author   = as.person("Collin J. Schwantes [aut]"),

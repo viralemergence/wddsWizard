@@ -1,10 +1,10 @@
-test_that("wdds_template works", {
-  expect_no_failure(wdds_template())
-  expect_no_failure(wdds_template("disease_data_template.csv"))
+test_that("list_wdds_templates works", {
+  expect_no_failure(list_wdds_templates())
+  expect_no_failure(list_wdds_templates("disease_data_template.csv"))
 })
 
 
-test_that("wdds_template accepts only character or null", {
-  expect_error(wdds_template(template_file = 1))
-  expect_error(wdds_template(template_file = FALSE))
+test_that("list_wdds_templates accepts only character or null", {
+  expect_error(list_wdds_templates(template_file = 1))
+  expect_error(list_wdds_templates(template_file = FALSE))
 })

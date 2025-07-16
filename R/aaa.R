@@ -16,5 +16,4 @@ the$wdds_version <- "latest"
 
 here_curl <- function() {
   here::here("R/aaa.R")
-  curl::has_internet()
 }

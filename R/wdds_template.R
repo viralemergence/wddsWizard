@@ -9,7 +9,7 @@
 #' @family Templates
 #' @returns file paths or, if path = NULL, a list of file names
 #'
-wdds_template <- function(template_file = NULL) {
+list_wdds_templates <- function(template_file = NULL) {
   assertthat::assert_that(is.null(template_file) | is.character(template_file), msg = "template_file must be null or character.")
 
   if (is.null(template_file)) {
@@ -36,16 +36,16 @@ wdds_template <- function(template_file = NULL) {
 #' @examples
 #'
 #' # return available templates
-#' use_template()
+#' use_wdds_template()
 #'
 #' \dontrun{
 #'
 #' # makes a copy of the disease data template in the current working directory
-#' use_template("disease_data_template.csv")
+#' use_wdds_template("disease_data_template.csv")
 #' }
 #'
-use_template <- function(template_file = NULL, folder = fs::path_wd(), file_name = NULL, open = rlang::is_interactive(), overwrite = FALSE) {
-  template_path <- wdds_template(template_file)
+use_wdds_template <- function(template_file = NULL, folder = fs::path_wd(), file_name = NULL, open = rlang::is_interactive(), overwrite = FALSE) {
+  template_path <- list_wdds_templates(template_file)
 
   # give me the file names
   if (length(template_path) > 1) {

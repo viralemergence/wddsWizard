@@ -633,7 +633,12 @@ clean_field_names <- function(x) {
 }
 
 
-#' Prepare metadata from the metadata template
+#' Prepare metadata created from the metadata template for conversion to JSON
+#'
+#' A convenience function for those who used the metadata template to create their project
+#' metadata data.
+#'
+#' Does some light data formatting to make conversion to json easier.
 #'
 #' @param project_metadata Data frame. Should correspond to the structure of the project_metadata_template.csv
 #' @param prep_methods_list list. Named list of methods where each items is a function to applied to corresponding items in x.Default is [prep_methods()].
