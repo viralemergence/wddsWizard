@@ -230,5 +230,119 @@ if (project_validation) {
 
 ### Handling Errors
 
-You're going to get some 
+You're likely going to get some errors and interpretting them can sometimes be a challenge. 
+
+Lets dive in by modifying the data_package to create a known issue. 
+
+Looking at the data standard, we can see that `language` is  type: string. 
+
+```{r proper-json-langauge}
+# the properly formatted language property should like this:
+data_package$project_metadata["language"]|>jsonlite::toJSON(pretty = TRUE)
+
+```
+
+
+```{r make-json-error}
+
+# lets make language a multi-row data frame
+data_package_error_lang <- data_package
+
+data_package_error_lang$project_metadata$language <- data.frame(language = c("en","fr","cn"))
+
+ jsonlite::toJSON(data_package_error_lang$project_metadata["language"], pretty = TRUE) 
+
+```
+Our new version of language is an array of objects - square braces`[]` = array, curly braces `{}` = object. So its definitely not of type string. So lets see what happens we when go to validate the metadata.
+
+```{r validate-json-error}
+
+data_package_error_lang_json <- jsonlite::toJSON(data_package_error_lang)
+
+lang_issue <- wdds_validator(data_package_error_lang_json, verbose = TRUE)
+
+errors_df <- attributes(lang_issue)$errors
+
+errors_df
+
+```
+### Excuse me? What does this mean?
+
+- **instancePath** = where did the schema find an error?
+- **schemaPath** = where does the property come from? 
+- **keyword** = what kind of violation occurred?
+- **message** = what went wrong?
+- **params** = what are the parameters for that property in the schema? 
+- **schema** = what should be in that property?
+- **parentSchema** = type and description from the schemaPath
+- **data** = violating item you provided
+- **dataPath** = where did the violation occur? 
+
+
+SO to interpret our error its really helpful to start by looking at the `instancePath`, `keyword`, and `message`.
+
+```{r initial_error_interpretation}
+
+errors_df[c("instancePath","keyword","message")]
+
+```
+
+OH project metadata must be type string! 
+You will notice that it does not tell you how it interpreted the object. 
+You can figure this out by converting `errors_df$data` to json. 
+
+
+```{r deeper_look_error}
+errors_df$data[[1]] |> jsonlite::toJSON(pretty = TRUE)
+
+```
+This is obviously not a string!
+
+### How do I correct this error? 
+
+Since our work is multi-lingual, we might think that `c("en","fr","cn")` would be appropriate but that would be converted to an `array` in JSON. 
+
+lets try just `"en, fr, cn"` and see if that works
+
+```{r correct-lang-error}
+data_package_correct_lang <- data_package_error_lang
+
+data_package_correct_lang$project_metadata$language <- "en, fr, cn"
+
+data_package_correct_lang_json <- jsonlite::toJSON(data_package_correct_lang, pretty = TRUE)
+
+correct_lang_issue <- wdds_validator(data_package_correct_lang_json, verbose = TRUE)
+
+if(!correct_lang_issue){
+  print("WHAT! I gave it a string!?")
+}
+
+```
+
+Yes you did! BUT if we take a peek at the json object we can see that your string
+was converted to the array `"language": ["en, fr, cn"]`.
+
+Why? because jsonlite errors on the side of wrapping things in arrays.
+
+Thankfully the authors of this package have provided methods for preparing items!
+Here we will use `prep_language` when we add the item. Prep_language is a thin
+wrapper around `prep_atomic` - which ensures that jsonlite will interpret your
+R object as numeric, string, boolean, or NULL.
+
+```{r correct-lang-error-final}
+data_package_correct_lang <- data_package_error_lang
+
+data_package_correct_lang$project_metadata$language <- prep_language("en, fr, cn")
+
+
+data_package_correct_lang_json <- jsonlite::toJSON(data_package_correct_lang, pretty = TRUE)
+
+ wdds_validator(data_package_correct_lang_json, verbose = TRUE)
+
+
+```
+
+
+
+
 
