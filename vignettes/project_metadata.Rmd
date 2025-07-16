@@ -6,7 +6,10 @@ vignette: >
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
-In this vignette we will ingest project metadata from a CSV, restructure the data, and then create a json object.
+The Wildlife Disease Data Standard is composed of two  components - disease data and project metadata. 
+Project metadata is a key component of WDDS because it makes it easier for others (including your future self) to find and re-use your data. 
+
+In this vignette we will ingest project metadata from a CSV, restructure the data, and then create a json object. 
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(

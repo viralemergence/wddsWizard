@@ -19,7 +19,8 @@ knitr::opts_chunk$set(
 
 ## Summary 
 
-This document provides background information about data standards, json-schemas in general and the structure of the Wildlife Disease Data standard specifically.
+This document provides background information about data standards, json-schemas in general and the structure of the Wildlife Disease Data standard specifically. WDDS is focused making it easy to store
+disease data in a consistent and [FAIR](https://www.go-fair.org/fair-principles/) format.
 
 
 ### What is a JSON-schema

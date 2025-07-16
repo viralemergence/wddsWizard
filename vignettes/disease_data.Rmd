@@ -24,6 +24,10 @@ library(janitor)
 library(jsonlite)
 ```
 
+The Wildlife Disease Data Standard is composed of two  components - disease data and project metadata. 
+Standardizing how disease data are stored is the primary goal of WDDS.
+
+
 This vignette describes how to prepare data for validation against the wildlife disease data standard. We will 1) read an example excel spreadsheet, 2) do some light reformatting, and 3) produce a json object.
 
 ## Required fields
