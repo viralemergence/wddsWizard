@@ -3,27 +3,27 @@ template:
   bootstrap: 5
 reference:
 - title: Data
-  desc: Example datasets and other useful objects
+  desc: Examples of WDDS conforming data and other useful objects
 - contents:
   - has_concept("Data")
 - title: Templates
-  desc: Templates for creating data that conforms to the standard
+  desc: Create data that conforms to the standard from pre-structured files
 - contents:
   - has_concept("Templates")
 - title: WDDS Deposit
-  desc: Functions for interacting with the Zenodo Deposit
+  desc: Interact with the Zenodo Deposit
 - contents:
   - has_concept("WDDS deposit")
 - title: JSON Prep
-  desc: Functions for getting data into proper JSON format
+  desc: Prepare R objects for proper JSON formatting
 - contents:
   - has_concept("JSON Prep")
 - title: Schema
-  desc: Functions for accessing and manipulating a JSON Schema
+  desc: Access and manipulate a JSON Schema
 - contents:
   - has_concept("Schema")
 - title: Schema Docs
-  desc: Functions for creating documentation from Schema
+  desc: Create documentation from Schema
 - contents:
   - has_concept("Schema Docs")
 
