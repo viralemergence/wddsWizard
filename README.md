@@ -117,3 +117,4 @@ See [Schema Overview](https://viralemergence.github.io/wddsWizard/articles/schem
 
 The authors of the package are grateful for the support of the Verena Institute,
 Carlson Lab, Yale School of Public Health. 
+This work was supported by an NSF Biology Integration Institute grant (NSF DBI 2021909, 2213854, and 2515340).
