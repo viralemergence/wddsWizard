@@ -18,6 +18,31 @@ The creator object can be complex so we prepare components of the final object (
 \examples{
 
 wddsWizard::becker_project_metadata$creators |>
- prep_creators()
+  prep_creators()
 
 }
+\seealso{
+Other JSON Prep: 
+\code{\link{clean_field_names}()},
+\code{\link{get_entity}()},
+\code{\link{prep_affiliation}()},
+\code{\link{prep_array_objects}()},
+\code{\link{prep_atomic}()},
+\code{\link{prep_data}()},
+\code{\link{prep_descriptions}()},
+\code{\link{prep_for_json}()},
+\code{\link{prep_from_metadata_template}()},
+\code{\link{prep_fundingReferences}()},
+\code{\link{prep_identifier}()},
+\code{\link{prep_language}()},
+\code{\link{prep_methodology}()},
+\code{\link{prep_methods}()},
+\code{\link{prep_nameIdentifiers}()},
+\code{\link{prep_object}()},
+\code{\link{prep_publicationYear}()},
+\code{\link{prep_relatedIdentifiers}()},
+\code{\link{prep_rights}()},
+\code{\link{prep_subjects}()},
+\code{\link{prep_titles}()}
+}
+\concept{JSON Prep}

@@ -47,7 +47,7 @@ project_metadata_json <- '{
 ]
 }'
 
-minimal_project_metadata <- jsonlite::fromJSON(project_metadata_json,simplifyVector = TRUE)
+minimal_project_metadata <- jsonlite::fromJSON(project_metadata_json, simplifyVector = TRUE)
 
 # jsonlite::toJSON(minimal_project_metadata,pretty = TRUE,auto_unbox = TRUE)
 

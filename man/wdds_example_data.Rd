@@ -7,11 +7,12 @@
 wdds_example_data(version = NULL, file = NULL)
 }
 \arguments{
-\item{version}{Character. Version of the wdds deposit. Leave as NULL to see
-all versions.}
+\item{version}{Character or NULL. Version of the wdds deposit. Leave as NULL to see
+all versions. Default is NULL to return a character vector of versions.}
 
-\item{file}{Character. Specific file from the wdds deposit. Leave as NULL to
-see all files in a version.}
+\item{file}{Character or NULL. Specific file from the wdds deposit. Leave as NULL to
+see all files in a version. Default is NULL to return all files associated with a
+given version.}
 }
 \value{
 Character. Either version identifiers or file paths.
@@ -25,9 +26,9 @@ example data you may need.
 \details{
 This function does three things.
 \enumerate{
-\item Shows all versions of the schema in the package,
-\item Provides paths to all example data files associated with a version of the schema
-\item Provides a specific file path in a specific version of the example data
+\item Shows all versions of the schema in the package if version is NULL.
+\item Provides paths to all example data files associated with a version of the schema if version is provided and file is NULL.
+\item Provides a specific file path in a specific version of the example data if both file and version are provided.
 }
 }
 \examples{
@@ -42,7 +43,17 @@ wdds_example_data(version = "latest")
 
 # get the file path for a specific file
 
-wdds_example_data(version = "v_1_0_2",file = "Becker_demo_dataset.xlsx")
-
+wdds_example_data(version = "v_1_0_2", file = "Becker_demo_dataset.xlsx")
 
 }
+\seealso{
+Other WDDS deposit: 
+\code{\link{batch_download_deposit_versions}()},
+\code{\link{download_deposit_version}()},
+\code{\link{list_deposit_versions}()},
+\code{\link{sanitize_version}()},
+\code{\link{set_wdds_version}()},
+\code{\link{wdds_data_templates}()},
+\code{\link{wdds_json}()}
+}
+\concept{WDDS deposit}

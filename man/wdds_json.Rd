@@ -7,14 +7,14 @@
 wdds_json(version = NULL, file = NULL)
 }
 \arguments{
-\item{version}{Character. Version of the wdds deposit. Leave as NULL to see
-all versions.}
+\item{version}{Character or NULL. Version of the wdds deposit. Leave as NULL to see
+all versions. Default is NULL to return character vector of versions.}
 
-\item{file}{Character. Specific file from the wdds deposit. Leave as NULL to
-see all files in a version.}
+\item{file}{Character or NULL. Specific file from the wdds deposit. Leave as NULL to
+see all files in a version. Default is NULL to return character vector of relative file paths.}
 }
 \value{
-Character. Either version identifiers or file paths.
+Character. Either version identifiers, relative file paths within a version, or a specific file path.
 }
 \description{
 Since schema versions may change during the life cycle of project, it is
@@ -23,11 +23,11 @@ This function allows you to quickly retrieve whichever schema version you
 may need.
 }
 \details{
-This function does three things.
+This function does three things:
 \enumerate{
-\item Shows all versions of the schema in the package,
-\item Provides paths to all schema files associated with a version of the schema
-\item Provides a specific file path in a specific version of the schema.
+\item Shows all versions of the schema in the package if both version and file are NULL.
+\item Provides relative paths to all schema files associated with a version of the schema if only version is provided.
+\item Provides a specific file path in a specific version of the schema if version and file path are provided.
 }
 }
 \examples{
@@ -42,7 +42,17 @@ wdds_json(version = "latest")
 
 # get the file path for a specific file
 
-wdds_json(version = "v_1_0_2",file = "schemas/disease_data.json")
-
+wdds_json(version = "v_1_0_2", file = "schemas/disease_data.json")
 
 }
+\seealso{
+Other WDDS deposit: 
+\code{\link{batch_download_deposit_versions}()},
+\code{\link{download_deposit_version}()},
+\code{\link{list_deposit_versions}()},
+\code{\link{sanitize_version}()},
+\code{\link{set_wdds_version}()},
+\code{\link{wdds_data_templates}()},
+\code{\link{wdds_example_data}()}
+}
+\concept{WDDS deposit}

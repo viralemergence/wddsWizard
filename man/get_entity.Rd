@@ -24,5 +24,29 @@ df <- data.frame(Group = 1, entity_id = 1, Value = 1:3, Variable = letters[1:3])
 
 get_entity(df)
 
-
 }
+\seealso{
+Other JSON Prep: 
+\code{\link{clean_field_names}()},
+\code{\link{prep_affiliation}()},
+\code{\link{prep_array_objects}()},
+\code{\link{prep_atomic}()},
+\code{\link{prep_creators}()},
+\code{\link{prep_data}()},
+\code{\link{prep_descriptions}()},
+\code{\link{prep_for_json}()},
+\code{\link{prep_from_metadata_template}()},
+\code{\link{prep_fundingReferences}()},
+\code{\link{prep_identifier}()},
+\code{\link{prep_language}()},
+\code{\link{prep_methodology}()},
+\code{\link{prep_methods}()},
+\code{\link{prep_nameIdentifiers}()},
+\code{\link{prep_object}()},
+\code{\link{prep_publicationYear}()},
+\code{\link{prep_relatedIdentifiers}()},
+\code{\link{prep_rights}()},
+\code{\link{prep_subjects}()},
+\code{\link{prep_titles}()}
+}
+\concept{JSON Prep}

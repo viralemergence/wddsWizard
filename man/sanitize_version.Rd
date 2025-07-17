@@ -23,3 +23,14 @@ and makes it more difficult to parse file extensions.
 sanitize_version("v.1.1.0")
 
 }
+\seealso{
+Other WDDS deposit: 
+\code{\link{batch_download_deposit_versions}()},
+\code{\link{download_deposit_version}()},
+\code{\link{list_deposit_versions}()},
+\code{\link{set_wdds_version}()},
+\code{\link{wdds_data_templates}()},
+\code{\link{wdds_example_data}()},
+\code{\link{wdds_json}()}
+}
+\concept{WDDS deposit}

@@ -14,12 +14,12 @@ project_metadata <- project_metadata |>
     TRUE ~ NA
   ))
 
-project_metadata_filled <- tidyr::fill(data = project_metadata,Group)
+project_metadata_filled <- tidyr::fill(data = project_metadata, Group)
 
 # get ids for components of a group.
 project_metadata_ids <- project_metadata_filled |>
   dplyr::mutate(
-    entity_id = stringr::str_extract(string = Group,pattern = "[0-9]"),
+    entity_id = stringr::str_extract(string = Group, pattern = "[0-9]"),
     # make sure that there are no NA entity IDs
     entity_id = dplyr::case_when(
       is.na(entity_id) ~ "1",
@@ -27,24 +27,26 @@ project_metadata_ids <- project_metadata_filled |>
     )
   ) |>
   # drop entity ids from group field and convert to camel case
-  dplyr::mutate(Group = stringr::str_replace_all(string = Group,pattern = " [0-9]", replacement = ""),
-                Group = snakecase::to_lower_camel_case(Group))
+  dplyr::mutate(
+    Group = stringr::str_replace_all(string = Group, pattern = " [0-9]", replacement = ""),
+    Group = snakecase::to_lower_camel_case(Group)
+  )
 
 ## split dataframe by Group for further processing
 
-project_metadata_list  <- split(project_metadata_ids,project_metadata_ids$Group)
+project_metadata_list <- split(project_metadata_ids, project_metadata_ids$Group)
 
 # The `get_entity` function creates standard entities that will be easier to transform json
 
-becker_project_metadata <- purrr::map(project_metadata_list,function(x){
-  if(all(x$entity_id == "1")){
+becker_project_metadata <- purrr::map(project_metadata_list, function(x) {
+  if (all(x$entity_id == "1")) {
     out <- get_entity(x)
     return(out)
   }
 
-  x_list <- split(x,x$entity_id)
+  x_list <- split(x, x$entity_id)
   names(x_list) <- NULL
-  out <-purrr::map(x_list, get_entity)
+  out <- purrr::map(x_list, get_entity)
   return(out)
 })
 

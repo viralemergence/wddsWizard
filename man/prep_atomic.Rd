@@ -7,7 +7,7 @@
 prep_atomic(x)
 }
 \arguments{
-\item{x}{vector}
+\item{x}{vector or single row data frame}
 }
 \value{
 an unboxed dataframe with 1 row
@@ -24,9 +24,9 @@ This is useful when a property or definition is of type string, number, logical 
 x <- 1
 
 # values in x are stored in an array
-x|>
-jsonlite::toJSON()
- # output is [1]
+x |>
+  jsonlite::toJSON()
+# output is [1]
 
 # values in x are NOT stored in an array (no square brackets)
 prep_atomic(x) |>
@@ -34,3 +34,28 @@ prep_atomic(x) |>
 # output is 1
 
 }
+\seealso{
+Other JSON Prep: 
+\code{\link{clean_field_names}()},
+\code{\link{get_entity}()},
+\code{\link{prep_affiliation}()},
+\code{\link{prep_array_objects}()},
+\code{\link{prep_creators}()},
+\code{\link{prep_data}()},
+\code{\link{prep_descriptions}()},
+\code{\link{prep_for_json}()},
+\code{\link{prep_from_metadata_template}()},
+\code{\link{prep_fundingReferences}()},
+\code{\link{prep_identifier}()},
+\code{\link{prep_language}()},
+\code{\link{prep_methodology}()},
+\code{\link{prep_methods}()},
+\code{\link{prep_nameIdentifiers}()},
+\code{\link{prep_object}()},
+\code{\link{prep_publicationYear}()},
+\code{\link{prep_relatedIdentifiers}()},
+\code{\link{prep_rights}()},
+\code{\link{prep_subjects}()},
+\code{\link{prep_titles}()}
+}
+\concept{JSON Prep}

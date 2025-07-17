@@ -11,7 +11,8 @@ paste_reduce_ul(x, y, sep = "\\n - ")
 
 \item{y}{Character}
 
-\item{sep}{Character}
+\item{sep}{Character. Default is a line break followed by a dash \code{"\\n - "} to
+create an unordered list in markdown.}
 }
 \value{
 Character
@@ -24,6 +25,16 @@ documentation items
 
 text_a <- "hello"
 text_b <- "world"
-paste_reduce_ul(text_a,text_b)
+paste_reduce_ul(text_a, text_b)
 
 }
+\seealso{
+Other Schema Docs: 
+\code{\link{create_object_docs}()},
+\code{\link{create_schema_docs}()},
+\code{\link{get_ref}()},
+\code{\link{get_required_fields}()},
+\code{\link{increase_docs_depth}()},
+\code{\link{paste_reduce}()}
+}
+\concept{Schema Docs}

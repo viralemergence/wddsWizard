@@ -15,3 +15,18 @@ character vector of required fields
 \description{
 Gets the required fields for an object or schema
 }
+\examples{
+schema_list <- jsonlite::read_json(wdds_json("latest", "schemas/disease_data.json"))
+get_required_fields(schema_list)
+
+}
+\seealso{
+Other Schema Docs: 
+\code{\link{create_object_docs}()},
+\code{\link{create_schema_docs}()},
+\code{\link{get_ref}()},
+\code{\link{increase_docs_depth}()},
+\code{\link{paste_reduce}()},
+\code{\link{paste_reduce_ul}()}
+}
+\concept{Schema Docs}

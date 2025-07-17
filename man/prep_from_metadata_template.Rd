@@ -2,7 +2,7 @@
 % Please edit documentation in R/prep_for_json.R
 \name{prep_from_metadata_template}
 \alias{prep_from_metadata_template}
-\title{Prepare metadata from the metadata template}
+\title{Prepare metadata created from the metadata template for conversion to JSON}
 \usage{
 prep_from_metadata_template(
   project_metadata,
@@ -12,11 +12,55 @@ prep_from_metadata_template(
 \arguments{
 \item{project_metadata}{Data frame. Should correspond to the structure of the project_metadata_template.csv}
 
-\item{prep_methods_list}{list. Named list of methods where each items is a function to applied to corresponding items in x.Default is \code{prep_methods()}}
+\item{prep_methods_list}{list. Named list of methods where each items is a function to applied to corresponding items in x.Default is \code{\link[=prep_methods]{prep_methods()}}.}
 }
 \value{
 Named list ready to be converted to json
 }
 \description{
-Prepare metadata from the metadata template
+A convenience function for those who used the metadata template to create their project
+metadata data.
 }
+\details{
+Does some light data formatting to make conversion to json easier.
+}
+\examples{
+\dontrun{
+# create
+wddsWizard::use_template("project_metadata_template.csv",
+  folder = "data",
+  file_name = "my_project_metadata.csv"
+)
+project_metadata <- read.csv("data/my_project_metadata.csv")
+
+prepped_project_metadata <- wddsWizard::prep_from_metadata_template(project_metadata)
+
+project_metadat_json <- jsonlite::toJSON(prepped_project_metadata, pretty = TRUE)
+}
+
+}
+\seealso{
+Other JSON Prep: 
+\code{\link{clean_field_names}()},
+\code{\link{get_entity}()},
+\code{\link{prep_affiliation}()},
+\code{\link{prep_array_objects}()},
+\code{\link{prep_atomic}()},
+\code{\link{prep_creators}()},
+\code{\link{prep_data}()},
+\code{\link{prep_descriptions}()},
+\code{\link{prep_for_json}()},
+\code{\link{prep_fundingReferences}()},
+\code{\link{prep_identifier}()},
+\code{\link{prep_language}()},
+\code{\link{prep_methodology}()},
+\code{\link{prep_methods}()},
+\code{\link{prep_nameIdentifiers}()},
+\code{\link{prep_object}()},
+\code{\link{prep_publicationYear}()},
+\code{\link{prep_relatedIdentifiers}()},
+\code{\link{prep_rights}()},
+\code{\link{prep_subjects}()},
+\code{\link{prep_titles}()}
+}
+\concept{JSON Prep}

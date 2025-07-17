@@ -7,10 +7,10 @@
 prep_affiliation(x)
 }
 \arguments{
-\item{x}{tibble from prep_creators}
+\item{x}{Data frame from prep_creators}
 }
 \value{
-tibble with affiliation fields in a list column called \code{affiliation}
+Data frame with affiliation fields in a list column called \code{affiliation}
 }
 \description{
 There are affiliations associated with a creator.
@@ -25,3 +25,33 @@ Affiliation fields to be converted to a list: "affiliation", #' "affiliationIden
 "affiliationIdentifierScheme" ,
 "schemeUri"
 }
+\examples{
+creator_df <- wddsWizard::becker_project_metadata$creators[[1]]
+creator_df_aff_prepped <- prep_affiliation(creator_df)
+
+}
+\seealso{
+Other JSON Prep: 
+\code{\link{clean_field_names}()},
+\code{\link{get_entity}()},
+\code{\link{prep_array_objects}()},
+\code{\link{prep_atomic}()},
+\code{\link{prep_creators}()},
+\code{\link{prep_data}()},
+\code{\link{prep_descriptions}()},
+\code{\link{prep_for_json}()},
+\code{\link{prep_from_metadata_template}()},
+\code{\link{prep_fundingReferences}()},
+\code{\link{prep_identifier}()},
+\code{\link{prep_language}()},
+\code{\link{prep_methodology}()},
+\code{\link{prep_methods}()},
+\code{\link{prep_nameIdentifiers}()},
+\code{\link{prep_object}()},
+\code{\link{prep_publicationYear}()},
+\code{\link{prep_relatedIdentifiers}()},
+\code{\link{prep_rights}()},
+\code{\link{prep_subjects}()},
+\code{\link{prep_titles}()}
+}
+\concept{JSON Prep}

@@ -17,3 +17,16 @@ data frames with name and type for array items that are objects or character str
 \description{
 Processes array items so they can be added to a data frame.
 }
+\seealso{
+Other Schema: 
+\code{\link{create_object_list}()},
+\code{\link{create_schema_list}()},
+\code{\link{datacite_schema}},
+\code{\link{disease_data_schema}},
+\code{\link{get_ref_list}()},
+\code{\link{project_metadata_schema}},
+\code{\link{schema_properties}},
+\code{\link{schema_terms}},
+\code{\link{wdds_schema}}
+}
+\concept{Schema}

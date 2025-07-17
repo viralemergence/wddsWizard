@@ -25,9 +25,9 @@ templates you may need.
 \details{
 This function does three things.
 \enumerate{
-\item Shows all versions of the schema in the package,
-\item Provides paths to all example data files associated with a version of the schema
-\item Provides a specific file path in a specific version of the example data
+\item Shows all versions of the schema in the package if version is \code{NULL}
+\item Provides paths to all example data files associated with a version of the schema if version is not \code{NULL} and file is \code{NULL}
+\item Provides a specific file path in a specific version of the example data if both version and file are specified.
 }
 }
 \examples{
@@ -42,7 +42,17 @@ wdds_data_templates(version = "latest")
 
 # get the file path for a specific file
 
-wdds_data_templates(version = "v_1_0_2",file = "disease_data_template.csv")
-
+wdds_data_templates(version = "v_1_0_2", file = "disease_data_template.csv")
 
 }
+\seealso{
+Other WDDS deposit: 
+\code{\link{batch_download_deposit_versions}()},
+\code{\link{download_deposit_version}()},
+\code{\link{list_deposit_versions}()},
+\code{\link{sanitize_version}()},
+\code{\link{set_wdds_version}()},
+\code{\link{wdds_example_data}()},
+\code{\link{wdds_json}()}
+}
+\concept{WDDS deposit}

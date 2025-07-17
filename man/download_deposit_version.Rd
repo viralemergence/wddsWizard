@@ -23,3 +23,26 @@ String. Path to downloaded version.
 Downloads and extracts some version of the deposit. This function is specific
 to the structure of the wdds repo.
 }
+\examples{
+\dontshow{if (curl::has_internet()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+# list all deposit versions
+list_deposit_versions()
+
+# download the deposit
+
+\dontrun{
+download_deposit_version("15270582", "v.1.0.3", TRUE, "data")
+}
+\dontshow{\}) # examplesIf}
+}
+\seealso{
+Other WDDS deposit: 
+\code{\link{batch_download_deposit_versions}()},
+\code{\link{list_deposit_versions}()},
+\code{\link{sanitize_version}()},
+\code{\link{set_wdds_version}()},
+\code{\link{wdds_data_templates}()},
+\code{\link{wdds_example_data}()},
+\code{\link{wdds_json}()}
+}
+\concept{WDDS deposit}

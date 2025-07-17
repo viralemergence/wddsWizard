@@ -10,7 +10,9 @@ prep_for_json(x, prep_methods_list = prep_methods())
 \item{x}{list. Named list of data frames, lists, or vectors. For methods to be applied,
 the names of the list items should match the names in the methods list}
 
-\item{prep_methods_list}{list. Named list of methods where each items is a function to applied to corresponding items in x.}
+\item{prep_methods_list}{list. Named list of methods where each items is a
+function to applied to corresponding items in x. Default is full list of methods
+from \code{\link[=prep_methods]{prep_methods()}}.}
 }
 \value{
 Named list where methods have been applied.
@@ -22,12 +24,42 @@ list.
 \examples{
 
 wddsWizard::becker_project_metadata |>
-   prep_for_json()
+  prep_for_json()
 
- a <- list("hello_world" = 1:10 )
- methods_list <- list("hello_world" = function(x){x*2},
-                       "unused_method" = function(x){x/2})
- prep_for_json(a,methods_list)
-
+a <- list("hello_world" = 1:10)
+methods_list <- list(
+  "hello_world" = function(x) {
+    x * 2
+  },
+  "unused_method" = function(x) {
+    x / 2
+  }
+)
+prep_for_json(a, methods_list)
 
 }
+\seealso{
+Other JSON Prep: 
+\code{\link{clean_field_names}()},
+\code{\link{get_entity}()},
+\code{\link{prep_affiliation}()},
+\code{\link{prep_array_objects}()},
+\code{\link{prep_atomic}()},
+\code{\link{prep_creators}()},
+\code{\link{prep_data}()},
+\code{\link{prep_descriptions}()},
+\code{\link{prep_from_metadata_template}()},
+\code{\link{prep_fundingReferences}()},
+\code{\link{prep_identifier}()},
+\code{\link{prep_language}()},
+\code{\link{prep_methodology}()},
+\code{\link{prep_methods}()},
+\code{\link{prep_nameIdentifiers}()},
+\code{\link{prep_object}()},
+\code{\link{prep_publicationYear}()},
+\code{\link{prep_relatedIdentifiers}()},
+\code{\link{prep_rights}()},
+\code{\link{prep_subjects}()},
+\code{\link{prep_titles}()}
+}
+\concept{JSON Prep}

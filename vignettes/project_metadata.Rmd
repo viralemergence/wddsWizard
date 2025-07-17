@@ -6,7 +6,10 @@ vignette: >
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
-In this vignette we will ingest project metadata from a CSV, restructure the data, and then create a json object.
+The Wildlife Disease Data Standard is composed of two  components - disease data and project metadata. 
+Project metadata is a key component of WDDS because it makes it easier for others (including your future self) to find and re-use your data. 
+
+In this vignette we will ingest project metadata from a CSV, restructure the data, and then create a json object. 
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
@@ -26,30 +29,28 @@ library(stringr)
 The following fields are required to be in the data.
 
 ```{r required fields, echo=FALSE, message=TRUE, warning=TRUE}
-
 required_fields <- wddsWizard::project_metadata_schema$properties[wddsWizard::project_metadata_required_fields]
 
-descriptions <- purrr::map_depth(required_fields,1,"description") 
-  
-df_data_desc <- data.frame(Field = wddsWizard::project_metadata_required_fields, Descriptions = unlist(descriptions),row.names = NULL)
+descriptions <- purrr::map_depth(required_fields, 1, "description")
+
+df_data_desc <- data.frame(Field = wddsWizard::project_metadata_required_fields, Descriptions = unlist(descriptions), row.names = NULL)
 
 df_data_desc |>
   dplyr::mutate(TDWG_url = dplyr::case_when(
-    stringr::str_detect(string = Descriptions, pattern = "http://rs.tdwg.org/dwc/terms/") ~ stringr::str_extract(string = Descriptions,pattern = "http://rs.tdwg.org/dwc/terms/.*"),
+    stringr::str_detect(string = Descriptions, pattern = "http://rs.tdwg.org/dwc/terms/") ~ stringr::str_extract(string = Descriptions, pattern = "http://rs.tdwg.org/dwc/terms/.*"),
     TRUE ~ ""
   )) |>
   dplyr::mutate(Field = case_when(
-    TDWG_url != "" ~ kableExtra::cell_spec(Field,format = "html",link = TDWG_url),
+    TDWG_url != "" ~ kableExtra::cell_spec(Field, format = "html", link = TDWG_url),
     TRUE ~ Field
   )) |>
-    dplyr::mutate(Descriptions = dplyr::case_when(
-    stringr::str_detect(string = Descriptions, pattern = "http://rs.tdwg.org/dwc/terms/") ~ stringr::str_remove(string = Descriptions,pattern = "See http://rs.tdwg.org/dwc/terms/.*"),
+  dplyr::mutate(Descriptions = dplyr::case_when(
+    stringr::str_detect(string = Descriptions, pattern = "http://rs.tdwg.org/dwc/terms/") ~ stringr::str_remove(string = Descriptions, pattern = "See http://rs.tdwg.org/dwc/terms/.*"),
     TRUE ~ Descriptions
   )) |>
   dplyr::select(-TDWG_url) |>
   kableExtra::kbl(escape = FALSE) |>
   kableExtra::kable_styling()
-
 ```
 
 
@@ -59,19 +60,19 @@ Our example data requires some light cleaning to make transforming it into csv
 easier. 
 
 ```{r load-data}
- project_metadata  <- wdds_example_data(version = "latest",file = "example_project_metadata.csv") |> read.csv()
+project_metadata <- wdds_example_data(version = "latest", file = "example_project_metadata.csv") |> read.csv()
 
 ## turn empty strings into NAs in the group field
 project_metadata <- project_metadata |>
   dplyr::mutate(Group = dplyr::case_when(
     Group != "" ~ Group,
     TRUE ~ NA
-  )) 
+  ))
 
 ## use `fill` to complete the items column and `mutate` to make groups a little
 ## more ergonomic
 
- project_metadata_filled <- tidyr::fill(data = project_metadata,Group) 
+project_metadata_filled <- tidyr::fill(data = project_metadata, Group)
 ```
 
 ## Restructure data
@@ -84,11 +85,10 @@ entities in each group. In our example data, there are two creators and three fu
 for Creators, Resources, and Funding References.
 
 ```{r restructure}
-
 # get ids for components of a group.
 project_metadata_ids <- project_metadata_filled |>
   dplyr::mutate(
-    entity_id = stringr::str_extract(string = Group,pattern = "[0-9]"),
+    entity_id = stringr::str_extract(string = Group, pattern = "[0-9]"),
     # make sure that there are no NA entity IDs
     entity_id = dplyr::case_when(
       is.na(entity_id) ~ "1",
@@ -96,28 +96,29 @@ project_metadata_ids <- project_metadata_filled |>
     )
   ) |>
   # drop entity ids from group field and convert to camel case
-   dplyr::mutate(Group = stringr::str_replace_all(string = Group,pattern = " [0-9]", replacement = ""),
-                 Group = snakecase::to_lower_camel_case(Group))
+  dplyr::mutate(
+    Group = stringr::str_replace_all(string = Group, pattern = " [0-9]", replacement = ""),
+    Group = snakecase::to_lower_camel_case(Group)
+  )
 
- ## split dataframe by Group for further processing
- 
-project_metadata_list  <- split(project_metadata_ids,project_metadata_ids$Group)
+## split dataframe by Group for further processing
+
+project_metadata_list <- split(project_metadata_ids, project_metadata_ids$Group)
 
 
 # The `get_entity` function creates standard entities that will be easier to transform json
 
-project_metadata_list_entities <- purrr::map(project_metadata_list,function(x){
-  if(all(x$entity_id == "1")){
+project_metadata_list_entities <- purrr::map(project_metadata_list, function(x) {
+  if (all(x$entity_id == "1")) {
     out <- get_entity(x)
     return(out)
   }
-  
-  x_list <- split(x,x$entity_id)
+
+  x_list <- split(x, x$entity_id)
   names(x_list) <- NULL
-  out <-purrr::map(x_list, get_entity)
+  out <- purrr::map(x_list, get_entity)
   return(out)
 })
-
 ```
 
 ## Make the json! 
@@ -125,15 +126,14 @@ project_metadata_list_entities <- purrr::map(project_metadata_list,function(x){
 In a simpler world - you could just run the following code and it would work. 
 ```{r mockingbird, eval=FALSE}
 ## if only, if only the mockingbird sings
-jsonlite::toJSON(project_metadata_list_entities,pretty = TRUE,dataframe = "columns")
-
+jsonlite::toJSON(project_metadata_list_entities, pretty = TRUE, dataframe = "columns")
 ```
 
 BUT because datacite's structures are more complex, we need to do some prep. Luckily, there are a host of prep functions that already exist in this package! These mostly tag list items with `jsonlite::unbox` and/or wrap things in lists so that when converted to json, they match the data standard's expected formats. 
 
 ```{r prep-data}
- project_metadata_json <- prep_for_json(project_metadata_list_entities) |>
-  jsonlite::toJSON(pretty  = TRUE)
+project_metadata_json <- prep_for_json(project_metadata_list_entities) |>
+  jsonlite::toJSON(pretty = TRUE)
 ```
 
 ## Validate Project metadata
@@ -141,19 +141,18 @@ BUT because datacite's structures are more complex, we need to do some prep. Luc
 We can validate the entire project metadata object by using the `project_metadata.json` schema.
 
 ```{r validate-project, message=FALSE, warning=FALSE}
-
 schema <- wdds_json(version = "latest", file = "schemas/project_metadata.json")
 
-project_validator <- jsonvalidate::json_validator(schema,engine = "ajv")
+project_validator <- jsonvalidate::json_validator(schema, engine = "ajv")
 
-project_validation <- project_validator(project_metadata_json,verbose = TRUE)
+project_validation <- project_validator(project_metadata_json, verbose = TRUE)
 
 ## check for errors!
 
 errors <- attributes(project_validation)
 
-if(!project_validation){
-  errors$errors  
+if (!project_validation) {
+  errors$errors
 } else {
   print("Valid project metadata!😁")
 }

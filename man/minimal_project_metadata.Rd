@@ -14,4 +14,14 @@ minimal_project_metadata
 This is a minimal project metadata example. It is a list with the minimal
 items required for project metadata.
 }
+\seealso{
+Other Data: 
+\code{\link{becker_disease_data}},
+\code{\link{becker_project_metadata}},
+\code{\link{disease_data_required_fields}},
+\code{\link{minimal_disease_data}},
+\code{\link{project_metadata_required_fields}},
+\code{\link{schema_required_fields}}
+}
+\concept{Data}
 \keyword{datasets}

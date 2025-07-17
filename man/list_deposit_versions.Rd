@@ -7,7 +7,8 @@
 list_deposit_versions(parent_id = "15020049")
 }
 \arguments{
-\item{parent_id}{String. Identifier for a Zenodo deposit with multiple versions.}
+\item{parent_id}{String. Identifier for a Zenodo deposit with multiple versions.
+Default is the parent id for the wdds zenodo deposit.}
 }
 \value{
 Data frame. The data frame contains the Zenodo id for each version of
@@ -23,3 +24,20 @@ will be an attribute in that json called parent that looks like
 "https://zenodo.org/api/records/15020049". The 8 digit string at the end of
 the url is the parent id.
 }
+\examples{
+\dontshow{if (curl::has_internet()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+
+list_deposit_versions()
+\dontshow{\}) # examplesIf}
+}
+\seealso{
+Other WDDS deposit: 
+\code{\link{batch_download_deposit_versions}()},
+\code{\link{download_deposit_version}()},
+\code{\link{sanitize_version}()},
+\code{\link{set_wdds_version}()},
+\code{\link{wdds_data_templates}()},
+\code{\link{wdds_example_data}()},
+\code{\link{wdds_json}()}
+}
+\concept{WDDS deposit}

@@ -14,4 +14,14 @@ minimal_disease_data
 This is a minimal disease data example. It is a data frame with the minimal
 items required for disease data.
 }
+\seealso{
+Other Data: 
+\code{\link{becker_disease_data}},
+\code{\link{becker_project_metadata}},
+\code{\link{disease_data_required_fields}},
+\code{\link{minimal_project_metadata}},
+\code{\link{project_metadata_required_fields}},
+\code{\link{schema_required_fields}}
+}
+\concept{Data}
 \keyword{datasets}

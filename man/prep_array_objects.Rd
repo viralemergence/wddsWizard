@@ -7,31 +7,57 @@
 prep_array_objects(x)
 }
 \arguments{
-\item{x}{list of tibbles/data frames or a tibble/data frame}
+\item{x}{list of data frames or a data frame}
 }
 \value{
 list of single row unboxed data frames
 }
 \description{
-wraps a tibble/dataframe in a list and/or unboxes list items that are 1 row
-tibbles/dataframes. This will result in an array of objects being created.
+wraps a data frame in a list and or unboxes list items that are 1 row
+dataframes. This will result in an array of objects being created.
 }
 \examples{
 
 # note that you cannot unbox data frames with more than 1 row
 
-x <- list(tibble::tibble(age = 1,group = letters[1]),
-          tibble::tibble(age = 2,group = letters[2]))
+x <- list(
+  tibble::tibble(age = 1, group = letters[1]),
+  tibble::tibble(age = 2, group = letters[2])
+)
 
 # running jsonlite::toJSON on an unmodified object results in
 # extra square brackets - an array of arrays of objects
 jsonlite::toJSON(x, pretty = TRUE)
 
 # with the prepped data we get an array of objects
-x_prepped  <- prep_array_objects(x)
+x_prepped <- prep_array_objects(x)
 
 x_prepped |>
   jsonlite::toJSON(pretty = TRUE)
 
-
 }
+\seealso{
+Other JSON Prep: 
+\code{\link{clean_field_names}()},
+\code{\link{get_entity}()},
+\code{\link{prep_affiliation}()},
+\code{\link{prep_atomic}()},
+\code{\link{prep_creators}()},
+\code{\link{prep_data}()},
+\code{\link{prep_descriptions}()},
+\code{\link{prep_for_json}()},
+\code{\link{prep_from_metadata_template}()},
+\code{\link{prep_fundingReferences}()},
+\code{\link{prep_identifier}()},
+\code{\link{prep_language}()},
+\code{\link{prep_methodology}()},
+\code{\link{prep_methods}()},
+\code{\link{prep_nameIdentifiers}()},
+\code{\link{prep_object}()},
+\code{\link{prep_publicationYear}()},
+\code{\link{prep_relatedIdentifiers}()},
+\code{\link{prep_rights}()},
+\code{\link{prep_subjects}()},
+\code{\link{prep_titles}()}
+}
+\concept{JSON Prep}

@@ -1,16 +1,18 @@
+# wddsWizard <a href="https://viralemergence.github.io/wddsWizard/"><img src="man/figures/logo.svg" align="right" height="139" alt="wddsWizard website" /></a>
 <!-- badges: start -->
-  [![R-CMD-check](https://github.com/viralemergence/wddsWizard/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/viralemergence/wddsWizard/actions/workflows/R-CMD-check.yaml)
+[![R-CMD-check](https://github.com/viralemergence/wddsWizard/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/viralemergence/wddsWizard/actions/workflows/R-CMD-check.yaml)
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+[![wddsWizard status badge](https://viralemergence.r-universe.dev/wddsWizard/badges/version)](https://viralemergence.r-universe.dev/wddsWizard)
+[![Codecov test coverage](https://codecov.io/gh/viralemergence/wddsWizard/graph/badge.svg)](https://app.codecov.io/gh/viralemergence/wddsWizard)
 <!-- badges: end -->
 
-# wddsWizard 🧙 
 
 This is an R package for validating data against the Wildlife Disease Data Standard. 
-It allows users to restructure and validate data sets. 
+It allows users to access different versions of the data standard, restructure data, and validate data sets. 
 
-See [Getting Started](https://viralemergence.github.io/wddsWizard/articles/wddsWizard.html) more information about how to use the package. 
+See our paper [A minimum data standard for wildlife disease research and surveillance](https://www.nature.com/articles/s41597-025-05332-x) for discussions of appropriate use and more complex data structures (e.g. pooled samples, parasites with an arthropod vector, etc.) for the data standard.
 
-See our paper [A minimum data standard for wildlife disease research and surveillance](https://www.nature.com/articles/s41597-025-05332-x) for discussions of appropriate use and  more complex data structures (e.g. pooled samples, parasites with an arthropod vector, etc.).
+See the [Getting Started](https://viralemergence.github.io/wddsWizard/articles/wddsWizard.html) tutorial for more information about how to use the package. 
 
 
 ## Installation
@@ -20,6 +22,33 @@ Install from github.
 ```
 devtools::install_github("viralemergence/wddsWizard")
 ```
+
+Install from Runiverse
+
+```
+install.packages('wddsWizard', repos = c('https://viralemergence.r-universe.dev', 'https://cloud.r-project.org'))
+```
+
+## Briefest of demos
+
+```
+## assumes you made a data package. See getting started vignette
+
+schema <- wdds_json(version = "latest", file = "wdds_schema.json")
+
+wdds_validator <- jsonvalidate::json_validator(schema,engine = "ajv")
+
+project_validation <- wdds_validator(data_package_json,verbose = TRUE)
+
+if(project_validation){
+  print("Your data package is valid! 🎊 ")
+} else {
+errors <- attributes(project_validation)
+errors$errors
+}
+
+```
+
 
 ## Why do we need a data standard?
 
@@ -77,3 +106,15 @@ This package uses [JSON schemas](https://json-schema.org/) and the [AJV engine](
 
 See [Schema Overview](https://viralemergence.github.io/wddsWizard/articles/schema_overview.html) for more information about the data standard and json schemas.
 
+
+## Related Packages
+
+- [jsonvalidate](https://docs.ropensci.org/jsonvalidate/) - JSON schema validation 
+- [deposits package](https://docs.ropensci.org/deposits/) - a universal client for accessing data from different scientific repositories. 
+- [zen4R package](https://github.com/eblondel/zen4R/wiki) - a zenodo specific client for accessing data
+
+## Acknowledgements
+
+The authors of the package are grateful for the support of the Verena Institute,
+Carlson Lab, Yale School of Public Health. 
+This work was supported by an NSF Biology Integration Institute grant (NSF DBI 2021909, 2213854, and 2515340).
