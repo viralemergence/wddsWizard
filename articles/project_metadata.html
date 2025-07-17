@@ -6,6 +6,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Project Metadata • wddsWizard</title>
+<!-- favicons --><link rel="icon" type="image/png" sizes="96x96" href="../favicon-96x96.png">
+<link rel="icon" type="”image/svg+xml”" href="../favicon.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+<link rel="icon" sizes="any" href="../favicon.ico">
+<link rel="manifest" href="../site.webmanifest">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
@@ -58,16 +63,19 @@
 <script src="project_metadata_files/kePrint-0.0.1/kePrint.js"></script><link href="project_metadata_files/lightable-0.0.1/lightable.css" rel="stylesheet">
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
-
-      <h1>Project Metadata</h1>
+      <img src="../logo.svg" class="logo" alt=""><h1>Project Metadata</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/viralemergence/wddsWizard/blob/v0.0.4/vignettes/project_metadata.Rmd" class="external-link"><code>vignettes/project_metadata.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/viralemergence/wddsWizard/blob/main/vignettes/project_metadata.Rmd" class="external-link"><code>vignettes/project_metadata.Rmd</code></a></small>
       <div class="d-none name"><code>project_metadata.Rmd</code></div>
     </div>
 
     
     
+<p>The Wildlife Disease Data Standard is composed of two components -
+disease data and project metadata. Project metadata is a key component
+of WDDS because it makes it easier for others (including your future
+self) to find and re-use your data.</p>
 <p>In this vignette we will ingest project metadata from a CSV,
 restructure the data, and then create a json object.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
@@ -164,19 +172,19 @@ Name and other identifying information of a funding provider.
 <p>Our example data requires some light cleaning to make transforming it
 into csv easier.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span> <span class="va">project_metadata</span>  <span class="op">&lt;-</span> <span class="fu"><a href="../reference/wdds_example_data.html">wdds_example_data</a></span><span class="op">(</span>version <span class="op">=</span> <span class="st">"latest"</span>,file <span class="op">=</span> <span class="st">"example_project_metadata.csv"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">project_metadata</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/wdds_example_data.html">wdds_example_data</a></span><span class="op">(</span>version <span class="op">=</span> <span class="st">"latest"</span>, file <span class="op">=</span> <span class="st">"example_project_metadata.csv"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">## turn empty strings into NAs in the group field</span></span>
 <span><span class="va">project_metadata</span> <span class="op">&lt;-</span> <span class="va">project_metadata</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>Group <span class="op">=</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html" class="external-link">case_when</a></span><span class="op">(</span></span>
 <span>    <span class="va">Group</span> <span class="op">!=</span> <span class="st">""</span> <span class="op">~</span> <span class="va">Group</span>,</span>
 <span>    <span class="cn">TRUE</span> <span class="op">~</span> <span class="cn">NA</span></span>
-<span>  <span class="op">)</span><span class="op">)</span> </span>
+<span>  <span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">## use `fill` to complete the items column and `mutate` to make groups a little</span></span>
 <span><span class="co">## more ergonomic</span></span>
 <span></span>
-<span> <span class="va">project_metadata_filled</span> <span class="op">&lt;-</span> <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/fill.html" class="external-link">fill</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">project_metadata</span>,<span class="va">Group</span><span class="op">)</span> </span></code></pre></div>
+<span><span class="va">project_metadata_filled</span> <span class="op">&lt;-</span> <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/fill.html" class="external-link">fill</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">project_metadata</span>, <span class="va">Group</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="restructure-data">Restructure data<a class="anchor" aria-label="anchor" href="#restructure-data"></a>
@@ -190,11 +198,10 @@ creators and three funding references. So we need to pull out the
 clean up the <code>Group</code> field so it can be used a general
 category for Creators, Resources, and Funding References.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span><span class="co"># get ids for components of a group.</span></span>
+<code class="sourceCode R"><span><span class="co"># get ids for components of a group.</span></span>
 <span><span class="va">project_metadata_ids</span> <span class="op">&lt;-</span> <span class="va">project_metadata_filled</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
-<span>    entity_id <span class="op">=</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_extract.html" class="external-link">str_extract</a></span><span class="op">(</span>string <span class="op">=</span> <span class="va">Group</span>,pattern <span class="op">=</span> <span class="st">"[0-9]"</span><span class="op">)</span>,</span>
+<span>    entity_id <span class="op">=</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_extract.html" class="external-link">str_extract</a></span><span class="op">(</span>string <span class="op">=</span> <span class="va">Group</span>, pattern <span class="op">=</span> <span class="st">"[0-9]"</span><span class="op">)</span>,</span>
 <span>    <span class="co"># make sure that there are no NA entity IDs</span></span>
 <span>    entity_id <span class="op">=</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html" class="external-link">case_when</a></span><span class="op">(</span></span>
 <span>      <span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">entity_id</span><span class="op">)</span> <span class="op">~</span> <span class="st">"1"</span>,</span>
@@ -202,25 +209,27 @@ category for Creators, Resources, and Funding References.</p>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="co"># drop entity ids from group field and convert to camel case</span></span>
-<span>   <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>Group <span class="op">=</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_replace.html" class="external-link">str_replace_all</a></span><span class="op">(</span>string <span class="op">=</span> <span class="va">Group</span>,pattern <span class="op">=</span> <span class="st">" [0-9]"</span>, replacement <span class="op">=</span> <span class="st">""</span><span class="op">)</span>,</span>
-<span>                 Group <span class="op">=</span> <span class="fu">snakecase</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/snakecase/man/caseconverter.html" class="external-link">to_lower_camel_case</a></span><span class="op">(</span><span class="va">Group</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
+<span>    Group <span class="op">=</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_replace.html" class="external-link">str_replace_all</a></span><span class="op">(</span>string <span class="op">=</span> <span class="va">Group</span>, pattern <span class="op">=</span> <span class="st">" [0-9]"</span>, replacement <span class="op">=</span> <span class="st">""</span><span class="op">)</span>,</span>
+<span>    Group <span class="op">=</span> <span class="fu">snakecase</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/snakecase/man/caseconverter.html" class="external-link">to_lower_camel_case</a></span><span class="op">(</span><span class="va">Group</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
 <span></span>
-<span> <span class="co">## split dataframe by Group for further processing</span></span>
-<span> </span>
-<span><span class="va">project_metadata_list</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/split.html" class="external-link">split</a></span><span class="op">(</span><span class="va">project_metadata_ids</span>,<span class="va">project_metadata_ids</span><span class="op">$</span><span class="va">Group</span><span class="op">)</span></span>
+<span><span class="co">## split dataframe by Group for further processing</span></span>
+<span></span>
+<span><span class="va">project_metadata_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/split.html" class="external-link">split</a></span><span class="op">(</span><span class="va">project_metadata_ids</span>, <span class="va">project_metadata_ids</span><span class="op">$</span><span class="va">Group</span><span class="op">)</span></span>
 <span></span>
 <span></span>
 <span><span class="co"># The `get_entity` function creates standard entities that will be easier to transform json</span></span>
 <span></span>
-<span><span class="va">project_metadata_list_entities</span> <span class="op">&lt;-</span> <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map</a></span><span class="op">(</span><span class="va">project_metadata_list</span>,<span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span></span>
-<span>  <span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/all.html" class="external-link">all</a></span><span class="op">(</span><span class="va">x</span><span class="op">$</span><span class="va">entity_id</span> <span class="op">==</span> <span class="st">"1"</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
+<span><span class="va">project_metadata_list_entities</span> <span class="op">&lt;-</span> <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map</a></span><span class="op">(</span><span class="va">project_metadata_list</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/all.html" class="external-link">all</a></span><span class="op">(</span><span class="va">x</span><span class="op">$</span><span class="va">entity_id</span> <span class="op">==</span> <span class="st">"1"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="va">out</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_entity.html">get_entity</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span>    <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">out</span><span class="op">)</span></span>
 <span>  <span class="op">}</span></span>
-<span>  </span>
-<span>  <span class="va">x_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/split.html" class="external-link">split</a></span><span class="op">(</span><span class="va">x</span>,<span class="va">x</span><span class="op">$</span><span class="va">entity_id</span><span class="op">)</span></span>
+<span></span>
+<span>  <span class="va">x_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/split.html" class="external-link">split</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">x</span><span class="op">$</span><span class="va">entity_id</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">x_list</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="cn">NULL</span></span>
-<span>  <span class="va">out</span> <span class="op">&lt;-</span><span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map</a></span><span class="op">(</span><span class="va">x_list</span>, <span class="va">get_entity</span><span class="op">)</span></span>
+<span>  <span class="va">out</span> <span class="op">&lt;-</span> <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map</a></span><span class="op">(</span><span class="va">x_list</span>, <span class="va">get_entity</span><span class="op">)</span></span>
 <span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">out</span><span class="op">)</span></span>
 <span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -231,15 +240,15 @@ category for Creators, Resources, and Funding References.</p>
 would work.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## if only, if only the mockingbird sings</span></span>
-<span><span class="fu">jsonlite</span><span class="fu">::</span><span class="fu"><a href="https://jeroen.r-universe.dev/jsonlite/reference/fromJSON.html" class="external-link">toJSON</a></span><span class="op">(</span><span class="va">project_metadata_list_entities</span>,pretty <span class="op">=</span> <span class="cn">TRUE</span>,dataframe <span class="op">=</span> <span class="st">"columns"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">jsonlite</span><span class="fu">::</span><span class="fu"><a href="https://jeroen.r-universe.dev/jsonlite/reference/fromJSON.html" class="external-link">toJSON</a></span><span class="op">(</span><span class="va">project_metadata_list_entities</span>, pretty <span class="op">=</span> <span class="cn">TRUE</span>, dataframe <span class="op">=</span> <span class="st">"columns"</span><span class="op">)</span></span></code></pre></div>
 <p>BUT because datacite’s structures are more complex, we need to do
 some prep. Luckily, there are a host of prep functions that already
 exist in this package! These mostly tag list items with
 <code><a href="https://jeroen.r-universe.dev/jsonlite/reference/unbox.html" class="external-link">jsonlite::unbox</a></code> and/or wrap things in lists so that when
 converted to json, they match the data standard’s expected formats.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span> <span class="va">project_metadata_json</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/prep_for_json.html">prep_for_json</a></span><span class="op">(</span><span class="va">project_metadata_list_entities</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">jsonlite</span><span class="fu">::</span><span class="fu"><a href="https://jeroen.r-universe.dev/jsonlite/reference/fromJSON.html" class="external-link">toJSON</a></span><span class="op">(</span>pretty  <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">project_metadata_json</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/prep_for_json.html">prep_for_json</a></span><span class="op">(</span><span class="va">project_metadata_list_entities</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">jsonlite</span><span class="fu">::</span><span class="fu"><a href="https://jeroen.r-universe.dev/jsonlite/reference/fromJSON.html" class="external-link">toJSON</a></span><span class="op">(</span>pretty <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="validate-project-metadata">Validate Project metadata<a class="anchor" aria-label="anchor" href="#validate-project-metadata"></a>
@@ -247,19 +256,18 @@ converted to json, they match the data standard’s expected formats.</p>
 <p>We can validate the entire project metadata object by using the
 <code>project_metadata.json</code> schema.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span><span class="va">schema</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/wdds_json.html">wdds_json</a></span><span class="op">(</span>version <span class="op">=</span> <span class="st">"latest"</span>, file <span class="op">=</span> <span class="st">"schemas/project_metadata.json"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">schema</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/wdds_json.html">wdds_json</a></span><span class="op">(</span>version <span class="op">=</span> <span class="st">"latest"</span>, file <span class="op">=</span> <span class="st">"schemas/project_metadata.json"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">project_validator</span> <span class="op">&lt;-</span> <span class="fu">jsonvalidate</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/jsonvalidate/reference/json_validator.html" class="external-link">json_validator</a></span><span class="op">(</span><span class="va">schema</span>,engine <span class="op">=</span> <span class="st">"ajv"</span><span class="op">)</span></span>
+<span><span class="va">project_validator</span> <span class="op">&lt;-</span> <span class="fu">jsonvalidate</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/jsonvalidate/reference/json_validator.html" class="external-link">json_validator</a></span><span class="op">(</span><span class="va">schema</span>, engine <span class="op">=</span> <span class="st">"ajv"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">project_validation</span> <span class="op">&lt;-</span> <span class="fu">project_validator</span><span class="op">(</span><span class="va">project_metadata_json</span>,verbose <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">project_validation</span> <span class="op">&lt;-</span> <span class="fu">project_validator</span><span class="op">(</span><span class="va">project_metadata_json</span>, verbose <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">## check for errors!</span></span>
 <span></span>
 <span><span class="va">errors</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/attributes.html" class="external-link">attributes</a></span><span class="op">(</span><span class="va">project_validation</span><span class="op">)</span></span>
 <span></span>
-<span><span class="kw">if</span><span class="op">(</span><span class="op">!</span><span class="va">project_validation</span><span class="op">)</span><span class="op">{</span></span>
-<span>  <span class="va">errors</span><span class="op">$</span><span class="va">errors</span>  </span>
+<span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="va">project_validation</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">errors</span><span class="op">$</span><span class="va">errors</span></span>
 <span><span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="st">"Valid project metadata!😁"</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
