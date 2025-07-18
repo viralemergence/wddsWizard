@@ -1,3 +1,5 @@
+# wddsWizard 0.1.0
+
 # wddsWizard 0.0.3
 
 * fixes issue with tibble row names being set
