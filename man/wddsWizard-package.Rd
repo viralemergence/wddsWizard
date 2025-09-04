@@ -6,7 +6,7 @@
 \alias{wddsWizard-package}
 \title{wddsWizard: Data Wizard for a Minimal Wildlife Disease Data Standard}
 \description{
-Facilitates compliance and working with the Wildlife Disease Data Standard stored on Zenodo \url{https://doi.org/10.5281/zenodo.15020049}. It allows users to restructure and validate datasets.
+Facilitates compliance with and use of the Wildlife Disease Data Standard stored on Zenodo \url{https://doi.org/10.5281/zenodo.15020049}. It allows users to restructure and validate datasets.
 }
 \seealso{
 Useful links:

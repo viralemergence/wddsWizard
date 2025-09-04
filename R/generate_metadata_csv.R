@@ -17,16 +17,34 @@
 #' @param rights String. Use one of the rights identifiers found here https://spdx.org/licenses/
 #' @param language String. The primary language of the resource.
 #' @param num_descriptions Integer. Number of descriptions to add to the csv. All additional information that does not fit in any of the other categories. May be used for technical information or detailed information associated with a scientific instrument
-#' @param num_funders Integer. Number of funders to add to the csv. Name and other identifying information of a funding provider
+#' @param num_fundingReferences Integer. Number of funders to add to the csv. Name and other identifying information of a funding provider
 #' @param num_related_identifiers Integer. Number of other works you would like to link to.
+#' @param write_output Logical. Should the file be written?
 #'
-#' @returns
+#' @returns data.frame
 #' @export
 #'
 #' @examples
+#'
+#' generate_metadata_csv(file_path = "test.csv",
+#' event_based = TRUE,
+#' archival = FALSE,
+#' num_creators = 10,
+#' num_titles = 1,
+#' identifier = "https://doi.org/10.1080/example.doi",
+#' identifier_type = "doi",
+#' num_subjects = 5,
+#' publication_year = "2025",
+#' rights = "cc-by",
+#' language = "en",
+#' num_descriptions = 1,
+#' num_fundingReferences = 4,
+#' num_related_identifiers= 5,
+#' write_output = FALSE) # change to TRUE to write the csv
+#'
 generate_metadata_csv <- function( file_path,
-                                   event_based = FALSE,
-                                   archival = FALSE,
+                                   event_based,
+                                   archival,
                                    num_creators,
                                    num_titles,
                                    identifier,
@@ -37,13 +55,14 @@ generate_metadata_csv <- function( file_path,
                                    language,
                                    num_descriptions,
                                    num_fundingReferences,
-                                   num_related_identifiers
+                                   num_related_identifiers,
+                                   write_output = TRUE
 
 ){
 
   assertthat::assert_that(fs::path_ext(path = file_path) == "csv",msg = "File must be csv")
-  assertthat::assert_that( assertthat::is.scalar(event_based) & is.logical(event_based), msg = "event_based must be logical and scalar.")
-  assertthat::assert_that( assertthat::is.scalar(archival) & is.logical(event_based), msg = "archival must be logical and scalar.")
+  assertthat::assert_that(assertthat::is.scalar(event_based) & is.logical(event_based), msg = "event_based must be logical and scalar.")
+  assertthat::assert_that(assertthat::is.scalar(archival) & is.logical(archival), msg = "archival must be logical and scalar.")
   assertthat::assert_that(assertthat::is.count(num_creators), msg = "num_creators must be a scalar positive integer")
   assertthat::assert_that(assertthat::is.count(num_titles), msg = "num_titles must be a scalar positive integer")
   assertthat::assert_that(assertthat::is.string(identifier), msg = "identifier must be a scalar string")
@@ -53,6 +72,7 @@ generate_metadata_csv <- function( file_path,
   assertthat::assert_that(assertthat::is.string(rights), msg = "rights must be a scalar string")
   assertthat::assert_that(assertthat::is.string(language), msg = "language must be a scalar string")
   assertthat::assert_that(assertthat::is.count(num_descriptions), msg = "num_descriptions must be a scalar positive integer")
+  assertthat::assert_that(assertthat::is.count(num_fundingReferences), msg = "num_fundingReferences must be a scalar positive integer")
   assertthat::assert_that(assertthat::is.count(num_related_identifiers), msg = "num_related_identifiers must be a scalar positive integer")
 
 
@@ -107,11 +127,29 @@ generate_metadata_csv <- function( file_path,
 
   df_out <- rbind(methdology_df,creators_df,titles_df,identifier_df,subjects_df,publication_year_df,rights_df,language_df,description_df,funders_df,related_ids_df)
 
-  write.csv(x = df_out,file = file_path,row.names = FALSE)
+  if(write_output){
+    readr::write_csv(x = df_out,file = file_path)
+  }
+
 
   return(df_out)
 }
 
+#' generate_repeat_dfs
+#'
+#' @param num_groups Numeric. Number of groups
+#' @param group_prefix Character. A group name
+#' @param group_variables Character. A comma separated scalar string of variables.
+#'
+#' @returns data frame. Structured appropriately for the metadata csv.
+#' @export
+#'
+#' @examples
+#'
+#' related_ids_df <- generate_repeat_dfs(num_groups = 5,
+#' group_prefix = "Related Identifiers",
+#' group_variables = "Related Identifier,Related Identifier Type,Relation Type")
+#'
 generate_repeat_dfs <- function(num_groups,
                                 group_prefix,
                                 group_variables){

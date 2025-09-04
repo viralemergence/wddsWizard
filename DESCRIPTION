@@ -20,6 +20,7 @@ Imports:
     here,
     jsonlite,
     purrr,
+    readr,
     rlang,
     snakecase,
     stringr,
