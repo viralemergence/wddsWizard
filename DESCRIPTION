@@ -19,6 +19,7 @@ Imports:
     fs,
     here,
     jsonlite,
+    openalexR,
     purrr,
     readr,
     rlang,
