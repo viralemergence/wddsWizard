@@ -1,0 +1,46 @@
+wdds,pharos
+age,Age
+ageUnits,
+animalID,Animal ID
+collectionDay,Collection day
+collectionMonth,Collection month
+collectionYear,Collection year
+detectionMeasurement,Detection measurement
+detectionMeasurementUnits,Detection measurement units
+detectionMethod,Detection method
+detectionOutcome,Detection outcome
+detectionTarget,Detection target
+forwardPrimerSequence,
+genbankAccession,GenBank accession
+geneTarget,
+hostIdentification,Host species
+hostLifeStage,Life stage
+latitude,Latitude
+length,Length
+lengthMeasurement,
+lengthUnits,
+liveCapture,Dead or alive
+longitude,Longitude
+mass,Mass
+massUnits,
+organismQuantity,
+organismQuantityUnits,
+organismSex,Organism sex
+parasiteID,
+parasiteIdentification,Pathogen
+parasiteLifeStage,
+primerCitation,Primer citation
+probeCitation,
+probeTarget,
+probeType,
+reversePrimerSequence,Primer sequence
+sampleCollectionBodyPart,
+sampleCollectionMethod,Collection method or tissue
+sampleID,Sample ID
+sampleMaterial,
+spatialUncertainty,Spatial uncertainty
+,Detection comments
+,Host species NCBI tax ID
+,Detection target NCBI tax ID
+,Health notes
+,Pathogen NCBI tax ID
