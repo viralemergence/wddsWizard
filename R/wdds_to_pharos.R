@@ -12,11 +12,12 @@
 #'
 #' As of 11 September 2025, WDDS and the PHAROS data model are not fully aligned.
 #' This function converts data that conforms to WDDS into the PHAROS data model.
-#' See the `wdds_to_pharos_map` for the data model crosswalk.
+#' See `wdds_to_pharos_map` for the data model crosswalk.
 #'
 #' @param wdds_disease_data Data frame. A Disease Data set that conforms to
 #' the wdds data standard.
 #'
+#' @family Standards Mapping
 #' @returns Data frame. A tabular data set that conforms to the PHAROS data model.
 #' @export
 #'
@@ -26,6 +27,7 @@
 #'
 wdds_to_pharos <- function(wdds_disease_data){
 
+  assertthat::assert_that(is.data.frame(wdds_disease_data),msg = "Must be a dataframe")
   # subset to the wdds columns used in the dataset
   wdds_pharos_subset <- wdds_to_pharos_map[which(wdds_to_pharos_map$wdds %in% names(wdds_disease_data)),]
 
