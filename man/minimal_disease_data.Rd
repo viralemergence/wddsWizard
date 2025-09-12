@@ -5,7 +5,7 @@
 \alias{minimal_disease_data}
 \title{An example of minimal disease data}
 \format{
-An object of class \code{data.frame} with 3 rows and 13 columns.
+An object of class \code{data.frame} with 3 rows and 15 columns.
 }
 \usage{
 minimal_disease_data
@@ -21,7 +21,8 @@ Other Data:
 \code{\link{disease_data_required_fields}},
 \code{\link{minimal_project_metadata}},
 \code{\link{project_metadata_required_fields}},
-\code{\link{schema_required_fields}}
+\code{\link{schema_required_fields}},
+\code{\link{wdds_to_pharos_map}}
 }
 \concept{Data}
 \keyword{datasets}

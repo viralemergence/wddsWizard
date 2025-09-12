@@ -8,7 +8,7 @@
 "wdds_to_pharos_map"
 
 
-#' Convert WDDS data to PHAROS data
+#' Convert WDDS disease data to PHAROS data
 #'
 #' As of 11 September 2025, WDDS and the PHAROS data model are not fully aligned.
 #' This function converts data that conforms to WDDS into the PHAROS data model.
@@ -25,20 +25,24 @@
 #'
 #' wdds_to_pharos(wdds_disease_data = wddsWizard::minimal_disease_data)
 #'
+#' # data must be written to CSV then uploaded to PHAROS
+#'
 wdds_to_pharos <- function(wdds_disease_data){
+
+  wdds_to_pharos_map<- wddsWizard::wdds_to_pharos_map
 
   assertthat::assert_that(is.data.frame(wdds_disease_data),msg = "Must be a dataframe")
   # subset to the wdds columns used in the dataset
   wdds_pharos_subset <- wdds_to_pharos_map[which(wdds_to_pharos_map$wdds %in% names(wdds_disease_data)),]
 
   cols_to_keep <- wdds_pharos_subset |>
-    dplyr::filter(!is.na(pharos))
+    dplyr::filter(!is.na(.data$pharos))
 
   # subset the disease data to the appropriate columns
   disease_data_pharos_cols <- wdds_disease_data[cols_to_keep$wdds]
 
   # rename columns and convert to character
-  disease_data_pharos <- disease_data_pharos_cols %>%
+  disease_data_pharos <- disease_data_pharos_cols |>
     dplyr::rename_with(~cols_to_keep$pharos, dplyr::all_of(cols_to_keep$wdds)) |>
     dplyr::mutate(dplyr::across(dplyr::everything(), as.character))
 

@@ -20,7 +20,8 @@ Other Data:
 \code{\link{minimal_disease_data}},
 \code{\link{minimal_project_metadata}},
 \code{\link{project_metadata_required_fields}},
-\code{\link{schema_required_fields}}
+\code{\link{schema_required_fields}},
+\code{\link{wdds_to_pharos_map}}
 }
 \concept{Data}
 \keyword{datasets}
