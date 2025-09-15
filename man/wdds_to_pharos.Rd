@@ -2,7 +2,7 @@
 % Please edit documentation in R/wdds_to_pharos.R
 \name{wdds_to_pharos}
 \alias{wdds_to_pharos}
-\title{Convert WDDS data to PHAROS data}
+\title{Convert WDDS disease data to PHAROS data}
 \usage{
 wdds_to_pharos(wdds_disease_data)
 }
@@ -21,6 +21,8 @@ See \code{wdds_to_pharos_map} for the data model crosswalk.
 \examples{
 
 wdds_to_pharos(wdds_disease_data = wddsWizard::minimal_disease_data)
+
+# data must be written to CSV then uploaded to PHAROS
 
 }
 \concept{Standards Mapping}

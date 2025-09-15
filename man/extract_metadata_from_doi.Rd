@@ -9,11 +9,20 @@ extract_metadata_from_doi(doi, file_path, write_output = TRUE)
 \arguments{
 \item{doi}{String. DOI for a published work}
 
-\item{file_path}{String.}
+\item{file_path}{String. Where should the output be written?}
 
-\item{write_output}{}
+\item{write_output}{Logical. Should the output be written to a file?}
+}
+\value{
+data frame. A data frame structured in the same way as the metadata template csv.
 }
 \description{
 Some works are explicitly connected to a publication and the metadata for that publication are fairly complete.
 Instead of re-writing the metadata, it would be better to extract it and transform it.
+}
+\examples{
+
+doi <-"doi.org/10.1038/s41597-025-05332-x"
+extract_metadata_from_doi(doi = doi,write_output=FALSE)
+
 }

@@ -11,15 +11,26 @@
 #' @export
 #'
 #' @examples
+#'
+#' doi <-"doi.org/10.1038/s41597-025-05332-x"
+#' extract_metadata_from_doi(doi = doi,write_output=FALSE)
+#'
 extract_metadata_from_doi <- function(doi, file_path, write_output = TRUE){
   if(!curl::has_internet()){
     rlang::abort("An internet connection is required to extract metadata")
   }
+
+  assertthat::assert_that(assertthat::is.string(doi),msg = "doi must be a non-vector string")
+
   # make sure DOI is properly formatted
   doi <- trimws(doi,"both")
 
   out <- extract_metadata_oa(doi = doi)
   # extract_metadata_zenodo(doi = doi)
+
+  if(write_output){
+    readr::write_csv(x = out,file = file_path)
+  }
 
   return(out)
 }
@@ -42,6 +53,10 @@ extract_metadata_from_doi <- function(doi, file_path, write_output = TRUE){
 #' @export
 #'
 #' @examples
+#'
+#' doi <- "doi.org/10.1038/s41597-025-05332-x"
+#' extract_metadata_oa(doi = doi)
+#'
 extract_metadata_oa<-function(doi){
 
   # doi.org/10.1038/s41597-025-05332-x
@@ -66,7 +81,7 @@ extract_metadata_oa<-function(doi){
   creator_df <- data.frame("Name" = creators$raw_author_name)
   creator_df <- creator_df |>
     dplyr::mutate("Family Name" = stringr::str_split_i(.data$Name, pattern = " ", -1)) |>
-    dplyr::mutate("Given Name" = stringr::str_remove(.data$Name, pattern = `Family Name`))
+    dplyr::mutate("Given Name" = stringr::str_remove(.data$Name, pattern = .data$`Family Name`))
 
   # get identifier
   creator_df$`Name Identifier` <- creators$author$orcid
@@ -118,8 +133,8 @@ Award URI	https://www.viralemergence.org/grants
 Award Title	Verena Fellow-in-Residence Award"
 
   funder_references_tidy <- oa_json$grants |>
-    dplyr::mutate(oa_funder_id = fs::path_file(funder)) |>
-    dplyr::mutate(oa_funder_api = sprintf("https://api.openalex.org/funders/%s", oa_funder_id)) |>
+    dplyr::mutate(oa_funder_id = fs::path_file(.data$funder)) |>
+    dplyr::mutate(oa_funder_api = sprintf("https://api.openalex.org/funders/%s", .data$oa_funder_id)) |>
     dplyr::mutate(funder_identifier = purrr::map_chr(.data$oa_funder_api, function(x){
       funder_json <- jsonlite::fromJSON(x)
       funder_ids <- funder_json$ids
@@ -174,8 +189,38 @@ Award Title	Verena Fellow-in-Residence Award"
 }
 
 
+#' Expand tidy dataframes to project metadata template format
+#'
+#' Creates a JSON-like structure in the csv that can be processed using
+#' established workflows in this package.
+#'
+#' @param tidy_df data frame. Each row corresponds to a complete entry.
+#' @param group_prefix character. A repeatable metadata property in the project
+#'  metadata section of WDDS. See https://viralemergence.github.io/wddsWizard/articles/schema_overview.html#project_metadata
+#'
+#' @returns Data frame. The data frame contains the fields Group, Variable, and Value.
+#' @export
+#'
+#' @examples
+#'
+#'# a nice tidy dataset
+#' creators_tidy <- data.frame("Name" = paste(letters[1:10],LETTERS[1:10]),
+#'          "Given Name" = letters[1:10],
+#'          "Family Name" = LETTERS[1:10],
+#'          "Name Identifier" = sample(1:100,10,FALSE),
+#'          "Affiliation" = letters[11:20],
+#'          "Affiliation Identifier" = 11:20,
+#'          check.names =FALSE)
+#'
+#'# an expanded dataset that matches the template format.
+#' creators_tidy |>
+#'  expand_tidy_dfs(group_prefix = "Creators")
+#'
+#'
+#'
 expand_tidy_dfs <- function(tidy_df,group_prefix){
 
+  assertthat::assert_that(assertthat::is.string(group_prefix),msg = "group_prefix must be character and length 1")
   # number of groups
   num_groups <- nrow(tidy_df)
 
@@ -198,7 +243,22 @@ expand_tidy_dfs <- function(tidy_df,group_prefix){
   return(df_out)
 }
 
+#' A convenience function for making non-repeating items
+#'
+#' @param property string. Metadata group and variable name
+#' @param value A value for that property.
+#'
+#' @returns data frame. A data frame that conforms to non-repeatable structure in template.
+#' @export
+#'
+#' @examples
+#' language_df <- make_simple_df(property = "language", value = "fr")
+#'
 make_simple_df <- function(property,value){
+  assertthat::assert_that(assertthat::is.string(property),msg = "property must be length 1 and type character")
+
+  assertthat::assert_that(assertthat::is.scalar(value),msg = "value must be length 1")
+
   out <- data.frame(Group = property,Variable = property, Value=  value)
   return(out)
 }
