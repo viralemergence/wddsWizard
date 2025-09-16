@@ -41,15 +41,44 @@ wdds_to_pharos <- function(wdds_disease_data){
   # subset the disease data to the appropriate columns
   disease_data_pharos_cols <- wdds_disease_data[cols_to_keep$wdds]
 
-  # rename columns and convert to character
+  # rename columns
   disease_data_pharos <- disease_data_pharos_cols |>
-    dplyr::rename_with(~cols_to_keep$pharos, dplyr::all_of(cols_to_keep$wdds)) |>
-    dplyr::mutate(dplyr::across(dplyr::everything(), as.character))
+    dplyr::rename_with(~cols_to_keep$pharos, dplyr::all_of(cols_to_keep$wdds))
 
   # replace NA with blanks
-  disease_data_pharos_no_nas <- purrr::map_df(disease_data_pharos, \(x){
+  disease_data_pharos_no_nas <- na_to_blank(disease_data_pharos)
+
+  rlang::inform(message = "`sampleCollectionMethod` does not map perfectly to `Collection method or tissue`. Please review those entries.")
+
+  if("Dead or alive" %in% names(disease_data_pharos_no_nas)){
+    rlang::inform(message = "`liveCapture` does not map perfectly to `Dead or alive`. Please review those entries.")
+  }
+
+
+  return(disease_data_pharos_no_nas)
+}
+
+
+#' Convert NA's to blanks
+#'
+#' Converts all columns to character then converts all NA's to blanks.
+#'
+#'
+#' @param df data frame. A data frame where NAs should be coverted to blanks. Cannot be a tibble with nested columns.
+#'
+#' @returns
+#' @export
+#'
+#' @examples
+na_to_blank <- function(df){
+
+  df_char <- df |>
+  dplyr::mutate(dplyr::across(dplyr::everything(), as.character))
+
+  # replace NA with blanks
+  out <- purrr::map_df(df_char, \(x){
     tidyr::replace_na(x,"")
   })
 
-  return(disease_data_pharos_no_nas)
+  return(out)
 }

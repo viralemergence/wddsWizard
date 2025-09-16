@@ -33,7 +33,8 @@ Suggests:
     readxl,
     tibble,
     jsonvalidate,
-    testthat (>= 3.0.0)
+    testthat (>= 3.0.0),
+    taxize
 Config/testthat/edition: 3
 VignetteBuilder: knitr
 Depends: 
