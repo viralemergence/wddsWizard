@@ -28,7 +28,7 @@
 #'   jsonlite::toJSON()
 #' # output is 1
 #'
-prep_atomic <- function(x) {
+prep_atomic <- function(x, unbox = TRUE) {
   if (is.data.frame(x)) {
     msg <- "x is a data frame with more than 1 row and more than 1 column. Not clear which item should
       be converted to atomic. Please provide either a single row, non-nested, data frame or
@@ -50,7 +50,13 @@ prep_atomic <- function(x) {
   msg_len <- "x is not length 1, please provide a vector of length one"
   assertthat::assert_that(length(x) == 1, msg = msg_len)
 
-  jsonlite::unbox(x)
+  out <- x
+  if(unbox){
+  out <- jsonlite::unbox(out)
+  }
+
+  return(out)
+
 }
 
 #' Prepare an array of objects
@@ -60,6 +66,7 @@ prep_atomic <- function(x) {
 #'
 #'
 #' @param x list of data frames or a data frame
+#' @param unbox logical. Should the things be unboxed?
 #'
 #' @returns list of single row unboxed data frames
 #' @family JSON Prep
@@ -85,7 +92,7 @@ prep_atomic <- function(x) {
 #' x_prepped |>
 #'   jsonlite::toJSON(pretty = TRUE)
 #'
-prep_array_objects <- function(x) {
+prep_array_objects <- function(x,unbox = TRUE) {
   assertthat::assert_that(is.list(x) | is.data.frame(x), msg = "x must be a list or data frame")
 
   if (is.data.frame(x)) {
@@ -93,13 +100,22 @@ prep_array_objects <- function(x) {
   }
 
   purrr::map(x, function(x) {
+
+    # convert lists to data frames
+    if(!is.data.frame(x) & is.list(x)){
+      x <- as.data.frame(x)
+    }
     assertthat::assert_that(nrow(x) == 1, msg = "Cannot unbox data frames with more than 1 row")
     # unboxing tibbles causes a depreciation warning.
     if (tibble::is_tibble(x)) {
       x <- as.data.frame(x)
     }
 
-    out <- jsonlite::unbox(x)
+    out <- x
+    if(unbox){
+      out <- jsonlite::unbox(out)
+    }
+
     return(out)
   })
 }

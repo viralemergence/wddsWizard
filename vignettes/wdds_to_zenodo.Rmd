@@ -1,0 +1,124 @@
+---
+title: "WDDS to Zenodo"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{wdds_to_zenodo}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+The Wildlife Disease Data Standard (WDDS) aims to make data Findable Accessible Interoperable and Re-useable (FAIR). 
+A big part of making data findable is 1) depositing it in an archive that can be searched and 2) providing metadata to improve discoverability. 
+By depositing data in a generalist repository like Zenodo, you are placing it into an archive that is free to access, widely used, searchable and extremely durable. 
+By using WDDS, your data will be interpretable to others increasing re-usability. 
+
+This vignette will walk through depositing data validated against the WDDS standard into Zenodo using the [deposits package](https://github.com/ropenscilabs/deposits) to create an interoperable [Frictionless data package](https://datapackage.org/standard/data-package/).
+
+# What is Zenodo?
+
+[Zenodo](https://about.zenodo.org/) is a generalist data repository with long term support and broad use across scientific disciplines. 
+
+Key Features:
+
+1. Long term funding (50 year funding horizon)
+2. DOI minting and Robust data versioning
+3. Users can upload files as large as 50 gb
+4. Robust metadata that improve discovery
+5. [Well documented API](https://developers.zenodo.org/) for programmatic interaction
+
+We like Zenodo because it provides a stable place to deposit data.  
+
+## Whats the difference between WDDS project metadata and Zenodo deposit metadata?
+
+The difference between WDDS and Zenodo is that WDDS uses [datacite terms](https://datacite-metadata-schema.readthedocs.io/en/4.6/) and the Zenodo API largely uses [DCMI terms](https://www.dublincore.org/specifications/dublin-core/dcmi-terms/).
+This can cause confusion because certain terms are false cognates - e.g. rights vs license. 
+
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(wddsWizard)
+library(deposits)
+```
+
+
+### read in project metadata
+
+```{r read-data}
+
+project_metadata <- readr::read_csv(file = "../inst/extdata/example_data/example_project_metadata.csv")
+
+# fill group variable 
+
+## turn empty strings into NAs in the group field
+project_metadata <- project_metadata |>
+  dplyr::mutate(Group = dplyr::case_when(
+    Group != "" ~ Group,
+    TRUE ~ NA
+  ))
+
+## use `fill` to complete the items column and `mutate` to make groups a little
+## more ergonomic
+
+project_metadata_filled <- tidyr::fill(data = project_metadata, Group)
+
+
+# get ids for components of a group.
+project_metadata_ids <- project_metadata_filled |>
+  dplyr::mutate(
+    entity_id = stringr::str_extract(string = Group, pattern = "[0-9]{1,}"),
+    # make sure that there are no NA entity IDs
+    entity_id = dplyr::case_when(
+      is.na(entity_id) ~ "1",
+      TRUE ~ entity_id
+    )
+  ) |>
+  # drop entity ids from group field and convert to camel case
+  dplyr::mutate(
+    Group = stringr::str_replace_all(string = Group, pattern = " [0-9]{1,}", replacement = ""),
+    Group = snakecase::to_lower_camel_case(Group)
+  )
+
+
+```
+
+### get project metadata into a list
+
+```{r data-to-list }
+
+
+project_metadata_list <- split(project_metadata_ids, project_metadata_ids$Group)
+
+
+# The `get_entity` function creates standard entities that will be easier to transform json
+
+project_metadata_list_entities <- purrr::map(project_metadata_list, function(x) {
+  if (all(x$entity_id == "1")) {
+    out <- get_entity(x)
+    return(out)
+  }
+
+  x_list <- split(x, x$entity_id)
+  names(x_list) <- NULL
+  out <- purrr::map(x_list, get_entity)
+  return(out)
+})
+
+
+```
+## map fields to Zenodo
+
+## create deposit
+
+## Push deposit
+
+
+
+
+
+

@@ -1,0 +1,211 @@
+{
+  "resources": [
+    {
+      "name": "minimal_example_disease_data",
+      "path": "minimal_example_disease_data.csv",
+      "profile": "tabular-data-resource",
+      "format": "csv",
+      "mediatype": "text/csv",
+      "encoding": "UTF-8",
+      "schema": {
+        "fields": [
+          {
+            "name": "Sample ID",
+            "type": "string"
+          },
+          {
+            "name": "Animal ID",
+            "type": "string"
+          },
+          {
+            "name": "Latitude",
+            "type": "number"
+          },
+          {
+            "name": "Longitude",
+            "type": "number"
+          },
+          {
+            "name": "Spatial uncertainty",
+            "type": "string"
+          },
+          {
+            "name": "Collection day",
+            "type": "number"
+          },
+          {
+            "name": "Collection month",
+            "type": "number"
+          },
+          {
+            "name": "Collection year",
+            "type": "number"
+          },
+          {
+            "name": "Sample collection method",
+            "type": "string"
+          },
+          {
+            "name": "Sample collection body part",
+            "type": "string"
+          },
+          {
+            "name": "Sample material",
+            "type": "string"
+          },
+          {
+            "name": "Host identification",
+            "type": "string"
+          },
+          {
+            "name": "Organism sex",
+            "type": "string"
+          },
+          {
+            "name": "Live capture ",
+            "type": "boolean"
+          },
+          {
+            "name": "Health notes",
+            "type": "string"
+          },
+          {
+            "name": "Host life stage",
+            "type": "string"
+          },
+          {
+            "name": "Age",
+            "type": "string"
+          },
+          {
+            "name": "Age units",
+            "type": "string"
+          },
+          {
+            "name": "Mass",
+            "type": "number"
+          },
+          {
+            "name": "Mass units",
+            "type": "string"
+          },
+          {
+            "name": "Length",
+            "type": "number"
+          },
+          {
+            "name": "Length measurement",
+            "type": "string"
+          },
+          {
+            "name": "Length units",
+            "type": "string"
+          },
+          {
+            "name": "Organism quantity",
+            "type": "number"
+          },
+          {
+            "name": "Organism quantity units",
+            "type": "string"
+          },
+          {
+            "name": "Detection target",
+            "type": "string"
+          },
+          {
+            "name": "Detection method",
+            "type": "string"
+          },
+          {
+            "name": "Forward primer sequence",
+            "type": "string"
+          },
+          {
+            "name": "Reverse primer sequence",
+            "type": "string"
+          },
+          {
+            "name": "Gene target",
+            "type": "string"
+          },
+          {
+            "name": "Primer citation",
+            "type": "string"
+          },
+          {
+            "name": "Probe target",
+            "type": "string"
+          },
+          {
+            "name": "Probe type",
+            "type": "string"
+          },
+          {
+            "name": "Probe citation",
+            "type": "string"
+          },
+          {
+            "name": "Detection outcome",
+            "type": "string"
+          },
+          {
+            "name": "Detection measurement",
+            "type": "number"
+          },
+          {
+            "name": "Detection measurement units",
+            "type": "string"
+          },
+          {
+            "name": "Parasite identification",
+            "type": "string"
+          },
+          {
+            "name": "Parasite ID",
+            "type": "string"
+          },
+          {
+            "name": "Parasite life stage",
+            "type": "string"
+          },
+          {
+            "name": "GenBank accession",
+            "type": "string"
+          }
+        ]
+      }
+    }
+  ],
+  "metadata": {
+    "created": "2025-02-01",
+    "creator": [
+      {
+          "name": "Daniel J. Becker",
+          "affiliation": "https://ror.org/02aqsxs83"
+        },
+      {
+          "name": "Guang-Sheng Lei",
+          "affiliation": "https://ror.org/02ets8c94"
+        }
+    ],
+    "description": "Bats can harbor many pathogens without showing disease. However, the mechanisms by which bats resolve these infections or limit pathology remain unclear. To illuminate the bat immune response to coronaviruses, viruses with high public health significance, we will use serum proteomics to assess broad differences in immune proteins of uninfected and infected vampire bats (Desmodus rotundus). In contrast to global profiling techniques of blood such as transcriptomics, proteomics provides a unique perspective into immunology, as the serum proteome includes proteins from not only blood but also those secreted from proximal tissues. Here, we expand our recent work on the serum proteome of wild vampire bats (Desmodus rotundus) to better understand CoV pathogenesis. Across 19 bats sampled in 2019 in northern Belize with available sera, we detected CoVs in oral or rectal swabs from four individuals. We used data independent acquisition-based mass spectrometry to profile and compare the undepleted serum proteome of these 19 bats. These results will provide much needed insight into changes in the bat serum proteome in response to coronavirus infection.",
+    "identifier": "10.5072/zenodo.168108",
+    "language": "en",
+    "license": "CC0",
+    "relation": [
+      {
+          "identifier": "https://pharos.viralemergence.org/projects/?prj=prjRPayEvMecN",
+          "relation": "IsVersionOf"
+        },
+      {
+          "identifier": "10.3389/fviro.2022.862961",
+          "relation": "IsPartOf"
+        }
+    ],
+    "subject": {
+      "keywords": ["Proteomics", "Immune Response"]
+    },
+    "title": "Serum proteomics of coronavirus shedding in vampire bats (Desmodus rotundus)"
+  }
+}

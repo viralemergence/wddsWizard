@@ -34,7 +34,8 @@ Suggests:
     tibble,
     jsonvalidate,
     testthat (>= 3.0.0),
-    taxize
+    taxize,
+    deposits (>= 0.2.1.63)
 Config/testthat/edition: 3
 VignetteBuilder: knitr
 Depends: 
@@ -43,3 +44,5 @@ LazyData: true
 License: MIT + file LICENSE
 URL: https://viralemergence.github.io/wddsWizard/
 BugReports: https://github.com/viralemergence/wddsWizard/issues
+Remotes:  
+    ropenscilabs/deposits
