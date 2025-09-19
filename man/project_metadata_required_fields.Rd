@@ -21,6 +21,8 @@ Other Data:
 \code{\link{minimal_disease_data}},
 \code{\link{minimal_project_metadata}},
 \code{\link{schema_required_fields}},
+\code{\link{spdx_licenses}},
+\code{\link{wdds_to_dcmi_map}},
 \code{\link{wdds_to_pharos_map}}
 }
 \concept{Data}

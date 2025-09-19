@@ -4,10 +4,12 @@
 \alias{prep_array_objects}
 \title{Prepare an array of objects}
 \usage{
-prep_array_objects(x)
+prep_array_objects(x, unbox = TRUE)
 }
 \arguments{
 \item{x}{list of data frames or a data frame}
+
+\item{unbox}{logical. Should the things be unboxed?}
 }
 \value{
 list of single row unboxed data frames

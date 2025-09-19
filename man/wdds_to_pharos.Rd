@@ -25,4 +25,8 @@ wdds_to_pharos(wdds_disease_data = wddsWizard::minimal_disease_data)
 # data must be written to CSV then uploaded to PHAROS
 
 }
+\seealso{
+Other Standards Mapping: 
+\code{\link{wdds_to_dcmi}()}
+}
 \concept{Standards Mapping}

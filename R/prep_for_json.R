@@ -10,6 +10,7 @@
 #'  This is useful when a property or definition is of type string, number, logical and of length 1.
 #'
 #' @param x vector or single row data frame
+#' @param unbox Logical. Should the value be unboxed? See `jsonlite::unbox`
 #'
 #' @returns an unboxed dataframe with 1 row
 #' @export
@@ -658,6 +659,7 @@ clean_field_names <- function(x) {
 #'
 #' @param project_metadata Data frame. Should correspond to the structure of the project_metadata_template.csv
 #' @param prep_methods_list list. Named list of methods where each items is a function to applied to corresponding items in x.Default is [prep_methods()].
+#' @param json_prep Logical. Should the metadata be prepped for JSON?
 #'
 #' @returns Named list ready to be converted to json
 #' @importFrom rlang .data
@@ -677,7 +679,7 @@ clean_field_names <- function(x) {
 #' project_metadat_json <- jsonlite::toJSON(prepped_project_metadata, pretty = TRUE)
 #' }
 #'
-prep_from_metadata_template <- function(project_metadata, prep_methods_list = prep_methods()) {
+prep_from_metadata_template <- function(project_metadata, prep_methods_list = prep_methods(), json_prep = TRUE) {
   ## turn empty strings into NAs in the group field
   project_metadata <- project_metadata |>
     dplyr::mutate(Group = dplyr::case_when(
@@ -729,6 +731,7 @@ prep_from_metadata_template <- function(project_metadata, prep_methods_list = pr
   project_metadata_list_entities <- purrr::map(
     project_metadata_list,
     function(x) {
+      ### check for arrays?
       x_typed <- dplyr::left_join(x, wddsWizard::schema_properties, by = c("Group" = "name")) |>
         dplyr::mutate(to_split = dplyr::case_when(
           is_array ~ TRUE,
@@ -747,7 +750,11 @@ prep_from_metadata_template <- function(project_metadata, prep_methods_list = pr
     }
   )
 
-  out <- prep_for_json(project_metadata_list_entities, prep_methods_list = prep_methods_list)
+  out <- project_metadata_list_entities
+  if(json_prep){
+    out <- prep_for_json(project_metadata_list_entities, prep_methods_list = prep_methods_list)
+  }
+
 
   return(out)
 }

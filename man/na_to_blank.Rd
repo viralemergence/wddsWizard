@@ -9,6 +9,15 @@ na_to_blank(df)
 \arguments{
 \item{df}{data frame. A data frame where NAs should be coverted to blanks. Cannot be a tibble with nested columns.}
 }
+\value{
+data frame. All columns will be character and all NA's will be replaced with "".
+}
 \description{
 Converts all columns to character then converts all NA's to blanks.
+}
+\examples{
+
+data.frame(a = 1:10, b = c(1:9,NA)) |>
+  na_to_blank()
+
 }
