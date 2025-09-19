@@ -16,7 +16,7 @@ list_wdds_templates <- function(template_file = NULL) {
     cli::cli_alert_info("Provide a value to `template_file` to use the template")
     dir(system.file("extdata/data_templates", package = "wddsWizard"))
   } else {
-    system.file("extdata/data_templates", template_file, package = "wddsWizard", mustWork = TRUE, full.names = TRUE)
+    system.file("extdata/data_templates", template_file, package = "wddsWizard", mustWork = TRUE)
   }
 }
 

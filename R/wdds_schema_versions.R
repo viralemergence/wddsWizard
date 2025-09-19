@@ -313,9 +313,10 @@ wdds_json <- function(version = NULL, file = NULL) {
   out <- system.file("extdata/wdds_archive",
     file_path,
     package = "wddsWizard",
-    mustWork = TRUE,
-    full.names = TRUE
+    mustWork = TRUE
   )
+
+  out <- here::here(out)
 
   return(out)
 }
@@ -394,10 +395,10 @@ wdds_example_data <- function(version = NULL, file = NULL) {
   out <- system.file("extdata/wdds_archive",
     file_path,
     package = "wddsWizard",
-    mustWork = TRUE,
-    full.names = TRUE
+    mustWork = TRUE
   )
 
+  out <- here::here(out)
   return(out)
 }
 
@@ -475,9 +476,10 @@ wdds_data_templates <- function(version = NULL, file = NULL) {
   out <- system.file("extdata/wdds_archive",
     file_path,
     package = "wddsWizard",
-    mustWork = TRUE,
-    full.names = TRUE
+    mustWork = TRUE
   )
+
+  out <- here::here(out)
 
   return(out)
 }
