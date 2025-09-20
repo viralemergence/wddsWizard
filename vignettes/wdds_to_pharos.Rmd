@@ -36,7 +36,7 @@ library(taxize)
 
 ```{r clean-csv}
 ## read
-becker_data <- wdds_example_data(version = "latest", file = "Becker_demo_dataset.csv") |>
+becker_data <- wdds_example_data(version = "latest", file = "becker_demo_dataset.csv") |>
   readr::read_csv()
 
 becker_data_prelim <- janitor::clean_names(becker_data, case = "lower_camel")
