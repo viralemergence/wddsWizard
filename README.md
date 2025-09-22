@@ -7,7 +7,7 @@
 <!-- badges: end -->
 
 
-This is an R package for validating data against the Wildlife Disease Data Standard. 
+This is an R package for validating data against the [Wildlife Disease Data Standard](https://doi.org/10.5281/zenodo.15020049). 
 It allows users to access different versions of the data standard, restructure data, and validate data sets. 
 
 See our paper [A minimum data standard for wildlife disease research and surveillance](https://www.nature.com/articles/s41597-025-05332-x) for discussions of appropriate use and more complex data structures (e.g. pooled samples, parasites with an arthropod vector, etc.) for the data standard.
