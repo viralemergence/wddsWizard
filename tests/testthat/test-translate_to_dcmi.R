@@ -22,7 +22,6 @@ test_that("translate works", {
 
 test_that("translate fails", {
 
-
   project_metadata <- wdds_example_data(version = "latest",
                                         file = "example_project_metadata.csv")|>
     read.csv()
