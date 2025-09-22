@@ -22,6 +22,8 @@ extract_metadata_from_doi <- function(doi, file_path, write_output = TRUE){
 
   assertthat::assert_that(assertthat::is.string(doi),msg = "doi must be a non-vector string")
 
+  assertthat::assert_that(assertthat::is.scalar(write_output)&is.logical(write_output),msg = "write_output must be logical and scalar")
+
   # make sure DOI is properly formatted
   doi <- trimws(doi,"both")
 
@@ -29,6 +31,7 @@ extract_metadata_from_doi <- function(doi, file_path, write_output = TRUE){
   # extract_metadata_zenodo(doi = doi)
 
   if(write_output){
+    assertthat::assert_that(assertthat::is.string(file_path),msg = "file_path must be a non-vector string")
     readr::write_csv(x = out,file = file_path)
   }
 

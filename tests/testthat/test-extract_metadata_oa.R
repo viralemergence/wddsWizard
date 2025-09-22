@@ -20,8 +20,3 @@ test_that("extract_metadata_oa fails numeric", {
 
   expect_error(extract_metadata_oa(doi = doi))
 })
-
-
-
-
-
