@@ -2,8 +2,8 @@ test_that("translate works", {
 
 
   project_metadata <- wdds_example_data(version = "latest",
-                                      file = "example_project_metadata.csv")|>
-      read.csv()
+                                        file = "example_project_metadata.csv")|>
+    read.csv()
 
   test_pmd <- project_metadata |>
     prep_from_metadata_template(json_prep = FALSE)

@@ -4,7 +4,7 @@ test_that("wdds_to_pharos works", {
 
   expect_no_failure(wdds_to_pharos(wdds_disease_data = df))
 
-  })
+})
 
 
 test_that("wdds_to_pharos fails", {

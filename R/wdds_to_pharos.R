@@ -79,7 +79,7 @@ na_to_blank <- function(df){
   assertthat::assert_that(is.data.frame(df))
 
   df_char <- df |>
-  dplyr::mutate(dplyr::across(dplyr::everything(), as.character))
+    dplyr::mutate(dplyr::across(dplyr::everything(), as.character))
 
   # replace NA with blanks
   out <- purrr::map_df(df_char, \(x){

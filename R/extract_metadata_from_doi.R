@@ -59,6 +59,8 @@ extract_metadata_from_doi <- function(doi, file_path, write_output = TRUE){
 #'
 extract_metadata_oa<-function(doi){
 
+  assertthat::assert_that(assertthat::is.string(doi),msg = "doi must be a non-vector string")
+
   # doi.org/10.1038/s41597-025-05332-x
   oa_url <- sprintf("https://api.openalex.org/works/%s",doi)
 
@@ -90,10 +92,10 @@ extract_metadata_oa<-function(doi){
 
   aff_df <- creators$affiliations |>
     purrr::map_df(function(x){
-       raw_affiliation <- x$raw_affiliation_string[[1]]
+      raw_affiliation <- x$raw_affiliation_string[[1]]
 
-       oa_inst_id <- x$institution_ids[[1]][1] |>
-                      fs::path_file()
+      oa_inst_id <- x$institution_ids[[1]][1] |>
+        fs::path_file()
 
       oa_inst_api  <- sprintf("https://api.openalex.org/institutions/%s", oa_inst_id)
 
@@ -114,7 +116,7 @@ extract_metadata_oa<-function(doi){
 
   # titles
   title_df_expanded  <-  data.frame(title = oa_json$title) |>
-      expand_tidy_dfs(group_prefix = "Titles")
+    expand_tidy_dfs(group_prefix = "Titles")
 
   # publicationYear
   publicationYear_df <- make_simple_df(property = "publicationYear",value=  oa_json$publication_year)
@@ -148,7 +150,7 @@ Award Title	Verena Fellow-in-Residence Award"
     dplyr::rename("Funder Name" = "funder_display_name",
                   "Funder Identifier" = "funder_identifier",
                   "Award Number" = "award_id"
-                  ) |>
+    ) |>
     dplyr::mutate(
       "Award URI" = "",
       "Award ID" = ""
@@ -165,8 +167,8 @@ Award Title	Verena Fellow-in-Residence Award"
   # Related Identifiers
 
   related_identifiers_tidy  <- data.frame("Related Identifier" = "A valid Identifier like a DOI",
-    "Related Identifier Type" = "see accepted values here https://datacite-metadata-schema.readthedocs.io/en/4.5/appendices/appendix-1/relatedIdentifierType/#relatedidentifiertype",
-    "Relation Type" = "see accepted values here: https://datacite-metadata-schema.readthedocs.io/en/4.5/appendices/appendix-1/relationType/#relationtype",check.names = FALSE )
+                                          "Related Identifier Type" = "see accepted values here https://datacite-metadata-schema.readthedocs.io/en/4.5/appendices/appendix-1/relatedIdentifierType/#relatedidentifiertype",
+                                          "Relation Type" = "see accepted values here: https://datacite-metadata-schema.readthedocs.io/en/4.5/appendices/appendix-1/relationType/#relationtype",check.names = FALSE )
 
   related_identifiers_df <- related_identifiers_tidy |>
     expand_tidy_dfs(group_prefix = "Related Identifiers")
@@ -175,14 +177,14 @@ Award Title	Verena Fellow-in-Residence Award"
   # rbind data frames
 
   out <- rbind(creator_df_expanded,
-        title_df_expanded,
-        publicationYear_df,
-        language_df,
-        description_df,
-        funder_references_df,
-        subjects_df,
-        related_identifiers_df
-        )
+               title_df_expanded,
+               publicationYear_df,
+               language_df,
+               description_df,
+               funder_references_df,
+               subjects_df,
+               related_identifiers_df
+  )
 
   return(out)
 
