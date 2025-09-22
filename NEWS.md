@@ -1,3 +1,5 @@
+# wddsWizard 0.2.0
+
 # wddsWizard 0.1.0
 
 # wddsWizard 0.0.3

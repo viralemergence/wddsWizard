@@ -1,6 +1,6 @@
 Package: wddsWizard
 Title: Data Wizard for a Minimal Wildlife Disease Data Standard
-Version: 0.1.0
+Version: 0.2.0
 Authors@R: 
       person("Collin",
           "Schwantes",
@@ -44,5 +44,5 @@ LazyData: true
 License: MIT + file LICENSE
 URL: https://viralemergence.github.io/wddsWizard/
 BugReports: https://github.com/viralemergence/wddsWizard/issues
-Remotes:  
+Remotes: 
     ropenscilabs/deposits
