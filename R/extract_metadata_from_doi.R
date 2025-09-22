@@ -6,6 +6,7 @@
 #' @param doi String. DOI for a published work
 #' @param file_path String. Where should the output be written?
 #' @param write_output Logical. Should the output be written to a file?
+#' @family Project Metadata
 #'
 #' @returns data frame. A data frame structured in the same way as the metadata template csv.
 #' @export
@@ -53,6 +54,7 @@ extract_metadata_from_doi <- function(doi, file_path, write_output = TRUE){
 #' @param doi Character. A digital object identifier for a published work.
 #'
 #' @returns data frame. A data frame structured in the same way as the metadata template CSV.
+#' @family Project Metadata
 #' @export
 #'
 #' @examples
@@ -203,6 +205,7 @@ Award Title	Verena Fellow-in-Residence Award"
 #' @param group_prefix character. A repeatable metadata property in the project
 #'  metadata section of WDDS. See https://viralemergence.github.io/wddsWizard/articles/schema_overview.html#project_metadata
 #'
+#' @family Project Metadata
 #' @returns Data frame. The data frame contains the fields Group, Variable, and Value.
 #' @export
 #'
@@ -252,6 +255,8 @@ expand_tidy_dfs <- function(tidy_df,group_prefix){
 #'
 #' @param property string. Metadata group and variable name
 #' @param value A value for that property.
+#'
+#' @family Project Metadata
 #'
 #' @returns data frame. A data frame that conforms to non-repeatable structure in template.
 #' @export

@@ -26,3 +26,12 @@ doi <-"doi.org/10.1038/s41597-025-05332-x"
 extract_metadata_from_doi(doi = doi,write_output=FALSE)
 
 }
+\seealso{
+Other Project Metadata: 
+\code{\link{expand_tidy_dfs}()},
+\code{\link{extract_metadata_oa}()},
+\code{\link{generate_metadata_csv}()},
+\code{\link{generate_repeat_dfs}()},
+\code{\link{make_simple_df}()}
+}
+\concept{Project Metadata}

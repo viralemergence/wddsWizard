@@ -26,3 +26,12 @@ group_prefix = "Related Identifiers",
 group_variables = "Related Identifier,Related Identifier Type,Relation Type")
 
 }
+\seealso{
+Other Project Metadata: 
+\code{\link{expand_tidy_dfs}()},
+\code{\link{extract_metadata_from_doi}()},
+\code{\link{extract_metadata_oa}()},
+\code{\link{generate_metadata_csv}()},
+\code{\link{make_simple_df}()}
+}
+\concept{Project Metadata}

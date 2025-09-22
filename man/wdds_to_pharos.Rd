@@ -27,6 +27,8 @@ wdds_to_pharos(wdds_disease_data = wddsWizard::minimal_disease_data)
 }
 \seealso{
 Other Standards Mapping: 
+\code{\link{na_to_blank}()},
+\code{\link{translate_to_dcmi}()},
 \code{\link{wdds_to_dcmi}()}
 }
 \concept{Standards Mapping}

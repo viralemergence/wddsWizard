@@ -66,6 +66,8 @@ wdds_to_pharos <- function(wdds_disease_data){
 #'
 #' @param df data frame. A data frame where NAs should be coverted to blanks. Cannot be a tibble with nested columns.
 #'
+#' @family Standards Mapping
+#'
 #' @returns data frame. All columns will be character and all NA's will be replaced with "".
 #' @export
 #'

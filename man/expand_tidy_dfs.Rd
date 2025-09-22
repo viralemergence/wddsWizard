@@ -37,3 +37,12 @@ creators_tidy |>
 
 
 }
+\seealso{
+Other Project Metadata: 
+\code{\link{extract_metadata_from_doi}()},
+\code{\link{extract_metadata_oa}()},
+\code{\link{generate_metadata_csv}()},
+\code{\link{generate_repeat_dfs}()},
+\code{\link{make_simple_df}()}
+}
+\concept{Project Metadata}

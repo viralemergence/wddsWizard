@@ -17,3 +17,10 @@ List. Item that has been translated to DCMI
 \description{
 translate to dcmi
 }
+\seealso{
+Other Standards Mapping: 
+\code{\link{na_to_blank}()},
+\code{\link{wdds_to_dcmi}()},
+\code{\link{wdds_to_pharos}()}
+}
+\concept{Standards Mapping}

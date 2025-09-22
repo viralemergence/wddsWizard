@@ -94,7 +94,7 @@ wdds_to_dcmi <- function(metadata_to_translate, translation_map =  wddsWizard::w
 #'
 #' @param item List. Item to be translated.
 #' @param translation_map List. Instructions for translating the item
-#'
+#' @family Standards Mapping
 #' @returns List. Item that has been translated to DCMI
 #' @export
 #'

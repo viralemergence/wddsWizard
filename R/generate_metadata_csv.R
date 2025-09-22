@@ -21,6 +21,8 @@
 #' @param num_related_identifiers Integer. Number of other works you would like to link to.
 #' @param write_output Logical. Should the file be written?
 #'
+#' @family Project Metadata
+#'
 #' @returns data.frame
 #' @export
 #'
@@ -140,6 +142,8 @@ generate_metadata_csv <- function( file_path,
 #' @param num_groups Numeric. Number of groups
 #' @param group_prefix Character. A group name
 #' @param group_variables Character. A comma separated scalar string of variables.
+#'
+#' @family Project Metadata
 #'
 #' @returns data frame. Structured appropriately for the metadata csv.
 #' @export

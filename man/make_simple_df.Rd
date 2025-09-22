@@ -21,3 +21,12 @@ A convenience function for making non-repeating items
 language_df <- make_simple_df(property = "language", value = "fr")
 
 }
+\seealso{
+Other Project Metadata: 
+\code{\link{expand_tidy_dfs}()},
+\code{\link{extract_metadata_from_doi}()},
+\code{\link{extract_metadata_oa}()},
+\code{\link{generate_metadata_csv}()},
+\code{\link{generate_repeat_dfs}()}
+}
+\concept{Project Metadata}

@@ -81,3 +81,12 @@ num_related_identifiers= 5,
 write_output = FALSE) # change to TRUE to write the csv
 
 }
+\seealso{
+Other Project Metadata: 
+\code{\link{expand_tidy_dfs}()},
+\code{\link{extract_metadata_from_doi}()},
+\code{\link{extract_metadata_oa}()},
+\code{\link{generate_repeat_dfs}()},
+\code{\link{make_simple_df}()}
+}
+\concept{Project Metadata}

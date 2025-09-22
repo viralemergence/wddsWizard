@@ -14,6 +14,6 @@ test_that("extract_metadata_from_doi fails", {
                                          file_path = c("test.csv","test.csv"),
                                          write_output=TRUE))
 
-  })
+})
 
 

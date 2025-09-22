@@ -38,6 +38,8 @@ dcmi_metadata <- wdds_to_dcmi(metadata_to_translate = test_pmd,
 }
 \seealso{
 Other Standards Mapping: 
+\code{\link{na_to_blank}()},
+\code{\link{translate_to_dcmi}()},
 \code{\link{wdds_to_pharos}()}
 }
 \concept{Standards Mapping}

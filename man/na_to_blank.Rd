@@ -21,3 +21,10 @@ data.frame(a = 1:10, b = c(1:9,NA)) |>
   na_to_blank()
 
 }
+\seealso{
+Other Standards Mapping: 
+\code{\link{translate_to_dcmi}()},
+\code{\link{wdds_to_dcmi}()},
+\code{\link{wdds_to_pharos}()}
+}
+\concept{Standards Mapping}
