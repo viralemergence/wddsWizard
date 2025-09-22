@@ -100,7 +100,7 @@ wdds_to_dcmi <- function(metadata_to_translate, translation_map =  wddsWizard::w
 #'
 translate_to_dcmi <- function(item, translation_map){
 
-  assertthat::assert_that(is.list(translation_map),msg = "translation_map must be list")
+  assertthat::assert_that(is.list(translation_map)&!is.data.frame(translation_map),msg = "translation_map must be list and not a data frame.")
 
   if("translations" %in% names(translation_map)) {
 
