@@ -1,5 +1,10 @@
 # wddsWizard 0.2.0
 
+* extract metadata from DOIs for projects
+* translate between data standards
+* generate metadata templates
+
+
 # wddsWizard 0.1.0
 
 # wddsWizard 0.0.3
