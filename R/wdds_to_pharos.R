@@ -76,6 +76,8 @@ wdds_to_pharos <- function(wdds_disease_data){
 #'
 na_to_blank <- function(df){
 
+  assertthat::assert_that(is.data.frame(df))
+
   df_char <- df |>
   dplyr::mutate(dplyr::across(dplyr::everything(), as.character))
 
