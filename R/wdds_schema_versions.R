@@ -316,6 +316,8 @@ wdds_json <- function(version = NULL, file = NULL) {
     mustWork = TRUE
   )
 
+  out <- here::here(out)
+
   return(out)
 }
 
@@ -396,6 +398,7 @@ wdds_example_data <- function(version = NULL, file = NULL) {
     mustWork = TRUE
   )
 
+  out <- here::here(out)
   return(out)
 }
 
@@ -475,6 +478,8 @@ wdds_data_templates <- function(version = NULL, file = NULL) {
     package = "wddsWizard",
     mustWork = TRUE
   )
+
+  out <- here::here(out)
 
   return(out)
 }

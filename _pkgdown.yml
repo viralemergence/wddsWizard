@@ -26,4 +26,11 @@ reference:
   desc: Create documentation from Schema
 - contents:
   - has_concept("Schema Docs")
-
+- title: Project Metadata
+  desc: Create or extract project metadata
+- contents:
+  - has_concept("Project Metadata")
+- title: Standards Mapping
+  desc: Mapping WDDS to other data standards
+- contents:
+  - has_concept("Standards Mapping")

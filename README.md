@@ -7,7 +7,7 @@
 <!-- badges: end -->
 
 
-This is an R package for validating data against the Wildlife Disease Data Standard. 
+This is an R package for validating data against the [Wildlife Disease Data Standard](https://doi.org/10.5281/zenodo.15020049). 
 It allows users to access different versions of the data standard, restructure data, and validate data sets. 
 
 See our paper [A minimum data standard for wildlife disease research and surveillance](https://www.nature.com/articles/s41597-025-05332-x) for discussions of appropriate use and more complex data structures (e.g. pooled samples, parasites with an arthropod vector, etc.) for the data standard.
@@ -106,6 +106,32 @@ This package uses [JSON schemas](https://json-schema.org/) and the [AJV engine](
 
 See [Schema Overview](https://viralemergence.github.io/wddsWizard/articles/schema_overview.html) for more information about the data standard and json schemas.
 
+## Best practices for free text fields
+
+We recommend that data producers use controlled vocabularies or ontologies when filling out free text fields. We recognize that selecting an appropriate vocabulary can be challenging and recommend the following platforms for finding appropriate terms.
+
+Recommended ontology hosting and search platforms with distinct funding sources.
+Name | URL
+-- | --
+Ontobee | https://ontobee.org/
+Ontology Lookup Service | https://www.ebi.ac.uk/ols4/
+BioPortal | https://bioportal.bioontology.org/
+
+
+All three platforms allow users to search for terms stored in ontologies, explore relationships between terms, and find analogues. A user will have to explore a given ontology to find the most appropriate term. In Table S2 we list specific ontologies or authorities that may be appropriate for a given field.
+
+Recommended ontologies or authorities for specific fields.
+Field | URL
+-- | --
+Host Identification | https://www.gbif.org/species/search
+Gene Target | https://www.ebi.ac.uk/ols4/ontologies/go
+Sample Collection Method | http://purl.obolibrary.org/obo/OBI_0000659
+Sample Collection Body Part | https://www.ebi.ac.uk/ols4/ontologies/uberon
+Sample Collection Material | http://purl.obolibrary.org/obo/OBI_0001479
+
+
+
+
 
 ## Related Packages
 
@@ -118,3 +144,4 @@ See [Schema Overview](https://viralemergence.github.io/wddsWizard/articles/schem
 The authors of the package are grateful for the support of the Verena Institute,
 Carlson Lab, Yale School of Public Health. 
 This work was supported by an NSF Biology Integration Institute grant (NSF DBI 2021909, 2213854, and 2515340).
+

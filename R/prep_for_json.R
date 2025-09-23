@@ -10,6 +10,7 @@
 #'  This is useful when a property or definition is of type string, number, logical and of length 1.
 #'
 #' @param x vector or single row data frame
+#' @param unbox Logical. Should the value be unboxed? See `jsonlite::unbox`
 #'
 #' @returns an unboxed dataframe with 1 row
 #' @export
@@ -28,7 +29,7 @@
 #'   jsonlite::toJSON()
 #' # output is 1
 #'
-prep_atomic <- function(x) {
+prep_atomic <- function(x, unbox = TRUE) {
   if (is.data.frame(x)) {
     msg <- "x is a data frame with more than 1 row and more than 1 column. Not clear which item should
       be converted to atomic. Please provide either a single row, non-nested, data frame or
@@ -50,7 +51,13 @@ prep_atomic <- function(x) {
   msg_len <- "x is not length 1, please provide a vector of length one"
   assertthat::assert_that(length(x) == 1, msg = msg_len)
 
-  jsonlite::unbox(x)
+  out <- x
+  if(unbox){
+  out <- jsonlite::unbox(out)
+  }
+
+  return(out)
+
 }
 
 #' Prepare an array of objects
@@ -60,6 +67,7 @@ prep_atomic <- function(x) {
 #'
 #'
 #' @param x list of data frames or a data frame
+#' @param unbox logical. Should the things be unboxed?
 #'
 #' @returns list of single row unboxed data frames
 #' @family JSON Prep
@@ -85,7 +93,7 @@ prep_atomic <- function(x) {
 #' x_prepped |>
 #'   jsonlite::toJSON(pretty = TRUE)
 #'
-prep_array_objects <- function(x) {
+prep_array_objects <- function(x,unbox = TRUE) {
   assertthat::assert_that(is.list(x) | is.data.frame(x), msg = "x must be a list or data frame")
 
   if (is.data.frame(x)) {
@@ -93,13 +101,22 @@ prep_array_objects <- function(x) {
   }
 
   purrr::map(x, function(x) {
+
+    # convert lists to data frames
+    if(!is.data.frame(x) & is.list(x)){
+      x <- as.data.frame(x)
+    }
     assertthat::assert_that(nrow(x) == 1, msg = "Cannot unbox data frames with more than 1 row")
     # unboxing tibbles causes a depreciation warning.
     if (tibble::is_tibble(x)) {
       x <- as.data.frame(x)
     }
 
-    out <- jsonlite::unbox(x)
+    out <- x
+    if(unbox){
+      out <- jsonlite::unbox(out)
+    }
+
     return(out)
   })
 }
@@ -642,6 +659,7 @@ clean_field_names <- function(x) {
 #'
 #' @param project_metadata Data frame. Should correspond to the structure of the project_metadata_template.csv
 #' @param prep_methods_list list. Named list of methods where each items is a function to applied to corresponding items in x.Default is [prep_methods()].
+#' @param json_prep Logical. Should the metadata be prepped for JSON?
 #'
 #' @returns Named list ready to be converted to json
 #' @importFrom rlang .data
@@ -661,7 +679,7 @@ clean_field_names <- function(x) {
 #' project_metadat_json <- jsonlite::toJSON(prepped_project_metadata, pretty = TRUE)
 #' }
 #'
-prep_from_metadata_template <- function(project_metadata, prep_methods_list = prep_methods()) {
+prep_from_metadata_template <- function(project_metadata, prep_methods_list = prep_methods(), json_prep = TRUE) {
   ## turn empty strings into NAs in the group field
   project_metadata <- project_metadata |>
     dplyr::mutate(Group = dplyr::case_when(
@@ -713,6 +731,7 @@ prep_from_metadata_template <- function(project_metadata, prep_methods_list = pr
   project_metadata_list_entities <- purrr::map(
     project_metadata_list,
     function(x) {
+      ### check for arrays?
       x_typed <- dplyr::left_join(x, wddsWizard::schema_properties, by = c("Group" = "name")) |>
         dplyr::mutate(to_split = dplyr::case_when(
           is_array ~ TRUE,
@@ -731,7 +750,11 @@ prep_from_metadata_template <- function(project_metadata, prep_methods_list = pr
     }
   )
 
-  out <- prep_for_json(project_metadata_list_entities, prep_methods_list = prep_methods_list)
+  out <- project_metadata_list_entities
+  if(json_prep){
+    out <- prep_for_json(project_metadata_list_entities, prep_methods_list = prep_methods_list)
+  }
+
 
   return(out)
 }

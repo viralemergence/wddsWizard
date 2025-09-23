@@ -6,13 +6,16 @@
 \usage{
 prep_from_metadata_template(
   project_metadata,
-  prep_methods_list = prep_methods()
+  prep_methods_list = prep_methods(),
+  json_prep = TRUE
 )
 }
 \arguments{
 \item{project_metadata}{Data frame. Should correspond to the structure of the project_metadata_template.csv}
 
 \item{prep_methods_list}{list. Named list of methods where each items is a function to applied to corresponding items in x.Default is \code{\link[=prep_methods]{prep_methods()}}.}
+
+\item{json_prep}{Logical. Should the metadata be prepped for JSON?}
 }
 \value{
 Named list ready to be converted to json

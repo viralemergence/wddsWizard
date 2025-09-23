@@ -76,21 +76,31 @@ refers to a list or JSON object that contains both the `disease_data` and
   - maximum - inclusive - largest value allowed in an array
   - enum - controlled vocabulary for an array
 
+## Best practices for free text fields
+
+We recommend that data producers use controlled vocabularies or ontologies when filling out free text fields. We recognize that selecting an appropriate vocabulary can be challenging and recommend the following platforms for finding appropriate terms.
+
+Recommended ontology hosting and search platforms with distinct funding sources.
+Name | URL
+-- | --
+Ontobee | https://ontobee.org/
+Ontology Lookup Service | https://www.ebi.ac.uk/ols4/
+BioPortal | https://bioportal.bioontology.org/
+
+
+All three platforms allow users to search for terms stored in ontologies, explore relationships between terms, and find analogues. A user will have to explore a given ontology to find the most appropriate term. In Table S2 we list specific ontologies or authorities that may be appropriate for a given field.
+
+Recommended ontologies or authorities for specific fields.
+Field | URL
+-- | --
+Host Identification | https://www.gbif.org/species/search
+Gene Target | https://www.ebi.ac.uk/ols4/ontologies/go
+Sample Collection Method | http://purl.obolibrary.org/obo/OBI_0000659
+Sample Collection Body Part | https://www.ebi.ac.uk/ols4/ontologies/uberon
+Sample Collection Material | http://purl.obolibrary.org/obo/OBI_0001479
+
 
 ## Terms
-
-Below is a list of terms for the data standard. 
-It is created directly from the `wdds_schema.json`
-file and reflects the structure of that file. 
-`disease_data` and `project_metadata` are top level properties of the schema, with many sub-properties.
-Any item marked as <span style="color: black;background-color: #ffc107;">REQUIRED</span> must be included. 
-
-```{r terms, eval=FALSE, include=FALSE, results='asis'}
-wddsWizard::schema_terms |>
-  cat()
-```
-
-
 ## disease_data  
 **Type**: object  
 **Description**: <span style="color: black;background-color: #ffc107;">REQUIRED</span> Wildlife disease data. Stored in tidy form.  

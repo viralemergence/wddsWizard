@@ -1,6 +1,6 @@
 Package: wddsWizard
 Title: Data Wizard for a Minimal Wildlife Disease Data Standard
-Version: 0.1.0
+Version: 0.2.0
 Authors@R: 
       person("Collin",
           "Schwantes",
@@ -20,6 +20,7 @@ Imports:
     here,
     jsonlite,
     purrr,
+    readr,
     rlang,
     snakecase,
     stringr,
@@ -32,7 +33,9 @@ Suggests:
     readxl,
     tibble,
     jsonvalidate,
-    testthat (>= 3.0.0)
+    testthat (>= 3.0.0),
+    taxize,
+    deposits (>= 0.2.1.63)
 Config/testthat/edition: 3
 VignetteBuilder: knitr
 Depends: 
@@ -41,3 +44,5 @@ LazyData: true
 License: MIT + file LICENSE
 URL: https://viralemergence.github.io/wddsWizard/
 BugReports: https://github.com/viralemergence/wddsWizard/issues
+Remotes: 
+    ropenscilabs/deposits

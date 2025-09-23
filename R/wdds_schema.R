@@ -64,8 +64,8 @@ create_schema_list <- function(schema_path = the$current_schema_path) {
   # map over properties of the schema to build documents
   schema_list_out <- purrr::imap(schema_list$properties, function(x, idx) {
     create_object_list(x,
-      idx,
-      schema_dir = the$current_schema_dir
+                       idx,
+                       schema_dir = the$current_schema_dir
     )
   })
 

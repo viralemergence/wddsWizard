@@ -88,7 +88,7 @@ for Creators, Resources, and Funding References.
 # get ids for components of a group.
 project_metadata_ids <- project_metadata_filled |>
   dplyr::mutate(
-    entity_id = stringr::str_extract(string = Group, pattern = "[0-9]"),
+    entity_id = stringr::str_extract(string = Group, pattern = "[0-9]{1,}"),
     # make sure that there are no NA entity IDs
     entity_id = dplyr::case_when(
       is.na(entity_id) ~ "1",
@@ -97,7 +97,7 @@ project_metadata_ids <- project_metadata_filled |>
   ) |>
   # drop entity ids from group field and convert to camel case
   dplyr::mutate(
-    Group = stringr::str_replace_all(string = Group, pattern = " [0-9]", replacement = ""),
+    Group = stringr::str_replace_all(string = Group, pattern = " [0-9]{1,}", replacement = ""),
     Group = snakecase::to_lower_camel_case(Group)
   )
 
@@ -109,10 +109,23 @@ project_metadata_list <- split(project_metadata_ids, project_metadata_ids$Group)
 # The `get_entity` function creates standard entities that will be easier to transform json
 
 project_metadata_list_entities <- purrr::map(project_metadata_list, function(x) {
-  if (all(x$entity_id == "1")) {
-    out <- get_entity(x)
-    return(out)
-  }
+  
+  x_typed <- dplyr::left_join(x, wddsWizard::schema_properties, by = c("Group" = "name")) |>
+        dplyr::mutate(to_split = dplyr::case_when(
+          is_array ~ TRUE,
+          TRUE ~ FALSE
+        ))
+
+
+      if (all(!x_typed$to_split)) {
+        out <- get_entity(x)
+        return(out)
+      }
+  # 
+  # if (all(x$entity_id == "1")) {
+  #   out <- get_entity(x)
+  #   return(out)
+  # }
 
   x_list <- split(x, x$entity_id)
   names(x_list) <- NULL
@@ -159,6 +172,16 @@ if (!project_validation) {
 ```
 
 
+# What if we just use the project metadata template?
 
+Great question!
 
+If you use the project metadata template, then you can do the following.
 
+```{r}
+project_metadata <- wdds_example_data(version = "latest", file = "example_project_metadata.csv") |> read.csv()
+
+project_metadata_prepped <- prep_from_metadata_template(project_metadata) |>
+  jsonlite::toJSON(pretty = TRUE)
+
+```

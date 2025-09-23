@@ -4,10 +4,12 @@
 \alias{prep_atomic}
 \title{Prepare atomic}
 \usage{
-prep_atomic(x)
+prep_atomic(x, unbox = TRUE)
 }
 \arguments{
 \item{x}{vector or single row data frame}
+
+\item{unbox}{Logical. Should the value be unboxed? See \code{jsonlite::unbox}}
 }
 \value{
 an unboxed dataframe with 1 row
