@@ -7,6 +7,8 @@
 <url><loc>https://viralemergence.github.io/wddsWizard/articles/project_metadata.html</loc></url>
 <url><loc>https://viralemergence.github.io/wddsWizard/articles/schema_overview.html</loc></url>
 <url><loc>https://viralemergence.github.io/wddsWizard/articles/wddsWizard.html</loc></url>
+<url><loc>https://viralemergence.github.io/wddsWizard/articles/wdds_to_pharos.html</loc></url>
+<url><loc>https://viralemergence.github.io/wddsWizard/articles/wdds_to_zenodo.html</loc></url>
 <url><loc>https://viralemergence.github.io/wddsWizard/authors.html</loc></url>
 <url><loc>https://viralemergence.github.io/wddsWizard/index.html</loc></url>
 <url><loc>https://viralemergence.github.io/wddsWizard/news/index.html</loc></url>
@@ -22,6 +24,11 @@
 <url><loc>https://viralemergence.github.io/wddsWizard/reference/disease_data_required_fields.html</loc></url>
 <url><loc>https://viralemergence.github.io/wddsWizard/reference/disease_data_schema.html</loc></url>
 <url><loc>https://viralemergence.github.io/wddsWizard/reference/download_deposit_version.html</loc></url>
+<url><loc>https://viralemergence.github.io/wddsWizard/reference/expand_tidy_dfs.html</loc></url>
+<url><loc>https://viralemergence.github.io/wddsWizard/reference/extract_metadata_from_doi.html</loc></url>
+<url><loc>https://viralemergence.github.io/wddsWizard/reference/extract_metadata_oa.html</loc></url>
+<url><loc>https://viralemergence.github.io/wddsWizard/reference/generate_metadata_csv.html</loc></url>
+<url><loc>https://viralemergence.github.io/wddsWizard/reference/generate_repeat_dfs.html</loc></url>
 <url><loc>https://viralemergence.github.io/wddsWizard/reference/get_entity.html</loc></url>
 <url><loc>https://viralemergence.github.io/wddsWizard/reference/get_ref.html</loc></url>
 <url><loc>https://viralemergence.github.io/wddsWizard/reference/get_ref_list.html</loc></url>
@@ -30,8 +37,10 @@
 <url><loc>https://viralemergence.github.io/wddsWizard/reference/index.html</loc></url>
 <url><loc>https://viralemergence.github.io/wddsWizard/reference/list_deposit_versions.html</loc></url>
 <url><loc>https://viralemergence.github.io/wddsWizard/reference/list_wdds_templates.html</loc></url>
+<url><loc>https://viralemergence.github.io/wddsWizard/reference/make_simple_df.html</loc></url>
 <url><loc>https://viralemergence.github.io/wddsWizard/reference/minimal_disease_data.html</loc></url>
 <url><loc>https://viralemergence.github.io/wddsWizard/reference/minimal_project_metadata.html</loc></url>
+<url><loc>https://viralemergence.github.io/wddsWizard/reference/na_to_blank.html</loc></url>
 <url><loc>https://viralemergence.github.io/wddsWizard/reference/paste_reduce.html</loc></url>
 <url><loc>https://viralemergence.github.io/wddsWizard/reference/paste_reduce_ul.html</loc></url>
 <url><loc>https://viralemergence.github.io/wddsWizard/reference/prep_affiliation.html</loc></url>
@@ -62,11 +71,17 @@
 <url><loc>https://viralemergence.github.io/wddsWizard/reference/schema_required_fields.html</loc></url>
 <url><loc>https://viralemergence.github.io/wddsWizard/reference/schema_terms.html</loc></url>
 <url><loc>https://viralemergence.github.io/wddsWizard/reference/set_wdds_version.html</loc></url>
+<url><loc>https://viralemergence.github.io/wddsWizard/reference/spdx_licenses.html</loc></url>
+<url><loc>https://viralemergence.github.io/wddsWizard/reference/translate_to_dcmi.html</loc></url>
 <url><loc>https://viralemergence.github.io/wddsWizard/reference/use_wdds_template.html</loc></url>
 <url><loc>https://viralemergence.github.io/wddsWizard/reference/wddsWizard-package.html</loc></url>
 <url><loc>https://viralemergence.github.io/wddsWizard/reference/wdds_data_templates.html</loc></url>
 <url><loc>https://viralemergence.github.io/wddsWizard/reference/wdds_example_data.html</loc></url>
 <url><loc>https://viralemergence.github.io/wddsWizard/reference/wdds_json.html</loc></url>
 <url><loc>https://viralemergence.github.io/wddsWizard/reference/wdds_schema.html</loc></url>
+<url><loc>https://viralemergence.github.io/wddsWizard/reference/wdds_to_dcmi.html</loc></url>
+<url><loc>https://viralemergence.github.io/wddsWizard/reference/wdds_to_dcmi_map.html</loc></url>
+<url><loc>https://viralemergence.github.io/wddsWizard/reference/wdds_to_pharos.html</loc></url>
+<url><loc>https://viralemergence.github.io/wddsWizard/reference/wdds_to_pharos_map.html</loc></url>
 </urlset>
 

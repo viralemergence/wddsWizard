@@ -25,7 +25,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">wddsWizard</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -42,6 +42,8 @@
 <li><a class="dropdown-item" href="../articles/disease_data.html">Wildlife Disease Data</a></li>
     <li><a class="dropdown-item" href="../articles/project_metadata.html">Project Metadata</a></li>
     <li><a class="dropdown-item" href="../articles/schema_overview.html">Schema Overview</a></li>
+    <li><a class="dropdown-item" href="../articles/wdds_to_pharos.html">wdds_to_pharos</a></li>
+    <li><a class="dropdown-item" href="../articles/wdds_to_zenodo.html">WDDS to Zenodo</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
@@ -459,6 +461,27 @@ your R object as numeric, string, boolean, or NULL.</p>
 <span> <span class="fu">wdds_validator</span><span class="op">(</span><span class="va">data_package_correct_lang_json</span>, verbose <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] TRUE</span></span></code></pre></div>
 </div>
+</div>
+<div class="section level2">
+<h2 id="best-practices-for-free-text-fields">Best practices for free text fields<a class="anchor" aria-label="anchor" href="#best-practices-for-free-text-fields"></a>
+</h2>
+<p>We recommend that data producers use controlled vocabularies or
+ontologies when filling out free text fields. We recognize that
+selecting an appropriate vocabulary can be challenging and recommend the
+following platforms for finding appropriate terms.</p>
+<p>Recommended ontology hosting and search platforms with distinct
+funding sources. Name | URL – | – Ontobee | <a href="https://ontobee.org/" class="external-link uri">https://ontobee.org/</a>
+Ontology Lookup Service | <a href="https://www.ebi.ac.uk/ols4/" class="external-link uri">https://www.ebi.ac.uk/ols4/</a> BioPortal | <a href="https://bioportal.bioontology.org/" class="external-link uri">https://bioportal.bioontology.org/</a></p>
+<p>All three platforms allow users to search for terms stored in
+ontologies, explore relationships between terms, and find analogues. A
+user will have to explore a given ontology to find the most appropriate
+term. In Table S2 we list specific ontologies or authorities that may be
+appropriate for a given field.</p>
+<p>Recommended ontologies or authorities for specific fields. Field |
+URL – | – Host Identification | <a href="https://www.gbif.org/species/search" class="external-link uri">https://www.gbif.org/species/search</a> Gene Target | <a href="https://www.ebi.ac.uk/ols4/ontologies/go" class="external-link uri">https://www.ebi.ac.uk/ols4/ontologies/go</a> Sample
+Collection Method | <a href="http://purl.obolibrary.org/obo/OBI_0000659" class="external-link uri">http://purl.obolibrary.org/obo/OBI_0000659</a> Sample
+Collection Body Part | <a href="https://www.ebi.ac.uk/ols4/ontologies/uberon" class="external-link uri">https://www.ebi.ac.uk/ols4/ontologies/uberon</a> Sample
+Collection Material | <a href="http://purl.obolibrary.org/obo/OBI_0001479" class="external-link uri">http://purl.obolibrary.org/obo/OBI_0001479</a></p>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

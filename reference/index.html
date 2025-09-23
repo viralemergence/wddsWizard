@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">wddsWizard</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -22,6 +22,8 @@
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/disease_data.html">Wildlife Disease Data</a></li>
     <li><a class="dropdown-item" href="../articles/project_metadata.html">Project Metadata</a></li>
     <li><a class="dropdown-item" href="../articles/schema_overview.html">Schema Overview</a></li>
+    <li><a class="dropdown-item" href="../articles/wdds_to_pharos.html">wdds_to_pharos</a></li>
+    <li><a class="dropdown-item" href="../articles/wdds_to_zenodo.html">WDDS to Zenodo</a></li>
   </ul></li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
@@ -90,6 +92,24 @@
 
         </dt>
         <dd>Wildlife Disease Data Standard required fields</dd>
+      </dl><dl><dt>
+
+          <code><a href="spdx_licenses.html">spdx_licenses</a></code>
+
+        </dt>
+        <dd>Data frame of SPDX licenses</dd>
+      </dl><dl><dt>
+
+          <code><a href="wdds_to_dcmi_map.html">wdds_to_dcmi_map</a></code>
+
+        </dt>
+        <dd>WDDS to DCMI metadata mapping</dd>
+      </dl><dl><dt>
+
+          <code><a href="wdds_to_pharos_map.html">wdds_to_pharos_map</a></code>
+
+        </dt>
+        <dd>WDDS to PHAROS metadata mapping</dd>
       </dl></div><div class="section level2">
       <h2 id="templates">Templates<a class="anchor" aria-label="anchor" href="#templates"></a></h2>
 
@@ -439,6 +459,88 @@
 
         </dt>
         <dd>Paste Reduce unordered list item</dd>
+      </dl></div><div class="section level2">
+      <h2 id="project-metadata">Project Metadata<a class="anchor" aria-label="anchor" href="#project-metadata"></a></h2>
+
+      <div class="section-desc"><p>Create or extract project metadata</p></div>
+
+
+    </div><div class="section level2">
+
+
+
+
+      <dl><dt>
+
+          <code><a href="expand_tidy_dfs.html">expand_tidy_dfs()</a></code>
+
+        </dt>
+        <dd>Expand tidy dataframes to project metadata template format</dd>
+      </dl><dl><dt>
+
+          <code><a href="extract_metadata_from_doi.html">extract_metadata_from_doi()</a></code>
+
+        </dt>
+        <dd>Extract Project Metadata from DOI</dd>
+      </dl><dl><dt>
+
+          <code><a href="extract_metadata_oa.html">extract_metadata_oa()</a></code>
+
+        </dt>
+        <dd>Extract Metadata from Open Alex record</dd>
+      </dl><dl><dt>
+
+          <code><a href="generate_metadata_csv.html">generate_metadata_csv()</a></code>
+
+        </dt>
+        <dd>Generate minimal project metadata template</dd>
+      </dl><dl><dt>
+
+          <code><a href="generate_repeat_dfs.html">generate_repeat_dfs()</a></code>
+
+        </dt>
+        <dd>generate_repeat_dfs</dd>
+      </dl><dl><dt>
+
+          <code><a href="make_simple_df.html">make_simple_df()</a></code>
+
+        </dt>
+        <dd>A convenience function for making non-repeating items</dd>
+      </dl></div><div class="section level2">
+      <h2 id="standards-mapping">Standards Mapping<a class="anchor" aria-label="anchor" href="#standards-mapping"></a></h2>
+
+      <div class="section-desc"><p>Mapping WDDS to other data standards</p></div>
+
+
+    </div><div class="section level2">
+
+
+
+
+      <dl><dt>
+
+          <code><a href="na_to_blank.html">na_to_blank()</a></code>
+
+        </dt>
+        <dd>Convert NA's to blanks</dd>
+      </dl><dl><dt>
+
+          <code><a href="translate_to_dcmi.html">translate_to_dcmi()</a></code>
+
+        </dt>
+        <dd>translate to dcmi</dd>
+      </dl><dl><dt>
+
+          <code><a href="wdds_to_dcmi.html">wdds_to_dcmi()</a></code>
+
+        </dt>
+        <dd>WDDS to the Dublin Core Metadata Initiative</dd>
+      </dl><dl><dt>
+
+          <code><a href="wdds_to_pharos.html">wdds_to_pharos()</a></code>
+
+        </dt>
+        <dd>Convert WDDS disease data to PHAROS data</dd>
       </dl></div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>

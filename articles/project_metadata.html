@@ -25,7 +25,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">wddsWizard</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -42,6 +42,8 @@
 <li><a class="dropdown-item" href="../articles/disease_data.html">Wildlife Disease Data</a></li>
     <li><a class="dropdown-item" href="../articles/project_metadata.html">Project Metadata</a></li>
     <li><a class="dropdown-item" href="../articles/schema_overview.html">Schema Overview</a></li>
+    <li><a class="dropdown-item" href="../articles/wdds_to_pharos.html">wdds_to_pharos</a></li>
+    <li><a class="dropdown-item" href="../articles/wdds_to_zenodo.html">WDDS to Zenodo</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
@@ -90,9 +92,9 @@ restructure the data, and then create a json object.</p>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;     intersect, setdiff, setequal, union</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://stringr.tidyverse.org" class="external-link">stringr</a></span><span class="op">)</span></span></code></pre></div>
-<div class="section level2">
-<h2 id="required-fields">Required fields<a class="anchor" aria-label="anchor" href="#required-fields"></a>
-</h2>
+<div class="section level3">
+<h3 id="required-fields">Required fields<a class="anchor" aria-label="anchor" href="#required-fields"></a>
+</h3>
 <p>The following fields are required to be in the data.</p>
 <table class="table table" style="margin-left: auto; margin-right: auto;">
 <thead><tr>
@@ -166,9 +168,9 @@ Name and other identifying information of a funding provider.
 </tbody>
 </table>
 </div>
-<div class="section level2">
-<h2 id="load-in-the-csv-and-clean-it-up">Load in the CSV and clean it up<a class="anchor" aria-label="anchor" href="#load-in-the-csv-and-clean-it-up"></a>
-</h2>
+<div class="section level3">
+<h3 id="load-in-the-csv-and-clean-it-up">Load in the CSV and clean it up<a class="anchor" aria-label="anchor" href="#load-in-the-csv-and-clean-it-up"></a>
+</h3>
 <p>Our example data requires some light cleaning to make transforming it
 into csv easier.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
@@ -186,9 +188,9 @@ into csv easier.</p>
 <span></span>
 <span><span class="va">project_metadata_filled</span> <span class="op">&lt;-</span> <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/fill.html" class="external-link">fill</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">project_metadata</span>, <span class="va">Group</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div class="section level2">
-<h2 id="restructure-data">Restructure data<a class="anchor" aria-label="anchor" href="#restructure-data"></a>
-</h2>
+<div class="section level3">
+<h3 id="restructure-data">Restructure data<a class="anchor" aria-label="anchor" href="#restructure-data"></a>
+</h3>
 <p>The validation schema is expecting JSON, so we have to restructure
 the data into a list that can be converted to JSON.</p>
 <p>For Creators, Resources, and Funding References, its possible to have
@@ -201,7 +203,7 @@ category for Creators, Resources, and Funding References.</p>
 <code class="sourceCode R"><span><span class="co"># get ids for components of a group.</span></span>
 <span><span class="va">project_metadata_ids</span> <span class="op">&lt;-</span> <span class="va">project_metadata_filled</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
-<span>    entity_id <span class="op">=</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_extract.html" class="external-link">str_extract</a></span><span class="op">(</span>string <span class="op">=</span> <span class="va">Group</span>, pattern <span class="op">=</span> <span class="st">"[0-9]"</span><span class="op">)</span>,</span>
+<span>    entity_id <span class="op">=</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_extract.html" class="external-link">str_extract</a></span><span class="op">(</span>string <span class="op">=</span> <span class="va">Group</span>, pattern <span class="op">=</span> <span class="st">"[0-9]{1,}"</span><span class="op">)</span>,</span>
 <span>    <span class="co"># make sure that there are no NA entity IDs</span></span>
 <span>    entity_id <span class="op">=</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html" class="external-link">case_when</a></span><span class="op">(</span></span>
 <span>      <span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">entity_id</span><span class="op">)</span> <span class="op">~</span> <span class="st">"1"</span>,</span>
@@ -210,7 +212,7 @@ category for Creators, Resources, and Funding References.</p>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="co"># drop entity ids from group field and convert to camel case</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
-<span>    Group <span class="op">=</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_replace.html" class="external-link">str_replace_all</a></span><span class="op">(</span>string <span class="op">=</span> <span class="va">Group</span>, pattern <span class="op">=</span> <span class="st">" [0-9]"</span>, replacement <span class="op">=</span> <span class="st">""</span><span class="op">)</span>,</span>
+<span>    Group <span class="op">=</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_replace.html" class="external-link">str_replace_all</a></span><span class="op">(</span>string <span class="op">=</span> <span class="va">Group</span>, pattern <span class="op">=</span> <span class="st">" [0-9]{1,}"</span>, replacement <span class="op">=</span> <span class="st">""</span><span class="op">)</span>,</span>
 <span>    Group <span class="op">=</span> <span class="fu">snakecase</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/snakecase/man/caseconverter.html" class="external-link">to_lower_camel_case</a></span><span class="op">(</span><span class="va">Group</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span></span>
@@ -222,20 +224,37 @@ category for Creators, Resources, and Funding References.</p>
 <span><span class="co"># The `get_entity` function creates standard entities that will be easier to transform json</span></span>
 <span></span>
 <span><span class="va">project_metadata_list_entities</span> <span class="op">&lt;-</span> <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map</a></span><span class="op">(</span><span class="va">project_metadata_list</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/all.html" class="external-link">all</a></span><span class="op">(</span><span class="va">x</span><span class="op">$</span><span class="va">entity_id</span> <span class="op">==</span> <span class="st">"1"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span>    <span class="va">out</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_entity.html">get_entity</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
-<span>    <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">out</span><span class="op">)</span></span>
-<span>  <span class="op">}</span></span>
+<span>  </span>
+<span>  <span class="va">x_typed</span> <span class="op">&lt;-</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">left_join</a></span><span class="op">(</span><span class="va">x</span>, <span class="fu">wddsWizard</span><span class="fu">::</span><span class="va"><a href="../reference/schema_properties.html">schema_properties</a></span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Group"</span> <span class="op">=</span> <span class="st">"name"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>        <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>to_split <span class="op">=</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html" class="external-link">case_when</a></span><span class="op">(</span></span>
+<span>          <span class="va">is_array</span> <span class="op">~</span> <span class="cn">TRUE</span>,</span>
+<span>          <span class="cn">TRUE</span> <span class="op">~</span> <span class="cn">FALSE</span></span>
+<span>        <span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span>      <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/all.html" class="external-link">all</a></span><span class="op">(</span><span class="op">!</span><span class="va">x_typed</span><span class="op">$</span><span class="va">to_split</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>        <span class="va">out</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_entity.html">get_entity</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span>        <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">out</span><span class="op">)</span></span>
+<span>      <span class="op">}</span></span>
+<span>  <span class="co"># </span></span>
+<span>  <span class="co"># if (all(x$entity_id == "1")) {</span></span>
+<span>  <span class="co">#   out &lt;- get_entity(x)</span></span>
+<span>  <span class="co">#   return(out)</span></span>
+<span>  <span class="co"># }</span></span>
 <span></span>
 <span>  <span class="va">x_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/split.html" class="external-link">split</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">x</span><span class="op">$</span><span class="va">entity_id</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">x_list</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="cn">NULL</span></span>
 <span>  <span class="va">out</span> <span class="op">&lt;-</span> <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map</a></span><span class="op">(</span><span class="va">x_list</span>, <span class="va">get_entity</span><span class="op">)</span></span>
 <span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">out</span><span class="op">)</span></span>
-<span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
+<span><span class="op">}</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning in dplyr::left_join(x, wddsWizard::schema_properties, by = c(Group = "name")): Detected an unexpected many-to-many relationship between `x` and `y`.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Row 1 of `x` matches multiple rows in `y`.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Row 51 of `y` matches multiple rows in `x`.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> If a many-to-many relationship is expected, set `relationship =</span></span>
+<span><span class="co">#&gt;   "many-to-many"` to silence this warning.</span></span></code></pre></div>
 </div>
-<div class="section level2">
-<h2 id="make-the-json">Make the json!<a class="anchor" aria-label="anchor" href="#make-the-json"></a>
-</h2>
+<div class="section level3">
+<h3 id="make-the-json">Make the json!<a class="anchor" aria-label="anchor" href="#make-the-json"></a>
+</h3>
 <p>In a simpler world - you could just run the following code and it
 would work.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
@@ -250,9 +269,9 @@ converted to json, they match the data standard’s expected formats.</p>
 <code class="sourceCode R"><span><span class="va">project_metadata_json</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/prep_for_json.html">prep_for_json</a></span><span class="op">(</span><span class="va">project_metadata_list_entities</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">jsonlite</span><span class="fu">::</span><span class="fu"><a href="https://jeroen.r-universe.dev/jsonlite/reference/fromJSON.html" class="external-link">toJSON</a></span><span class="op">(</span>pretty <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div class="section level2">
-<h2 id="validate-project-metadata">Validate Project metadata<a class="anchor" aria-label="anchor" href="#validate-project-metadata"></a>
-</h2>
+<div class="section level3">
+<h3 id="validate-project-metadata">Validate Project metadata<a class="anchor" aria-label="anchor" href="#validate-project-metadata"></a>
+</h3>
 <p>We can validate the entire project metadata object by using the
 <code>project_metadata.json</code> schema.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
@@ -272,6 +291,18 @@ converted to json, they match the data standard’s expected formats.</p>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="st">"Valid project metadata!😁"</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span><span class="co">#&gt; [1] "Valid project metadata!😁"</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="what-if-we-just-use-the-project-metadata-template">What if we just use the project metadata template?<a class="anchor" aria-label="anchor" href="#what-if-we-just-use-the-project-metadata-template"></a>
+</h2>
+<p>Great question!</p>
+<p>If you use the project metadata template, then you can do the
+following.</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">project_metadata</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/wdds_example_data.html">wdds_example_data</a></span><span class="op">(</span>version <span class="op">=</span> <span class="st">"latest"</span>, file <span class="op">=</span> <span class="st">"example_project_metadata.csv"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">project_metadata_prepped</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/prep_from_metadata_template.html">prep_from_metadata_template</a></span><span class="op">(</span><span class="va">project_metadata</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">jsonlite</span><span class="fu">::</span><span class="fu"><a href="https://jeroen.r-universe.dev/jsonlite/reference/fromJSON.html" class="external-link">toJSON</a></span><span class="op">(</span>pretty <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

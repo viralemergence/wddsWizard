@@ -9,7 +9,7 @@ to the structure of the wdds repo."><meta property="og:image" content="https://v
 
     <a class="navbar-brand me-2" href="../index.html">wddsWizard</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -24,6 +24,8 @@ to the structure of the wdds repo."><meta property="og:image" content="https://v
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/disease_data.html">Wildlife Disease Data</a></li>
     <li><a class="dropdown-item" href="../articles/project_metadata.html">Project Metadata</a></li>
     <li><a class="dropdown-item" href="../articles/schema_overview.html">Schema Overview</a></li>
+    <li><a class="dropdown-item" href="../articles/wdds_to_pharos.html">wdds_to_pharos</a></li>
+    <li><a class="dropdown-item" href="../articles/wdds_to_zenodo.html">WDDS to Zenodo</a></li>
   </ul></li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
@@ -93,10 +95,11 @@ e.g. "inst/extdata/wdds_archive" note no trailing slash on the path.</p></dd>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># list all deposit versions</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="list_deposit_versions.html">list_deposit_versions</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   zenodo_id version latest_version</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  15270582 v.1.0.3           TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  15257971 v.1.0.2          FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  15133410 v.1.0.1          FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  15020050 v.1.0.0          FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  17095076 v.1.0.4           TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  15270582 v.1.0.3          FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  15257971 v.1.0.2          FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  15133410 v.1.0.1          FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  15020050 v.1.0.0          FALSE</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># download the deposit</span></span></span>
 <span class="r-in"><span></span></span>
