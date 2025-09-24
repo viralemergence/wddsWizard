@@ -1,0 +1,66 @@
+---
+title: "Extending the Wildlife Disease Data Standard"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{extending_wdds}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(wddsWizard)
+```
+
+
+The Wildlife Disease Data Standard is meant to be a minimal representation of the data elements necessary to describe observations of interactions between hosts and parasites.
+Because its a minimal representation, there will be data elements not included in the data standard that are of interest to researchers as well as parts of the standard that are more broad than the researcher may like.
+This vignette will explain best practices for extending and modifying the the data standard. 
+
+If you're unfamiliar with writing JSON Schema, it is probably worth checking out their [learning materials](https://tour.json-schema.org/). 
+
+## Why extend the standard?
+
+Since the standard allows for additional properties, why should I extend the standard at all? 
+
+You should extend the standard because it will help document the additional properties and ensure that the data are valid. 
+By clearly and formally describing the additional properties in a json schema file, future users (most likely you) will have a better understanding of the values in those additional fields and it will be easier to interpret that data. 
+Furthermore, because the data are validated, users won't find unexpected values in those fields (e.g. a field described in the metadata as having only values A, B, or C will not also contain values a, b, and "42"). 
+
+By extending the data standard, you're also demonstrating to the WDDS community what additional properties you value and making it easier to argue for the inclusion of that property into the official WDDS schema.
+
+
+## Before you extend the standard, review it.
+
+Before  extending the standard, make sure that data elements you plan to add aren't already included in the standard. 
+Some of the terms in the standard are broad by design to encourage use. 
+If your narrow term fits into a broader term already in the data standard, consider modifying the existing item.
+If you think the term should be added to the standard, consider opening an issue in the [WDDS github repo](https://github.com/viralemergence/wdds/issues/new/choose).
+
+## Extending the Disease Data component
+
+Since the disease data tabular, extending this part of the standard is straightfoward. 
+
+```{r get-json-file}
+wdds_json(version = "latest")
+
+```
+
+
+## Extending the Project Metadata Component
+
+## Extending the WDDS.json
+
+
+
+
+
+
+
+
