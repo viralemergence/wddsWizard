@@ -22,9 +22,10 @@ established workflows in this package."><meta property="og:image" content="https
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/disease_data.html">Wildlife Disease Data</a></li>
+    <li><a class="dropdown-item" href="../articles/extending_wdds.html">Extending the Wildlife Disease Data Standard</a></li>
     <li><a class="dropdown-item" href="../articles/project_metadata.html">Project Metadata</a></li>
     <li><a class="dropdown-item" href="../articles/schema_overview.html">Schema Overview</a></li>
-    <li><a class="dropdown-item" href="../articles/wdds_to_pharos.html">wdds_to_pharos</a></li>
+    <li><a class="dropdown-item" href="../articles/wdds_to_pharos.html">WDDS to Pharos</a></li>
     <li><a class="dropdown-item" href="../articles/wdds_to_zenodo.html">WDDS to Zenodo</a></li>
   </ul></li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
@@ -99,61 +100,61 @@ metadata section of WDDS. See https://viralemergence.github.io/wddsWizard/articl
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1   Creators 1                   Name   a A</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                          Given Name     a</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3                         Family Name     A</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4                     Name Identifier    69</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                     Name Identifier    73</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5                         Affiliation     k</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6              Affiliation Identifier    11</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 7   Creators 2                   Name   b B</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 8                          Given Name     b</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 9                         Family Name     B</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10                    Name Identifier     5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10                    Name Identifier    69</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 11                        Affiliation     l</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 12             Affiliation Identifier    12</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 13  Creators 3                   Name   c C</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 14                         Given Name     c</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 15                        Family Name     C</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16                    Name Identifier    24</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16                    Name Identifier     5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 17                        Affiliation     m</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 18             Affiliation Identifier    13</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 19  Creators 4                   Name   d D</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 20                         Given Name     d</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 21                        Family Name     D</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22                    Name Identifier    79</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22                    Name Identifier    24</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 23                        Affiliation     n</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 24             Affiliation Identifier    14</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 25  Creators 5                   Name   e E</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 26                         Given Name     e</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 27                        Family Name     E</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 28                    Name Identifier    77</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28                    Name Identifier    79</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 29                        Affiliation     o</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 30             Affiliation Identifier    15</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 31  Creators 6                   Name   f F</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 32                         Given Name     f</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 33                        Family Name     F</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 34                    Name Identifier     2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 34                    Name Identifier    77</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 35                        Affiliation     p</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 36             Affiliation Identifier    16</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 37  Creators 7                   Name   g G</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 38                         Given Name     g</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 39                        Family Name     G</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 40                    Name Identifier    62</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 40                    Name Identifier     2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 41                        Affiliation     q</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 42             Affiliation Identifier    17</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 43  Creators 8                   Name   h H</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 44                         Given Name     h</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 45                        Family Name     H</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 46                    Name Identifier    55</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 46                    Name Identifier    62</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 47                        Affiliation     r</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 48             Affiliation Identifier    18</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 49  Creators 9                   Name   i I</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 50                         Given Name     i</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 51                        Family Name     I</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 52                    Name Identifier    43</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 52                    Name Identifier    55</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 53                        Affiliation     s</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 54             Affiliation Identifier    19</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 55 Creators 10                   Name   j J</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 56                         Given Name     j</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 57                        Family Name     J</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 58                    Name Identifier    94</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 58                    Name Identifier    43</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 59                        Affiliation     t</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 60             Affiliation Identifier    20</span>
 <span class="r-in"><span></span></span>

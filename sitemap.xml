@@ -3,6 +3,7 @@
 <url><loc>https://viralemergence.github.io/wddsWizard/LICENSE-text.html</loc></url>
 <url><loc>https://viralemergence.github.io/wddsWizard/LICENSE.html</loc></url>
 <url><loc>https://viralemergence.github.io/wddsWizard/articles/disease_data.html</loc></url>
+<url><loc>https://viralemergence.github.io/wddsWizard/articles/extending_wdds.html</loc></url>
 <url><loc>https://viralemergence.github.io/wddsWizard/articles/index.html</loc></url>
 <url><loc>https://viralemergence.github.io/wddsWizard/articles/project_metadata.html</loc></url>
 <url><loc>https://viralemergence.github.io/wddsWizard/articles/schema_overview.html</loc></url>
@@ -17,9 +18,7 @@
 <url><loc>https://viralemergence.github.io/wddsWizard/reference/becker_project_metadata.html</loc></url>
 <url><loc>https://viralemergence.github.io/wddsWizard/reference/clean_field_names.html</loc></url>
 <url><loc>https://viralemergence.github.io/wddsWizard/reference/create_object_docs.html</loc></url>
-<url><loc>https://viralemergence.github.io/wddsWizard/reference/create_object_list.html</loc></url>
 <url><loc>https://viralemergence.github.io/wddsWizard/reference/create_schema_docs.html</loc></url>
-<url><loc>https://viralemergence.github.io/wddsWizard/reference/create_schema_list.html</loc></url>
 <url><loc>https://viralemergence.github.io/wddsWizard/reference/datacite_schema.html</loc></url>
 <url><loc>https://viralemergence.github.io/wddsWizard/reference/disease_data_required_fields.html</loc></url>
 <url><loc>https://viralemergence.github.io/wddsWizard/reference/disease_data_schema.html</loc></url>
@@ -31,7 +30,6 @@
 <url><loc>https://viralemergence.github.io/wddsWizard/reference/generate_repeat_dfs.html</loc></url>
 <url><loc>https://viralemergence.github.io/wddsWizard/reference/get_entity.html</loc></url>
 <url><loc>https://viralemergence.github.io/wddsWizard/reference/get_ref.html</loc></url>
-<url><loc>https://viralemergence.github.io/wddsWizard/reference/get_ref_list.html</loc></url>
 <url><loc>https://viralemergence.github.io/wddsWizard/reference/get_required_fields.html</loc></url>
 <url><loc>https://viralemergence.github.io/wddsWizard/reference/increase_docs_depth.html</loc></url>
 <url><loc>https://viralemergence.github.io/wddsWizard/reference/index.html</loc></url>
@@ -44,6 +42,7 @@
 <url><loc>https://viralemergence.github.io/wddsWizard/reference/paste_reduce.html</loc></url>
 <url><loc>https://viralemergence.github.io/wddsWizard/reference/paste_reduce_ul.html</loc></url>
 <url><loc>https://viralemergence.github.io/wddsWizard/reference/prep_affiliation.html</loc></url>
+<url><loc>https://viralemergence.github.io/wddsWizard/reference/prep_array.html</loc></url>
 <url><loc>https://viralemergence.github.io/wddsWizard/reference/prep_array_objects.html</loc></url>
 <url><loc>https://viralemergence.github.io/wddsWizard/reference/prep_atomic.html</loc></url>
 <url><loc>https://viralemergence.github.io/wddsWizard/reference/prep_creators.html</loc></url>
@@ -63,10 +62,10 @@
 <url><loc>https://viralemergence.github.io/wddsWizard/reference/prep_rights.html</loc></url>
 <url><loc>https://viralemergence.github.io/wddsWizard/reference/prep_subjects.html</loc></url>
 <url><loc>https://viralemergence.github.io/wddsWizard/reference/prep_titles.html</loc></url>
-<url><loc>https://viralemergence.github.io/wddsWizard/reference/process_array_items.html</loc></url>
 <url><loc>https://viralemergence.github.io/wddsWizard/reference/project_metadata_required_fields.html</loc></url>
 <url><loc>https://viralemergence.github.io/wddsWizard/reference/project_metadata_schema.html</loc></url>
 <url><loc>https://viralemergence.github.io/wddsWizard/reference/sanitize_version.html</loc></url>
+<url><loc>https://viralemergence.github.io/wddsWizard/reference/schema_obj.html</loc></url>
 <url><loc>https://viralemergence.github.io/wddsWizard/reference/schema_properties.html</loc></url>
 <url><loc>https://viralemergence.github.io/wddsWizard/reference/schema_required_fields.html</loc></url>
 <url><loc>https://viralemergence.github.io/wddsWizard/reference/schema_terms.html</loc></url>

@@ -22,9 +22,10 @@ metadata data."><meta property="og:image" content="https://viralemergence.github
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/disease_data.html">Wildlife Disease Data</a></li>
+    <li><a class="dropdown-item" href="../articles/extending_wdds.html">Extending the Wildlife Disease Data Standard</a></li>
     <li><a class="dropdown-item" href="../articles/project_metadata.html">Project Metadata</a></li>
     <li><a class="dropdown-item" href="../articles/schema_overview.html">Schema Overview</a></li>
-    <li><a class="dropdown-item" href="../articles/wdds_to_pharos.html">wdds_to_pharos</a></li>
+    <li><a class="dropdown-item" href="../articles/wdds_to_pharos.html">WDDS to Pharos</a></li>
     <li><a class="dropdown-item" href="../articles/wdds_to_zenodo.html">WDDS to Zenodo</a></li>
   </ul></li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
@@ -53,6 +54,7 @@ metadata data.</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">prep_from_metadata_template</span><span class="op">(</span></span>
 <span>  <span class="va">project_metadata</span>,</span>
 <span>  prep_methods_list <span class="op">=</span> <span class="fu"><a href="prep_methods.html">prep_methods</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  schema_properties <span class="op">=</span> <span class="fu">wddsWizard</span><span class="fu">::</span><span class="va"><a href="schema_properties.html">schema_properties</a></span>,</span>
 <span>  json_prep <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -67,6 +69,10 @@ metadata data.</p>
 
 <dt id="arg-prep-methods-list">prep_methods_list<a class="anchor" aria-label="anchor" href="#arg-prep-methods-list"></a></dt>
 <dd><p>list. Named list of methods where each items is a function to applied to corresponding items in x.Default is <code><a href="prep_methods.html">prep_methods()</a></code>.</p></dd>
+
+
+<dt id="arg-schema-properties">schema_properties<a class="anchor" aria-label="anchor" href="#arg-schema-properties"></a></dt>
+<dd><p>Data frame. A data frame of schema properties and their types.</p></dd>
 
 
 <dt id="arg-json-prep">json_prep<a class="anchor" aria-label="anchor" href="#arg-json-prep"></a></dt>
@@ -87,6 +93,7 @@ metadata data.</p>
 <code><a href="clean_field_names.html">clean_field_names</a>()</code>,
 <code><a href="get_entity.html">get_entity</a>()</code>,
 <code><a href="prep_affiliation.html">prep_affiliation</a>()</code>,
+<code><a href="prep_array.html">prep_array</a>()</code>,
 <code><a href="prep_array_objects.html">prep_array_objects</a>()</code>,
 <code><a href="prep_atomic.html">prep_atomic</a>()</code>,
 <code><a href="prep_creators.html">prep_creators</a>()</code>,
