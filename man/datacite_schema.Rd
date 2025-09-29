@@ -17,6 +17,7 @@ See data standard JSON file for field descriptions.
 Other Schema: 
 \code{\link{disease_data_schema}},
 \code{\link{project_metadata_schema}},
+\code{\link{schema_obj}},
 \code{\link{schema_properties}},
 \code{\link{schema_terms}},
 \code{\link{wdds_schema}}

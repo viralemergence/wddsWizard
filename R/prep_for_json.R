@@ -67,6 +67,7 @@ prep_atomic <- function(x, unbox = TRUE) {
 #'
 #' @returns unnamed vector
 #' @export
+#' @family JSON Prep
 #'
 #' @examples
 #'

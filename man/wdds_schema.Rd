@@ -18,6 +18,7 @@ Other Schema:
 \code{\link{datacite_schema}},
 \code{\link{disease_data_schema}},
 \code{\link{project_metadata_schema}},
+\code{\link{schema_obj}},
 \code{\link{schema_properties}},
 \code{\link{schema_terms}}
 }

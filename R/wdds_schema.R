@@ -44,6 +44,7 @@
 #'
 #' @description
 #' A class for getting schema properties.
+#' @family Schema
 
 schema_obj <- R6::R6Class("schema_obj", public = list(
   #' @field schema_path (`character(1)`)\cr

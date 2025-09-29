@@ -29,6 +29,16 @@ data frames with name and type for array items that are objects or character str
 \description{
 A class for getting schema properties.
 }
+\seealso{
+Other Schema: 
+\code{\link{datacite_schema}},
+\code{\link{disease_data_schema}},
+\code{\link{project_metadata_schema}},
+\code{\link{schema_properties}},
+\code{\link{schema_terms}},
+\code{\link{wdds_schema}}
+}
+\concept{Schema}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{

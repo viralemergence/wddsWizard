@@ -34,6 +34,7 @@ creator_df_aff_prepped <- prep_affiliation(creator_df)
 Other JSON Prep: 
 \code{\link{clean_field_names}()},
 \code{\link{get_entity}()},
+\code{\link{prep_array}()},
 \code{\link{prep_array_objects}()},
 \code{\link{prep_atomic}()},
 \code{\link{prep_creators}()},
