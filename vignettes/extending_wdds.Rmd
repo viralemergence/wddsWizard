@@ -45,7 +45,7 @@ In extending the data standard, you're also demonstrating to the WDDS community 
 Before  extending the standard, make sure that data elements you plan to add aren't already included in the standard. 
 Some of the terms in the standard are broad by design to encourage use. 
 If your narrow term fits into a broader term already in the data standard, consider modifying the existing item.
-If you think the term should be added to the standard, consider opening an issue in the [WDDS github repo](https://github.com/viralemergence/wdds/issues/new/choose).
+If you think the term should be added to the standard or if you have questions about a term, consider opening an issue in the [WDDS github repo](https://github.com/viralemergence/wdds/issues/new/choose).
 
 ## Extending the Disease Data component
 
