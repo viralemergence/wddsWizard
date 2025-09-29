@@ -7,6 +7,7 @@
 prep_from_metadata_template(
   project_metadata,
   prep_methods_list = prep_methods(),
+  schema_properties = wddsWizard::schema_properties,
   json_prep = TRUE
 )
 }
