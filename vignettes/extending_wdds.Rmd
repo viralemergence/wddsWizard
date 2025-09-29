@@ -1,0 +1,285 @@
+---
+title: "Extending the Wildlife Disease Data Standard"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{extending_wdds}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(wddsWizard)
+```
+
+
+The Wildlife Disease Data Standard is meant to be a minimal representation of the data elements necessary to describe observations of interactions between hosts and parasites.
+Because its a minimal representation, there will be data elements not included in the data standard that are of interest to researchers as well as parts of the standard that are more broad than the researcher may like.
+This vignette will explain best practices for extending and modifying the the data standard. 
+
+If you're unfamiliar with writing JSON Schema, it is probably worth checking out their [learning materials](https://tour.json-schema.org/). 
+The sections on enumeration (listing specific values), setting ranges, and using regular expressions to check for patterns are likely of interest. 
+
+## Why extend the standard?
+
+Since the standard allows for additional properties, why should I extend the standard at all? 
+
+You should extend the standard because it will help document the additional properties and ensure that the data are valid. 
+By clearly and formally describing the additional properties in a json schema file, future users (most likely you) will have a better understanding of the values in those additional fields and it will be easier to interpret that data. 
+Furthermore, because the data are validated, users won't find unexpected values in those fields (e.g. a field described in the schema as having only values "A", "B", or "C" will not also contain values "a", "b", and "42"). 
+Finally, by extending or modifying the standard, all of your validation code can be found in one place.
+This makes it easier to understand how corrections were made to the data and easier to maintain your code.
+
+
+In extending the data standard, you're also demonstrating to the WDDS community what additional properties you value and making it easier to argue for the inclusion of that property into the official WDDS schema.
+
+
+## Before you extend the standard, review it.
+
+Before  extending the standard, make sure that data elements you plan to add aren't already included in the standard. 
+Some of the terms in the standard are broad by design to encourage use. 
+If your narrow term fits into a broader term already in the data standard, consider modifying the existing item.
+If you think the term should be added to the standard or if you have questions about a term, consider opening an issue in the [WDDS github repo](https://github.com/viralemergence/wdds/issues/new/choose).
+
+## Extending the Disease Data component
+
+Lets pretend we are studying vertical transmission of Orthoflaviviruses in mosquitoes.
+Since the disease data tabular, extending this part of the standard is straight forward. 
+
+First, create a copy of the wdds schema to modify. 
+
+```{r get-json-file, eval=FALSE}
+
+# copy the schemas folder into a new place
+ wdds_json(version = "latest","wdds_schema.json") |>
+  fs::path_dir()|>
+  fs::dir_copy(new_path = "modified_schemas")
+
+  file.edit("modified_schemas/schemas/disease_data.json")
+
+```
+
+Lets take a look at the `hostLifeStage` property.
+It accepts either string or null values.
+That is extremely broad.
+
+```
+          "hostLifeStage":{
+            "description":"The life stage of the animal from which the sample was collected (as appropriate for the organism) (e.g., juvenile, adult). See http://rs.tdwg.org/dwc/terms/lifeStage",
+            "examples":["juvenile","adult","larva"],
+            "type":"array",
+            "items":{
+              "type": ["string","null"],
+              "minItems":1
+            }
+          }
+```
+
+In our study, we use specific terms to describe host life stages and want to make sure we are using only those terms.
+We can modify this part of the standard to be more specific, but still compliant with the original WDDS standard.
+We can use the `enum` keyword to list specific values.
+
+We classify the larva into first, second, and third instar so we will enumerate those values in the JSON schema.
+
+
+```
+          "hostLifeStage":{
+            "description":"The life stage of the animal from which the sample was collected (as appropriate for the organism) (e.g., juvenile, adult). See http://rs.tdwg.org/dwc/terms/lifeStage",
+            "examples":["juvenile","adult","larva"],
+            "type":"array",
+            "items":{
+              "type": ["string","null"],
+              "enum": ["first instar","second instar","third instar","null"],
+              "minItems":1
+            }
+          }
+```
+
+By using a set of enumerated string values, we can ensure the data in `hostLifeStage` only contain the values `first instar`, `second instar`, `third instar` or `null`.
+
+Since we are collecting wild mosquito larvae, we may want to include information about trapping protocols and validate that field using the JSON schema. 
+After reviewing the terms, we confirm there is no specific term for host organism collection method. 
+We can look for an equivalent term in one of our trusted resources.
+In this case, we might use the darwincore term `samplingProtocol`: http://rs.tdwg.org/dwc/terms/samplingProtocol.
+
+We can add this new term after `genbankAccession` in the JSON schema file.
+
+```
+          "genbankAccession":{
+            "description":"The GenBank accession for any parasite genetic sequence(s), if appropriate.  Accession numbers or other identifiers for related data stored on another platform should be added in a different field (e.g. GISAID Accession, Immport Accession). See http://rs.tdwg.org/dwc/terms/otherCatalogNumbers ",
+            "examples":["U49845 | U49846","U11111"],
+            "type":"array",
+            "items":{
+              "type": ["string","null"],
+              "minItems":1
+            }
+          },
+          "samplingProtocol":{
+            "description":"The names of the methods used during a larval collection event. See http://rs.tdwg.org/dwc/terms/samplingProtocol. Protocol names from European Centre for Disease Prevention and Control; European Food Safety Authority. Field sampling methods for mosquitoes, sandflies, biting midges and ticks – VectorNet project 2014–2018. Stockholm and Parma: ECDC and EFSA; 2018.",
+            "type":"array",
+            "items":{
+              "type": ["string","null"],
+              "enum": ["complete submersion","flow-in","simple ladle","null"]"],
+              "minItems":1
+            }
+          }
+
+```
+
+We now have a schema that is compliant with WDDS AND does a better job validating data for our project. 
+
+## Extending the Project Metadata Component
+
+Lets say that as part of our study we sequenced viral material and have FASTA files that we would like to bundle with the disease data CSV in our deposit. 
+To give humans and machines a heads up as to what kinds of file formats to expect, we can include the datacite term [`formats`](https://datacite-metadata-schema.readthedocs.io/en/4.6/properties/format/).
+
+If we look at the datacite JSON Schema already included in the WDDS schema, we can see that `formats` looks like this:
+
+```
+       "formats": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            },
+            "uniqueItems": true
+        }
+```
+So its an array of unique string values e.g. `["CSV","FASTA","JSON"]`.
+
+
+Again, we confirm the property is not already listed in the project metadata then modify the JSON schema file.
+
+```{r modify-proj, eval=FALSE}
+
+  file.edit("modified_schemas/project_metadata.json")
+
+```
+
+
+Just like we did when we added the `samplingProtocol` property, we will stick `formats` property at the end of the properties list.
+
+```
+"relatedIdentifiers":{
+          "$ref":"datacite/datacite-v4.5.json#/properties/relatedIdentifiers"
+        },
+"formats":{
+          "$ref":"datacite/datacite-v4.5.json#/properties/formats"
+}
+
+```
+Here we use `$ref` to reference the datacite schema file and reuse the formats property.
+
+Unlike the disease data component of the schema, we may need to do a little more work to get the data properly formatted prior to validation. 
+
+You will have to extend the `prep_methods` list.
+
+```{r extend prep methods, eval=FALSE, message=FALSE}
+
+# generate_metadata_csv("test_metadata.csv",event_based = FALSE,archival = FALSE,num_creators = 1,num_titles = 1,identifier = "hello.doi",identifier_type = "DOI",num_subjects = 1,publication_year = "2025",rights = spdx_licenses$licenseId[129],language = "en",num_descriptions = 1,num_fundingReferences = 1,num_related_identifiers = 1,write_output = TRUE)
+
+proj_metadata_df <- read.csv(file = "test_metadata.csv",row.names =NULL)
+
+prep_methods_list <- prep_methods()
+
+prep_methods_list$formats <- prep_array
+
+schema_modified <- schema_obj$new(schema_path = "modified_schemas/wdds_schema.json", wdds_version = "latest")
+
+schema_modified <- schema_modified$create_schema_list()
+
+schema_properties_modified <- schema_modified |>
+  purrr::list_rbind() |>
+  dplyr::distinct_all() |>
+  dplyr::mutate(
+    is_array = dplyr::case_when(
+      stringr::str_detect(type, pattern = "array") ~ TRUE,
+      TRUE ~ FALSE
+    ),
+    is_object = dplyr::case_when(
+      stringr::str_detect(type, pattern = "object") ~ TRUE,
+      TRUE ~ FALSE
+    )
+  )
+
+
+prepped_metadata <- prep_from_metadata_template(proj_metadata_df,prep_methods_list = prep_methods_list,schema_properties = schema_properties_modified, json_prep = TRUE)
+
+jsonlite::toJSON(prepped_metadata,pretty = TRUE)
+
+
+```
+
+## Validate with your extended schema
+
+
+```{r validate, eval=FALSE}
+project_metadata_json<- jsonlite::toJSON(prepped_metadata,pretty = TRUE)
+
+project_validator <- jsonvalidate::json_validator("modified_schemas/schemas/project_metadata.json", engine = "ajv")
+
+project_validation <- project_validator(project_metadata_json, verbose = TRUE)
+
+## check for errors!
+
+errors <- attributes(project_validation)
+
+if (!project_validation) {
+  errors$errors
+} else {
+  print("Valid project metadata!😁")
+}
+
+
+```
+
+## How to communicate your changes?
+
+So now that you've made changes to the WDDS data standard, how do you let people know that your version of WDDS is different from the standard version?
+
+
+Modify the `wdds_schema.json` file. 
+1. Add a dev id to the semantic version in the title. Since we are very interested in the larval lifestages, we are going to call this `v1.0.4-instar`.
+2. Update the description to reflect the changes you made. Be sure to note if the data would still be valid under the unmodified version of WDDS. 
+
+```
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Wildlife Disease Data Standard v1.0.4-instar",
+  "description":"Flexible data standard for wildlife disease data. This version of the schema has been modified in the following ways: added the property samplingProtocol from the DarwinCore schema and the property formats from the Datacite schema, and enumerated values for hostLifeStage. These changes increase the specificity of the standard without violating rules for required or suggested fields, there any data that meets this version of the standard should also be valid under v1.0.4.",
+  "type": "object",
+  "properties": {
+    "disease_data":{
+      "description":"Wildlife disease data. Stored in tidy form.",
+      "$ref":"schemas/disease_data.json"
+    },
+    "project_metadata":{
+      "description":"Metadata for a project that largely follows the Datacite data standard.",
+      "$ref":"schemas/project_metadata.json"
+    }
+  },
+    "required":["disease_data","project_metadata"]
+}
+
+```
+
+
+
+Second, include the modified JSON schema files in your deposit. 
+You can include the files directly in archived materials or link to them in the related identifiers section of the project metadata.
+
+
+Finally, if you used controlled vocabularies to enumerate fields or if you borrowed properties from other metadata standards, include them as related identifiers in the project metadata.
+
+
+
+
+
+
+
+

@@ -26,6 +26,7 @@ clean_field_names(df)
 Other JSON Prep: 
 \code{\link{get_entity}()},
 \code{\link{prep_affiliation}()},
+\code{\link{prep_array}()},
 \code{\link{prep_array_objects}()},
 \code{\link{prep_atomic}()},
 \code{\link{prep_creators}()},

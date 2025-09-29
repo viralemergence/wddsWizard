@@ -7,6 +7,7 @@
 prep_from_metadata_template(
   project_metadata,
   prep_methods_list = prep_methods(),
+  schema_properties = wddsWizard::schema_properties,
   json_prep = TRUE
 )
 }
@@ -14,6 +15,8 @@ prep_from_metadata_template(
 \item{project_metadata}{Data frame. Should correspond to the structure of the project_metadata_template.csv}
 
 \item{prep_methods_list}{list. Named list of methods where each items is a function to applied to corresponding items in x.Default is \code{\link[=prep_methods]{prep_methods()}}.}
+
+\item{schema_properties}{Data frame. A data frame of schema properties and their types.}
 
 \item{json_prep}{Logical. Should the metadata be prepped for JSON?}
 }
@@ -47,6 +50,7 @@ Other JSON Prep:
 \code{\link{clean_field_names}()},
 \code{\link{get_entity}()},
 \code{\link{prep_affiliation}()},
+\code{\link{prep_array}()},
 \code{\link{prep_array_objects}()},
 \code{\link{prep_atomic}()},
 \code{\link{prep_creators}()},

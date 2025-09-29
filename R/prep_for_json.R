@@ -60,6 +60,33 @@ prep_atomic <- function(x, unbox = TRUE) {
 
 }
 
+
+#' Prep array
+#'
+#' @param x a list object.
+#'
+#' @returns unnamed vector
+#' @export
+#' @family JSON Prep
+#'
+#' @examples
+#'
+#' # this form can arise because of the csv template
+#' nested_list <- list(list("formats" = list("formats" = "csv",
+#' "formats" = "fasta")))
+#'
+#' prep_array(nested_list)
+#'
+prep_array <- function(x){
+
+  assertthat::assert_that(is.list(x), msg = "x must be a list.")
+
+    out <- unlist(x)
+    names(out) <- NULL
+
+  return(out)
+}
+
 #' Prepare an array of objects
 #'
 #'  wraps a data frame in a list and or unboxes list items that are 1 row
@@ -660,6 +687,7 @@ clean_field_names <- function(x) {
 #' @param project_metadata Data frame. Should correspond to the structure of the project_metadata_template.csv
 #' @param prep_methods_list list. Named list of methods where each items is a function to applied to corresponding items in x.Default is [prep_methods()].
 #' @param json_prep Logical. Should the metadata be prepped for JSON?
+#' @param schema_properties Data frame. A data frame of schema properties and their types.
 #'
 #' @returns Named list ready to be converted to json
 #' @importFrom rlang .data
@@ -679,7 +707,7 @@ clean_field_names <- function(x) {
 #' project_metadat_json <- jsonlite::toJSON(prepped_project_metadata, pretty = TRUE)
 #' }
 #'
-prep_from_metadata_template <- function(project_metadata, prep_methods_list = prep_methods(), json_prep = TRUE) {
+prep_from_metadata_template <- function(project_metadata, prep_methods_list = prep_methods(), schema_properties = wddsWizard::schema_properties, json_prep = TRUE) {
   ## turn empty strings into NAs in the group field
   project_metadata <- project_metadata |>
     dplyr::mutate(Group = dplyr::case_when(
@@ -731,15 +759,15 @@ prep_from_metadata_template <- function(project_metadata, prep_methods_list = pr
   project_metadata_list_entities <- purrr::map(
     project_metadata_list,
     function(x) {
-      ### check for arrays?
-      x_typed <- dplyr::left_join(x, wddsWizard::schema_properties, by = c("Group" = "name")) |>
+      ### check for arrays
+      x_typed <- dplyr::left_join(x, schema_properties, by = c("Group" = "name")) |>
         dplyr::mutate(to_split = dplyr::case_when(
           is_array ~ TRUE,
           TRUE ~ FALSE
         ))
 
-
       if (all(!x_typed$to_split)) {
+
         out <- get_entity(x)
         return(out)
       }

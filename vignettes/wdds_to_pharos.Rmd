@@ -1,5 +1,5 @@
 ---
-title: "wdds_to_pharos"
+title: "WDDS to Pharos"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{wdds_to_pharos}

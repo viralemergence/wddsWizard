@@ -41,6 +41,7 @@ Other JSON Prep:
 \code{\link{clean_field_names}()},
 \code{\link{get_entity}()},
 \code{\link{prep_affiliation}()},
+\code{\link{prep_array}()},
 \code{\link{prep_array_objects}()},
 \code{\link{prep_creators}()},
 \code{\link{prep_data}()},
