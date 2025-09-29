@@ -16,6 +16,8 @@ prep_from_metadata_template(
 
 \item{prep_methods_list}{list. Named list of methods where each items is a function to applied to corresponding items in x.Default is \code{\link[=prep_methods]{prep_methods()}}.}
 
+\item{schema_properties}{Data frame. A data frame of schema properties and their types.}
+
 \item{json_prep}{Logical. Should the metadata be prepped for JSON?}
 }
 \value{

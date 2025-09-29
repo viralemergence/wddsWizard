@@ -686,6 +686,7 @@ clean_field_names <- function(x) {
 #' @param project_metadata Data frame. Should correspond to the structure of the project_metadata_template.csv
 #' @param prep_methods_list list. Named list of methods where each items is a function to applied to corresponding items in x.Default is [prep_methods()].
 #' @param json_prep Logical. Should the metadata be prepped for JSON?
+#' @param schema_properties Data frame. A data frame of schema properties and their types.
 #'
 #' @returns Named list ready to be converted to json
 #' @importFrom rlang .data

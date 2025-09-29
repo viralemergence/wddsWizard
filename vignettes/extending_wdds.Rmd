@@ -24,6 +24,7 @@ Because its a minimal representation, there will be data elements not included i
 This vignette will explain best practices for extending and modifying the the data standard. 
 
 If you're unfamiliar with writing JSON Schema, it is probably worth checking out their [learning materials](https://tour.json-schema.org/). 
+The sections on enumeration (listing specific values), setting ranges, and using regular expressions to check for patterns are likely of interest. 
 
 ## Why extend the standard?
 
@@ -31,14 +32,12 @@ Since the standard allows for additional properties, why should I extend the sta
 
 You should extend the standard because it will help document the additional properties and ensure that the data are valid. 
 By clearly and formally describing the additional properties in a json schema file, future users (most likely you) will have a better understanding of the values in those additional fields and it will be easier to interpret that data. 
-Furthermore, because the data are validated, users won't find unexpected values in those fields (e.g. a field described in the metadata as having only values A, B, or C will not also contain values a, b, and "42"). 
+Furthermore, because the data are validated, users won't find unexpected values in those fields (e.g. a field described in the schema as having only values "A", "B", or "C" will not also contain values "a", "b", and "42"). 
 Finally, by extending or modifying the standard, all of your validation code can be found in one place.
 This makes it easier to understand how corrections were made to the data and easier to maintain your code.
 
 
-By extending the data standard, you're also demonstrating to the WDDS community what additional properties you value and making it easier to argue for the inclusion of that property into the official WDDS schema.
-
-
+In extending the data standard, you're also demonstrating to the WDDS community what additional properties you value and making it easier to argue for the inclusion of that property into the official WDDS schema.
 
 
 ## Before you extend the standard, review it.
@@ -190,7 +189,6 @@ prep_methods_list <- prep_methods()
 
 prep_methods_list$formats <- prep_array
 
-
 schema_modified <- schema_obj$new(schema_path = "modified_schemas/wdds_schema.json", wdds_version = "latest")
 
 schema_modified <- schema_modified$create_schema_list()
@@ -239,6 +237,48 @@ if (!project_validation) {
 
 
 ```
+
+## How to communicate your changes?
+
+So now that you've made changes to the WDDS data standard, how do you let people know that your version of WDDS is different from the standard version?
+
+
+Modify the `wdds_schema.json` file. 
+1. Add a dev id to the semantic version in the title. Since we are very interested in the larval lifestages, we are going to call this `v1.0.4-instar`.
+2. Update the description to reflect the changes you made. Be sure to note if the data would still be valid under the unmodified version of WDDS. 
+
+```
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Wildlife Disease Data Standard v1.0.4-instar",
+  "description":"Flexible data standard for wildlife disease data. This version of the schema has been modified in the following ways: added the property samplingProtocol from the DarwinCore schema and the property formats from the Datacite schema, and enumerated values for hostLifeStage. These changes increase the specificity of the standard without violating rules for required or suggested fields, there any data that meets this version of the standard should also be valid under v1.0.4.",
+  "type": "object",
+  "properties": {
+    "disease_data":{
+      "description":"Wildlife disease data. Stored in tidy form.",
+      "$ref":"schemas/disease_data.json"
+    },
+    "project_metadata":{
+      "description":"Metadata for a project that largely follows the Datacite data standard.",
+      "$ref":"schemas/project_metadata.json"
+    }
+  },
+    "required":["disease_data","project_metadata"]
+}
+
+```
+
+
+
+Second, include the modified JSON schema files in your deposit. 
+You can include the files directly in archived materials or link to them in the related identifiers section of the project metadata.
+
+
+Finally, if you used controlled vocabularies to enumerate fields or if you borrowed properties from other metadata standards, include them as related identifiers in the project metadata.
+
+
+
+
 
 
 
