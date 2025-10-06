@@ -65,12 +65,11 @@ extract_metadata_from_doi <- function(doi, file_path, write_output = TRUE){
 extract_metadata_oa<-function(doi){
 
   assertthat::assert_that(assertthat::is.string(doi),msg = "doi must be a non-vector string")
+  cli::cli_alert("Starting now, at {Sys.time()}")
 
-  # doi.org/10.1038/s41597-025-05332-x
-  oa_url <- sprintf("https://api.openalex.org/works/%s",doi)
+  work_json<- download_oa_item(oa_id = doi, entity = "works",sleep_time = 0 )
 
-  oa_json <- jsonlite::fromJSON(txt = oa_url)
-  oa_json$authorships$affiliations
+  oa_json <- jsonlite::fromJSON(txt = work_json)
 
   # Name	Jane Doe
   # Given Name	Jane
@@ -94,24 +93,24 @@ extract_metadata_oa<-function(doi){
   creator_df$`Name Identifier` <- creators$author$orcid
 
   # get affiliation string and identifier
-
   aff_df <- creators$affiliations |>
     purrr::map_df(function(x){
+
       raw_affiliation <- x$raw_affiliation_string[[1]]
 
       oa_inst_id <- x$institution_ids[[1]][1] |>
         fs::path_file()
 
-      oa_inst_api  <- sprintf("https://api.openalex.org/institutions/%s", oa_inst_id)
+      inst_json <- download_oa_item(oa_id = oa_inst_id,entity = "institutions")
 
-      oa_inst_list <- jsonlite::fromJSON(oa_inst_api)
-
-      oa_inst_list$ror
+      oa_inst_list <- jsonlite::fromJSON(txt = inst_json)
 
       out <- data.frame("Affiliation" = raw_affiliation, "Affiliation Identifier" = oa_inst_list$ror)
 
+      # rate limiting downloads
+
       return(out)
-    })
+    }, .progress = "Getting Affiliations")
 
   creator_df_tidy <- cbind(creator_df,aff_df) |>
     dplyr::rename("Affiliation Identifier" = .data$Affiliation.Identifier)
@@ -141,15 +140,17 @@ Award Title	Verena Fellow-in-Residence Award"
 
   funder_references_tidy <- oa_json$grants |>
     dplyr::mutate(oa_funder_id = fs::path_file(.data$funder)) |>
-    dplyr::mutate(oa_funder_api = sprintf("https://api.openalex.org/funders/%s", .data$oa_funder_id)) |>
-    dplyr::mutate(funder_identifier = purrr::map_chr(.data$oa_funder_api, function(x){
-      funder_json <- jsonlite::fromJSON(x)
+    dplyr::mutate(funder_identifier = purrr::map_chr(.data$oa_funder_id, function(x){
+      funder_file <- download_oa_item(oa_id = x,entity = "funders")
+
+      # rate limiting downloads to 10 per second
+      funder_json <- jsonlite::fromJSON(funder_file)
       funder_ids <- funder_json$ids
       #use one of ror, crossref doi, or openalex id
       ids_ordered <- c("ror","doi","wikidata","openalex")
       preferred_id <- which(ids_ordered %in% names(funder_ids))[1]
       funder_ids[ids_ordered[preferred_id]][[1]]
-    })
+    }, .progress = "Getting Funder Info")
     ) |>
     dplyr::select(dplyr::all_of(c("funder_display_name","funder_identifier","award_id"))) |>
     dplyr::rename("Funder Name" = "funder_display_name",
@@ -272,3 +273,36 @@ make_simple_df <- function(property,value){
   out <- data.frame(Group = property,Variable = property, Value=  value)
   return(out)
 }
+
+#' Rate limited download of OA items
+#'
+#' Checks if file exists in a directory, downloads the file if its not found.
+#' Sleeps for a given amount of time to respect rate limits on openalex servers.
+#'
+#' @param entity Character. What kind of openalex item is it?
+#' @param oa_id Character. ID from openalex
+#' @param dir_temp Character. path to directory where jons is stored.
+#' @param sleep_time Numeric. Seconds of sleep.
+#'
+#' @returns Character. File path to json file
+download_oa_item <- function(entity,oa_id, dir_temp = tempdir(),sleep_time = 1){
+
+  ## normalize the inputs so it handles dois appropriately
+  file_id <- rlang::hash(x = oa_id)
+
+  oa_json <- sprintf("%s/%s.json",dir_temp,file_id)
+  oa_api  <- sprintf("https://api.openalex.org/%s/%s",entity, oa_id)
+
+
+
+  # if the file doesnt exist, get it
+  if(!fs::file_exists(oa_json)){
+    curl::curl_download(url = oa_api,destfile = oa_json)
+    Sys.sleep(sleep_time)
+  }
+
+  return(oa_json)
+
+}
+
+
