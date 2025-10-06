@@ -1,3 +1,5 @@
+# wddsWizard 0.2.1
+
 # wddsWizard 0.2.0
 
 * extract metadata from DOIs for projects
