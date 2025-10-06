@@ -1,5 +1,7 @@
 # wddsWizard 0.2.1
 
+- fix issue with regex in prep_project_metadata
+
 # wddsWizard 0.2.0
 
 * extract metadata from DOIs for projects
