@@ -1,3 +1,5 @@
+# wddsWizard 0.2.2
+
 # wddsWizard 0.2.1
 
 - fix issue with regex in prep_project_metadata

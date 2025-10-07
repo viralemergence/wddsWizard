@@ -1,6 +1,6 @@
 Package: wddsWizard
 Title: Data Wizard for a Minimal Wildlife Disease Data Standard
-Version: 0.2.1
+Version: 0.2.2
 Authors@R: 
       person("Collin",
           "Schwantes",
