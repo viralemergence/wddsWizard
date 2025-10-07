@@ -1,5 +1,8 @@
 # wddsWizard 0.2.2
 
+- fix issue with package variables in r-universe builds
+- add methodology to openalex metadata extract
+
 # wddsWizard 0.2.1
 
 - fix issue with regex in prep_project_metadata
