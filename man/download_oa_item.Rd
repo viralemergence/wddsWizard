@@ -22,3 +22,13 @@ Character. File path to json file
 Checks if file exists in a directory, downloads the file if its not found.
 Sleeps for a given amount of time to respect rate limits on openalex servers.
 }
+\seealso{
+Other Project Metadata: 
+\code{\link{expand_tidy_dfs}()},
+\code{\link{extract_metadata_from_doi}()},
+\code{\link{extract_metadata_oa}()},
+\code{\link{generate_metadata_csv}()},
+\code{\link{generate_repeat_dfs}()},
+\code{\link{make_simple_df}()}
+}
+\concept{Project Metadata}

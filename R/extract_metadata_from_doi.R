@@ -285,7 +285,18 @@ make_simple_df <- function(property,value){
 #' @param sleep_time Numeric. Seconds of sleep.
 #'
 #' @returns Character. File path to json file
+#' @family Project Metadata
 download_oa_item <- function(entity,oa_id, dir_temp = tempdir(),sleep_time = 1){
+
+  entities <- c("works","institutions","funders","authors","sources","topics"
+  ,"publishers")
+
+  msg <- sprintf("Entity must be one of:\n%s", paste(entities,collapse = "\n"))
+
+  assertthat::assert_that(entity %in% entities,msg = msg)
+  assertthat::assert_that( assertthat::is.string(oa_id),msg = "oa_id must be character")
+  assertthat::assert_that(fs::dir_exists(dir_temp), msg = "dir_temp must exist")
+  assertthat::assert_that(assertthat::is.number(sleep_time), msg = "sleep_time must be numeric and scalar")
 
   ## normalize the inputs so it handles dois appropriately
   file_id <- rlang::hash(x = oa_id)

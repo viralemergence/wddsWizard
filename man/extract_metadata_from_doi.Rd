@@ -28,6 +28,7 @@ extract_metadata_from_doi(doi = doi,write_output=FALSE)
 }
 \seealso{
 Other Project Metadata: 
+\code{\link{download_oa_item}()},
 \code{\link{expand_tidy_dfs}()},
 \code{\link{extract_metadata_oa}()},
 \code{\link{generate_metadata_csv}()},

@@ -39,6 +39,7 @@ creators_tidy |>
 }
 \seealso{
 Other Project Metadata: 
+\code{\link{download_oa_item}()},
 \code{\link{extract_metadata_from_doi}()},
 \code{\link{extract_metadata_oa}()},
 \code{\link{generate_metadata_csv}()},

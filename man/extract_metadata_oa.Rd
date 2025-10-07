@@ -31,6 +31,7 @@ extract_metadata_oa(doi = doi)
 }
 \seealso{
 Other Project Metadata: 
+\code{\link{download_oa_item}()},
 \code{\link{expand_tidy_dfs}()},
 \code{\link{extract_metadata_from_doi}()},
 \code{\link{generate_metadata_csv}()},
