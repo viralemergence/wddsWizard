@@ -130,6 +130,10 @@ extract_metadata_oa<-function(doi){
   description_df <- data.frame(Description = "FILL ME IN","Description Type" = "abstract",check.names = FALSE) |>
     expand_tidy_dfs(group_prefix = "Descriptions")
 
+  # methodology
+
+  methodology_df <- data.frame(Group = c("Methodology",""),Variable = c("Event Based","Archival"), Value = FALSE)
+
   # fundingReferences
 
   "Funder Name	NSF
@@ -182,7 +186,8 @@ Award Title	Verena Fellow-in-Residence Award"
 
   # rbind data frames
 
-  out <- rbind(creator_df_expanded,
+  out <- rbind(methodology_df,
+               creator_df_expanded,
                title_df_expanded,
                publicationYear_df,
                language_df,
