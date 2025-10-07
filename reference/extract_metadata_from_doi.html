@@ -9,7 +9,7 @@ Instead of re-writing the metadata, it would be better to extract it and transfo
 
     <a class="navbar-brand me-2" href="../index.html">wddsWizard</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -40,7 +40,7 @@ Instead of re-writing the metadata, it would be better to extract it and transfo
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.svg" class="logo" alt=""><h1>Extract Project Metadata from DOI</h1>
-      <small class="dont-index">Source: <a href="https://github.com/viralemergence/wddsWizard/blob/v0.2.0/R/extract_metadata_from_doi.R" class="external-link"><code>R/extract_metadata_from_doi.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/viralemergence/wddsWizard/blob/main/R/extract_metadata_from_doi.R" class="external-link"><code>R/extract_metadata_from_doi.R</code></a></small>
       <div class="d-none name"><code>extract_metadata_from_doi.Rd</code></div>
     </div>
 
@@ -77,6 +77,7 @@ Instead of re-writing the metadata, it would be better to extract it and transfo
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p>Other Project Metadata:
+<code><a href="download_oa_item.html">download_oa_item</a>()</code>,
 <code><a href="expand_tidy_dfs.html">expand_tidy_dfs</a>()</code>,
 <code><a href="extract_metadata_oa.html">extract_metadata_oa</a>()</code>,
 <code><a href="generate_metadata_csv.html">generate_metadata_csv</a>()</code>,
@@ -89,6 +90,12 @@ Instead of re-writing the metadata, it would be better to extract it and transfo
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">doi</span> <span class="op">&lt;-</span><span class="st">"doi.org/10.1038/s41597-025-05332-x"</span></span></span>
 <span class="r-in"><span><span class="fu">extract_metadata_from_doi</span><span class="op">(</span>doi <span class="op">=</span> <span class="va">doi</span>,write_output<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> → Starting now, at 2025-10-07 14:43:52.049711</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Getting Affiliations <span style="color: #00BB00;">■■■■                            </span>  12% |  ETA: 17s</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Getting Affiliations <span style="color: #00BB00;">■■■■■■■■■■■                     </span>  35% |  ETA: 11s</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Getting Affiliations <span style="color: #00BB00;">■■■■■■■■■■■■■■■■                </span>  50% |  ETA:  9s</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Getting Affiliations <span style="color: #00BB00;">■■■■■■■■■■■■■■■■■■■■■           </span>  65% |  ETA:  6s</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Getting Affiliations <span style="color: #00BB00;">■■■■■■■■■■■■■■■■■■■■■■■■■■      </span>  85% |  ETA:  3s</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                     Group                Variable</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1              Creators 1                    Name</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                                     Family Name</span>
@@ -432,12 +439,12 @@ Instead of re-writing the metadata, it would be better to extract it and transfo
 <span class="r-out co"><span class="r-pr">#&gt;</span> 161                                                                                                                                              abstract</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 162                                                                                                                           National Science Foundation</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 163                                                                                                                             https://ror.org/021nxhr62</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 164                                                                                                                                               2515340</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 164                                                                                                                                               2213854</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 165                                                                                                                                                      </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 166                                                                                                                                                      </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 167                                                                                                                           National Science Foundation</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 168                                                                                                                             https://ror.org/021nxhr62</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 169                                                                                                                                               2213854</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 169                                                                                                                                               2515340</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 170                                                                                                                                                      </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 171                                                                                                                                                      </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 172                                                                                                                                          Data Sharing</span>
