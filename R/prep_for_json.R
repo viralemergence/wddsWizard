@@ -731,7 +731,7 @@ prep_from_metadata_template <- function(project_metadata, prep_methods_list = pr
   # get ids for components of a group.
   project_metadata_ids <- project_metadata_filled |>
     dplyr::mutate(
-      entity_id = stringr::str_extract(string = .data$Group, pattern = "[0-9]"),
+      entity_id = stringr::str_extract(string = .data$Group, pattern = "[0-9]{1,}"),
       # make sure that there are no NA entity IDs
       entity_id = dplyr::case_when(
         is.na(.data$entity_id) ~ "1",
@@ -742,7 +742,7 @@ prep_from_metadata_template <- function(project_metadata, prep_methods_list = pr
     dplyr::mutate(
       Group = stringr::str_replace_all(
         string = .data$Group,
-        pattern = " [0-9]",
+        pattern = " [0-9]{1,}",
         replacement = ""
       ),
       Group = snakecase::to_lower_camel_case(.data$Group, abbreviations = "ID")
