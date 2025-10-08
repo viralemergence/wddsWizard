@@ -1,3 +1,6 @@
+# wddsWizard 0.2.3
+- catch empty grants objects from openAlex
+
 # wddsWizard 0.2.2
 
 - fix issue with package variables in r-universe builds
