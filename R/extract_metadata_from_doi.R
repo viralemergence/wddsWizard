@@ -142,29 +142,35 @@ Award Number	DBI 2515340
 Award URI	https://www.viralemergence.org/grants
 Award Title	Verena Fellow-in-Residence Award"
 
-  funder_references_tidy <- oa_json$grants |>
-    dplyr::mutate(oa_funder_id = fs::path_file(.data$funder)) |>
-    dplyr::mutate(funder_identifier = purrr::map_chr(.data$oa_funder_id, function(x){
-      funder_file <- download_oa_item(oa_id = x,entity = "funders")
+  if(is.data.frame(oa_json$grants)){
+    funder_references_tidy <- oa_json$grants |>
+      dplyr::mutate(oa_funder_id = fs::path_file(.data$funder)) |>
+      dplyr::mutate(funder_identifier = purrr::map_chr(.data$oa_funder_id, function(x){
+        funder_file <- download_oa_item(oa_id = x,entity = "funders")
 
-      # rate limiting downloads to 10 per second
-      funder_json <- jsonlite::fromJSON(funder_file)
-      funder_ids <- funder_json$ids
-      #use one of ror, crossref doi, or openalex id
-      ids_ordered <- c("ror","doi","wikidata","openalex")
-      preferred_id <- which(ids_ordered %in% names(funder_ids))[1]
-      funder_ids[ids_ordered[preferred_id]][[1]]
-    }, .progress = "Getting Funder Info")
-    ) |>
-    dplyr::select(dplyr::all_of(c("funder_display_name","funder_identifier","award_id"))) |>
-    dplyr::rename("Funder Name" = "funder_display_name",
-                  "Funder Identifier" = "funder_identifier",
-                  "Award Number" = "award_id"
-    ) |>
-    dplyr::mutate(
-      "Award URI" = "",
-      "Award ID" = ""
-    )
+        # rate limiting downloads to 10 per second
+        funder_json <- jsonlite::fromJSON(funder_file)
+        funder_ids <- funder_json$ids
+        #use one of ror, crossref doi, or openalex id
+        ids_ordered <- c("ror","doi","wikidata","openalex")
+        preferred_id <- which(ids_ordered %in% names(funder_ids))[1]
+        funder_ids[ids_ordered[preferred_id]][[1]]
+      }, .progress = "Getting Funder Info")
+      ) |>
+      dplyr::select(dplyr::all_of(c("funder_display_name","funder_identifier","award_id"))) |>
+      dplyr::rename("Funder Name" = "funder_display_name",
+                    "Funder Identifier" = "funder_identifier",
+                    "Award Number" = "award_id"
+      ) |>
+      dplyr::mutate(
+        "Award URI" = "",
+        "Award ID" = ""
+      )
+  } else {
+    funder_references_tidy <- data.frame("Funder Name" = "", "Funder Identifier" = "",
+                                         "Award Number" = "", "Award URI" = "", "Award ID" = "",check.names = FALSE)
+  }
+
 
   funder_references_df <- expand_tidy_dfs(funder_references_tidy, group_prefix = "Funding References")
 
