@@ -1,3 +1,5 @@
+# wddsWizard 0.2.3
+
 # wddsWizard 0.2.2
 
 - fix issue with package variables in r-universe builds
