@@ -69,7 +69,7 @@
       <img src="../logo.svg" class="logo" alt=""><h1>WDDS to Pharos</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/viralemergence/wddsWizard/blob/v0.2.3/vignettes/wdds_to_pharos.Rmd" class="external-link"><code>vignettes/wdds_to_pharos.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/viralemergence/wddsWizard/blob/main/vignettes/wdds_to_pharos.Rmd" class="external-link"><code>vignettes/wdds_to_pharos.Rmd</code></a></small>
       <div class="d-none name"><code>wdds_to_pharos.Rmd</code></div>
     </div>
 
@@ -113,7 +113,7 @@ validation.</p>
 </h2>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## read</span></span>
-<span><span class="va">becker_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/wdds_example_data.html">wdds_example_data</a></span><span class="op">(</span>version <span class="op">=</span> <span class="st">"latest"</span>, file <span class="op">=</span> <span class="st">"becker_demo_dataset.csv"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span><span class="va">becker_data</span> <span class="op">&lt;-</span> <span class="fu">wddsWizard</span><span class="fu">::</span><span class="fu"><a href="../reference/wdds_example_data.html">wdds_example_data</a></span><span class="op">(</span>version <span class="op">=</span> <span class="st">"latest"</span>, file <span class="op">=</span> <span class="st">"becker_demo_dataset.csv"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html" class="external-link">read_csv</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="font-weight: bold;">Rows: </span><span style="color: #0000BB;">2</span> <span style="font-weight: bold;">Columns: </span><span style="color: #0000BB;">22</span></span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Column specification</span> <span style="color: #00BBBB;">────────────────────────────────────────────────────────</span></span></span>
@@ -730,18 +730,18 @@ credentials.</p>
 <li><p>Click on your username</p></li>
 <li><p>Click New Project or select an existing project</p></li>
 <li><p>Click create new dataset - below you can see the pre-determined
-units for different measures <img src="../inst/img/create_new_dataset.png" alt="create new dataset"></p></li>
+units for different measures <img src="img/create_new_dataset.png" alt="create new dataset"></p></li>
 <li><p>Click add rows from CSV</p></li>
 </ol>
 <p>After adding the the rows, the data will be validated against the
 PHAROS schema. Valid columns will be highlighted in a light green and
 invalid columns in a light red.</p>
 <div class="float">
-<img src="../inst/img/uploaded_data_no_mods.png" alt="pharos upload"><div class="figcaption">pharos upload</div>
+<img src="img/uploaded_data_no_mods.png" alt="pharos upload"><div class="figcaption">pharos upload</div>
 </div>
 <p>If you click publish, a validation report will be generated an any
 issues will be noted.</p>
-<p><img src="../inst/img/invalid_dead_or_alive.png" alt="pharos validation report"> ## Improve data for upload</p>
+<p><img src="img/invalid_dead_or_alive.png" alt="pharos validation report"> ## Improve data for upload</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="co"># fix dead or alive</span></span>
@@ -817,7 +817,7 @@ issues will be noted.</p>
 <p>Pharos says that instead of using NA for items without values, we
 should leave them blank.</p>
 <div class="float">
-<img src="../inst/img/need_blank_nas.png" alt="On no we need blanks not NA"><div class="figcaption">On no we need blanks not NA</div>
+<img src="img/need_blank_nas.png" alt="On no we need blanks not NA"><div class="figcaption">On no we need blanks not NA</div>
 </div>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
