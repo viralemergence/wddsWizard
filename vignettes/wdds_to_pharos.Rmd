@@ -36,7 +36,7 @@ library(taxize)
 
 ```{r clean-csv}
 ## read
-becker_data <- wdds_example_data(version = "latest", file = "becker_demo_dataset.csv") |>
+becker_data <- wddsWizard::wdds_example_data(version = "latest", file = "becker_demo_dataset.csv") |>
   readr::read_csv()
 
 becker_data_prelim <- janitor::clean_names(becker_data, case = "lower_camel")
@@ -116,7 +116,7 @@ We strongly recommend using a password manager like [bitwarden](https://bitwarde
 1. Click on your username
 2. Click New Project or select an existing project
 3. Click create new dataset - below you can see the pre-determined units for different measures
-![create new dataset](../inst/img/create_new_dataset.png)
+![create new dataset](img/create_new_dataset.png)
 
 
 4. Click add rows from CSV
@@ -124,11 +124,11 @@ We strongly recommend using a password manager like [bitwarden](https://bitwarde
 After adding the the rows, the data will be validated against the PHAROS schema.
 Valid columns will be highlighted in a light green and invalid columns in a light red.
 
-![pharos upload](../inst/img/uploaded_data_no_mods.png)
+![pharos upload](img/uploaded_data_no_mods.png)
 
 If you click publish, a validation report will be generated an any issues will be noted.
 
-![pharos validation report](../inst/img/invalid_dead_or_alive.png)
+![pharos validation report](img/invalid_dead_or_alive.png)
 ## Improve data for upload
 
 ```{r modify-pharos-data}
@@ -160,7 +160,7 @@ becker_pharos_da$`Pathogen NCBI tax ID` <- pathogen_taxa
 
 Pharos says that instead of using NA for items without values, we should leave them blank.
 
-![On no we need blanks not NA](../inst/img/need_blank_nas.png)
+![On no we need blanks not NA](img/need_blank_nas.png)
 ```{r blank-nas}
 
 # use the built in function na_to_blank 
