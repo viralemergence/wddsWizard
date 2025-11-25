@@ -1,4 +1,5 @@
 # wddsWizard 0.2.4
+- catch empty subjects from openAlex
 
 # wddsWizard 0.2.3
 - catch empty grants objects from openAlex
