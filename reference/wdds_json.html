@@ -13,7 +13,7 @@ may need."><meta property="og:image" content="https://viralemergence.github.io/w
 
     <a class="navbar-brand me-2" href="../index.html">wddsWizard</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.4</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -87,13 +87,13 @@ see all files in a version. Default is NULL to return character vector of relati
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p>Other WDDS deposit:
-<code><a href="batch_download_deposit_versions.html">batch_download_deposit_versions</a>()</code>,
-<code><a href="download_deposit_version.html">download_deposit_version</a>()</code>,
-<code><a href="list_deposit_versions.html">list_deposit_versions</a>()</code>,
-<code><a href="sanitize_version.html">sanitize_version</a>()</code>,
-<code><a href="set_wdds_version.html">set_wdds_version</a>()</code>,
-<code><a href="wdds_data_templates.html">wdds_data_templates</a>()</code>,
-<code><a href="wdds_example_data.html">wdds_example_data</a>()</code></p></div>
+<code><a href="batch_download_deposit_versions.html">batch_download_deposit_versions()</a></code>,
+<code><a href="download_deposit_version.html">download_deposit_version()</a></code>,
+<code><a href="list_deposit_versions.html">list_deposit_versions()</a></code>,
+<code><a href="sanitize_version.html">sanitize_version()</a></code>,
+<code><a href="set_wdds_version.html">set_wdds_version()</a></code>,
+<code><a href="wdds_data_templates.html">wdds_data_templates()</a></code>,
+<code><a href="wdds_example_data.html">wdds_example_data()</a></code></p></div>
     </div>
 
     <div class="section level2">
@@ -114,8 +114,14 @@ see all files in a version. Default is NULL to return character vector of relati
 <span class="r-in"><span><span class="co"># see files associated with a version</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">wdds_json</span><span class="op">(</span>version <span class="op">=</span> <span class="st">"latest"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "schemas/datacite/datacite-v4.5.json" "schemas/disease_data.json"          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3] "schemas/project_metadata.json"       "wdds_schema.json"                   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> /home/runner/work/_temp/Library/wddsWizard/extdata/wdds_archive/latest/wdds_schema/schemas/datacite/datacite-v4.5.json </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                  "schemas/datacite/datacite-v4.5.json" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           /home/runner/work/_temp/Library/wddsWizard/extdata/wdds_archive/latest/wdds_schema/schemas/disease_data.json </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                            "schemas/disease_data.json" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       /home/runner/work/_temp/Library/wddsWizard/extdata/wdds_archive/latest/wdds_schema/schemas/project_metadata.json </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                        "schemas/project_metadata.json" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                    /home/runner/work/_temp/Library/wddsWizard/extdata/wdds_archive/latest/wdds_schema/wdds_schema.json </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                                     "wdds_schema.json" </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># get the file path for a specific file</span></span></span>
 <span class="r-in"><span></span></span>
@@ -133,7 +139,7 @@ see all files in a version. Default is NULL to return character vector of relati
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer></div>

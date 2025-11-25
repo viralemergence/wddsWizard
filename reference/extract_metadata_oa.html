@@ -11,7 +11,7 @@ of the wdds project metadata  related identifiers."><meta property="og:image" co
 
     <a class="navbar-brand me-2" href="../index.html">wddsWizard</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.4</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -78,12 +78,12 @@ processing it as demonstrated in the project metadata tutorial.</p>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p>Other Project Metadata:
-<code><a href="download_oa_item.html">download_oa_item</a>()</code>,
-<code><a href="expand_tidy_dfs.html">expand_tidy_dfs</a>()</code>,
-<code><a href="extract_metadata_from_doi.html">extract_metadata_from_doi</a>()</code>,
-<code><a href="generate_metadata_csv.html">generate_metadata_csv</a>()</code>,
-<code><a href="generate_repeat_dfs.html">generate_repeat_dfs</a>()</code>,
-<code><a href="make_simple_df.html">make_simple_df</a>()</code></p></div>
+<code><a href="download_oa_item.html">download_oa_item()</a></code>,
+<code><a href="expand_tidy_dfs.html">expand_tidy_dfs()</a></code>,
+<code><a href="extract_metadata_from_doi.html">extract_metadata_from_doi()</a></code>,
+<code><a href="generate_metadata_csv.html">generate_metadata_csv()</a></code>,
+<code><a href="generate_repeat_dfs.html">generate_repeat_dfs()</a></code>,
+<code><a href="make_simple_df.html">make_simple_df()</a></code></p></div>
     </div>
 
     <div class="section level2">
@@ -91,7 +91,7 @@ processing it as demonstrated in the project metadata tutorial.</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">doi</span> <span class="op">&lt;-</span> <span class="st">"doi.org/10.1038/s41597-025-05332-x"</span></span></span>
 <span class="r-in"><span><span class="fu">extract_metadata_oa</span><span class="op">(</span>doi <span class="op">=</span> <span class="va">doi</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> → Starting now, at 2025-10-20 20:20:00.997941</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> → Starting now, at 2025-11-25 22:30:55.111033</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                     Group                Variable</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1             Methodology             Event Based</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                                        Archival</span>
@@ -266,13 +266,100 @@ processing it as demonstrated in the project metadata tutorial.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 171                                  Award Number</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 172                                     Award URI</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 173                                      Award ID</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 174            Subjects 1                 Subject</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 175            Subjects 2                 Subject</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 176            Subjects 3                 Subject</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 177            Subjects 4                 Subject</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 178 Related Identifiers 1      Related Identifier</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 179                       Related Identifier Type</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 180                                 Relation Type</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 174  Funding References 3             Funder Name</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 175                             Funder Identifier</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 176                                  Award Number</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 177                                     Award URI</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 178                                      Award ID</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 179  Funding References 4             Funder Name</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 180                             Funder Identifier</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 181                                  Award Number</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 182                                     Award URI</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 183                                      Award ID</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 184  Funding References 5             Funder Name</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 185                             Funder Identifier</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 186                                  Award Number</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 187                                     Award URI</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 188                                      Award ID</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 189  Funding References 6             Funder Name</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 190                             Funder Identifier</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 191                                  Award Number</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 192                                     Award URI</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 193                                      Award ID</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 194  Funding References 7             Funder Name</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 195                             Funder Identifier</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 196                                  Award Number</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 197                                     Award URI</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 198                                      Award ID</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 199  Funding References 8             Funder Name</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 200                             Funder Identifier</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 201                                  Award Number</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 202                                     Award URI</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 203                                      Award ID</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 204  Funding References 9             Funder Name</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 205                             Funder Identifier</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 206                                  Award Number</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 207                                     Award URI</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 208                                      Award ID</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 209 Funding References 10             Funder Name</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 210                             Funder Identifier</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 211                                  Award Number</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 212                                     Award URI</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 213                                      Award ID</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 214 Funding References 11             Funder Name</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 215                             Funder Identifier</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 216                                  Award Number</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 217                                     Award URI</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 218                                      Award ID</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 219 Funding References 12             Funder Name</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 220                             Funder Identifier</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 221                                  Award Number</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 222                                     Award URI</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 223                                      Award ID</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 224 Funding References 13             Funder Name</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 225                             Funder Identifier</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 226                                  Award Number</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 227                                     Award URI</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 228                                      Award ID</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 229 Funding References 14             Funder Name</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 230                             Funder Identifier</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 231                                  Award Number</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 232                                     Award URI</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 233                                      Award ID</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 234 Funding References 15             Funder Name</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 235                             Funder Identifier</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 236                                  Award Number</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 237                                     Award URI</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 238                                      Award ID</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 239 Funding References 16             Funder Name</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 240                             Funder Identifier</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 241                                  Award Number</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 242                                     Award URI</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 243                                      Award ID</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 244 Funding References 17             Funder Name</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 245                             Funder Identifier</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 246                                  Award Number</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 247                                     Award URI</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 248                                      Award ID</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 249            Subjects 1                 Subject</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 250            Subjects 2                 Subject</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 251            Subjects 3                 Subject</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 252            Subjects 4                 Subject</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 253            Subjects 5                 Subject</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 254            Subjects 6                 Subject</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 255            Subjects 7                 Subject</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 256            Subjects 8                 Subject</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 257            Subjects 9                 Subject</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 258           Subjects 10                 Subject</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 259           Subjects 11                 Subject</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 260           Subjects 12                 Subject</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 261           Subjects 13                 Subject</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 262           Subjects 14                 Subject</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 263           Subjects 15                 Subject</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 264           Subjects 16                 Subject</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 265 Related Identifiers 1      Related Identifier</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 266                       Related Identifier Type</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 267                                 Relation Type</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                                                                                     Value</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                                                                                                                                                   FALSE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                                                                                                                                                   FALSE</span>
@@ -316,8 +403,8 @@ processing it as demonstrated in the project metadata tutorial.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 40                                                                                                                                               Brookson</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 41                                                                                                                                                Cole B </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 42                                                                                                                  https://orcid.org/0000-0003-1237-4096</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 43                                                                 Department of Epidemiology of Microbial Diseases, Yale University, New Haven, CT, USA.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 44                                                                                                                              https://ror.org/03v76x132</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 43                                                                     Département de Sciences Biologiques, Université de Montréal, Montreal, QC, Canada.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 44                                                                                                                              https://ror.org/0161xgx34</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 45                                                                                                                                       Rebekah C Kading</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 46                                                                                                                                                 Kading</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 47                                                                                                                                             Rebekah C </span>
@@ -424,7 +511,7 @@ processing it as demonstrated in the project metadata tutorial.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 148                                                                                                                                               Graeden</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 149                                                                                                                                                Ellie </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 150                                                                                                                 https://orcid.org/0000-0002-1265-9756</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 151                                                            Center for Global Health Science and Security, Georgetown University, Washington, DC, USA.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 151                                                                                   Massive Data Institute, Georgetown University, Washington, DC, USA.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 152                                                                                                                             https://ror.org/05vzafd60</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 153                                                                                                                                       Colin J Carlson</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 154                                                                                                                                               Carlson</span>
@@ -444,16 +531,103 @@ processing it as demonstrated in the project metadata tutorial.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 168                                                                                                                                                      </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 169                                                                                                                           National Science Foundation</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 170                                                                                                                             https://ror.org/021nxhr62</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 171                                                                                                                                               2515340</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 171                                                                                                                                               2213854</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 172                                                                                                                                                      </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 173                                                                                                                                                      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 174                                                                                                                                          Data Sharing</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 175                                                                                                                                      Wildlife disease</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 176                                                                                                                                         Best practice</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 177                                                                                                                                      Table (database)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 178                                                                                                                         A valid Identifier like a DOI</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 179    see accepted values here https://datacite-metadata-schema.readthedocs.io/en/4.5/appendices/appendix-1/relatedIdentifierType/#relatedidentifiertype</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 180                     see accepted values here: https://datacite-metadata-schema.readthedocs.io/en/4.5/appendices/appendix-1/relationType/#relationtype</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 174                                                                                                                           National Science Foundation</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 175                                                                                                                             https://ror.org/021nxhr62</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 176                                                                                                                                               2213854</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 177                                                                                                                                                      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 178                                                                                                                                                      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 179                                                                                                                           National Science Foundation</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 180                                                                                                                             https://ror.org/021nxhr62</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 181                                                                                                                                               2213854</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 182                                                                                                                                                      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 183                                                                                                                                                      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 184                                                                                                                           National Science Foundation</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 185                                                                                                                             https://ror.org/021nxhr62</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 186                                                                                                                                               2213854</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 187                                                                                                                                                      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 188                                                                                                                                                      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 189                                                                                                                           National Science Foundation</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 190                                                                                                                             https://ror.org/021nxhr62</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 191                                                                                                                                               2213854</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 192                                                                                                                                                      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 193                                                                                                                                                      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 194                                                                                                                           National Science Foundation</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 195                                                                                                                             https://ror.org/021nxhr62</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 196                                                                                                                                               2213854</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 197                                                                                                                                                      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 198                                                                                                                                                      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 199                                                                                                                           National Science Foundation</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 200                                                                                                                             https://ror.org/021nxhr62</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 201                                                                                                                                               2213854</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 202                                                                                                                                                      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 203                                                                                                                                                      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 204                                                                                                                           National Science Foundation</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 205                                                                                                                             https://ror.org/021nxhr62</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 206                                                                                                                                               2213854</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 207                                                                                                                                                      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 208                                                                                                                                                      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 209                                                                                                                           National Science Foundation</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 210                                                                                                                             https://ror.org/021nxhr62</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 211                                                                                                                                               2213854</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 212                                                                                                                                                      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 213                                                                                                                                                      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 214                                                                                                                           National Science Foundation</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 215                                                                                                                             https://ror.org/021nxhr62</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 216                                                                                                                                               2213854</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 217                                                                                                                                                      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 218                                                                                                                                                      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 219                                                                                                                           National Science Foundation</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 220                                                                                                                             https://ror.org/021nxhr62</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 221                                                                                                                                               2213854</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 222                                                                                                                                                      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 223                                                                                                                                                      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 224                                                                                                                           National Science Foundation</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 225                                                                                                                             https://ror.org/021nxhr62</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 226                                                                                                                                               2213854</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 227                                                                                                                                                      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 228                                                                                                                                                      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 229                                                                                                                           National Science Foundation</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 230                                                                                                                             https://ror.org/021nxhr62</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 231                                                                                                                                               2213854</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 232                                                                                                                                                      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 233                                                                                                                                                      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 234                                                                                                                           National Science Foundation</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 235                                                                                                                             https://ror.org/021nxhr62</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 236                                                                                                                                               2213854</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 237                                                                                                                                                      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 238                                                                                                                                                      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 239                                                                                                                           National Science Foundation</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 240                                                                                                                             https://ror.org/021nxhr62</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 241                                                                                                                                               2515340</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 242                                                                                                                                                      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 243                                                                                                                                                      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 244                                                                                                                           National Science Foundation</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 245                                                                                                                             https://ror.org/021nxhr62</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 246                                                                                                                                               2515340</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 247                                                                                                                                                      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 248                                                                                                                                                      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 249                                                                                                                                              Metadata</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 250                                                                                                                                              Wildlife</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 251                                                                                                                                          Data sharing</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 252                                                                                                                                      Wildlife disease</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 253                                                                                                                                      Computer science</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 254                                                                                                                               Transparency (behavior)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 255                                                                                                                                         Best practice</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 256                                                                                                                                          Data science</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 257                                                                                                                                      Table (database)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 258                                                                                                                                          Data element</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 259                                                                                                                                           Data mining</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 260                                                                                                                                 Information retrieval</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 261                                                                                                                                        World Wide Web</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 262                                                                                                                                               Ecology</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 263                                                                                                                                               Biology</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 264                                                                                                                                              Medicine</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 265                                                                                                                         A valid Identifier like a DOI</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 266    see accepted values here https://datacite-metadata-schema.readthedocs.io/en/4.5/appendices/appendix-1/relatedIdentifierType/#relatedidentifiertype</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 267                     see accepted values here: https://datacite-metadata-schema.readthedocs.io/en/4.5/appendices/appendix-1/relationType/#relationtype</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
@@ -466,7 +640,7 @@ processing it as demonstrated in the project metadata tutorial.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer></div>

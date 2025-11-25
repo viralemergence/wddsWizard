@@ -1,0 +1,380 @@
+# wddsWizard
+
+This is an R package for validating data against the [Wildlife Disease
+Data Standard](https://doi.org/10.5281/zenodo.15020049). It allows users
+to access different versions of the data standard, restructure data, and
+validate data sets.
+
+See our paper [A minimum data standard for wildlife disease research and
+surveillance](https://www.nature.com/articles/s41597-025-05332-x) for
+discussions of appropriate use and more complex data structures
+(e.g. pooled samples, parasites with an arthropod vector, etc.) for the
+data standard.
+
+See the [Getting
+Started](https://viralemergence.github.io/wddsWizard/articles/wddsWizard.html)
+tutorial for more information about how to use the package.
+
+## Installation
+
+Install from github.
+
+    devtools::install_github("viralemergence/wddsWizard")
+
+Install from Runiverse
+
+    install.packages('wddsWizard', repos = c('https://viralemergence.r-universe.dev', 'https://cloud.r-project.org'))
+
+## Briefest of demos
+
+    ## assumes you made a data package. See getting started vignette
+
+    schema <- wdds_json(version = "latest", file = "wdds_schema.json")
+
+    wdds_validator <- jsonvalidate::json_validator(schema,engine = "ajv")
+
+    project_validation <- wdds_validator(data_package_json,verbose = TRUE)
+
+    if(project_validation){
+      print("Your data package is valid! 🎊 ")
+    } else {
+    errors <- attributes(project_validation)
+    errors$errors
+    }
+
+## Why do we need a data standard?
+
+Data standards facilitate the sharing, (re)use, and aggregation of data
+by humans and machines through the use of a common structure, set of
+properties, and vocabulary.
+
+Using a data standard makes it easier to share datasets and reproduce
+results. Data standards facilitate sharing by lowering the effort it
+takes to document the dataset. Sharing data makes it easier to reproduce
+results. Sharing data is especially important in disciplines like
+disease ecology where producing datasets is both resource intensive and
+limited, making it unlikely that someone will be able to replicate field
+work for the sake of verifying a finding. Being able to reproduce
+results increases confidence in findings and allows others (most likely
+the original dataset producers) to build on those results.
+
+Compliance with a data standard eases data interpretation. Because the
+data have been validated against the standard, a researcher knows that
+fields in the dataset meet set definitions and the data conform to a
+certain structure. Researchers can also identify deviations from the
+standard more readily because of the descriptions and examples provided
+in the standard.
+
+Compliant datasets can be aggregated with other datasets that meet the
+data standard. As the number of datasets that use the standard grows,
+the questions that researchers can ask of the data changes. For example,
+if we have datasets describing disease incidence for some pathogen from
+dozens of locations across multiple regions, we can explore general
+modeling frameworks for that pathogen using a unified dataset.
+
+By using a data standard we can contribute to a virtuous cycle that
+promotes high quality open and reproducible science through sharing,
+reuse, and aggregation of datasets.
+
+## How do I use this package and the Wildlife Disease Data Standard?
+
+This package can be used to explore Wildlife Disease Data Standard and
+validate data.
+
+See our paper [A minimum data standard for wildlife disease research and
+surveillance](https://www.nature.com/articles/s41597-025-05332-x) for
+discussions of appropriate use and more complex data structures
+(e.g. pooled samples, parasites with an arthropod vector, etc.).
+
+See the [Getting
+Started](https://viralemergence.github.io/wddsWizard/articles/wddsWizard.html)
+vignette for code examples and a more hands on approach to getting
+familiar with the package.
+
+### Starting from scratch - don’t have any data, yet!
+
+We strongly recommend creating a Data Management Plan (DMP) at the
+beginning of any project and seriously considering the data life cycle
+for your project.
+
+Use our CSV templates and the data standard as a guide for storing data.
+Make sure that at least the minimum required fields are captured in data
+collection, and that they match the data standard. Lab and field data
+may not immediately come out in a “tidy” format but as long as all
+properties are captured and data remain disaggregated (1 row = 1
+observation), it should be possible to reshape the data to be compatible
+with the standard.
+
+### Starting from an existing project - I’ve got data!?
+
+This is potentially more challenging than starting from scratch and
+requires harmonizing your data and the data standard. First, check that
+your data are or can be disaggregated to a 1 row = 1 observation tidy
+data model. Then, cross-walk the fields from your data with the
+properties in the standard and make sure that your data contain all the
+required fields. Next, start to reshape it into a single, tidy, table.
+You will need to re-name fields that correspond to the those in the
+standard.
+
+### Validating your data
+
+This package has vignettes describing how to move from CSV/excel to JSON
+for [project
+metadata](https://viralemergence.github.io/wddsWizard/articles/project_metadata.html)
+and [wildlife disease
+data](https://viralemergence.github.io/wddsWizard/articles/disease_data.html).
+
+## How does validation work?
+
+This package uses [JSON schemas](https://json-schema.org/) and the [AJV
+engine](https://ajv.js.org/) to do the validation.
+
+See [Schema
+Overview](https://viralemergence.github.io/wddsWizard/articles/schema_overview.html)
+for more information about the data standard and json schemas.
+
+## Best practices for free text fields
+
+We recommend that data producers use controlled vocabularies or
+ontologies when filling out free text fields. We recognize that
+selecting an appropriate vocabulary can be challenging and recommend the
+following platforms for finding appropriate terms.
+
+Recommended ontology hosting and search platforms with distinct funding
+sources.
+
+| Name                    | URL                                  |
+|-------------------------|--------------------------------------|
+| Ontobee                 | <https://ontobee.org/>               |
+| Ontology Lookup Service | <https://www.ebi.ac.uk/ols4/>        |
+| BioPortal               | <https://bioportal.bioontology.org/> |
+
+All three platforms allow users to search for terms stored in
+ontologies, explore relationships between terms, and find analogues. A
+user will have to explore a given ontology to find the most appropriate
+term. In Table S2 we list specific ontologies or authorities that may be
+appropriate for a given field.
+
+Recommended ontologies or authorities for specific fields.
+
+| Field                       | URL                                            |
+|-----------------------------|------------------------------------------------|
+| Host Identification         | <https://www.gbif.org/species/search>          |
+| Gene Target                 | <https://www.ebi.ac.uk/ols4/ontologies/go>     |
+| Sample Collection Method    | <http://purl.obolibrary.org/obo/OBI_0000659>   |
+| Sample Collection Body Part | <https://www.ebi.ac.uk/ols4/ontologies/uberon> |
+| Sample Collection Material  | <http://purl.obolibrary.org/obo/OBI_0001479>   |
+
+## Related Packages
+
+- [jsonvalidate](https://docs.ropensci.org/jsonvalidate/) - JSON schema
+  validation
+- [deposits package](https://docs.ropensci.org/deposits/) - a universal
+  client for accessing data from different scientific repositories.
+- [zen4R package](https://github.com/eblondel/zen4R/wiki) - a zenodo
+  specific client for accessing data
+
+## Acknowledgements
+
+The authors of the package are grateful for the support of the Verena
+Institute, Carlson Lab, Yale School of Public Health. This work was
+supported by an NSF Biology Integration Institute grant (NSF DBI
+2021909, 2213854, and 2515340).
+
+# Package index
+
+## Data
+
+Examples of WDDS conforming data and other useful objects
+
+- [`becker_disease_data`](https://viralemergence.github.io/wddsWizard/reference/becker_disease_data.md)
+  : Becker et al. dataset
+- [`becker_project_metadata`](https://viralemergence.github.io/wddsWizard/reference/becker_project_metadata.md)
+  : Becker et al. project metadata
+- [`disease_data_required_fields`](https://viralemergence.github.io/wddsWizard/reference/disease_data_required_fields.md)
+  : Required fields in the disease data object
+- [`minimal_disease_data`](https://viralemergence.github.io/wddsWizard/reference/minimal_disease_data.md)
+  : An example of minimal disease data
+- [`minimal_project_metadata`](https://viralemergence.github.io/wddsWizard/reference/minimal_project_metadata.md)
+  : An example of minimal project metadata
+- [`project_metadata_required_fields`](https://viralemergence.github.io/wddsWizard/reference/project_metadata_required_fields.md)
+  : Required fields in the project metadata object
+- [`schema_required_fields`](https://viralemergence.github.io/wddsWizard/reference/schema_required_fields.md)
+  : Wildlife Disease Data Standard required fields
+- [`spdx_licenses`](https://viralemergence.github.io/wddsWizard/reference/spdx_licenses.md)
+  : Data frame of SPDX licenses
+- [`wdds_to_dcmi_map`](https://viralemergence.github.io/wddsWizard/reference/wdds_to_dcmi_map.md)
+  : WDDS to DCMI metadata mapping
+- [`wdds_to_pharos_map`](https://viralemergence.github.io/wddsWizard/reference/wdds_to_pharos_map.md)
+  : WDDS to PHAROS metadata mapping
+
+## Templates
+
+Create data that conforms to the standard from pre-structured files
+
+- [`list_wdds_templates()`](https://viralemergence.github.io/wddsWizard/reference/list_wdds_templates.md)
+  : File paths for wdds templates
+- [`use_wdds_template()`](https://viralemergence.github.io/wddsWizard/reference/use_wdds_template.md)
+  : Use a wildlife disease data standard template
+
+## WDDS Deposit
+
+Interact with the Zenodo Deposit
+
+- [`batch_download_deposit_versions()`](https://viralemergence.github.io/wddsWizard/reference/batch_download_deposit_versions.md)
+  : Batch download deposit versions
+- [`download_deposit_version()`](https://viralemergence.github.io/wddsWizard/reference/download_deposit_version.md)
+  : Download deposit version
+- [`list_deposit_versions()`](https://viralemergence.github.io/wddsWizard/reference/list_deposit_versions.md)
+  : List Versions of a deposit on Zenodo
+- [`sanitize_version()`](https://viralemergence.github.io/wddsWizard/reference/sanitize_version.md)
+  : Sanitize version ids
+- [`set_wdds_version()`](https://viralemergence.github.io/wddsWizard/reference/set_wdds_version.md)
+  : Set the wdds version for the package
+- [`wdds_data_templates()`](https://viralemergence.github.io/wddsWizard/reference/wdds_data_templates.md)
+  : Provides Access to Versioned Data Template Files
+- [`wdds_example_data()`](https://viralemergence.github.io/wddsWizard/reference/wdds_example_data.md)
+  : Provides Access to Versioned Example Data Files
+- [`wdds_json()`](https://viralemergence.github.io/wddsWizard/reference/wdds_json.md)
+  : Provides Access to Versioned Schema Files
+
+## JSON Prep
+
+Prepare R objects for proper JSON formatting
+
+- [`clean_field_names()`](https://viralemergence.github.io/wddsWizard/reference/clean_field_names.md)
+  : Clean Field Names
+- [`get_entity()`](https://viralemergence.github.io/wddsWizard/reference/get_entity.md)
+  : Get entity
+- [`prep_affiliation()`](https://viralemergence.github.io/wddsWizard/reference/prep_affiliation.md)
+  : prep affiliation
+- [`prep_array()`](https://viralemergence.github.io/wddsWizard/reference/prep_array.md)
+  : Prep array
+- [`prep_array_objects()`](https://viralemergence.github.io/wddsWizard/reference/prep_array_objects.md)
+  : Prepare an array of objects
+- [`prep_atomic()`](https://viralemergence.github.io/wddsWizard/reference/prep_atomic.md)
+  : Prepare atomic
+- [`prep_creators()`](https://viralemergence.github.io/wddsWizard/reference/prep_creators.md)
+  : Prepare creators
+- [`prep_data()`](https://viralemergence.github.io/wddsWizard/reference/prep_data.md)
+  : Prepare Data
+- [`prep_descriptions()`](https://viralemergence.github.io/wddsWizard/reference/prep_descriptions.md)
+  : Prepare descriptions
+- [`prep_for_json()`](https://viralemergence.github.io/wddsWizard/reference/prep_for_json.md)
+  : Prepare data for json
+- [`prep_from_metadata_template()`](https://viralemergence.github.io/wddsWizard/reference/prep_from_metadata_template.md)
+  : Prepare metadata created from the metadata template for conversion
+  to JSON
+- [`prep_fundingReferences()`](https://viralemergence.github.io/wddsWizard/reference/prep_fundingReferences.md)
+  : Prepare funding references
+- [`prep_identifier()`](https://viralemergence.github.io/wddsWizard/reference/prep_identifier.md)
+  : Prep identifier
+- [`prep_language()`](https://viralemergence.github.io/wddsWizard/reference/prep_language.md)
+  : Prep language
+- [`prep_methodology()`](https://viralemergence.github.io/wddsWizard/reference/prep_methodology.md)
+  : Prep methodology for conversion to json
+- [`prep_methods()`](https://viralemergence.github.io/wddsWizard/reference/prep_methods.md)
+  : Prepare methods
+- [`prep_nameIdentifiers()`](https://viralemergence.github.io/wddsWizard/reference/prep_nameIdentifiers.md)
+  : Prepare Name identifiers
+- [`prep_object()`](https://viralemergence.github.io/wddsWizard/reference/prep_object.md)
+  : Prepare an object
+- [`prep_publicationYear()`](https://viralemergence.github.io/wddsWizard/reference/prep_publicationYear.md)
+  : Prepare publication year items
+- [`prep_relatedIdentifiers()`](https://viralemergence.github.io/wddsWizard/reference/prep_relatedIdentifiers.md)
+  : Prepare related identifiers
+- [`prep_rights()`](https://viralemergence.github.io/wddsWizard/reference/prep_rights.md)
+  : Prepare rights
+- [`prep_subjects()`](https://viralemergence.github.io/wddsWizard/reference/prep_subjects.md)
+  : Prepare subjects
+- [`prep_titles()`](https://viralemergence.github.io/wddsWizard/reference/prep_titles.md)
+  : Prepare Titles
+
+## Schema
+
+Access and manipulate a JSON Schema
+
+- [`datacite_schema`](https://viralemergence.github.io/wddsWizard/reference/datacite_schema.md)
+  : Datacite Data Stadnard
+- [`disease_data_schema`](https://viralemergence.github.io/wddsWizard/reference/disease_data_schema.md)
+  : Wildlife Disease Data Standard - data
+- [`project_metadata_schema`](https://viralemergence.github.io/wddsWizard/reference/project_metadata_schema.md)
+  : Wildlife Disease Data Standard - project_metadata
+- [`schema_obj`](https://viralemergence.github.io/wddsWizard/reference/schema_obj.md)
+  : Schema Object
+- [`schema_properties`](https://viralemergence.github.io/wddsWizard/reference/schema_properties.md)
+  : Wildlife Disease Data Standard - schema properties
+- [`schema_terms`](https://viralemergence.github.io/wddsWizard/reference/schema_terms.md)
+  : Wildlife Disease Data Standard - schema terms
+- [`wdds_schema`](https://viralemergence.github.io/wddsWizard/reference/wdds_schema.md)
+  : Wildlife Disease Data Standard
+
+## Schema Docs
+
+Create documentation from Schema
+
+- [`create_object_docs()`](https://viralemergence.github.io/wddsWizard/reference/create_object_docs.md)
+  : Create Docs Section for a schema object
+- [`create_schema_docs()`](https://viralemergence.github.io/wddsWizard/reference/create_schema_docs.md)
+  : Create Documentation for a schema
+- [`get_ref()`](https://viralemergence.github.io/wddsWizard/reference/get_ref.md)
+  : Get schema references
+- [`get_required_fields()`](https://viralemergence.github.io/wddsWizard/reference/get_required_fields.md)
+  : Get the required fields
+- [`increase_docs_depth()`](https://viralemergence.github.io/wddsWizard/reference/increase_docs_depth.md)
+  : Increase documentation depth
+- [`paste_reduce()`](https://viralemergence.github.io/wddsWizard/reference/paste_reduce.md)
+  : Paste Reduce
+- [`paste_reduce_ul()`](https://viralemergence.github.io/wddsWizard/reference/paste_reduce_ul.md)
+  : Paste Reduce unordered list item
+
+## Project Metadata
+
+Create or extract project metadata
+
+- [`download_oa_item()`](https://viralemergence.github.io/wddsWizard/reference/download_oa_item.md)
+  : Rate limited download of OA items
+- [`expand_tidy_dfs()`](https://viralemergence.github.io/wddsWizard/reference/expand_tidy_dfs.md)
+  : Expand tidy dataframes to project metadata template format
+- [`extract_metadata_from_doi()`](https://viralemergence.github.io/wddsWizard/reference/extract_metadata_from_doi.md)
+  : Extract Project Metadata from DOI
+- [`extract_metadata_oa()`](https://viralemergence.github.io/wddsWizard/reference/extract_metadata_oa.md)
+  : Extract Metadata from Open Alex record
+- [`generate_metadata_csv()`](https://viralemergence.github.io/wddsWizard/reference/generate_metadata_csv.md)
+  : Generate minimal project metadata template
+- [`generate_repeat_dfs()`](https://viralemergence.github.io/wddsWizard/reference/generate_repeat_dfs.md)
+  : generate_repeat_dfs
+- [`make_simple_df()`](https://viralemergence.github.io/wddsWizard/reference/make_simple_df.md)
+  : A convenience function for making non-repeating items
+
+## Standards Mapping
+
+Mapping WDDS to other data standards
+
+- [`na_to_blank()`](https://viralemergence.github.io/wddsWizard/reference/na_to_blank.md)
+  : Convert NA's to blanks
+- [`translate_to_dcmi()`](https://viralemergence.github.io/wddsWizard/reference/translate_to_dcmi.md)
+  : translate to dcmi
+- [`wdds_to_dcmi()`](https://viralemergence.github.io/wddsWizard/reference/wdds_to_dcmi.md)
+  : WDDS to the Dublin Core Metadata Initiative
+- [`wdds_to_pharos()`](https://viralemergence.github.io/wddsWizard/reference/wdds_to_pharos.md)
+  : Convert WDDS disease data to PHAROS data
+
+# Articles
+
+### All vignettes
+
+- [Wildlife Disease
+  Data](https://viralemergence.github.io/wddsWizard/articles/disease_data.md):
+- [Extending the Wildlife Disease Data
+  Standard](https://viralemergence.github.io/wddsWizard/articles/extending_wdds.md):
+- [Project
+  Metadata](https://viralemergence.github.io/wddsWizard/articles/project_metadata.md):
+- [Schema
+  Overview](https://viralemergence.github.io/wddsWizard/articles/schema_overview.md):
+- [WDDS to
+  Pharos](https://viralemergence.github.io/wddsWizard/articles/wdds_to_pharos.md):
+- [WDDS to
+  Zenodo](https://viralemergence.github.io/wddsWizard/articles/wdds_to_zenodo.md):
+- [Getting
+  Started](https://viralemergence.github.io/wddsWizard/articles/wddsWizard.md):

@@ -1,0 +1,448 @@
+# Getting Started
+
+``` r
+library(wddsWizard)
+library(jsonvalidate)
+```
+
+This package is home to the [Wildlife Disease Data
+Standard](https://doi.org/10.32942/X2TW4J). It provides template csv
+files for storing data and a set of functions for validating datasets
+against the standard.
+
+## The Whole game
+
+Flat data files (csv/xlsx) are imported into R, lightly restructured,
+and then converted to JSON and validated against the Wildlife Disease
+Data Standard. Data sets either pass (🎉) or fail with informative
+errors.
+
+## Getting Started
+
+The data standard is designed to be flexible and accessible. It is
+composed of two components: disease data and project metadata. The
+disease data component describes the contents and structure of data
+related to the detection (or not) of a parasite in a given host. The
+project metadata component describes the contents and structure of data
+related to the creation of the disease data component. The disease data
+component allows us to create a collection of datasets that can be
+re-used, aggregated, and shared, while the project metadata component
+provides context for the data, makes it easier to find the dataset, and
+gives clear information about attribution and use (rights/license).
+
+Using this package, you can validate one or both components of the data
+standard. It will be helpful to open the [Data Standard
+Terms](https://viralemergence.github.io/wddsWizard/articles/schema_overview.html#terms)
+in a separate browser tab as you go through the vignette and explore
+templates.
+
+If you use the templates provided, you can focus on the field
+descriptions and largely ignore types and array items.
+
+### Templates
+
+We have created several templates to make it easier to get started using
+the Wildlife Disease Data Standard.
+
+``` r
+# list templates
+use_wdds_template()
+#> ℹ Provide a value to `template_file` to use the template
+#> [1] "disease_data_template.csv"     "disease_data_template.xlsx"   
+#> [3] "project_metadata_template.csv"
+```
+
+You can make your own copies of the template files with the
+`use_wdds_template` function.
+
+``` r
+use_wdds_template("disease_data_template.csv", file_name = "my_interesting_disease_data.csv", open = TRUE)
+
+use_wdds_template("project_metadata_template.csv", file_name = "my_project_metadata.csv", open = TRUE)
+```
+
+The templates may contain additional fields that are not strictly
+required. Required fields are clearly marked in [Data Standard
+Terms](https://viralemergence.github.io/wddsWizard/articles/schema_overview.html#terms)
+documentation.
+
+The following fields are required for disease data:
+
+``` r
+wddsWizard::disease_data_required_fields
+#> [1] "sampleID"               "latitude"               "longitude"             
+#> [4] "sampleCollectionMethod" "hostIdentification"     "detectionTarget"       
+#> [7] "detectionMethod"        "detectionOutcome"       "parasiteIdentification"
+```
+
+The following fields are required for project metadata:
+
+``` r
+wddsWizard::project_metadata_required_fields
+#> [1] "methodology"       "creators"          "titles"           
+#> [4] "publicationYear"   "language"          "descriptions"     
+#> [7] "fundingReferences"
+```
+
+### Disease Data
+
+Disease data are expected to be in a “tidy” form (think CSV or XLS where
+each row is an observation and each column is a property). Each column
+in the table that is part of the standard will be validated. You may
+include additional columns as needed.
+
+Disease data and project metadata can be validated separately. In the
+code below we will read in a csv file, do some light wrangling,
+transform the data to JSON, and then validate the data.
+
+``` r
+## read in the data
+my_disease_data <- wdds_example_data(version = "latest", file = "my_interesting_disease_data.csv") |>
+  read.csv()
+
+# clean up field names to match JSON schema
+my_disease_data <- clean_field_names(my_disease_data)
+
+### Check for required Fields -
+
+# check that all required fields are in the data
+all(wddsWizard::disease_data_required_fields %in% names(my_disease_data))
+#> [1] TRUE
+
+## Prep for JSON
+
+my_disease_data_prepped <- prep_data(my_disease_data)
+
+## make the JSON!
+my_disease_data_json <- my_disease_data_prepped |>
+  jsonlite::toJSON(pretty = TRUE)
+
+### validate the JSON
+
+# get the schema file
+schema <- wdds_json(version = "latest", file = "schemas/disease_data.json")
+
+# this creates a function that we can use to validate our data
+dd_validator <- jsonvalidate::json_validator(schema, engine = "ajv")
+
+# use the validator to check if the disease data conforms to the disease_data component of the standard
+dd_validation <- dd_validator(my_disease_data_json, verbose = TRUE)
+
+## check for errors!
+
+errors <- attributes(dd_validation)
+
+if (!dd_validation) {
+  errors$errors
+} else {
+  print("Valid disease data!😁")
+}
+#> [1] "Valid disease data!😁"
+```
+
+### Project Metadata
+
+Project metadata largely follow the [Datacite Metadata
+Schema](https://datacite-metadata-schema.readthedocs.io/en/4.5/). Again,
+the data standard allows you to include additional properties.
+
+Note that if you are comfortable with JSON, it may be easier to write
+project metadata directly as JSON.
+
+In the example below, we will use project metadata created from the
+project metadata template to create JSON that can be validated against
+the project metadata component of the data standard.
+
+``` r
+# read in project metadata created from template
+
+my_project_metadata <- wdds_example_data(version = "latest", file = "my_project_metadata.csv") |>
+  read.csv()
+
+# prepare project metadata
+my_project_metadata_prepped <- prep_from_metadata_template(my_project_metadata)
+
+
+# check that all required fields are in the project metadata
+all(wddsWizard::project_metadata_required_fields %in% names(my_project_metadata_prepped))
+#> [1] TRUE
+
+# convert to json
+
+my_project_metadata_json <- my_project_metadata_prepped |>
+  jsonlite::toJSON(pretty = TRUE)
+
+# validate against project metadata schema
+
+schema <- wdds_json(version = "latest", file = "schemas/project_metadata.json")
+
+pm_validator <- jsonvalidate::json_validator(schema, engine = "ajv")
+
+pm_validation <- pm_validator(my_project_metadata_json, verbose = TRUE)
+
+## check for errors!
+
+errors <- attributes(pm_validation)
+
+if (!pm_validation) {
+  errors$errors
+} else {
+  print("Valid project metadata!😁")
+}
+#> [1] "Valid project metadata!😁"
+```
+
+See the vignettes on [Project
+Metadata](https://viralemergence.github.io/wddsWizard/articles/project_metadata.md)
+and [Wildlife Disease
+Data](https://viralemergence.github.io/wddsWizard/articles/disease_data.md)
+for more details on preparing those components.
+
+## Combine disease data and project metadata
+
+Finally we will check the disease data and the project metadata against
+the standard.
+
+### Combine components
+
+The first thing we have to do is combine the disease data and project
+metadata components in a list and check that we have all the required
+fields.
+
+``` r
+## use append so that you do not add levels to your list
+
+data_package <- list(
+  disease_data = my_disease_data_prepped,
+  project_metadata = my_project_metadata_prepped
+)
+
+# check that all required fields are in the data
+
+req_field_check <- wddsWizard::schema_required_fields %in% names(data_package)
+
+if (all(!req_field_check)) {
+  wddsWizard::schema_required_fields[!req_field_check]
+} else {
+  print("all required fields present 🥳")
+}
+#> [1] "all required fields present 🥳"
+```
+
+### Make JSON
+
+Next we will convert the `data_package` so that it can be validated.
+
+``` r
+# convert to json
+
+data_package_json <- jsonlite::toJSON(data_package, pretty = TRUE)
+```
+
+### Validate your json!
+
+Here we will use the {jsonvalidate} package to make sure
+`data_package_json` conforms to the wildlife disease data standard.
+
+``` r
+schema <- wdds_json(version = "latest", file = "wdds_schema.json")
+
+wdds_validator <- jsonvalidate::json_validator(schema, engine = "ajv")
+
+project_validation <- wdds_validator(data_package_json, verbose = TRUE)
+
+if (project_validation) {
+  print("Your data package is valid! 🎊 ")
+} else {
+  errors <- attributes(project_validation)
+  errors$errors
+}
+#> [1] "Your data package is valid! 🎊 "
+```
+
+### Handling Errors
+
+You’re likely going to get some errors and interpretting them can
+sometimes be a challenge.
+
+Lets dive in by modifying the data_package to create a known issue.
+
+Looking at the data standard, we can see that `language` is type:
+string.
+
+``` r
+# the properly formatted language property should like this:
+data_package$project_metadata["language"]|>jsonlite::toJSON(pretty = TRUE)
+#> {
+#>   "language": "en"
+#> }
+```
+
+``` r
+
+# lets make language a multi-row data frame
+data_package_error_lang <- data_package
+
+data_package_error_lang$project_metadata$language <- data.frame(language = c("en","fr","cn"))
+
+ jsonlite::toJSON(data_package_error_lang$project_metadata["language"], pretty = TRUE) 
+#> {
+#>   "language": [
+#>     {
+#>       "language": "en"
+#>     },
+#>     {
+#>       "language": "fr"
+#>     },
+#>     {
+#>       "language": "cn"
+#>     }
+#>   ]
+#> }
+```
+
+Our new version of language is an array of objects - square braces`[]` =
+array, curly braces [`{}`](https://rdrr.io/r/base/Paren.html) = object.
+So its definitely not of type string. So lets see what happens we when
+go to validate the metadata.
+
+``` r
+
+data_package_error_lang_json <- jsonlite::toJSON(data_package_error_lang)
+
+lang_issue <- wdds_validator(data_package_error_lang_json, verbose = TRUE)
+
+errors_df <- attributes(lang_issue)$errors
+
+errors_df
+#>                 instancePath
+#> 1 /project_metadata/language
+#>                                              schemaPath keyword   type
+#> 1 datacite/datacite-v4.5.json#/properties/language/type    type string
+#>          message schema parentSchema.type
+#> 1 must be string string            string
+#>                                                                                     parentSchema.$comment
+#> 1 Primary language of the resource. Allowed values are taken from  IETF BCP 47, ISO 639-1 language codes.
+#>         data                   dataPath
+#> 1 en, fr, cn /project_metadata/language
+```
+
+### Excuse me? What does this mean?
+
+- **instancePath** = where did the schema find an error?
+- **schemaPath** = where does the property come from?
+- **keyword** = what kind of violation occurred?
+- **message** = what went wrong?
+- **params** = what are the parameters for that property in the schema?
+- **schema** = what should be in that property?
+- **parentSchema** = type and description from the schemaPath
+- **data** = violating item you provided
+- **dataPath** = where did the violation occur?
+
+SO to interpret our error its really helpful to start by looking at the
+`instancePath`, `keyword`, and `message`.
+
+``` r
+
+errors_df[c("instancePath","keyword","message")]
+#>                 instancePath keyword        message
+#> 1 /project_metadata/language    type must be string
+```
+
+OH project metadata must be type string! You will notice that it does
+not tell you how it interpreted the object. You can figure this out by
+converting `errors_df$data` to json.
+
+``` r
+errors_df$data[[1]] |> jsonlite::toJSON(pretty = TRUE)
+#> [
+#>   {
+#>     "language": "en"
+#>   },
+#>   {
+#>     "language": "fr"
+#>   },
+#>   {
+#>     "language": "cn"
+#>   }
+#> ]
+```
+
+This is obviously not a string!
+
+### How do I correct this error?
+
+Since our work is multi-lingual, we might think that `c("en","fr","cn")`
+would be appropriate but that would be converted to an `array` in JSON.
+
+lets try just `"en, fr, cn"` and see if that works
+
+``` r
+data_package_correct_lang <- data_package_error_lang
+
+data_package_correct_lang$project_metadata$language <- "en, fr, cn"
+
+data_package_correct_lang_json <- jsonlite::toJSON(data_package_correct_lang, pretty = TRUE)
+
+correct_lang_issue <- wdds_validator(data_package_correct_lang_json, verbose = TRUE)
+
+if(!correct_lang_issue){
+  print("WHAT! I gave it a string!?")
+}
+#> [1] "WHAT! I gave it a string!?"
+```
+
+Yes you did! BUT if we take a peek at the json object we can see that
+your string was converted to the array `"language": ["en, fr, cn"]`.
+
+Why? because jsonlite errors on the side of wrapping things in arrays.
+
+Thankfully the authors of this package have provided methods for
+preparing items! Here we will use `prep_language` when we add the item.
+Prep_language is a thin wrapper around `prep_atomic` - which ensures
+that jsonlite will interpret your R object as numeric, string, boolean,
+or NULL.
+
+``` r
+data_package_correct_lang <- data_package_error_lang
+
+data_package_correct_lang$project_metadata$language <- prep_language("en, fr, cn")
+
+
+data_package_correct_lang_json <- jsonlite::toJSON(data_package_correct_lang, pretty = TRUE)
+
+ wdds_validator(data_package_correct_lang_json, verbose = TRUE)
+#> [1] TRUE
+```
+
+## Best practices for free text fields
+
+We recommend that data producers use controlled vocabularies or
+ontologies when filling out free text fields. We recognize that
+selecting an appropriate vocabulary can be challenging and recommend the
+following platforms for finding appropriate terms.
+
+Recommended ontology hosting and search platforms with distinct funding
+sources.
+
+| Name                    | URL                                  |
+|-------------------------|--------------------------------------|
+| Ontobee                 | <https://ontobee.org/>               |
+| Ontology Lookup Service | <https://www.ebi.ac.uk/ols4/>        |
+| BioPortal               | <https://bioportal.bioontology.org/> |
+
+All three platforms allow users to search for terms stored in
+ontologies, explore relationships between terms, and find analogues. A
+user will have to explore a given ontology to find the most appropriate
+term. In Table S2 we list specific ontologies or authorities that may be
+appropriate for a given field.
+
+Recommended ontologies or authorities for specific fields.
+
+| Field                       | URL                                            |
+|-----------------------------|------------------------------------------------|
+| Host Identification         | <https://www.gbif.org/species/search>          |
+| Gene Target                 | <https://www.ebi.ac.uk/ols4/ontologies/go>     |
+| Sample Collection Method    | <http://purl.obolibrary.org/obo/OBI_0000659>   |
+| Sample Collection Body Part | <https://www.ebi.ac.uk/ols4/ontologies/uberon> |
+| Sample Collection Material  | <http://purl.obolibrary.org/obo/OBI_0001479>   |
