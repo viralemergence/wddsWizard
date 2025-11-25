@@ -177,7 +177,12 @@ Award Title	Verena Fellow-in-Residence Award"
 
   # subjects
 
-  subjects_df <- data.frame(Subject = oa_json$keywords$display_name) |>
+  if(is.null(oa_json$keywords$display_name)){
+    subjects_tidy <- data.frame(Subject = "")
+  } else {
+    subjects_tidy <- data.frame(Subject = oa_json$keywords$display_name)
+  }
+  subjects_df <- subjects_tidy |>
     expand_tidy_dfs(group_prefix = 'Subjects')
 
   # Related Identifiers
