@@ -1,3 +1,5 @@
+# wddsWizard 0.2.4
+
 # wddsWizard 0.2.3
 - catch empty grants objects from openAlex
 
