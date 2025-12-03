@@ -1,3 +1,5 @@
+# wddsWizard 0.2.5
+
 # wddsWizard 0.2.4
 - catch empty subjects from openAlex
 
