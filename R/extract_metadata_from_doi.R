@@ -96,6 +96,13 @@ extract_metadata_oa<-function(doi){
   aff_df <- creators$affiliations |>
     purrr::map_df(function(x){
 
+      if(nrow(x) == 0){
+
+        out <- data.frame("Affiliation" = "",
+                          "Affiliation Identifier" = "")
+        return(out)
+      }
+
       raw_affiliation <- x$raw_affiliation_string[[1]]
 
       oa_inst_id <- x$institution_ids[[1]][1] |>
