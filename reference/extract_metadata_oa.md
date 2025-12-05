@@ -43,7 +43,7 @@ Other Project Metadata:
 ``` r
 doi <- "doi.org/10.1038/s41597-025-05332-x"
 extract_metadata_oa(doi = doi)
-#> → Starting now, at 2025-12-05 16:46:35.225691
+#> → Starting now, at 2025-12-05 16:54:55.938091
 #>                     Group                Variable
 #> 1             Methodology             Event Based
 #> 2                                        Archival

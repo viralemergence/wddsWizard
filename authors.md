@@ -8,7 +8,7 @@
 ## Citation
 
 Source:
-[`inst/CITATION`](https://github.com/viralemergence/wddsWizard/blob/main/inst/CITATION)
+[`inst/CITATION`](https://github.com/viralemergence/wddsWizard/blob/v0.2.5/inst/CITATION)
 
 Schwantes CJ (2025). *Data Wizard for a Minimal Wildlife Disease Data
 Standard*.

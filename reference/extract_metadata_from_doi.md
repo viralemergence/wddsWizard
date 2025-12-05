@@ -44,12 +44,11 @@ Other Project Metadata:
 ``` r
 doi <-"doi.org/10.1038/s41597-025-05332-x"
 extract_metadata_from_doi(doi = doi,write_output=FALSE)
-#> → Starting now, at 2025-12-05 16:46:18.8827
-#> Getting Affiliations ■■■■                              12% |  ETA: 18s
-#> Getting Affiliations ■■■■■■■■■■                        31% |  ETA: 11s
-#> Getting Affiliations ■■■■■■■■■■■■■                     38% |  ETA: 12s
-#> Getting Affiliations ■■■■■■■■■■■■■■■■■                 54% |  ETA:  9s
-#> Getting Affiliations ■■■■■■■■■■■■■■■■■■■■■■■           73% |  ETA:  5s
+#> → Starting now, at 2025-12-05 16:54:41.222619
+#> Getting Affiliations ■■■■■■■■                          23% |  ETA: 11s
+#> Getting Affiliations ■■■■■■■■■■■■■                     38% |  ETA: 10s
+#> Getting Affiliations ■■■■■■■■■■■■■■■■                  50% |  ETA:  9s
+#> Getting Affiliations ■■■■■■■■■■■■■■■■■■■■■■            69% |  ETA:  5s
 #>                     Group                Variable
 #> 1             Methodology             Event Based
 #> 2                                        Archival
