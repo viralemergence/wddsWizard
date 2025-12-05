@@ -43,9 +43,10 @@ Other WDDS deposit:
 ``` r
 list_deposit_versions()
 #>   zenodo_id version latest_version
-#> 1  17095076 v.1.0.4           TRUE
-#> 2  15270582 v.1.0.3          FALSE
-#> 3  15257971 v.1.0.2          FALSE
-#> 4  15133410 v.1.0.1          FALSE
-#> 5  15020050 v.1.0.0          FALSE
+#> 1  17717011 v.1.0.5           TRUE
+#> 2  17095076 v.1.0.4          FALSE
+#> 3  15270582 v.1.0.3          FALSE
+#> 4  15257971 v.1.0.2          FALSE
+#> 5  15133410 v.1.0.1          FALSE
+#> 6  15020050 v.1.0.0          FALSE
 ```

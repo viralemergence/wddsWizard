@@ -43,7 +43,7 @@ Other Project Metadata:
 ``` r
 doi <- "doi.org/10.1038/s41597-025-05332-x"
 extract_metadata_oa(doi = doi)
-#> → Starting now, at 2025-11-25 22:30:55.111033
+#> → Starting now, at 2025-12-05 16:46:35.225691
 #>                     Group                Variable
 #> 1             Methodology             Event Based
 #> 2                                        Archival
@@ -213,105 +213,25 @@ extract_metadata_oa(doi = doi)
 #> 166                                  Award Number
 #> 167                                     Award URI
 #> 168                                      Award ID
-#> 169  Funding References 2             Funder Name
-#> 170                             Funder Identifier
-#> 171                                  Award Number
-#> 172                                     Award URI
-#> 173                                      Award ID
-#> 174  Funding References 3             Funder Name
-#> 175                             Funder Identifier
-#> 176                                  Award Number
-#> 177                                     Award URI
-#> 178                                      Award ID
-#> 179  Funding References 4             Funder Name
-#> 180                             Funder Identifier
-#> 181                                  Award Number
-#> 182                                     Award URI
-#> 183                                      Award ID
-#> 184  Funding References 5             Funder Name
-#> 185                             Funder Identifier
-#> 186                                  Award Number
-#> 187                                     Award URI
-#> 188                                      Award ID
-#> 189  Funding References 6             Funder Name
-#> 190                             Funder Identifier
-#> 191                                  Award Number
-#> 192                                     Award URI
-#> 193                                      Award ID
-#> 194  Funding References 7             Funder Name
-#> 195                             Funder Identifier
-#> 196                                  Award Number
-#> 197                                     Award URI
-#> 198                                      Award ID
-#> 199  Funding References 8             Funder Name
-#> 200                             Funder Identifier
-#> 201                                  Award Number
-#> 202                                     Award URI
-#> 203                                      Award ID
-#> 204  Funding References 9             Funder Name
-#> 205                             Funder Identifier
-#> 206                                  Award Number
-#> 207                                     Award URI
-#> 208                                      Award ID
-#> 209 Funding References 10             Funder Name
-#> 210                             Funder Identifier
-#> 211                                  Award Number
-#> 212                                     Award URI
-#> 213                                      Award ID
-#> 214 Funding References 11             Funder Name
-#> 215                             Funder Identifier
-#> 216                                  Award Number
-#> 217                                     Award URI
-#> 218                                      Award ID
-#> 219 Funding References 12             Funder Name
-#> 220                             Funder Identifier
-#> 221                                  Award Number
-#> 222                                     Award URI
-#> 223                                      Award ID
-#> 224 Funding References 13             Funder Name
-#> 225                             Funder Identifier
-#> 226                                  Award Number
-#> 227                                     Award URI
-#> 228                                      Award ID
-#> 229 Funding References 14             Funder Name
-#> 230                             Funder Identifier
-#> 231                                  Award Number
-#> 232                                     Award URI
-#> 233                                      Award ID
-#> 234 Funding References 15             Funder Name
-#> 235                             Funder Identifier
-#> 236                                  Award Number
-#> 237                                     Award URI
-#> 238                                      Award ID
-#> 239 Funding References 16             Funder Name
-#> 240                             Funder Identifier
-#> 241                                  Award Number
-#> 242                                     Award URI
-#> 243                                      Award ID
-#> 244 Funding References 17             Funder Name
-#> 245                             Funder Identifier
-#> 246                                  Award Number
-#> 247                                     Award URI
-#> 248                                      Award ID
-#> 249            Subjects 1                 Subject
-#> 250            Subjects 2                 Subject
-#> 251            Subjects 3                 Subject
-#> 252            Subjects 4                 Subject
-#> 253            Subjects 5                 Subject
-#> 254            Subjects 6                 Subject
-#> 255            Subjects 7                 Subject
-#> 256            Subjects 8                 Subject
-#> 257            Subjects 9                 Subject
-#> 258           Subjects 10                 Subject
-#> 259           Subjects 11                 Subject
-#> 260           Subjects 12                 Subject
-#> 261           Subjects 13                 Subject
-#> 262           Subjects 14                 Subject
-#> 263           Subjects 15                 Subject
-#> 264           Subjects 16                 Subject
-#> 265 Related Identifiers 1      Related Identifier
-#> 266                       Related Identifier Type
-#> 267                                 Relation Type
+#> 169            Subjects 1                 Subject
+#> 170            Subjects 2                 Subject
+#> 171            Subjects 3                 Subject
+#> 172            Subjects 4                 Subject
+#> 173            Subjects 5                 Subject
+#> 174            Subjects 6                 Subject
+#> 175            Subjects 7                 Subject
+#> 176            Subjects 8                 Subject
+#> 177            Subjects 9                 Subject
+#> 178           Subjects 10                 Subject
+#> 179           Subjects 11                 Subject
+#> 180           Subjects 12                 Subject
+#> 181           Subjects 13                 Subject
+#> 182           Subjects 14                 Subject
+#> 183           Subjects 15                 Subject
+#> 184           Subjects 16                 Subject
+#> 185 Related Identifiers 1      Related Identifier
+#> 186                       Related Identifier Type
+#> 187                                 Relation Type
 #>                                                                                                                                                     Value
 #> 1                                                                                                                                                   FALSE
 #> 2                                                                                                                                                   FALSE
@@ -355,8 +275,8 @@ extract_metadata_oa(doi = doi)
 #> 40                                                                                                                                               Brookson
 #> 41                                                                                                                                                Cole B 
 #> 42                                                                                                                  https://orcid.org/0000-0003-1237-4096
-#> 43                                                                     Département de Sciences Biologiques, Université de Montréal, Montreal, QC, Canada.
-#> 44                                                                                                                              https://ror.org/0161xgx34
+#> 43                                                                 Department of Epidemiology of Microbial Diseases, Yale University, New Haven, CT, USA.
+#> 44                                                                                                                              https://ror.org/03v76x132
 #> 45                                                                                                                                       Rebekah C Kading
 #> 46                                                                                                                                                 Kading
 #> 47                                                                                                                                             Rebekah C 
@@ -463,7 +383,7 @@ extract_metadata_oa(doi = doi)
 #> 148                                                                                                                                               Graeden
 #> 149                                                                                                                                                Ellie 
 #> 150                                                                                                                 https://orcid.org/0000-0002-1265-9756
-#> 151                                                                                   Massive Data Institute, Georgetown University, Washington, DC, USA.
+#> 151                                                            Center for Global Health Science and Security, Georgetown University, Washington, DC, USA.
 #> 152                                                                                                                             https://ror.org/05vzafd60
 #> 153                                                                                                                                       Colin J Carlson
 #> 154                                                                                                                                               Carlson
@@ -476,108 +396,28 @@ extract_metadata_oa(doi = doi)
 #> 161                                                                                                                                                    en
 #> 162                                                                                                                                            FILL ME IN
 #> 163                                                                                                                                              abstract
-#> 164                                                                                                                           National Science Foundation
-#> 165                                                                                                                             https://ror.org/021nxhr62
-#> 166                                                                                                                                               2213854
+#> 164                                                                                                                                                      
+#> 165                                                                                                                                                      
+#> 166                                                                                                                                                      
 #> 167                                                                                                                                                      
 #> 168                                                                                                                                                      
-#> 169                                                                                                                           National Science Foundation
-#> 170                                                                                                                             https://ror.org/021nxhr62
-#> 171                                                                                                                                               2213854
-#> 172                                                                                                                                                      
-#> 173                                                                                                                                                      
-#> 174                                                                                                                           National Science Foundation
-#> 175                                                                                                                             https://ror.org/021nxhr62
-#> 176                                                                                                                                               2213854
-#> 177                                                                                                                                                      
-#> 178                                                                                                                                                      
-#> 179                                                                                                                           National Science Foundation
-#> 180                                                                                                                             https://ror.org/021nxhr62
-#> 181                                                                                                                                               2213854
-#> 182                                                                                                                                                      
-#> 183                                                                                                                                                      
-#> 184                                                                                                                           National Science Foundation
-#> 185                                                                                                                             https://ror.org/021nxhr62
-#> 186                                                                                                                                               2213854
-#> 187                                                                                                                                                      
-#> 188                                                                                                                                                      
-#> 189                                                                                                                           National Science Foundation
-#> 190                                                                                                                             https://ror.org/021nxhr62
-#> 191                                                                                                                                               2213854
-#> 192                                                                                                                                                      
-#> 193                                                                                                                                                      
-#> 194                                                                                                                           National Science Foundation
-#> 195                                                                                                                             https://ror.org/021nxhr62
-#> 196                                                                                                                                               2213854
-#> 197                                                                                                                                                      
-#> 198                                                                                                                                                      
-#> 199                                                                                                                           National Science Foundation
-#> 200                                                                                                                             https://ror.org/021nxhr62
-#> 201                                                                                                                                               2213854
-#> 202                                                                                                                                                      
-#> 203                                                                                                                                                      
-#> 204                                                                                                                           National Science Foundation
-#> 205                                                                                                                             https://ror.org/021nxhr62
-#> 206                                                                                                                                               2213854
-#> 207                                                                                                                                                      
-#> 208                                                                                                                                                      
-#> 209                                                                                                                           National Science Foundation
-#> 210                                                                                                                             https://ror.org/021nxhr62
-#> 211                                                                                                                                               2213854
-#> 212                                                                                                                                                      
-#> 213                                                                                                                                                      
-#> 214                                                                                                                           National Science Foundation
-#> 215                                                                                                                             https://ror.org/021nxhr62
-#> 216                                                                                                                                               2213854
-#> 217                                                                                                                                                      
-#> 218                                                                                                                                                      
-#> 219                                                                                                                           National Science Foundation
-#> 220                                                                                                                             https://ror.org/021nxhr62
-#> 221                                                                                                                                               2213854
-#> 222                                                                                                                                                      
-#> 223                                                                                                                                                      
-#> 224                                                                                                                           National Science Foundation
-#> 225                                                                                                                             https://ror.org/021nxhr62
-#> 226                                                                                                                                               2213854
-#> 227                                                                                                                                                      
-#> 228                                                                                                                                                      
-#> 229                                                                                                                           National Science Foundation
-#> 230                                                                                                                             https://ror.org/021nxhr62
-#> 231                                                                                                                                               2213854
-#> 232                                                                                                                                                      
-#> 233                                                                                                                                                      
-#> 234                                                                                                                           National Science Foundation
-#> 235                                                                                                                             https://ror.org/021nxhr62
-#> 236                                                                                                                                               2213854
-#> 237                                                                                                                                                      
-#> 238                                                                                                                                                      
-#> 239                                                                                                                           National Science Foundation
-#> 240                                                                                                                             https://ror.org/021nxhr62
-#> 241                                                                                                                                               2515340
-#> 242                                                                                                                                                      
-#> 243                                                                                                                                                      
-#> 244                                                                                                                           National Science Foundation
-#> 245                                                                                                                             https://ror.org/021nxhr62
-#> 246                                                                                                                                               2515340
-#> 247                                                                                                                                                      
-#> 248                                                                                                                                                      
-#> 249                                                                                                                                              Metadata
-#> 250                                                                                                                                              Wildlife
-#> 251                                                                                                                                          Data sharing
-#> 252                                                                                                                                      Wildlife disease
-#> 253                                                                                                                                      Computer science
-#> 254                                                                                                                               Transparency (behavior)
-#> 255                                                                                                                                         Best practice
-#> 256                                                                                                                                          Data science
-#> 257                                                                                                                                      Table (database)
-#> 258                                                                                                                                          Data element
-#> 259                                                                                                                                           Data mining
-#> 260                                                                                                                                 Information retrieval
-#> 261                                                                                                                                        World Wide Web
-#> 262                                                                                                                                               Ecology
-#> 263                                                                                                                                               Biology
-#> 264                                                                                                                                              Medicine
-#> 265                                                                                                                         A valid Identifier like a DOI
-#> 266    see accepted values here https://datacite-metadata-schema.readthedocs.io/en/4.5/appendices/appendix-1/relatedIdentifierType/#relatedidentifiertype
-#> 267                     see accepted values here: https://datacite-metadata-schema.readthedocs.io/en/4.5/appendices/appendix-1/relationType/#relationtype
+#> 169                                                                                                                                              Metadata
+#> 170                                                                                                                                              Wildlife
+#> 171                                                                                                                                          Data sharing
+#> 172                                                                                                                                      Wildlife disease
+#> 173                                                                                                                                      Computer science
+#> 174                                                                                                                               Transparency (behavior)
+#> 175                                                                                                                                         Best practice
+#> 176                                                                                                                                          Data science
+#> 177                                                                                                                                      Table (database)
+#> 178                                                                                                                                          Data element
+#> 179                                                                                                                                           Data mining
+#> 180                                                                                                                                 Information retrieval
+#> 181                                                                                                                                        World Wide Web
+#> 182                                                                                                                                               Ecology
+#> 183                                                                                                                                               Biology
+#> 184                                                                                                                                              Medicine
+#> 185                                                                                                                         A valid Identifier like a DOI
+#> 186    see accepted values here https://datacite-metadata-schema.readthedocs.io/en/4.5/appendices/appendix-1/relatedIdentifierType/#relatedidentifiertype
+#> 187                     see accepted values here: https://datacite-metadata-schema.readthedocs.io/en/4.5/appendices/appendix-1/relationType/#relationtype
 ```

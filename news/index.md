@@ -1,5 +1,9 @@
 # Changelog
 
+## wddsWizard 0.2.5
+
+- adding orcid to dcmi map
+
 ## wddsWizard 0.2.4
 
 - catch empty subjects from openAlex
