@@ -11,6 +11,10 @@
         "affiliationIdentifier":{
           "targets":["affiliation"],
           "type":"string"
+        },
+        "nameIdentifier":{
+          "targets":["orcid"],
+          "type":"string"
         }
       },
       "type":"array_of_objects",
